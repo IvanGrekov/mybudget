@@ -1,0 +1,19 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: fit-content;
+
+    &--disabled {
+        cursor: not-allowed;
+    }
+}
+
+.error {
+    padding-left: 0.5rem;
+    color: var(--error);
+}

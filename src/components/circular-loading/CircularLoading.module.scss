@@ -1,0 +1,43 @@
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.circular-loading-wrapper {
+    border-radius: 50%;
+    overflow: hidden;
+    animation: spin 2s linear infinite;
+}
+
+.circular-loading {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    margin-top: 50%;
+    background: linear-gradient(90deg, var(--foreground), var(--background));
+
+    &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin-top: -50%;
+        background: linear-gradient(90deg, var(--foreground), var(--background));
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        width: 80%;
+        height: 160%;
+        margin-top: -40%;
+        margin-left: 10%;
+        background: var(--background);
+        border-radius: 50%;
+    }
+}

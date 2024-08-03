@@ -1,0 +1,7 @@
+.title {
+    margin-bottom: 1.25rem;
+
+    &--disabled {
+        color: var(--foreground-invisible);
+    }
+}

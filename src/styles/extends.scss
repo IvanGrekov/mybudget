@@ -1,0 +1,178 @@
+@import 'styles/variables.scss';
+
+.header-spacing-extend {
+    padding-top: $header-size;
+
+    @media (max-width: $screen-md) {
+        padding-top: $header-mobile-size;
+    }
+}
+
+.sidebar-layout-extend {
+    margin-left: $sidebar-size;
+
+    @media (max-width: $screen-lg) {
+        margin-left: 0;
+    }
+}
+
+.hidden-native-input-extend {
+    position: absolute;
+    visibility: hidden;
+    scale: 0;
+}
+
+.custom-input-extend {
+    &,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active,
+    &:-webkit-autofill {
+        position: relative;
+        transition-property: border-color, border-radius;
+        transition-duration: $input-transition-duration;
+        transition-timing-function: $input-transition-function;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: var(--hover) !important;
+    }
+}
+
+.custom-input-label-extend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    cursor: pointer;
+    transition: color $input-transition-duration $input-transition-function;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: var(--hover);
+
+        svg {
+            fill: var(--hover);
+        }
+    }
+}
+
+.custom-input-label-focused-extend {
+    top: 0 !important;
+    translate: 0 -50% !important;
+    opacity: 1 !important;
+}
+
+.custom-input-button-extend {
+    padding: 0;
+
+    svg {
+        transition: fill $input-transition-duration $input-transition-function;
+    }
+}
+
+.text-field-border-extend {
+    border: $border-width solid var(--foreground) !important;
+    border-radius: $border-radius-md !important;
+}
+
+.text-field-extend {
+    @extend .custom-input-extend;
+
+    &,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active,
+    &:-webkit-autofill {
+        @extend .text-field-border-extend;
+
+        width: $input-width;
+        padding: $input-block-spacing $input-inline-spacing;
+        font-size: 1.125rem;
+        background-color: var(--background) !important;
+        cursor: text;
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        appearance: none !important;
+    }
+}
+
+.cursor-not-allowed-extend {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.input-error-state-extend {
+    color: var(--red);
+    border-color: var(--red) !important;
+
+    svg {
+        fill: var(--red);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: var(--hover) !important;
+
+        svg {
+            fill: var(--hover);
+        }
+    }
+}
+
+.input-icon-abs-position-extend {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    right: calc(#{$input-inline-spacing} * 1.15);
+}
+
+.input-button-icon-abs-position-extend {
+    @extend .input-icon-abs-position-extend;
+
+    right: calc(#{$input-inline-spacing} * 0.7);
+}
+
+.input-disabled-state-extend {
+    @extend .cursor-not-allowed-extend;
+    color: var(--disabled);
+    border-color: var(--disabled) !important;
+
+    svg {
+        fill: var(--disabled);
+    }
+}
+
+.text-field-label-gap-extend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.125rem;
+}
+
+.text-field-placeholder-extend {
+    @extend .text-field-label-gap-extend;
+
+    position: absolute;
+    cursor: text;
+    top: 50%;
+    left: $input-placeholder-left-spacing;
+    max-width: 90%;
+    translate: 0 -50%;
+}
+
+.header-size-extend {
+    height: $header-size;
+    transition: height $base-transition-duration cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media (max-width: $screen-md) {
+        height: $header-mobile-size;
+    }
+}
+
+.header-compressed-size-extend {
+    height: $header-compressed-size;
+}

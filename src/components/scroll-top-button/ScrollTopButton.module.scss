@@ -1,0 +1,25 @@
+@import 'styles/variables.scss';
+@import 'styles/mixins.scss';
+
+.wrapper {
+    --position: 2.5rem;
+
+    position: fixed;
+    bottom: var(--position);
+    right: var(--position);
+    z-index: $zindex-menu;
+}
+
+.button {
+    @include hidden-animated-element();
+
+    box-shadow: var(--box-shadow-sm);
+
+    @media (max-width: $screen-md) {
+        --position: 1.5625rem;
+    }
+
+    &--visible {
+        @include visible-animated-element();
+    }
+}

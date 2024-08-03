@@ -1,0 +1,75 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.input {
+    @extend .text-field-extend;
+    height: $input-height;
+
+    &--password {
+        padding-right: 3.125rem;
+    }
+
+    &--with-icon {
+        padding-right: 3.125rem;
+    }
+
+    &--filled,
+    &:focus[type='date'],
+    &:focus-visible[type='date'] {
+        & ~ .placeholder {
+            display: none;
+        }
+    }
+
+    &--error,
+    &--error:hover,
+    &--error:focus,
+    &--error:active {
+        @extend .input-error-state-extend;
+    }
+
+    &--disabled {
+        @extend .input-disabled-state-extend;
+    }
+}
+
+.icon {
+    @extend .input-icon-abs-position-extend;
+
+    transition: color $input-transition-duration $input-transition-function;
+
+    &--error {
+        svg {
+            fill: var(--error) !important;
+        }
+    }
+
+    &--disabled {
+        svg {
+            fill: var(--disabled) !important;
+        }
+    }
+}
+
+.helper-icon {
+    cursor: text;
+}
+
+.password-icon {
+    border: none !important;
+    right: calc(#{$input-inline-spacing} * 0.35);
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        border: none !important;
+
+        svg {
+            fill: var(--hover) !important;
+        }
+    }
+}
+
+.placeholder--limited {
+    width: 75%;
+}

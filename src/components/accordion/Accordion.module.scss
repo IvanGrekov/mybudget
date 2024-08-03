@@ -1,0 +1,83 @@
+@import 'styles/variables.scss';
+@import 'styles/mixins.scss';
+
+.accordion {
+    --border: $border-width solid var(--foreground-invisible);
+
+    padding: $default-spacing-sm;
+    border: var(--border);
+    border-radius: $border-radius-md;
+    transition: all $base-transition-duration;
+
+    &--open {
+        padding-block: $default-spacing-md;
+        box-shadow: var(--box-shadow-sm);
+    }
+
+    &:first-of-type.accordion--open.accordion--spaced {
+        margin-top: 0;
+    }
+
+    &:last-of-type.accordion--open.accordion--spaced {
+        margin-bottom: 0;
+    }
+
+    &:not(:last-of-type) {
+        border-bottom: none;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &:has(+ .accordion--open) {
+        border-bottom: var(--border);
+        border-radius: $border-radius-md;
+    }
+
+    &:not(:first-of-type) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &--open.accordion--spaced {
+        margin-block: $default-spacing-sm;
+        border: var(--border);
+        border-radius: $border-radius-md;
+    }
+
+    &--open.accordion--spaced + .accordion {
+        border: var(--border);
+        border-radius: $border-radius-md;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: margin $base-transition-duration;
+
+    &--open {
+        margin-bottom: $default-spacing-sm;
+    }
+}
+
+.button {
+    &--open {
+        transform: rotate(180deg);
+    }
+}
+
+.content {
+    @include hidden-animated-element();
+
+    max-height: 31.25rem;
+    overflow-y: auto;
+    transition: opacity $base-transition-duration,
+        height $base-transition-duration,
+        visibility 0s $base-transition-duration;
+
+    &--open {
+        @include visible-animated-element();
+    }
+}

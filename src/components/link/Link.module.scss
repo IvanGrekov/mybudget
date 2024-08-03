@@ -1,0 +1,59 @@
+@import 'styles/variables.scss';
+@import 'styles/mixins.scss';
+
+.link {
+    position: relative;
+    display: inline-flex;
+    padding-block: 0.25rem;
+    align-items: center;
+
+    &::after {
+        @include hidden-animated-element();
+
+        content: '';
+        position: absolute;
+        bottom: -0.3125rem;
+        left: 0;
+        width: 105%;
+        height: 0.125rem;
+        background-color: var(--foreground);
+        transition: opacity $base-transition-duration,
+            bottom $base-transition-duration,
+            visibility 0s $base-transition-duration,
+            background-color $base-transition-duration;
+    }
+
+    &--gap {
+        gap: 0.375rem;
+    }
+
+    &--active,
+    &:hover,
+    &:focus-visible {
+        .text {
+            color: var(--hover);
+        }
+
+        .icon {
+            fill: var(--hover);
+        }
+    }
+
+    &:hover,
+    &:focus-visible {
+        &::after {
+            @include visible-animated-element();
+
+            bottom: -0.125rem;
+            background-color: var(--hover);
+        }
+    }
+}
+
+.icon {
+    transition: fill $base-transition-duration;
+}
+
+.text {
+    transition: color $base-transition-duration;
+}

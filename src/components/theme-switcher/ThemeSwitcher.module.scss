@@ -1,0 +1,47 @@
+@import 'styles/variables.scss';
+
+.container {
+    --height: 2.25rem;
+    --spacing: #{$spacing-0-5};
+    --width: calc(var(--height) * 2 - (var(--spacing)));
+    --switcher-size: calc(var(--height) - (var(--spacing) * 2));
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--width);
+    height: var(--height);
+    border-radius: calc(var(--height) / 2);
+    background-color: var(--foreground);
+    margin: var(--spacing);
+    padding: var(--spacing);
+
+    .icon {
+        --icon-size: calc(var(--switcher-size) - (var(--spacing)));
+
+        width: var(--icon-size);
+        height: var(--icon-size);
+        fill: var(--background);
+    }
+
+    .switcher {
+        position: absolute;
+        left: var(--spacing);
+        width: var(--switcher-size);
+        height: var(--switcher-size);
+        border-radius: 50%;
+        background-color: var(--background);
+        transition-property: left;
+        transition-duration: $base-transition-duration;
+        transition-timing-function: cubic-bezier(0.47, 1.64, 0.41, 0.8);
+
+        &--shifted {
+            left: calc(var(--width) - var(--switcher-size) - var(--spacing));
+        }
+    }
+}
+
+.button {
+    display: flex !important;
+}

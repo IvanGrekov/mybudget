@@ -1,0 +1,157 @@
+@import 'styles/variables.scss';
+
+.button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 0.75rem 1.125rem;
+
+    color: var(--foreground);
+    border-radius: $border-radius-lg;
+    border: 0.1875rem solid var(--foreground);
+    background-color: transparent;
+    transition: all $base-transition-duration;
+
+    @media (max-width: $screen-lg) {
+        padding: 0.625rem 1rem;
+    }
+
+    &--outlined {
+        color: var(--foreground);
+        border-color: var(--foreground);
+
+        &.button--red {
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        &.button--green {
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        &:hover,
+        &.button--active {
+            color: var(--foreground);
+            border-color: var(--hover);
+            background-color: var(--hover);
+
+            &.button--red {
+                border-color: var(--red);
+            }
+
+            &.button--green {
+                border-color: var(--green);
+            }
+        }
+    }
+
+    &--contained {
+        color: var(--background);
+        background-color: var(--foreground);
+
+        &.button--red {
+            background-color: var(--red);
+            border-color: var(--red);
+        }
+
+        &.button--green {
+            background-color: var(--green);
+            border-color: var(--green);
+        }
+
+        .icon {
+            svg {
+                fill: var(--background);
+            }
+        }
+
+        &:hover,
+        &.button--active {
+            border-color: var(--hover);
+            background-color: var(--hover);
+
+            &.button--red {
+                border-color: var(--red);
+            }
+
+            &.button--green {
+                border-color: var(--green);
+            }
+        }
+    }
+
+    &--ghost {
+        border-color: transparent;
+
+        &:hover,
+        &.button--active {
+            background-color: var(--hover);
+
+            &.button--red {
+                background-color: var(--red);
+            }
+
+            &.button--green {
+                background-color: var(--green);
+            }
+        }
+    }
+
+    &--big {
+        padding: 1.125rem 1.5rem;
+        border-radius: $border-radius;
+
+        @media (max-width: $screen-lg) {
+            padding: 0.9375rem 1.3125rem;
+        }
+    }
+
+    &--small {
+        padding: 0.5rem 0.75rem;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        border-color: var(--hover);
+    }
+
+    &--disabled,
+    &--disabled:hover,
+    &--disabled.button--active {
+        color: var(--disabled-text);
+        border-color: var(--disabled);
+        background-color: var(--disabled);
+        cursor: not-allowed;
+    }
+
+    &--loading,
+    &--loading:hover,
+    &--loading.button--active {
+        min-height: 2.875rem;
+        min-width: 6.875rem;
+        border-color: var(--foreground);
+        background-color: transparent;
+        cursor: progress;
+    }
+}
+
+.loader {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

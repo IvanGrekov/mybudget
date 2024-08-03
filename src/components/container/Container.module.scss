@@ -1,0 +1,56 @@
+@import 'styles/variables.scss';
+
+@function getScreenSize($screen) {
+    $result: $screen-sm;
+
+    @if $screen == 'xl' {
+        $result: $screen-xl;
+    }
+
+    @if $screen == 'lg' {
+        $result: $screen-lg;
+    }
+
+    @if $screen == 'md' {
+        $result: $screen-md;
+    }
+
+    @return $result + 2 * $default-spacing-md + 1px;
+}
+
+@mixin responsive-spacing($screen-size) {
+    max-width: $screen-size;
+    padding: 0 $default-spacing-md;
+
+    @media (max-width: $screen-md) {
+        padding: 0 $default-spacing-sm;
+    }
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.xl {
+    $screen-size: getScreenSize('xl');
+
+    @include responsive-spacing($screen-size);
+}
+
+.lg {
+    $screen-size: getScreenSize('lg');
+
+    @include responsive-spacing($screen-size);
+}
+
+.md {
+    $screen-size: getScreenSize('md');
+
+    @include responsive-spacing($screen-size);
+}
+
+.sm {
+    $screen-size: getScreenSize('sm');
+
+    @include responsive-spacing($screen-size);
+}

@@ -1,0 +1,56 @@
+@import 'styles/variables.scss';
+
+.notifications {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: $zindex-notifications;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.25rem;
+
+    overflow: hidden;
+}
+
+.item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-3;
+    width: 22.5rem;
+    padding: 1.5rem;
+    padding-right: 4.375rem;
+
+    border-radius: $border-radius;
+    background-color: var(--info);
+
+    &--success {
+        background-color: var(--success);
+    }
+
+    &--error {
+        background-color: var(--error);
+    }
+}
+
+.text {
+    color: rgb(var(--light));
+}
+
+.close-button {
+    position: absolute;
+    right: 0.75rem;
+
+    svg {
+        fill: var(--background);
+    }
+
+    &:hover {
+        svg {
+            fill: var(--foreground);
+        }
+    }
+}

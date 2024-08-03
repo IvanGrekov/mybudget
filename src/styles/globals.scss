@@ -1,0 +1,269 @@
+@use 'scss-reset/reset';
+
+:root {
+    --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+        'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+        'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+
+    --light: 239, 236, 234;
+    --dark: 51, 72, 84;
+    --middle: 110, 172, 218;
+
+    --gray: #aaaaaa;
+    --gray-light: #e3e1e1;
+    --red: #f45050;
+    --green: #47a992;
+    --blue: #3a98b9;
+
+    --middle-color: rgba(var(--middle));
+    --middle-opacity: rgba(var(--middle), 0.5);
+    --hover: rgb(var(--middle));
+    --disabled: var(--foreground-invisible);
+    --disabled-text: var(--disabled);
+    --border: var(--foreground-opacity);
+    --error: var(--red);
+    --success: var(--green);
+    --info: var(--blue);
+
+    --box-shadow-color: 0, 0, 0;
+    --box-shadow-xs: 0px 4px 2px -3px rgba(var(--box-shadow-color), 0.1),
+        0px 3px 4px 0px rgba(var(--box-shadow-color), 0.07),
+        0px 2px 6px 0px rgba(var(--box-shadow-color), 0.06);
+    --box-shadow-sm: 0px 4px 2px -3px rgba(var(--box-shadow-color), 0.2),
+        0px 3px 4px 0px rgba(var(--box-shadow-color), 0.14),
+        0px 2px 6px 0px rgba(var(--box-shadow-color), 0.12);
+    --box-shadow-md: 0px 10px 6px -8px rgba(var(--box-shadow-color), 0.2),
+        0px 8px 10px 0px rgba(var(--box-shadow-color), 0.14),
+        0px 6px 14px 0px rgba(var(--box-shadow-color), 0.12);
+    --header-box-shadow: 2px 4px 2px -3px rgba(var(--box-shadow-color), 0.1),
+        2px 3px 4px 0px rgba(var(--box-shadow-color), 0.07),
+        2px 2px 6px 0px rgba(var(--box-shadow-color), 0.06);
+}
+
+.light-theme-variables-extend {
+    --background: rgb(var(--light));
+    --background-opacity: rgba(var(--light), 0.5);
+    --background-invisible: rgba(var(--light), 0.15);
+    --foreground: rgb(var(--dark));
+    --foreground-opacity: rgba(var(--dark), 0.5);
+    --foreground-invisible: rgba(var(--dark), 0.15);
+
+    --backdrop: linear-gradient(
+        255deg,
+        rgba(22, 28, 36, 0.48) 0%,
+        rgb(22, 28, 36) 100%
+    );
+    --backdrop-reverse: linear-gradient(
+        75deg,
+        rgba(22, 28, 36, 0.48) 0%,
+        rgb(22, 28, 36) 100%
+    );
+}
+
+.dark-theme-variables-extend {
+    --background: rgb(var(--dark));
+    --background-opacity: rgba(var(--dark), 0.5);
+    --background-invisible: rgba(var(--dark), 0.15);
+    --foreground: rgb(var(--light));
+    --foreground-opacity: rgba(var(--light), 0.5);
+    --foreground-invisible: rgba(var(--light), 0.15);
+
+    --backdrop: linear-gradient(
+        255deg,
+        rgba(35, 44, 57, 0.48) 0%,
+        rgb(36, 47, 60) 100%
+    );
+    --backdrop-reverse: linear-gradient(
+        75deg,
+        rgb(36, 47, 60) 100%,
+        rgba(35, 44, 57, 0.48) 0%
+    );
+}
+
+html {
+    @extend .light-theme-variables-extend;
+    color-scheme: light;
+}
+
+html.dark {
+    @extend .dark-theme-variables-extend;
+    color-scheme: dark;
+}
+
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    font-family: var(--font-mono);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+}
+
+// NOTE: should be synchronized with src/constants/bodyScroll.constants.ts (BODY_SCROLL_LOCK_CLASS_NAME) (IG)
+body.scroll-lock {
+    position: fixed;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+svg {
+    fill: var(--foreground);
+}
+
+.background-color {
+    color: var(--background) !important;
+    fill: var(--background) !important;
+}
+
+.primary-background {
+    background: var(--background) !important;
+}
+
+.background-opacity-color {
+    color: var(--background-opacity) !important;
+    fill: var(--background-opacity) !important;
+}
+
+.primary-opacity-background {
+    background: var(--background-opacity) !important;
+}
+
+.background-invisible-color {
+    color: var(--background-invisible) !important;
+    fill: var(--background-invisible) !important;
+}
+
+.primary-invisible-background {
+    background: var(--background-invisible) !important;
+}
+
+.foreground-color {
+    color: var(--foreground) !important;
+    fill: var(--foreground) !important;
+}
+
+.secondary-background {
+    background: var(--foreground) !important;
+}
+
+.foreground-opacity-color {
+    color: var(--foreground-opacity) !important;
+    fill: var(--foreground-opacity) !important;
+}
+
+.secondary-opacity-background {
+    background: var(--foreground-opacity) !important;
+}
+
+.foreground-invisible-color {
+    color: var(--foreground-invisible) !important;
+    fill: var(--foreground-invisible) !important;
+}
+
+.secondary-invisible-background {
+    background: var(--foreground-invisible) !important;
+}
+
+.middle-color {
+    color: var(--middle) !important;
+    fill: var(--middle) !important;
+}
+
+.middle-background {
+    background: var(--middle) !important;
+}
+
+.red-color {
+    color: var(--red) !important;
+    fill: var(--red) !important;
+}
+
+.red-background {
+    background: var(--red) !important;
+}
+
+.error-color {
+    @extend .red-color;
+}
+
+.error-background {
+    @extend .red-background;
+}
+
+.green-color {
+    color: var(--green) !important;
+    fill: var(--green) !important;
+}
+
+.green-background {
+    background: var(--green) !important;
+}
+
+.success-color {
+    @extend .green-color;
+}
+
+.success-background {
+    @extend .green-background;
+}
+
+.blue-color {
+    color: var(--blue) !important;
+    fill: var(--blue) !important;
+}
+
+.blue-background {
+    background: var(--blue) !important;
+}
+
+.info-color {
+    @extend .blue-color;
+}
+
+.info-background {
+    @extend .blue-background;
+}
+
+.disabled-color {
+    color: var(--disabled) !important;
+    fill: var(--disabled) !important;
+}
+
+.disabled-background {
+    background: var(--disabled) !important;
+}
+
+.gray-color {
+    color: var(--gray) !important;
+    fill: var(--gray) !important;
+}
+
+.gray-background {
+    background: var(--gray) !important;
+}
+
+.gray-light-color {
+    color: var(--gray-light) !important;
+    fill: var(--gray-light) !important;
+}
+
+.gray-light-background {
+    background: var(--gray-light) !important;
+}

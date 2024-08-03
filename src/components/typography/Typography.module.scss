@@ -1,0 +1,123 @@
+@import 'styles/variables.scss';
+
+.typography {
+    color: inherit;
+    text-wrap: balance;
+
+    &--line-clamp {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &--h1,
+    &--h2,
+    &--h3,
+    &--h4,
+    &--h5,
+    &--h6,
+    &--subtitle1,
+    &--subtitle2,
+    &--button {
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+
+    &--body1,
+    &--h1 {
+        font-size: 5rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 4rem;
+        }
+
+        @media (max-width: $screen-md) {
+            font-size: 3.5rem;
+        }
+    }
+
+    &--h2 {
+        font-size: 3.75rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 3.25rem;
+        }
+
+        @media (max-width: $screen-md) {
+            font-size: 2.75rem;
+        }
+    }
+
+    &--h3 {
+        font-size: 2.5rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 2.25rem;
+        }
+
+        @media (max-width: $screen-md) {
+            font-size: 2rem;
+        }
+    }
+
+    &--h4 {
+        font-size: 2.25rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 2rem;
+        }
+
+        @media (max-width: $screen-md) {
+            font-size: 1.75rem;
+        }
+    }
+
+    &--h5 {
+        font-size: 1.875rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 1.75rem;
+        }
+
+        @media (max-width: $screen-md) {
+            font-size: 1.5rem;
+        }
+    }
+
+    &--h6 {
+        font-size: 1.625rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 1.5rem;
+        }
+    }
+
+    &--subtitle1 {
+        font-size: 1.4375rem;
+
+        @media (max-width: $screen-lg) {
+            font-size: 1.25rem;
+        }
+    }
+
+    &--subtitle2 {
+        font-size: 1.25rem;
+    }
+
+    &--body1 {
+        font-size: 1.125rem;
+    }
+
+    &--body2 {
+        font-size: 0.875rem;
+    }
+
+    &--caption {
+        font-size: 0.75rem;
+    }
+
+    &--button {
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+}

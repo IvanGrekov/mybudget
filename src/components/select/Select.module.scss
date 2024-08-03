@@ -1,0 +1,270 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+@import 'styles/mixins.scss';
+
+$arrow-button-gutter: $spacing-6;
+
+.native-select {
+    @extend .hidden-native-input-extend;
+
+    visibility: visible;
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        & ~ .select,
+        & ~ .options {
+            border-color: var(--hover) !important;
+        }
+    }
+}
+
+.native-select,
+.select {
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        ~ .arrow-button {
+            svg {
+                fill: var(--hover);
+                transition: fill $input-transition-duration
+                    $input-transition-function;
+            }
+        }
+
+        ~ .clear-value-button {
+            @include visible-animated-element();
+        }
+    }
+}
+
+.select-wrapper,
+.select,
+.label,
+.placeholder {
+    cursor: pointer;
+}
+
+.label,
+.placeholder {
+    & *,
+    &::after,
+    &::before {
+        cursor: pointer;
+    }
+}
+
+.select-wrapper {
+    position: relative;
+
+    &--error {
+        color: var(--red);
+
+        .arrow-button {
+            svg {
+                fill: var(--red);
+            }
+        }
+    }
+}
+
+.select {
+    @extend .text-field-extend;
+
+    display: flex;
+    align-items: center;
+    height: $input-height;
+    padding-left: $input-placeholder-left-spacing;
+    padding-right: $arrow-button-gutter;
+
+    &--error {
+        border-color: var(--red) !important;
+    }
+
+    &--open {
+        border-color: var(--hover) !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    &--fixed-options {
+        border-bottom-left-radius: $border-radius-md !important;
+        border-bottom-right-radius: $border-radius-md !important;
+    }
+
+    &--filled {
+        & ~ .placeholder {
+            display: none;
+        }
+    }
+
+    &--multiple {
+        padding-left: $input-inline-spacing;
+        padding-right: calc(#{$arrow-button-gutter} * 1.6);
+        min-height: $input-height;
+        height: auto;
+    }
+
+    &--disabled {
+        @extend .input-disabled-state-extend;
+    }
+}
+
+.value-preview-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    overflow-x: auto;
+
+    &--multiple {
+        flex-wrap: wrap;
+        overflow-x: hidden;
+    }
+
+    .chip {
+        justify-content: flex-start;
+
+        & * {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+}
+
+.value-preview {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.clear-value-button,
+.arrow-button {
+    @extend .input-button-icon-abs-position-extend;
+}
+
+.arrow-button {
+    &--open {
+        transform: rotate(180deg);
+    }
+
+    &--disabled {
+        @extend .cursor-not-allowed-extend;
+
+        svg {
+            fill: var(--disabled);
+        }
+    }
+
+    &:hover {
+        svg {
+            fill: var(--hover);
+        }
+
+        ~ .clear-value-button {
+            @include visible-animated-element();
+        }
+    }
+}
+
+.clear-value-button {
+    @include hidden-animated-element(
+        $input-transition-duration,
+        $input-transition-function
+    );
+
+    right: calc(#{$arrow-button-gutter} * 0.85);
+    background-color: var(--background);
+
+    &:hover {
+        @include visible-animated-element();
+    }
+}
+
+.options {
+    @extend .text-field-border-extend;
+    @include hidden-animated-element(
+        $input-transition-duration,
+        $input-transition-function
+    );
+
+    position: absolute;
+    z-index: 1;
+    top: calc(100% - #{$border-width});
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    width: 100%;
+    max-height: 12.5rem;
+    padding: $spacing-1;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-color: var(--hover) !important;
+    background-color: var(--background);
+    overflow-y: auto;
+    cursor: default;
+
+    &--error {
+        border-color: var(--red) !important;
+    }
+
+    &--open {
+        @include visible-animated-element();
+
+        border-color: var(--hover) !important;
+    }
+
+    &--fixed {
+        border-top-left-radius: $border-radius-md !important;
+        border-top-right-radius: $border-radius-md !important;
+    }
+}
+
+.search-field__container,
+.search-field__text-field-wrapper,
+.search-field {
+    width: 100% !important;
+}
+
+.search-field {
+    height: calc(#{$input-height} * 0.75) !important;
+    padding: $spacing-1 !important;
+}
+
+.option-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-1;
+    border: $border-width solid transparent;
+    border-radius: $border-radius-sm;
+    text-align: left;
+    cursor: pointer;
+    overflow-x: hidden;
+    transition-property: background-color, border;
+    transition-duration: calc(#{$base-transition-duration} / 2);
+
+    &:hover,
+    &:focus-visible {
+        background-color: var(--hover);
+    }
+
+    &--selected {
+        background-color: var(--middle-opacity);
+
+        &:hover,
+        &:focus-visible {
+            border: $border-width solid var(--foreground);
+        }
+    }
+
+    &--disabled {
+        background-color: var(--disabled);
+    }
+
+    &__multiple-icon {
+        flex-shrink: 0;
+        padding: 0;
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,22 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.label {
+    @extend .text-field-placeholder-extend;
+
+    scale: 0.85;
+    padding: 0.25rem 0.125rem;
+    background-color: var(--background);
+    border-radius: $border-radius-sm;
+    opacity: 0;
+    transition-property: opacity, top;
+    transition-duration: $input-transition-duration;
+
+    &--focused {
+        @extend .custom-input-label-focused-extend;
+    }
+
+    &--error {
+        color: var(--error);
+    }
+}

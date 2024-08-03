@@ -1,0 +1,13 @@
+@import 'styles/variables.scss';
+
+.paper {
+    border-radius: $border-radius;
+    background-color: var(--background-opacity);
+    box-shadow: var(--box-shadow-md);
+    padding: $default-spacing-md;
+    overflow: hidden;
+
+    @media (max-width: $screen-md) {
+        padding: $default-spacing-sm;
+    }
+}

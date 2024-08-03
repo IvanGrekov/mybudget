@@ -1,0 +1,47 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.input {
+    @extend .hidden-native-input-extend;
+}
+
+.label {
+    @extend .custom-input-label-extend;
+
+    &--error {
+        color: var(--error);
+
+        svg {
+            fill: var(--error);
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: var(--error);
+        }
+    }
+
+    &--disabled {
+        cursor: not-allowed;
+        color: var(--disabled);
+
+        svg {
+            fill: var(--disabled);
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+            svg {
+                fill: var(--disabled);
+            }
+
+            color: var(--disabled);
+        }
+    }
+}
+
+.radio {
+    @extend .custom-input-button-extend;
+}

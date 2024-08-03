@@ -1,0 +1,45 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.container {
+    gap: 0;
+}
+
+.input {
+    @extend .hidden-native-input-extend;
+}
+
+.label {
+    @extend .custom-input-label-extend;
+
+    &--error {
+        color: var(--error);
+
+        svg {
+            fill: var(--error);
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: var(--error);
+        }
+    }
+
+    &--disabled {
+        @extend .cursor-not-allowed-extend;
+        color: var(--disabled);
+
+        svg {
+            fill: var(--disabled);
+        }
+    }
+}
+
+.checkbox {
+    @extend .custom-input-button-extend;
+}
+
+.title-wrapper {
+    @extend .text-field-label-gap-extend;
+}

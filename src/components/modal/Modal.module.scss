@@ -1,0 +1,62 @@
+@import 'styles/variables.scss';
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal;
+    display: flex;
+    width: 100vw;
+    height: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+
+    background: var(--backdrop);
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity $base-transition-duration linear 0s,
+        height 0s linear $base-transition-duration;
+
+    &--open {
+        height: 100vh;
+        opacity: 1;
+        transition: opacity $base-transition-duration linear
+                $base-transition-duration,
+            height 0s linear 0s;
+    }
+}
+
+.content {
+    position: relative;
+    max-width: 70vw;
+    max-height: 70vh;
+    min-width: 31.25rem;
+    overflow: auto;
+    padding: 2.25rem 2rem 2rem;
+
+    border-radius: $border-radius;
+    background-color: var(--background);
+
+    @media (max-width: $screen-md) {
+        min-width: 18.75rem;
+        padding: 2rem 1.25rem;
+    }
+}
+
+.title {
+    padding-bottom: 1.5rem;
+}
+
+.actions {
+    padding-top: 3rem;
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: 0;
+}

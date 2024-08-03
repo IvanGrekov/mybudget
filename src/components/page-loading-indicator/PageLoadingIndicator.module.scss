@@ -1,0 +1,9 @@
+@import 'styles/variables.scss';
+
+.indicator {
+    opacity: 0;
+
+    &--visible {
+        opacity: 1;
+    }
+}

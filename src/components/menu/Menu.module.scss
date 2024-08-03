@@ -1,0 +1,68 @@
+@import 'styles/variables.scss';
+@import 'styles/mixins.scss';
+
+.menu {
+    position: relative;
+    z-index: $zindex-menu;
+    width: fit-content;
+    height: fit-content;
+}
+
+.actions {
+    @include hidden-animated-element();
+
+    position: absolute;
+    z-index: $zindex-menu;
+    top: 90%;
+    right: -73%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    width: 9.5rem;
+
+    border-radius: $border-radius-md;
+    background-color: var(--foreground);
+    box-shadow: var(--box-shadow-sm);
+    transition: opacity $base-transition-duration, top $base-transition-duration,
+        visibility 0s $base-transition-duration;
+
+    &--open {
+        @include visible-animated-element();
+
+        top: 110%;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 45%;
+        width: 1rem;
+        height: 1rem;
+        border-radius: $border-radius-xs;
+        background-color: var(--foreground);
+        rotate: 45deg;
+        translate: 0 -50%;
+    }
+
+    * {
+        color: var(--background);
+        fill: var(--background);
+    }
+}
+
+.action-item {
+    width: 100%;
+}
+
+.button-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}

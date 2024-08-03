@@ -1,0 +1,28 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.container {
+    gap: 0.25rem;
+}
+
+.title-wrapper {
+    @extend .text-field-label-gap-extend;
+
+    &--error {
+        color: var(--error);
+    }
+
+    &--disabled {
+        color: var(--foreground-invisible);
+    }
+}
+
+.title {
+    margin-bottom: 0.5rem;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

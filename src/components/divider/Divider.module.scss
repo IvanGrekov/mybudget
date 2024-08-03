@@ -1,0 +1,8 @@
+.divider {
+    width: 100%;
+    background-color: var(--foreground-invisible);
+
+    &--minorColor {
+        background-color: var(--background-invisible);
+    }
+}

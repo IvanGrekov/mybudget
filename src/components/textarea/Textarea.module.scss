@@ -1,0 +1,39 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.textarea {
+    @extend .text-field-extend;
+    min-height: $input-height;
+    padding-top: $spacing-3;
+
+    &--filled {
+        & ~ .placeholder {
+            display: none;
+        }
+    }
+
+    &--error,
+    &--error:hover,
+    &--error:focus,
+    &--error:active {
+        @extend .input-error-state-extend;
+    }
+
+    &--disabled {
+        @extend .input-disabled-state-extend;
+    }
+
+    &--not-resizing {
+        resize: none;
+    }
+}
+
+.label,
+.placeholder {
+    top: $spacing-3;
+    translate: 0;
+}
+
+.label--focused {
+    @extend .custom-input-label-focused-extend;
+}

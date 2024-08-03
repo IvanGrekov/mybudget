@@ -1,0 +1,54 @@
+@import 'styles/variables.scss';
+@import 'styles/extends.scss';
+
+.header {
+    @extend .header-size-extend;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $zindex-header;
+
+    backdrop-filter: $overlay-backdrop-filter;
+    background-color: var(--background-opacity);
+    box-shadow: var(--header-box-shadow);
+
+    &--fixed {
+        @extend .header-compressed-size-extend;
+    }
+}
+
+.loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.content-wrapper,
+.content {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    height: 100%;
+}
+
+.content-wrapper {
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 $default-spacing-md;
+
+    @media (max-width: $screen-md) {
+        padding: 0 $default-spacing-sm;
+    }
+}
+
+.content {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.sidebar-layout {
+    @extend .sidebar-layout-extend;
+}
