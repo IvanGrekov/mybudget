@@ -9,6 +9,7 @@ import styles from 'app/layout.module.scss';
 import Providers from 'app/providers';
 import ErrorBoundary from 'components/error-boundary/ErrorBoundary';
 import Header from 'components/header/Header';
+import NavigationList from 'components/navigation-list/NavigationList';
 import NetworkStatusIndicator from 'components/network-status-indicator/NetworkStatusIndicator';
 import Notifications from 'components/notifications/Notifications';
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
@@ -38,7 +39,11 @@ export default function RootLayout({
                                 styles['header-spacing'],
                             )}
                         >
-                            <Sidebar>NavigationList</Sidebar>
+                            <Sidebar>
+                                {/* TODO: Pass app logo */}
+                                <NavigationList />
+                            </Sidebar>
+
                             {children}
                         </main>
 

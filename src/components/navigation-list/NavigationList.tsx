@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'components/link/Link';
 import styles from 'components/navigation-list/NavigationList.module.scss';
 import { NAVIGATION_LIST } from 'components/navigation-list/constants/navigationList';
+import { getIsNavItemActive } from 'components/navigation-list/utils/getIsNavItemActive';
 import { useMobileSidebarContext } from 'contexts/MobileSidebarContext';
 
 export default function NavigationList(): JSX.Element {
@@ -22,7 +23,10 @@ export default function NavigationList(): JSX.Element {
                     <Link
                         href={href}
                         text={text}
-                        isActive={pathName.startsWith(href)}
+                        isActive={getIsNavItemActive({
+                            pathName,
+                            itemHref: href,
+                        })}
                         onClick={onClick}
                     />
                 </li>

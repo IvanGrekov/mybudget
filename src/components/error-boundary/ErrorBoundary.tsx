@@ -2,8 +2,7 @@
 
 import { Component, ReactNode } from 'react';
 
-import EmptyState from 'components/empty-state/EmptyState';
-import Spacing from 'components/spacing/Spacing';
+import Error from 'components/page-error/PageError';
 
 interface IErrorBoundaryProps {
     children: ReactNode;
@@ -32,15 +31,7 @@ export default class ErrorBoundary extends Component<
         const { hasError } = this.state;
 
         if (hasError) {
-            return (
-                <>
-                    <Spacing xs={60} xl={80} />
-                    <EmptyState
-                        isError={true}
-                        text="Error occurred on the page. Try to reload the page"
-                    />
-                </>
-            );
+            return <Error />;
         }
 
         return this.props.children;

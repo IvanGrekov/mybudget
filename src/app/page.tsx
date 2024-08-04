@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 
+import { getAppPageTitle } from 'utils/getAppPageTitle';
+
 export const metadata: Metadata = {
-    title: 'App Name',
+    title: getAppPageTitle(),
 };
 
 export default function Home(): JSX.Element {
