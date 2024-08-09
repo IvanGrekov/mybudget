@@ -7,6 +7,8 @@ export default function Divider({
     className,
     size = 1,
     isMinorColor,
+    isMiddleColor,
+    isVertical,
 }: IDividerProps): JSX.Element {
     return (
         <div
@@ -14,10 +16,15 @@ export default function Divider({
                 styles.divider,
                 {
                     [styles['divider--minorColor']]: isMinorColor,
+                    [styles['divider--middleColor']]: isMiddleColor,
+                    [styles['divider--vertical']]: isVertical,
                 },
                 className,
             )}
-            style={{ height: size }}
+            style={{
+                height: isVertical ? undefined : size,
+                width: isVertical ? size : undefined,
+            }}
         />
     );
 }

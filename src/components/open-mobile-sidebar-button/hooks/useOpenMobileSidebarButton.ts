@@ -2,7 +2,7 @@ import { useMobileSidebarContext } from 'contexts/MobileSidebarContext';
 import { useIsMobileSidebar } from 'hooks/useIsMobileSidebar';
 
 type TUseOpenMobileSidebarButton = () => {
-    isVisible: boolean;
+    isVisible: boolean | null;
     onClick: VoidFunction;
 };
 

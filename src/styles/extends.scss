@@ -16,6 +16,14 @@
     }
 }
 
+.full-screen-except-header-min-height-extend {
+    min-height: calc(100vh - $header-size);
+
+    @media (max-width: $screen-md) {
+        min-height: calc(100vh - $header-mobile-size);
+    }
+}
+
 .hidden-native-input-extend {
     position: absolute;
     visibility: hidden;

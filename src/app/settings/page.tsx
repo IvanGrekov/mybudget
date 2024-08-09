@@ -7,6 +7,6 @@ export const metadata: Metadata = {
     title: getAppPageTitle(EAppTitles.Settings),
 };
 
-export default function Settings(): JSX.Element {
+export default function SettingsPage(): JSX.Element {
     return <h1>{EAppTitles.Settings}</h1>;
 }

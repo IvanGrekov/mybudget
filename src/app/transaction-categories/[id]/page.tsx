@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: getAppPageTitle(EAppTitles.TransactionCategoryDetails),
 };
 
-export default function TransactionCategoryDetails({
+export default function TransactionCategoryDetailsPage({
     params,
 }: IPageWithIdParamProps): JSX.Element {
     return (

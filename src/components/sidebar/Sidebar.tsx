@@ -6,8 +6,12 @@ import { TSidebarProps } from 'components/sidebar/types/sidebarProps';
 import ThemeSwitcher from 'components/theme-switcher/ThemeSwitcher';
 import { useIsMobileSidebar } from 'hooks/useIsMobileSidebar';
 
-export default function Sidebar(props: TSidebarProps): JSX.Element {
+export default function Sidebar(props: TSidebarProps): JSX.Element | null {
     const isMobileSidebar = useIsMobileSidebar();
+
+    if (typeof isMobileSidebar !== 'boolean') {
+        return null;
+    }
 
     return isMobileSidebar ? (
         <MobileSidebar {...props} header={<ThemeSwitcher />} />

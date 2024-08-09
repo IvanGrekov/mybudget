@@ -7,3 +7,21 @@
 .sidebar-layout {
     @extend .sidebar-layout-extend;
 }
+
+.not-found-wrapper {
+    @extend .full-screen-except-header-min-height-extend;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .not-found-text-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .not-found-divider {
+        height: auto;
+        align-self: stretch;
+    }
+}

@@ -5,4 +5,12 @@
     &--minorColor {
         background-color: var(--background-invisible);
     }
+
+    &--middleColor {
+        background-color: var(--middle-color);
+    }
+
+    &--vertical {
+        height: 100%;
+    }
 }

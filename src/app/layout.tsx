@@ -34,7 +34,6 @@ export default function RootLayout({
 
                         <main
                             className={cx(
-                                styles.main,
                                 styles['sidebar-layout'],
                                 styles['header-spacing'],
                             )}

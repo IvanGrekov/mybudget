@@ -7,6 +7,6 @@ export const metadata: Metadata = {
     title: getAppPageTitle(EAppTitles.TransactionCategories),
 };
 
-export default function TransactionCategories(): JSX.Element {
+export default function TransactionCategoriesPage(): JSX.Element {
     return <h1>{EAppTitles.TransactionCategories}</h1>;
 }
