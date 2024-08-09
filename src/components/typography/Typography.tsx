@@ -5,10 +5,11 @@ import cx from 'classnames';
 import styles from 'components/typography/Typography.module.scss';
 import { TTypographyElements } from 'components/typography/types/typographyElements';
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
+import { TTypographyChildren } from 'types/typographyChildren';
 import { getLimitedText } from 'utils/getLimitedText';
 
 interface ITypographyProps {
-    children: string;
+    children: TTypographyChildren;
     element?: TTypographyElements;
     variant?: TTypographyVariants;
     lineClamp?: number | 'none';

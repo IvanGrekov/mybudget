@@ -30,7 +30,7 @@
 
 .content {
     position: relative;
-    max-width: 70vw;
+    max-width: 70%;
     max-height: 70vh;
     min-width: 31.25rem;
     overflow: auto;
@@ -39,9 +39,25 @@
     border-radius: $border-radius;
     background-color: var(--background);
 
+    &--medium {
+        min-width: 38rem;
+    }
+
+    &--large {
+        min-width: 43.125rem;
+    }
+
+    @media (max-width: $screen-lg) {
+        max-width: 90%;
+    }
+
     @media (max-width: $screen-md) {
-        min-width: 18.75rem;
+        min-width: 27rem;
         padding: 2rem 1.25rem;
+    }
+
+    @media (max-width: $screen-sm) {
+        min-width: 90%;
     }
 }
 

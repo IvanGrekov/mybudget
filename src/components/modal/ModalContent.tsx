@@ -5,13 +5,14 @@ import styles from 'components/modal/Modal.module.scss';
 import ModalActions from 'components/modal/ModalActions';
 import ModalLoader from 'components/modal/ModalLoader';
 import ModalTitle from 'components/modal/ModalTitle';
-import { TModalProps } from 'components/modal/types';
+import { TModalProps } from 'components/modal/types/modalProps';
 
 export default function ModalContent({
     isOpen,
     title,
     children,
     actions,
+    size = 'small',
     isLoading,
     style,
     className,
@@ -26,7 +27,11 @@ export default function ModalContent({
                 })}
             >
                 <div
-                    className={cx(styles.content, className)}
+                    className={cx(
+                        styles.content,
+                        styles[`content--${size}`],
+                        className,
+                    )}
                     onClick={(event): void => {
                         event.stopPropagation();
                     }}

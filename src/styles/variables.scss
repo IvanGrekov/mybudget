@@ -7,7 +7,9 @@ $screen-xl: 1439px;
 
 // Sizes
 $header-size: 5rem;
+$header-gutter-size: $header-size + 1.5rem;
 $header-mobile-size: 4.375rem;
+$header-mobile-gutter-size: $header-mobile-size + 1.5rem;
 $header-compressed-size: 3.75rem;
 $drawer-size: 20rem;
 $sidebar-size: 20rem;

@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 
+import Container from 'components/container/Container';
+import Typography from 'components/typography/Typography';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { EAppTitles } from 'types/appTitles';
 import { IPageWithIdParamProps } from 'types/pageWithIdParamProps';
@@ -15,12 +17,12 @@ export default function AccountDetailsPage({
     const { id } = params;
 
     return (
-        <>
-            <h1>
+        <Container>
+            <Typography element="h1" variant="h3">
                 {EAppTitles.AccountDetails} - {id}
-            </h1>
+            </Typography>
 
             <AccountDetails accountId={id} />
-        </>
+        </Container>
     );
 }

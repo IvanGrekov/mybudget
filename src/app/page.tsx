@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 
+import Container from 'components/container/Container';
+import Typography from 'components/typography/Typography';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 
 export const metadata: Metadata = {
@@ -7,5 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage(): JSX.Element {
-    return <h1>Home</h1>;
+    return (
+        <Container>
+            <Typography element="h1" variant="h3">
+                Home
+            </Typography>
+        </Container>
+    );
 }

@@ -1,10 +1,10 @@
 @import 'styles/variables.scss';
 
 .header-spacing-extend {
-    padding-top: $header-size;
+    padding-top: $header-gutter-size;
 
     @media (max-width: $screen-md) {
-        padding-top: $header-mobile-size;
+        padding-top: $header-mobile-gutter-size;
     }
 }
 
@@ -17,10 +17,10 @@
 }
 
 .full-screen-except-header-min-height-extend {
-    min-height: calc(100vh - $header-size);
+    min-height: calc(100vh - $header-gutter-size);
 
     @media (max-width: $screen-md) {
-        min-height: calc(100vh - $header-mobile-size);
+        min-height: calc(100vh - $header-mobile-gutter-size);
     }
 }
 

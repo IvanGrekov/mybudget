@@ -25,11 +25,14 @@
             }
         ],
         "rootDir": ".",
-        "baseUrl": "src",
-        "paths": {
-            "@/*": ["./*"]
-        }
+        "baseUrl": "src"
     },
-    "include": ["next-env.d.ts", ".next/types/**/*.ts", ".eslintrc.cjs", "**/*.ts", "**/*.tsx"],
+    "include": [
+        "next-env.d.ts",
+        ".next/types/**/*.ts",
+        ".eslintrc.cjs",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
     "exclude": ["node_modules"]
 }

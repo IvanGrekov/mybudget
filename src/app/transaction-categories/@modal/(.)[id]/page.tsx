@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation';
 
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
-import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
+import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { EAppTitles } from 'types/appTitles';
 import { IPageWithIdParamProps } from 'types/pageWithIdParamProps';
 
-export default function AccountDetailsModal({
+export default function TransactionCategoryDetailsModal({
     params,
 }: IPageWithIdParamProps): JSX.Element {
     const router = useRouter();
@@ -22,12 +22,11 @@ export default function AccountDetailsModal({
     return (
         <Modal
             isOpen={true}
-            title={EAppTitles.AccountDetails}
-            size="large"
+            title={EAppTitles.TransactionCategoryDetails}
             actions={<Button text="Close" onClick={onClose} />}
             onClose={onClose}
         >
-            <AccountDetails accountId={id} />
+            <TransactionCategoryDetails transactionCategoryId={id} />
         </Modal>
     );
 }

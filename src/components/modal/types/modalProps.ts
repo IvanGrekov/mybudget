@@ -9,11 +9,14 @@ export interface ILoaderProps {
     isLoading?: boolean;
 }
 
+export type TModalSize = 'small' | 'medium' | 'large';
+
 export type TModalProps = IModalBaseProps &
     PropsWithChildren &
     ILoaderProps & {
         title?: string;
         actions: JSX.Element;
+        size?: TModalSize;
         style?: CSSProperties;
         className?: string;
     };
