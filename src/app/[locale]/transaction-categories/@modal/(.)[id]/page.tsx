@@ -6,7 +6,7 @@ import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { EAppTitles } from 'types/appTitles';
-import { IPageWithIdParamProps } from 'types/pageWithIdParamProps';
+import { IPageWithIdParamProps } from 'types/pageProps';
 
 export default function TransactionCategoryDetailsModal({
     params,

@@ -6,7 +6,7 @@ import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { EAppTitles } from 'types/appTitles';
-import { IPageWithIdParamProps } from 'types/pageWithIdParamProps';
+import { IPageWithIdParamProps } from 'types/pageProps';
 
 export default function AccountDetailsModal({
     params,

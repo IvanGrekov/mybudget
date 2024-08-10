@@ -1,13 +1,5 @@
 @import 'styles/extends.scss';
 
-.header-spacing {
-    @extend .header-spacing-extend;
-}
-
-.sidebar-layout {
-    @extend .sidebar-layout-extend;
-}
-
 .not-found-wrapper {
     @extend .full-screen-except-header-min-height-extend;
     display: flex;

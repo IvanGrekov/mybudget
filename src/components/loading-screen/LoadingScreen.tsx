@@ -8,7 +8,7 @@ interface ILoadingScreenProps {
 }
 
 export default function LoadingScreen({
-    title = 'Please wait a second',
+    title,
     description,
 }: ILoadingScreenProps): JSX.Element {
     return (
@@ -16,7 +16,7 @@ export default function LoadingScreen({
             <CircularLoading size={120} />
 
             <div className={styles['text-container']}>
-                <Typography variant="h3">{title}</Typography>
+                {!!title && <Typography variant="h3">{title}</Typography>}
 
                 {!!description && (
                     <Typography variant="subtitle1">{description}</Typography>

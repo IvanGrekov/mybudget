@@ -4,7 +4,7 @@ import Container from 'components/container/Container';
 import Typography from 'components/typography/Typography';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { EAppTitles } from 'types/appTitles';
-import { IPageWithIdParamProps } from 'types/pageWithIdParamProps';
+import { IPageWithIdParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 
 export const metadata: Metadata = {

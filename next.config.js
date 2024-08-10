@@ -1,19 +1,13 @@
 const path = require('path');
+const createNextIntlPlugin = require('next-intl/plugin');
+
+const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
-    async redirects() {
-        return [
-            {
-                source: '/home',
-                destination: '/',
-                permanent: true,
-            },
-        ]
-    },
 };
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);
