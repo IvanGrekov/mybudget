@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
-import { EAppTitles } from 'types/appTitles';
+import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IPageWithIdParamProps } from 'types/pageProps';
 
 export default function AccountDetailsModal({
     params,
 }: IPageWithIdParamProps): JSX.Element {
     const router = useRouter();
+    const title = usePageHeaderTitle('AccountDetailsPage');
 
     const { id } = params;
 
@@ -22,7 +23,7 @@ export default function AccountDetailsModal({
     return (
         <Modal
             isOpen={true}
-            title={EAppTitles.AccountDetails}
+            title={title}
             size="large"
             actions={<Button text="Close" onClick={onClose} />}
             onClose={onClose}

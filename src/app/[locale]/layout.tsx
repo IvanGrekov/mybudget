@@ -17,13 +17,15 @@ import Notifications from 'components/notifications/Notifications';
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
 import { IPageWithLocaleParamProps } from 'types/pageProps';
+import { getAppPageMetadata } from 'utils/getAppPageMetadata';
 
-const inter = Inter({ subsets: ['latin'] });
+const INTER = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-    title: 'My Budget App',
-    description: 'Track your incomes and costs',
-};
+export async function generateMetadata({
+    params: { locale },
+}: IPageWithLocaleParamProps): Promise<Metadata> {
+    return getAppPageMetadata(locale);
+}
 
 type TRootLocaleLayoutProps = IPageWithLocaleParamProps & PropsWithChildren;
 
@@ -35,7 +37,7 @@ export default async function RootLocaleLayout({
 
     return (
         <html lang={locale}>
-            <body className={inter.className}>
+            <body className={INTER.className}>
                 <ErrorBoundary>
                     <NextIntlClientProvider messages={messages}>
                         <Providers>

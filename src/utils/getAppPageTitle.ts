@@ -1,5 +1,21 @@
-import { EAppTitles } from 'types/appTitles';
+import { getTranslations } from 'next-intl/server';
 
-export const getAppPageTitle = (title?: string): string => {
-    return `${EAppTitles.Root}${title ? ` - ${title}` : ''}`;
+import { getAppPageMetadata } from 'utils/getAppPageMetadata';
+
+type TGetAppPageTitle = (args: {
+    locale: string;
+    pageName: string;
+}) => Promise<{
+    title: string;
+}>;
+
+export const getAppPageTitle: TGetAppPageTitle = async ({
+    locale,
+    pageName,
+}) => {
+    const { title: appTitle } = await getAppPageMetadata(locale);
+    const t = await getTranslations({ locale, namespace: pageName });
+    const title = t('title');
+
+    return { title: `${appTitle}${title ? ` - ${title}` : ''}` };
 };

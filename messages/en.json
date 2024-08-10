@@ -1,5 +1,36 @@
 {
+    "Metadata": {
+        "title": "My Budget",
+        "description": "Track your incomes and costs"
+    },
     "HomePage": {
         "title": "Home"
+    },
+    "NotFound": {
+        "title": "This page could not be found."
+    },
+    "AccountsPage": {
+        "title": "Accounts"
+    },
+    "AccountDetailsPage": {
+        "title": "Account Details"
+    },
+    "TransactionCategoriesPage": {
+        "title": "Transaction Categories"
+    },
+    "TransactionCategoryDetailsPage": {
+        "title": "Transaction Category Details"
+    },
+    "SettingsPage": {
+        "title": "Settings"
+    },
+    "NavigationLinkTitles": {
+        "/": "Home",
+        "/accounts": "Accounts",
+        "/transaction-categories": "Transaction Categories",
+        "/settings": "Settings"
+    },
+    "SwitcherActionTitles": {
+        "change-theme": "Change Theme"
     }
 }

@@ -1,5 +1,36 @@
 {
+    "Metadata": {
+        "title": "Мій бюджет",
+        "description": "Відстежуйте свої доходи та витрати"
+    },
     "HomePage": {
         "title": "Головна"
+    },
+    "NotFound": {
+        "title": "Цю сторінку не знайдено."
+    },
+    "AccountsPage": {
+        "title": "Рахунки"
+    },
+    "AccountDetailsPage": {
+        "title": "Деталі Рахунку"
+    },
+    "TransactionCategoriesPage": {
+        "title": "Категорії Транзакцій"
+    },
+    "TransactionCategoryDetailsPage": {
+        "title": "Деталі Категорії Транзакцій"
+    },
+    "SettingsPage": {
+        "title": "Налаштування"
+    },
+    "NavigationLinkTitles": {
+        "/": "Головна",
+        "/accounts": "Рахунки",
+        "/transaction-categories": "Категорії Транзакцій",
+        "/settings": "Налаштування"
+    },
+    "SwitcherActionTitles": {
+        "change-theme": "Змінити Тему"
     }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import Link from 'components/link/Link';
 import styles from 'components/navigation-list/NavigationList.module.scss';
@@ -11,6 +11,8 @@ import { useMobileSidebarContext } from 'contexts/MobileSidebarContext';
 
 export default function NavigationList(): JSX.Element {
     const locale = useLocale();
+    const t = useTranslations('NavigationLinkTitles');
+
     const pathName = usePathname();
     const { setIsOpen } = useMobileSidebarContext();
 
@@ -20,11 +22,11 @@ export default function NavigationList(): JSX.Element {
 
     return (
         <ul className={styles.list}>
-            {NAVIGATION_LIST.map(({ href, text }) => (
-                <li key={href}>
+            {NAVIGATION_LIST.map(({ id, href }) => (
+                <li key={id}>
                     <Link
                         href={href}
-                        text={text}
+                        text={t(href)}
                         isActive={getIsNavItemActive({
                             pathName,
                             locale,

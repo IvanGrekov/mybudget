@@ -1,10 +1,13 @@
 import cx from 'classnames';
+import { useTranslations } from 'next-intl';
 
 import styles from 'app/[locale]/not-found.module.scss';
 import Divider from 'components/divider/Divider';
 import Typography from 'components/typography/Typography';
 
 export default function NotFoundPage(): JSX.Element {
+    const t = useTranslations('NotFound');
+
     return (
         <div
             className={cx(
@@ -22,9 +25,7 @@ export default function NotFoundPage(): JSX.Element {
                     size={2}
                     className={styles['not-found-divider']}
                 />
-                <Typography variant="subtitle2">
-                    This page could not be found.
-                </Typography>
+                <Typography variant="subtitle2">{t('title')}</Typography>
             </div>
         </div>
     );

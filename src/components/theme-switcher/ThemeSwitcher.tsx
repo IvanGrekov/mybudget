@@ -1,6 +1,7 @@
 'use client';
 
 import cx from 'classnames';
+import { useTranslations } from 'next-intl';
 
 import MoonIcon from 'components/icons/MoonIcon';
 import SunIcon from 'components/icons/SunIcon';
@@ -17,6 +18,8 @@ interface IThemeSwitcherProps {
 export default function ThemeSwitcher({
     tooltipPosition = 'bottom',
 }: IThemeSwitcherProps): JSX.Element {
+    const t = useTranslations('SwitcherActionTitles');
+
     const { localStorageValue, setLocalStorageValue } = useUserThemeValue();
 
     const isDarkTheme = localStorageValue === ETheme.DARK;
@@ -28,7 +31,7 @@ export default function ThemeSwitcher({
     };
 
     return (
-        <Tooltip text="Change Theme" position={tooltipPosition}>
+        <Tooltip text={t('change-theme')} position={tooltipPosition}>
             <button className={styles.container} onClick={onClick}>
                 <SunIcon className={styles.icon} />
                 <MoonIcon className={styles.icon} />
