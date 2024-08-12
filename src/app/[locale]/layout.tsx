@@ -9,6 +9,7 @@ import { getMessages } from 'next-intl/server';
 import 'styles/globals.scss';
 import styles from 'app/[locale]/layout.module.scss';
 import Providers from 'app/[locale]/providers';
+import CookiesAgreementModal from 'components/cookies-agreement-modal/CookiesAgreementModal';
 import ErrorBoundary from 'components/error-boundary/ErrorBoundary';
 import Header from 'components/header/Header';
 import NavigationList from 'components/navigation-list/NavigationList';
@@ -62,10 +63,13 @@ export default async function RootLocaleLayout({
                             <NetworkStatusIndicator />
 
                             <ScrollTopButton />
+
+                            <CookiesAgreementModal />
                         </Providers>
 
                         <div id="modal-root" />
                         <div id="drawer-root" />
+                        <div id="notifications-root" />
                     </NextIntlClientProvider>
                 </ErrorBoundary>
             </body>

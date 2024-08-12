@@ -73,6 +73,7 @@
         &.button--active {
             border-color: var(--hover);
             background-color: var(--hover);
+            color: var(--foreground);
 
             &.button--red {
                 border-color: var(--red);

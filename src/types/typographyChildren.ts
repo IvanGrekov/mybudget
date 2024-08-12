@@ -1,1 +1,7 @@
-export type TTypographyChildren = string | number | string[] | number[];
+export type TTypographyChildren =
+    | string
+    | number
+    | string[]
+    | number[]
+    | bigint
+    | boolean;

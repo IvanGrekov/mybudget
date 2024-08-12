@@ -1,18 +1,20 @@
-import { PropsWithChildren } from 'react';
-
 import styles from 'components/modal/Modal.module.scss';
 import Typography from 'components/typography/Typography';
 
+interface IModalTitleProps {
+    text?: string;
+}
+
 export default function ModalTitle({
-    children,
-}: PropsWithChildren): JSX.Element | null {
-    if (!children) {
+    text,
+}: IModalTitleProps): JSX.Element | null {
+    if (!text) {
         return null;
     }
 
     return (
         <Typography variant="subtitle1" className={styles.title}>
-            {children}
+            {text}
         </Typography>
     );
 }

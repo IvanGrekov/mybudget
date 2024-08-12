@@ -1,12 +1,12 @@
 interface IGetLocalStorageValueArgs<T> {
     key: string;
-    initialValue: T;
+    initialValue?: T | null;
 }
 
 export const getLocalStorageValue = <T>({
     key,
-    initialValue,
-}: IGetLocalStorageValueArgs<T>): T => {
+    initialValue = null,
+}: IGetLocalStorageValueArgs<T>): T | null => {
     try {
         const item = window.localStorage.getItem(key);
 

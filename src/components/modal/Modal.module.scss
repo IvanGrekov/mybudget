@@ -30,8 +30,8 @@
 
 .content {
     position: relative;
-    max-width: 70%;
     max-height: 70vh;
+    max-width: 31.25rem;
     min-width: 31.25rem;
     overflow: auto;
     padding: 2.25rem 2rem 2rem;
@@ -40,23 +40,28 @@
     background-color: var(--background);
 
     &--medium {
+        max-width: 60%;
         min-width: 38rem;
     }
 
     &--large {
+        max-width: 90%;
         min-width: 43.125rem;
     }
 
-    @media (max-width: $screen-lg) {
-        max-width: 90%;
-    }
-
     @media (max-width: $screen-md) {
+        max-width: calc(#{$screen-sm} * 0.9);
         min-width: 27rem;
         padding: 2rem 1.25rem;
+
+        &--medium,
+        &--large {
+            max-width: 90%;
+        }
     }
 
     @media (max-width: $screen-sm) {
+        max-width: 90%;
         min-width: 90%;
     }
 }

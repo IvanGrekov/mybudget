@@ -11,7 +11,11 @@ export const useCreatePortal: TUseCreatePortal = ({ selector, content }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        ref.current = document.querySelector<HTMLElement>(selector);
+        const element = document.querySelector<HTMLElement>(selector);
+        if (!element) {
+            throw new Error(`Element with selector ${selector} not found`);
+        }
+        ref.current = element;
         setMounted(true);
     }, [selector]);
 

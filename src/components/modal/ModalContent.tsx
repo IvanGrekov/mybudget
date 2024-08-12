@@ -37,7 +37,7 @@ export default function ModalContent({
                     }}
                     style={style}
                 >
-                    <ModalTitle>{title}</ModalTitle>
+                    <ModalTitle text={title} />
 
                     {children}
 

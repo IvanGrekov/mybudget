@@ -49,10 +49,15 @@ interface IUseLocalStorageArgs<T> {
     getInitialValue?: () => T;
 }
 
+interface IUseLocalStorageHookResult<T> extends IUseLocalStorageResult<T> {
+    isMounted: boolean;
+}
+
 export const useLocalStorage = <T>({
     key,
     getInitialValue,
-}: IUseLocalStorageArgs<T>): IUseLocalStorageResult<T> => {
+}: IUseLocalStorageArgs<T>): IUseLocalStorageHookResult<T> => {
+    const [isMounted, setIsMounted] = useState<boolean>(false);
     const [value, setValue] = useState<T | null>(null);
 
     useLayoutEffect(() => {
@@ -62,6 +67,7 @@ export const useLocalStorage = <T>({
                 initialValue: getInitialValue?.() || null,
             }),
         );
+        setIsMounted(true);
     }, [key, getInitialValue]);
 
     const setLocalStorageValue = useGetSetLocalStorageValue<T | null>({
@@ -70,6 +76,7 @@ export const useLocalStorage = <T>({
     });
 
     return {
+        isMounted,
         localStorageValue: value,
         setLocalStorageValue,
     };

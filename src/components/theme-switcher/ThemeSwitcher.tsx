@@ -17,11 +17,16 @@ interface IThemeSwitcherProps {
 
 export default function ThemeSwitcher({
     tooltipPosition = 'bottom',
-}: IThemeSwitcherProps): JSX.Element {
+}: IThemeSwitcherProps): JSX.Element | null {
     const t = useTranslations('SwitcherActionTitles');
 
-    const { localStorageValue, setLocalStorageValue } = useUserThemeValue();
+    const result = useUserThemeValue();
 
+    if (!result) {
+        return null;
+    }
+
+    const { localStorageValue, setLocalStorageValue } = result;
     const isDarkTheme = localStorageValue === ETheme.DARK;
 
     const onClick = (): void => {
