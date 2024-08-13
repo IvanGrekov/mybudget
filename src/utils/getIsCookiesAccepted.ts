@@ -1,6 +1,6 @@
-import { COOKIES_ACCEPTED_STORAGE_KEY } from 'constants/cookiesAcceptedStorageKey';
+import { COOKIES_ACCEPTED_STORAGE_KEY } from 'constants/cookiesKeys.constants';
 import { getCookie } from 'utils/getCookie';
 
 export const getIsCookiesAccepted = (): boolean => {
-    return Boolean(getCookie(COOKIES_ACCEPTED_STORAGE_KEY));
+    return getCookie(COOKIES_ACCEPTED_STORAGE_KEY) === 'true';
 };

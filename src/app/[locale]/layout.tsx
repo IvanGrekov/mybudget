@@ -3,10 +3,12 @@ import { PropsWithChildren } from 'react';
 import cx from 'classnames';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
 import 'styles/globals.scss';
+
 import styles from 'app/[locale]/layout.module.scss';
 import Providers from 'app/[locale]/providers';
 import CookiesAgreementModal from 'components/cookies-agreement-modal/CookiesAgreementModal';
@@ -18,7 +20,9 @@ import Notifications from 'components/notifications/Notifications';
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
 import { IPageWithLocaleParamProps } from 'types/pageProps';
+import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
+import { getIsDarkUserThemeFromCookie } from 'utils/userThemeFromCookie.utils';
 
 const INTER = Inter({ subsets: ['latin'] });
 
@@ -35,9 +39,10 @@ export default async function RootLocaleLayout({
     params: { locale },
 }: TRootLocaleLayoutProps): Promise<JSX.Element> {
     const messages = await getMessages();
+    const isDarkTheme = getIsDarkUserThemeFromCookie(cookies());
 
     return (
-        <html lang={locale}>
+        <html lang={locale} className={isDarkTheme ? ETheme.DARK : undefined}>
             <body className={INTER.className}>
                 <ErrorBoundary>
                     <NextIntlClientProvider messages={messages}>

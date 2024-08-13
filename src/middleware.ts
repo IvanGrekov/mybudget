@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 
-import { COOKIES_ACCEPTED_STORAGE_KEY } from 'constants/cookiesAcceptedStorageKey';
+import {
+    COOKIES_ACCEPTED_STORAGE_KEY,
+    COOKIES_NEXT_LOCALE_KEY,
+} from 'constants/cookiesKeys.constants';
 import {
     LOCALES as locales,
     DEFAULT_LOCALE as defaultLocale,
@@ -17,7 +20,7 @@ export default async function middleware(
     const response = handleIntlRouting(request);
 
     if (request.cookies.get(COOKIES_ACCEPTED_STORAGE_KEY)?.value !== 'true') {
-        response.cookies.delete('NEXT_LOCALE');
+        response.cookies.delete(COOKIES_NEXT_LOCALE_KEY);
     }
 
     return response;

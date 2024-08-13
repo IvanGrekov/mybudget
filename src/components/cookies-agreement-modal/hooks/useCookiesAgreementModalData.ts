@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react';
 
 import { setCookie } from 'actions/setCookie';
-import { COOKIES_ACCEPTED_STORAGE_KEY } from 'constants/cookiesAcceptedStorageKey';
-import { getIsCookiesAccepted } from 'utils/getIsCookiesAccepted';
+import { COOKIES_ACCEPTED_STORAGE_KEY } from 'constants/cookiesKeys.constants';
+import { getCookie } from 'utils/getCookie';
 
 interface IUseCookiesAgreementModalDataResult {
     shouldShowModal: boolean;
@@ -13,7 +13,7 @@ interface IUseCookiesAgreementModalDataResult {
 export const useCookiesAgreementModalData =
     (): IUseCookiesAgreementModalDataResult => {
         const shouldShowModal = useMemo(() => {
-            if (!getIsCookiesAccepted()) {
+            if (!getCookie(COOKIES_ACCEPTED_STORAGE_KEY)) {
                 return true;
             }
 
