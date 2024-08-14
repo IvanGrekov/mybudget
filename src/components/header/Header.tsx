@@ -5,10 +5,11 @@ import { PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import styles from 'components/header/Header.module.scss';
-import { useShouldShowThemeSwitcher } from 'components/header/hooks/useShouldShowThemeSwitcher';
+import { useShouldShowPreferencesSwitchers } from 'components/header/hooks/useShouldShowPreferencesSwitchers';
 import OpenMobileSidebarButton from 'components/open-mobile-sidebar-button/OpenMobileSidebarButton';
 import PageLoadingIndicator from 'components/page-loading-indicator/PageLoadingIndicator';
-import ThemeSwitcher from 'components/theme-switcher/ThemeSwitcher';
+import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSwitchers';
+import Show from 'components/show/Show';
 import { useIsHeaderFixed } from 'hooks/useIsHeaderFixed';
 
 interface IHeaderProps extends PropsWithChildren {
@@ -22,7 +23,7 @@ export default function Header({
     children,
 }: IHeaderProps): JSX.Element {
     const { isFixed } = useIsHeaderFixed();
-    const shouldShowThemeSwitcher = useShouldShowThemeSwitcher();
+    const shouldShowPreferencesSwitchers = useShouldShowPreferencesSwitchers();
 
     return (
         <header
@@ -41,9 +42,9 @@ export default function Header({
                 <OpenMobileSidebarButton />
 
                 <div className={styles.content}>
-                    {shouldShowThemeSwitcher && (
-                        <ThemeSwitcher tooltipPosition="left" />
-                    )}
+                    <Show when={shouldShowPreferencesSwitchers}>
+                        <PreferencesSwitchers tooltipPosition="left" />
+                    </Show>
 
                     {children}
                 </div>

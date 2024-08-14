@@ -1,7 +1,7 @@
 import { MOBILE_SIDEBAR_SCREEN_SIZES } from 'constants/mobileSidebarScreenSizes';
 import { useWindowSize } from 'hooks/useWindowSize';
 
-export const useShouldShowThemeSwitcher = (): boolean => {
+export const useShouldShowPreferencesSwitchers = (): boolean => {
     const windowSize = useWindowSize();
 
     if (!windowSize) {

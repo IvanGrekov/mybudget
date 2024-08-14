@@ -66,3 +66,12 @@ $base-transition-duration: 225ms;
 
 // Other
 $overlay-backdrop-filter: blur(0.375rem);
+
+// Switcher
+$switcher-container-height: 2.25rem;
+$switcher-spacing: $spacing-0-5;
+$switcher-container-width: calc(
+    #{$switcher-container-height} * 2 - #{$switcher-spacing}
+);
+$switcher-size: calc(#{$switcher-container-height} - #{$switcher-spacing} * 2);
+$switcher-icon-size: calc(#{$switcher-size} - #{$switcher-spacing});

@@ -1,0 +1,32 @@
+@import 'styles/variables.scss';
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: $switcher-container-width;
+    height: $switcher-container-height;
+    border-radius: $switcher-container-height / 2;
+    background-color: var(--foreground);
+    margin: $switcher-spacing;
+    padding: $switcher-spacing;
+
+    .switcher {
+        position: absolute;
+        left: $switcher-spacing;
+        width: $switcher-size;
+        height: $switcher-size;
+        border-radius: 50%;
+        background-color: var(--background);
+        transition-property: left;
+        transition-duration: $base-transition-duration;
+        transition-timing-function: cubic-bezier(0.47, 1.64, 0.41, 0.8);
+
+        &--shifted {
+            left: calc(
+                #{$switcher-container-width} - #{$switcher-size} - #{$switcher-spacing}
+            );
+        }
+    }
+}
