@@ -2,5 +2,7 @@ import { IDrawerProps } from 'components/drawer/types/drawerProps';
 
 export type TSidebarProps = Pick<
     IDrawerProps,
-    'shouldAddCloseButton' | 'header' | 'children' | 'className'
->;
+    'shouldAddCloseButton' | 'children' | 'className'
+> & {
+    mobileSidebarHeader?: IDrawerProps['header'];
+};

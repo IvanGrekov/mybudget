@@ -31,6 +31,7 @@
         "/settings": "Налаштування"
     },
     "SwitcherActionTitles": {
-        "change-theme": "Змінити Тему"
+        "change-theme": "Змінити Тему",
+        "change-language": "Change Language"
     }
 }

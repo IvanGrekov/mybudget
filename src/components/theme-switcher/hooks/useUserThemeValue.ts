@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 
 import { getUserTheme } from 'components/theme-switcher/utils/getUserTheme';
 import { setUserThemeCookie } from 'components/theme-switcher/utils/setUserThemeCookie';
+import { LOCAL_STORAGE_THEME_KEY } from 'constants/localStorageKeys.constants';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { IUseLocalStorageResult } from 'types/localStorage.types';
 import { ETheme } from 'types/theme';
@@ -18,7 +19,7 @@ export const useUserThemeValue = (): IUseUserThemeValueResult | null => {
         localStorageValue: value,
         setLocalStorageValue,
     } = useLocalStorage({
-        key: 'theme',
+        key: LOCAL_STORAGE_THEME_KEY,
         getInitialValue: getUserTheme,
     });
 

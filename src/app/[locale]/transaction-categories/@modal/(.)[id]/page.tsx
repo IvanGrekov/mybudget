@@ -6,11 +6,11 @@ import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
-import { IPageWithIdParamProps } from 'types/pageProps';
+import { IWithIdParamProps } from 'types/pageProps';
 
 export default function TransactionCategoryDetailsModal({
     params,
-}: IPageWithIdParamProps): JSX.Element {
+}: IWithIdParamProps): JSX.Element {
     const router = useRouter();
     const title = usePageHeaderTitle('TransactionCategoryDetailsPage');
 

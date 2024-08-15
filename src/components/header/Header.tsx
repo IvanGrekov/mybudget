@@ -43,7 +43,7 @@ export default function Header({
 
                 <div className={styles.content}>
                     <Show when={shouldShowPreferencesSwitchers}>
-                        <PreferencesSwitchers tooltipPosition="left" />
+                        <PreferencesSwitchers tooltipPosition="bottom-left" />
                     </Show>
 
                     {children}

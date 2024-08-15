@@ -101,4 +101,18 @@
             translate: -100% -50%;
         }
     }
+
+    &--bottom-left {
+        top: calc(var(--vertical-distance) / 1.1);
+        right: calc(var(--horizontal-distance) / 1.2);
+
+        &::before {
+            top: 0;
+            right: 0;
+            border-bottom: var(--arrow-size) solid var(--background-color);
+            border-left: var(--arrow-size) solid transparent;
+            translate: 20% -20%;
+            rotate: -90deg;
+        }
+    }
 }

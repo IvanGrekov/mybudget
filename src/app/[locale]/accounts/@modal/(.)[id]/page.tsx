@@ -6,11 +6,11 @@ import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
-import { IPageWithIdParamProps } from 'types/pageProps';
+import { IWithIdParamProps } from 'types/pageProps';
 
 export default function AccountDetailsModal({
     params,
-}: IPageWithIdParamProps): JSX.Element {
+}: IWithIdParamProps): JSX.Element {
     const router = useRouter();
     const title = usePageHeaderTitle('AccountDetailsPage');
 

@@ -1,7 +1,7 @@
-export interface IPageWithIdParamProps {
+export interface IWithIdParamProps {
     params: { id: string };
 }
 
-export interface IPageWithLocaleParamProps {
+export interface IWithLocaleParamProps {
     params: { locale: string };
 }

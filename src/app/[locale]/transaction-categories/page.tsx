@@ -5,12 +5,12 @@ import Link from 'components/link/Link';
 import Typography from 'components/typography/Typography';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { EAppRoutes } from 'types/appRoutes';
-import { IPageWithLocaleParamProps } from 'types/pageProps';
+import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 
 export async function generateMetadata({
     params: { locale },
-}: IPageWithLocaleParamProps): Promise<Metadata> {
+}: IWithLocaleParamProps): Promise<Metadata> {
     return getAppPageTitle({ locale, pageName: 'TransactionCategoriesPage' });
 }
 

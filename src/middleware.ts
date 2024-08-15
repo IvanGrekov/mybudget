@@ -7,7 +7,7 @@ import {
 } from 'constants/cookiesKeys.constants';
 import {
     LOCALES as locales,
-    DEFAULT_LOCALE as defaultLocale,
+    PRIMARY_LOCALE as defaultLocale,
 } from 'constants/locales';
 
 export default async function middleware(

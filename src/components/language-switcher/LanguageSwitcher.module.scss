@@ -1,0 +1,7 @@
+@import 'styles/variables.scss';
+
+.icon {
+    width: $switcher-icon-size !important;
+    height: $switcher-icon-size !important;
+    fill: var(--background);
+}

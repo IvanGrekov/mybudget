@@ -1,4 +1,9 @@
-export type TTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
+export type TTooltipPosition =
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'bottom-left';
 
 export interface ITooltipProps {
     children: JSX.Element;

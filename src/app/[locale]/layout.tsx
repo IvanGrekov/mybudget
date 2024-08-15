@@ -17,9 +17,10 @@ import Header from 'components/header/Header';
 import NavigationList from 'components/navigation-list/NavigationList';
 import NetworkStatusIndicator from 'components/network-status-indicator/NetworkStatusIndicator';
 import Notifications from 'components/notifications/Notifications';
+import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSwitchers';
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
-import { IPageWithLocaleParamProps } from 'types/pageProps';
+import { IWithLocaleParamProps } from 'types/pageProps';
 import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
 import { getIsDarkUserThemeFromCookie } from 'utils/userThemeFromCookie.utils';
@@ -28,11 +29,11 @@ const INTER = Inter({ subsets: ['latin'] });
 
 export async function generateMetadata({
     params: { locale },
-}: IPageWithLocaleParamProps): Promise<Metadata> {
+}: IWithLocaleParamProps): Promise<Metadata> {
     return getAppPageMetadata(locale);
 }
 
-type TRootLocaleLayoutProps = IPageWithLocaleParamProps & PropsWithChildren;
+type TRootLocaleLayoutProps = IWithLocaleParamProps & PropsWithChildren;
 
 export default async function RootLocaleLayout({
     children,
@@ -55,7 +56,11 @@ export default async function RootLocaleLayout({
                                     styles['header-spacing'],
                                 )}
                             >
-                                <Sidebar>
+                                <Sidebar
+                                    mobileSidebarHeader={
+                                        <PreferencesSwitchers />
+                                    }
+                                >
                                     {/* TODO: Pass app logo */}
                                     <NavigationList />
                                 </Sidebar>

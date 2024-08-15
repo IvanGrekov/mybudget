@@ -5,14 +5,14 @@ import Typography from 'components/typography/Typography';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import {
-    IPageWithIdParamProps,
-    IPageWithLocaleParamProps,
+    IWithIdParamProps,
+    IWithLocaleParamProps,
 } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 
 export async function generateMetadata({
     params: { locale },
-}: IPageWithLocaleParamProps): Promise<Metadata> {
+}: IWithLocaleParamProps): Promise<Metadata> {
     return getAppPageTitle({
         locale,
         pageName: 'TransactionCategoryDetailsPage',
@@ -21,7 +21,7 @@ export async function generateMetadata({
 
 export default function TransactionCategoryDetailsPage({
     params,
-}: IPageWithIdParamProps): JSX.Element {
+}: IWithIdParamProps): JSX.Element {
     const title = usePageHeaderTitle('TransactionCategoryDetailsPage');
     const { id } = params;
 

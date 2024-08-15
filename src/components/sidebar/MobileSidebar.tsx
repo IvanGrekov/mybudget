@@ -4,12 +4,19 @@ import { TSidebarProps } from 'components/sidebar/types/sidebarProps';
 
 export default function MobileSidebar({
     children,
+    mobileSidebarHeader,
     ...rest
 }: TSidebarProps): JSX.Element {
     const { isOpen, onClose } = useMobileSidebar();
 
     return (
-        <Drawer isOpen={isOpen} position="left" onClose={onClose} {...rest}>
+        <Drawer
+            isOpen={isOpen}
+            position="left"
+            header={mobileSidebarHeader}
+            onClose={onClose}
+            {...rest}
+        >
             {children}
         </Drawer>
     );

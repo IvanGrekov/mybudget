@@ -1,6 +1,5 @@
 'use client';
 
-import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSwitchers';
 import DesktopSidebar from 'components/sidebar/DesktopSidebar';
 import MobileSidebar from 'components/sidebar/MobileSidebar';
 import { TSidebarProps } from 'components/sidebar/types/sidebarProps';
@@ -14,7 +13,7 @@ export default function Sidebar(props: TSidebarProps): JSX.Element | null {
     }
 
     return isMobileSidebar ? (
-        <MobileSidebar {...props} header={<PreferencesSwitchers />} />
+        <MobileSidebar {...props} />
     ) : (
         <DesktopSidebar {...props} />
     );

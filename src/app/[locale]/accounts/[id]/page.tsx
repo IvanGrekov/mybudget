@@ -5,14 +5,14 @@ import Typography from 'components/typography/Typography';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import {
-    IPageWithIdParamProps,
-    IPageWithLocaleParamProps,
+    IWithIdParamProps,
+    IWithLocaleParamProps,
 } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 
 export async function generateMetadata({
     params: { locale },
-}: IPageWithLocaleParamProps): Promise<Metadata> {
+}: IWithLocaleParamProps): Promise<Metadata> {
     return getAppPageTitle({
         locale,
         pageName: 'AccountDetailsPage',
@@ -21,7 +21,7 @@ export async function generateMetadata({
 
 export default function AccountDetailsPage({
     params,
-}: IPageWithIdParamProps): JSX.Element {
+}: IWithIdParamProps): JSX.Element {
     const title = usePageHeaderTitle('AccountDetailsPage');
     const { id } = params;
 
