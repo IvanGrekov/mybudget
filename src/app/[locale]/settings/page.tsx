@@ -2,18 +2,25 @@ import { Metadata } from 'next';
 
 import Container from 'components/container/Container';
 import Typography from 'components/typography/Typography';
-import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
+
+const pageName = 'SettingsPage';
 
 export async function generateMetadata({
     params: { locale },
 }: IWithLocaleParamProps): Promise<Metadata> {
-    return getAppPageTitle({ locale, pageName: 'SettingsPage' });
+    return getAppPageTitle({ locale, pageName });
 }
 
-export default function SettingsPage(): JSX.Element {
-    const title = usePageHeaderTitle('SettingsPage');
+export default async function SettingsPage({
+    params: { locale },
+}: IWithLocaleParamProps): Promise<JSX.Element> {
+    const title = await getPageHeaderTitle({
+        locale,
+        pageName,
+    });
 
     return (
         <Container>

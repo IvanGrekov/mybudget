@@ -9,12 +9,10 @@ import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
 
 export default function AccountDetailsModal({
-    params,
+    params: { id },
 }: IWithIdParamProps): JSX.Element {
     const router = useRouter();
     const title = usePageHeaderTitle('AccountDetailsPage');
-
-    const { id } = params;
 
     const onClose = (): void => {
         router.back();

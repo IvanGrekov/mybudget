@@ -9,12 +9,10 @@ import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
 
 export default function TransactionCategoryDetailsModal({
-    params,
+    params: { id },
 }: IWithIdParamProps): JSX.Element {
     const router = useRouter();
     const title = usePageHeaderTitle('TransactionCategoryDetailsPage');
-
-    const { id } = params;
 
     const onClose = (): void => {
         router.back();

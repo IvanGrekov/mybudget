@@ -10,7 +10,7 @@ import { TTypographyVariants } from 'components/typography/types/typographyVaria
 
 interface ILinkProps extends PropsWithChildren {
     href: string;
-    text: string;
+    text?: string;
     Icon?: (props: IIconProps) => JSX.Element;
     textVariant?: TTypographyVariants;
     iconSize?: IIconProps['size'];
@@ -51,13 +51,15 @@ export default function Link({
         >
             {Icon && <Icon size={iconSize} className={styles.icon} />}
 
-            <Typography
-                element="span"
-                variant={textVariant}
-                className={cx(styles.text, textClassName)}
-            >
-                {text}
-            </Typography>
+            {text && (
+                <Typography
+                    element="span"
+                    variant={textVariant}
+                    className={cx(styles.text, textClassName)}
+                >
+                    {text}
+                </Typography>
+            )}
 
             {children}
         </NextLink>
