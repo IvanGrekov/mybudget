@@ -9,12 +9,7 @@ export default function NotFoundPage(): JSX.Element {
     const t = useTranslations('NotFound');
 
     return (
-        <div
-            className={cx(
-                styles['not-found-wrapper'],
-                styles['not-found-wrapper--full-screen-except-header'],
-            )}
-        >
+        <div className={cx(styles['not-found-wrapper'])}>
             <div className={styles['not-found-text-wrapper']}>
                 <Typography variant="h5" element="h2">
                     404
