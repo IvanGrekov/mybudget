@@ -21,6 +21,4 @@ export async function setCookie({
         expires: new Date(Date.now() + maxAge),
         path: '/',
     });
-
-    console.log(cookies().getAll());
 }

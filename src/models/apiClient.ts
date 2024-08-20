@@ -29,8 +29,6 @@ export class ApiClient {
         });
         const result = await response.json();
 
-        console.log('result', result);
-
         if (!response.ok) {
             return {
                 data: null,
