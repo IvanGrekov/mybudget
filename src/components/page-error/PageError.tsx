@@ -24,7 +24,11 @@ export default function PageError({
             <Spacing xs={60} xl={80} />
             <EmptyState
                 isError={true}
-                text="Error occurred on the page. Try to reload the page"
+                text={
+                    typeof error === 'string'
+                        ? error
+                        : 'Error occurred on the page. Try to reload the page'
+                }
             />
         </>
     );

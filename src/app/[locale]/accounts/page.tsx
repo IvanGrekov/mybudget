@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 
-import { Api } from 'api';
 import Container from 'components/container/Container';
+import EmptyState from 'components/empty-state/EmptyState';
 import Link from 'components/link/Link';
+import PageError from 'components/page-error/PageError';
 import Typography from 'components/typography/Typography';
+import { MyBudgetApi } from 'models/myBudgetApi';
 import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
@@ -25,9 +27,26 @@ export default async function AccountsPage({
         pageName,
     });
 
-    const accounts = await Api.getAccounts({
+    // TODO: Get rid of hardcoded user id
+    const { data, error } = await MyBudgetApi.getAccounts({
         userId: 62,
     });
+
+    if (error) {
+        return (
+            <Container>
+                <PageError error={error} />
+            </Container>
+        );
+    }
+
+    if (!data?.length) {
+        return (
+            <Container>
+                <EmptyState text="Accounts not found" />
+            </Container>
+        );
+    }
 
     return (
         <Container>
@@ -36,7 +55,7 @@ export default async function AccountsPage({
             </Typography>
 
             <ul>
-                {accounts.map(({ id, name }) => (
+                {data.map(({ id, name }) => (
                     <li key={id}>
                         <Link href={`${EAppRoutes.Accounts}/${id}`}>
                             <Typography element="p" variant="body1">

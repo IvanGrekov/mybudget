@@ -41,7 +41,7 @@ export default function EmptyState({
             <div className={styles['text-wrapper']}>
                 <Typography
                     element="h2"
-                    variant="h4"
+                    variant="h5"
                     className={colorClassName}
                 >
                     {text || defaultText}

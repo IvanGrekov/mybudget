@@ -1,4 +1,4 @@
 export interface IPageErrorProps {
-    error?: Error & { digest?: string };
+    error?: (Error & { digest?: string }) | string;
     reset?: VoidFunction;
 }

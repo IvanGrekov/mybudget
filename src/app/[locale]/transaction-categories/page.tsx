@@ -1,8 +1,11 @@
 import { Metadata } from 'next';
 
 import Container from 'components/container/Container';
+import EmptyState from 'components/empty-state/EmptyState';
 import Link from 'components/link/Link';
+import PageError from 'components/page-error/PageError';
 import Typography from 'components/typography/Typography';
+import { MyBudgetApi } from 'models/myBudgetApi';
 import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
@@ -24,15 +27,46 @@ export default async function TransactionCategoriesPage({
         pageName,
     });
 
+    // TODO: Get rid of hardcoded user id
+    const { data, error } = await MyBudgetApi.getTransactionCategories({
+        userId: 62,
+    });
+
+    if (error) {
+        return (
+            <Container>
+                <PageError error={error} />
+            </Container>
+        );
+    }
+
+    if (!data?.length) {
+        return (
+            <Container>
+                <EmptyState text="Transaction Categories not found" />
+            </Container>
+        );
+    }
+
     return (
         <Container>
             <Typography element="h1" variant="h3">
                 {title}
             </Typography>
-            <Link
-                href={`${EAppRoutes.TransactionCategories}/1`}
-                text="Transaction Category 1"
-            />
+
+            <ul>
+                {data.map(({ id, name }) => (
+                    <li key={id}>
+                        <Link
+                            href={`${EAppRoutes.TransactionCategories}/${id}`}
+                        >
+                            <Typography element="p" variant="body1">
+                                {name}
+                            </Typography>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </Container>
     );
 }

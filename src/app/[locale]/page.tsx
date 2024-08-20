@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 
-import { Api } from 'api';
 import Container from 'components/container/Container';
+import EmptyState from 'components/empty-state/EmptyState';
+import PageError from 'components/page-error/PageError';
 import Typography from 'components/typography/Typography';
+import { MyBudgetApi } from 'models/myBudgetApi';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -23,7 +25,26 @@ export default async function HomePage({
         pageName,
     });
 
-    const { nickname, defaultCurrency, timeZone } = await Api.getUser('62');
+    // TODO: Get rid of hardcoded user id
+    const { data, error } = await MyBudgetApi.getUser('62');
+
+    if (error) {
+        return (
+            <Container>
+                <PageError error={error} />
+            </Container>
+        );
+    }
+
+    if (!data) {
+        return (
+            <Container>
+                <EmptyState text="User not found" />
+            </Container>
+        );
+    }
+
+    const { nickname, defaultCurrency, timeZone } = data;
 
     return (
         <Container>
