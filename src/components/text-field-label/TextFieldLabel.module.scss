@@ -19,4 +19,8 @@
     &--error {
         color: var(--error);
     }
+
+    &--full-width {
+        left: $input-placeholder-left-spacing--full-width;
+    }
 }

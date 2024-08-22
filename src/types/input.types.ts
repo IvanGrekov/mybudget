@@ -7,6 +7,7 @@ export interface IInputErrorProps {
 }
 
 export type TBaseInputContainerProps = Pick<IInputErrorProps, 'error'> & {
+    isFullWidth?: boolean;
     errorClassName?: IInputErrorProps['className'];
 };
 

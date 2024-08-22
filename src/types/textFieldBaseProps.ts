@@ -7,4 +7,5 @@ export type TTextFieldBaseProps = TBaseInputContainerProps & {
     labelClassName?: string;
     placeholderClassName?: string;
     textFieldWrapperClassName?: string;
+    isFullWidth?: boolean;
 };

@@ -108,6 +108,12 @@ $arrow-button-gutter: $spacing-6;
     &--disabled {
         @extend .input-disabled-state-extend;
     }
+
+    &--full-width {
+        @extend .text-field-full-width-extend;
+
+        padding-left: $input-placeholder-left-spacing--full-width;
+    }
 }
 
 .value-preview-wrapper {

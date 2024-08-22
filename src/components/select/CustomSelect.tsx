@@ -14,9 +14,10 @@ type TCustomSelectProps<T> = Pick<
     | 'multiple'
     | 'error'
     | 'disabled'
-    | 'className'
     | 'getOptionLabel'
     | 'onChange'
+    | 'isFullWidth'
+    | 'className'
 > &
     Pick<
         TUseSelectFieldResult<T>,
@@ -36,6 +37,7 @@ export default function CustomSelect<T>({
     multiple,
     disabled,
     error,
+    isFullWidth,
     className,
     ...valuePreviewProps
 }: TCustomSelectProps<T>): JSX.Element {
@@ -52,6 +54,7 @@ export default function CustomSelect<T>({
                     [styles['select--multiple']]: multiple,
                     [styles['select--disabled']]: disabled,
                     [styles['select--error']]: error,
+                    [styles['select--full-width']]: isFullWidth,
                 },
                 className,
             )}

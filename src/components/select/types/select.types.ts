@@ -21,7 +21,7 @@ export type TSelectBaseProps = TTextFieldBaseProps & {
     onBlur?: FocusEventHandler<HTMLSelectElement>;
 };
 
-export type TSelectValue<T> = T | T[];
+export type TSelectValue<T> = T | T[] | null;
 
 export type TOnSelectChange<T> = (value: T | null) => void;
 

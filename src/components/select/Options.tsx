@@ -18,6 +18,7 @@ type TOptionsProps<T> = Pick<
     | 'error'
     | 'multiple'
     | 'shouldAddSearch'
+    | 'isFullWidth'
     | 'getOptionLabel'
     | 'getOptionValue'
     | 'getIsOptionDisabled'
@@ -36,6 +37,7 @@ export default function Options<T>({
     isOpen,
     isOptionsFixed,
     shouldAddSearch,
+    isFullWidth,
     getOptionLabel = defaultGetOptionLabel,
     ...props
 }: TOptionsProps<T>): JSX.Element {
@@ -58,12 +60,13 @@ export default function Options<T>({
                 <SearchField
                     value={search}
                     placeholderVariant="body2"
+                    iconSize={15}
+                    isFullWidth={isFullWidth}
                     className={styles['search-field']}
                     containerClassName={styles['search-field__container']}
                     textFieldWrapperClassName={
                         styles['search-field__text-field-wrapper']
                     }
-                    iconSize={15}
                     onChange={(e): void => setSearch(e.target.value)}
                     onClick={(e): void => e.stopPropagation()}
                 />

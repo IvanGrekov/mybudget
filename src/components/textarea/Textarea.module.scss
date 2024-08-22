@@ -26,6 +26,10 @@
     &--not-resizing {
         resize: none;
     }
+
+    &--full-width {
+        @extend .text-field-full-width-extend;
+    }
 }
 
 .label,

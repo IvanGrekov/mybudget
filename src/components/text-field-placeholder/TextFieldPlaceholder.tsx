@@ -18,6 +18,7 @@ export type TTextFieldPlaceholderProps = Pick<
     error?: string;
     required?: boolean;
     disabled?: boolean;
+    isFullWidth?: boolean;
     className?: string;
 };
 
@@ -30,6 +31,7 @@ const TextFieldPlaceholder = (
         required,
         disabled,
         variant,
+        isFullWidth,
         className,
     }: TTextFieldPlaceholderProps,
     ref: Ref<HTMLLabelElement>,
@@ -47,6 +49,7 @@ const TextFieldPlaceholder = (
                 {
                     [styles['placeholder--error']]: error,
                     [styles['placeholder--disabled']]: disabled,
+                    [styles['placeholder--full-width']]: isFullWidth,
                 },
                 className,
             )}

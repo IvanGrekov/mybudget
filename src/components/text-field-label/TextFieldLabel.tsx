@@ -13,6 +13,7 @@ export interface ITextFieldLabelProps {
     error?: string;
     required?: boolean;
     disabled?: boolean;
+    isFullWidth?: boolean;
     className?: string;
 }
 
@@ -24,6 +25,7 @@ const TextFieldLabel = (
         error,
         required,
         disabled,
+        isFullWidth,
         className,
     }: ITextFieldLabelProps,
     ref: Ref<HTMLLabelElement>,
@@ -41,6 +43,7 @@ const TextFieldLabel = (
                 {
                     [styles['label--focused']]: isFocused,
                     [styles['label--error']]: error,
+                    [styles['label--full-width']]: isFullWidth,
                 },
                 className,
             )}

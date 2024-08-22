@@ -31,6 +31,10 @@
     &--disabled {
         @extend .input-disabled-state-extend;
     }
+
+    &--full-width {
+        @extend .text-field-full-width-extend;
+    }
 }
 
 .icon {

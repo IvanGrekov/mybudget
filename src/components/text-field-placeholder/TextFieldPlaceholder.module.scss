@@ -26,4 +26,8 @@
         @extend .cursor-not-allowed-extend;
         color: var(--disabled);
     }
+
+    &--full-width {
+        left: $input-placeholder-left-spacing--full-width;
+    }
 }

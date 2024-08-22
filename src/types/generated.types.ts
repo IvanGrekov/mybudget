@@ -52,7 +52,6 @@ export interface User {
     transactionCategories: TransactionCategory[];
     transactions: Transaction[];
     nickname: string;
-    language: UserLanguageEnum;
     timeZone: string;
     /** @format date-time */
     createdAt: string;
@@ -86,7 +85,6 @@ export interface CreateUserDto {
 
 export interface EditUserDto {
     nickname?: string;
-    language?: EditUserDtoLanguageEnum;
     timeZone?: string;
 }
 
@@ -241,11 +239,6 @@ export enum UserDefaultCurrencyEnum {
     SEK = 'SEK',
 }
 
-export enum UserLanguageEnum {
-    EN = 'EN',
-    UA = 'UA',
-}
-
 export enum AccountTypeEnum {
     REGULAR = 'REGULAR',
     SAVINGS = 'SAVINGS',
@@ -287,11 +280,6 @@ export enum CreateUserDtoDefaultCurrencyEnum {
 }
 
 export enum CreateUserDtoLanguageEnum {
-    EN = 'EN',
-    UA = 'UA',
-}
-
-export enum EditUserDtoLanguageEnum {
     EN = 'EN',
     UA = 'UA',
 }
@@ -693,6 +681,21 @@ export class Api<
         usersControllerGetNewName: (params: RequestParams = {}) =>
             this.request<string, any>({
                 path: `/users/name`,
+                method: 'GET',
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags users
+         * @name UsersControllerFindMe
+         * @request GET:/users/me
+         */
+        usersControllerFindMe: (params: RequestParams = {}) =>
+            this.request<User, any>({
+                path: `/users/me`,
                 method: 'GET',
                 format: 'json',
                 ...params,

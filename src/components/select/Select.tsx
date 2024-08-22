@@ -27,6 +27,7 @@ export default function Select<T>({
     multiple,
     shouldCloseOnChange = multiple ? false : true,
     shouldAddSearch,
+    isFullWidth,
     containerClassName,
     labelClassName,
     placeholderClassName,
@@ -78,6 +79,7 @@ export default function Select<T>({
             <InputContainer
                 error={error}
                 disabled={disabled}
+                isFullWidth={isFullWidth}
                 className={containerClassName}
                 errorClassName={errorClassName}
             >
@@ -96,6 +98,7 @@ export default function Select<T>({
                     >
                         <TextFieldWrapper
                             disabled={disabled}
+                            isFullWidth={isFullWidth}
                             className={textFieldWrapperClassName}
                         >
                             <select
@@ -123,6 +126,7 @@ export default function Select<T>({
                                 multiple={multiple}
                                 error={error}
                                 disabled={disabled}
+                                isFullWidth={isFullWidth}
                                 className={className}
                                 getOptionLabel={getOptionLabel}
                                 onChange={onSelectChange}
@@ -152,6 +156,7 @@ export default function Select<T>({
                                 disabled={disabled}
                                 isFocused={isFocused}
                                 error={error}
+                                isFullWidth={isFullWidth}
                                 className={cx(
                                     styles.label,
                                     {
@@ -169,6 +174,7 @@ export default function Select<T>({
                                     disabled={disabled}
                                     isFieldFilled={isFieldFilled}
                                     error={error}
+                                    isFullWidth={isFullWidth}
                                     className={cx(
                                         styles.placeholder,
                                         placeholderClassName,
@@ -186,6 +192,7 @@ export default function Select<T>({
                             multiple={multiple}
                             isOptionsFixed={isOptionsFixed}
                             shouldAddSearch={shouldAddSearch}
+                            isFullWidth={isFullWidth}
                             onChange={onSelectChange}
                             getOptionLabel={getOptionLabel}
                             getOptionValue={getOptionValue}

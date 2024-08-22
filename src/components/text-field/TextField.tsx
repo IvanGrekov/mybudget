@@ -25,6 +25,7 @@ export default function TextField({
     placeholderVariant,
     Icon,
     iconSize,
+    isFullWidth,
     containerClassName,
     textFieldWrapperClassName,
     labelClassName,
@@ -86,6 +87,7 @@ export default function TextField({
                             [styles['input--disabled']]: disabled,
                             [styles['input--password']]: isPasswordInput,
                             [styles['input--with-icon']]: !!Icon,
+                            [styles['input--full-width']]: isFullWidth,
                         },
                         className,
                     )}
@@ -103,6 +105,7 @@ export default function TextField({
                     disabled={disabled}
                     isFocused={isFocused}
                     error={error}
+                    isFullWidth={isFullWidth}
                     className={labelClassName}
                 />
 
@@ -115,6 +118,7 @@ export default function TextField({
                         isFieldFilled={isInputFilled}
                         error={error}
                         variant={placeholderVariant}
+                        isFullWidth={isFullWidth}
                         className={cx(placeholderClassName, {
                             [styles['placeholder--limited']]: isPasswordInput,
                         })}

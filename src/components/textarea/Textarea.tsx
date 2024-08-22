@@ -17,6 +17,7 @@ export default function Textarea({
     shouldHidePlaceholder,
     rows = 5,
     disableResize,
+    isFullWidth,
     containerClassName,
     labelClassName,
     placeholderClassName,
@@ -70,6 +71,7 @@ export default function Textarea({
                             [styles['textarea--error']]: error,
                             [styles['textarea--filled']]: isTextareaFilled,
                             [styles['textarea--not-resizing']]: disableResize,
+                            [styles['textarea--full-width']]: isFullWidth,
                         },
                         className,
                     )}
