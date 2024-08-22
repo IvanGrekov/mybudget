@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
+import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
-import Typography from 'components/typography/Typography';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { IWithIdParamProps, IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
@@ -28,9 +28,7 @@ export default async function TransactionCategoryDetailsPage({
 
     return (
         <Container>
-            <Typography element="h1" variant="h3">
-                {title}
-            </Typography>
+            <AppHeader title={title} />
 
             <TransactionCategoryDetails transactionCategoryId={id} />
         </Container>

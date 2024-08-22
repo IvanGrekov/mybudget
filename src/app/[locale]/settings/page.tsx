@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 
+import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
-import Typography from 'components/typography/Typography';
+import UserSettings from 'features/user-settings/components/user-settings/UserSettings';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -24,9 +25,9 @@ export default async function SettingsPage({
 
     return (
         <Container>
-            <Typography element="h1" variant="h3">
-                {title}
-            </Typography>
+            <AppHeader title={title} />
+
+            <UserSettings />
         </Container>
     );
 }

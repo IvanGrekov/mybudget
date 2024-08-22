@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 
+import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import Link from 'components/link/Link';
@@ -50,9 +51,7 @@ export default async function AccountsPage({
 
     return (
         <Container>
-            <Typography element="h1" variant="h3">
-                {title}
-            </Typography>
+            <AppHeader title={title} />
 
             <ul>
                 {data.map(({ id, name }) => (
