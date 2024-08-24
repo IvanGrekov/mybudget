@@ -17,7 +17,7 @@ export class ApiClient {
         };
     }
 
-    static async request<T>(
+    private static async request<T>(
         url: string,
         options?: RequestInit,
     ): TApiClientResult<T> {
@@ -39,5 +39,36 @@ export class ApiClient {
         }
 
         return { data: result, error: null };
+    }
+
+    static async get<T>(
+        url: string,
+        options?: RequestInit,
+    ): TApiClientResult<T> {
+        return ApiClient.request<T>(url, { ...options, method: 'GET' });
+    }
+
+    static async post<T>(
+        url: string,
+        data: Record<string, unknown>,
+        options?: RequestInit,
+    ): TApiClientResult<T> {
+        return ApiClient.request(url, {
+            ...options,
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
+
+    static async patch<T>(
+        url: string,
+        data: Record<string, unknown>,
+        options?: RequestInit,
+    ): TApiClientResult<T> {
+        return ApiClient.request(url, {
+            ...options,
+            method: 'PATCH',
+            body: JSON.stringify(data),
+        });
     }
 }

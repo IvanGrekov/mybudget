@@ -1,9 +1,18 @@
-import TimeZoneField from 'features/user-settings/components/time-zone-field/TimeZoneField';
+import TimeZoneSettings from 'features/user-settings/components/time-zone-settings/TimeZoneSettings';
+import { User } from 'types/generated.types';
 
-export default function UserSettings(): JSX.Element {
+interface IUserSettingsProps {
+    userId: User['id'];
+    userTimeZone: User['timeZone'];
+}
+
+export default function UserSettings({
+    userId,
+    userTimeZone,
+}: IUserSettingsProps): JSX.Element {
     return (
         <div>
-            <TimeZoneField />
+            <TimeZoneSettings userId={userId} initValue={userTimeZone} />
         </div>
     );
 }
