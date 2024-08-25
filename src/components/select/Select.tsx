@@ -5,6 +5,7 @@ import InputContainer from 'components/input-container/InputContainer';
 import ArrowButton from 'components/select/ArrowButton';
 import ClearValueButton from 'components/select/ClearValueButton';
 import CustomSelect from 'components/select/CustomSelect';
+import NativeSelectOptions from 'components/select/NativeSelectOptions';
 import Options from 'components/select/Options';
 import styles from 'components/select/Select.module.scss';
 import { useSelectField } from 'components/select/hooks/select.hooks';
@@ -113,7 +114,13 @@ export default function Select<T>({
                                 onBlur={onNativeSelectBlur}
                                 onKeyDown={onNativeSelectKeyDown}
                                 onChange={onNativeSelectChange}
-                            />
+                            >
+                                <NativeSelectOptions
+                                    localNativeSelectValue={
+                                        localNativeSelectValue
+                                    }
+                                />
+                            </select>
 
                             <CustomSelect
                                 value={value}
