@@ -60,6 +60,7 @@ export default function OptionItem<T>({
 
     return (
         <button
+            type="button"
             tabIndex={1}
             className={cx(styles['option-item'], {
                 [styles['option-item--disabled']]: isDisabled,

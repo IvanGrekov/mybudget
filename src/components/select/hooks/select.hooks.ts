@@ -40,6 +40,7 @@ const useLocalNativeSelectValue = <T>({
 export const useSelectField = <T>({
     value,
     shouldCloseOnChange,
+    nativeSelectRefCallback,
     getOptionValue,
     onBlur,
     onFocus,
@@ -48,6 +49,12 @@ export const useSelectField = <T>({
     const nativeSelectRef = useRef<HTMLSelectElement>(null);
     const customSelectRef = useRef<HTMLInputElement>(null);
     const selectOptionsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (nativeSelectRefCallback && nativeSelectRef.current) {
+            nativeSelectRefCallback(nativeSelectRef.current);
+        }
+    }, [nativeSelectRefCallback]);
 
     const id = useId();
 

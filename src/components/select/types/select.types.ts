@@ -43,6 +43,7 @@ export type TSelectProps<T> = TSelectBaseProps & {
     options: T[];
     shouldCloseOnChange?: boolean;
     shouldAddSearch?: boolean;
+    nativeSelectRefCallback?: (ref: HTMLSelectElement) => void;
     onChange: TOnSelectChange<T>;
     getOptionLabel?: TGetOptionLabel<T>;
     getOptionValue?: TGetOptionValue<T>;
@@ -79,7 +80,8 @@ export type TUseLocalNativeSelectValueResult = {
 };
 
 export type TUseSelectFieldArgs<T> = TSelectFieldHandlersArgs<T> &
-    TUseLocalNativeSelectValueArgs<T>;
+    TUseLocalNativeSelectValueArgs<T> &
+    Pick<TSelectProps<T>, 'nativeSelectRefCallback'>;
 
 export type TUseSelectFieldResult<T> = ISelectFieldHandlers<T> &
     TUseLocalNativeSelectValueResult & {
