@@ -3,11 +3,12 @@ import { TApiClientResult } from 'types/apiClient.types';
 export class ApiClient {
     private constructor() {}
 
-    private static baseUrl = process.env.API_URL || 'http://localhost:3000';
+    private static baseUrl =
+        process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
     private static isDev = process.env.NODE_ENV === 'development';
 
     private static getApiKey(): string {
-        return process.env.API_KEY || '';
+        return process.env.NEXT_PUBLIC_API_KEY || '';
     }
 
     static getBaseHeaders(): Record<string, string> {

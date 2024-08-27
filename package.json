@@ -11,6 +11,8 @@
         "generate-types": "npx swagger-typescript-api -p http://localhost:4000/api-json -o ./src/types -n generated.types.ts --extract-enums"
     },
     "dependencies": {
+        "@tanstack/react-query": "^5.52.2",
+        "@tanstack/react-query-devtools": "^5.52.2",
         "@vvo/tzdb": "^6.142.0",
         "classnames": "^2.3.2",
         "focus-trap-react": "^10.0.2",

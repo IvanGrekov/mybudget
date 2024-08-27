@@ -45,13 +45,17 @@ export default async function SettingsPage({
         );
     }
 
-    const { id, timeZone } = data;
+    const { id, timeZone, nickname } = data;
 
     return (
         <Container>
             <AppHeader title={title} />
 
-            <UserSettings userId={id} userTimeZone={timeZone} />
+            <UserSettings
+                userId={id}
+                userTimeZone={timeZone}
+                userNickname={nickname}
+            />
         </Container>
     );
 }

@@ -1,9 +1,13 @@
 'use client';
 
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 import { ConfirmNavigationProvider } from 'contexts/ConfirmNavigationContext';
 import { MobileSidebarProvider } from 'contexts/MobileSidebarContext';
 import { NotificationsProvider } from 'contexts/NotificationsContext';
 import { PageLoadingProvider } from 'contexts/PageLoadingContext';
+import { getQueryClient } from 'utils/getQueryClient';
 
 export default function Providers({
     children,
@@ -12,11 +16,16 @@ export default function Providers({
 }): JSX.Element {
     return (
         <PageLoadingProvider>
-            <ConfirmNavigationProvider>
-                <MobileSidebarProvider>
-                    <NotificationsProvider>{children}</NotificationsProvider>
-                </MobileSidebarProvider>
-            </ConfirmNavigationProvider>
+            <QueryClientProvider client={getQueryClient()}>
+                <ReactQueryDevtools />
+                <ConfirmNavigationProvider>
+                    <MobileSidebarProvider>
+                        <NotificationsProvider>
+                            {children}
+                        </NotificationsProvider>
+                    </MobileSidebarProvider>
+                </ConfirmNavigationProvider>
+            </QueryClientProvider>
         </PageLoadingProvider>
     );
 }
