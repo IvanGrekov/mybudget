@@ -20,6 +20,7 @@ import Notifications from 'components/notifications/Notifications';
 import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSwitchers';
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
+import { WebVitals } from 'components/web-vitals/WebVitals';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
@@ -46,6 +47,7 @@ export default async function RootLocaleLayout({
         <html lang={locale} className={isDarkTheme ? ETheme.DARK : undefined}>
             <body className={INTER.className}>
                 <ErrorBoundary>
+                    <WebVitals />
                     <NextIntlClientProvider messages={messages}>
                         <Providers>
                             <Header isSidebarLayout={true} />
