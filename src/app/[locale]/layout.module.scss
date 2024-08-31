@@ -7,3 +7,9 @@
 .sidebar-layout {
     @extend .sidebar-layout-extend;
 }
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}

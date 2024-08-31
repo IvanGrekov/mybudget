@@ -11,6 +11,7 @@ import 'styles/globals.scss';
 
 import styles from 'app/[locale]/layout.module.scss';
 import Providers from 'app/[locale]/providers';
+import AppLogo from 'components/app-logo/AppLogo';
 import CookiesAgreementModal from 'components/cookies-agreement-modal/CookiesAgreementModal';
 import ErrorBoundary from 'components/error-boundary/ErrorBoundary';
 import Header from 'components/header/Header';
@@ -63,8 +64,10 @@ export default async function RootLocaleLayout({
                                         <PreferencesSwitchers />
                                     }
                                 >
-                                    {/* TODO: Pass app logo */}
-                                    <NavigationList />
+                                    <div className={styles['sidebar-content']}>
+                                        <AppLogo />
+                                        <NavigationList />
+                                    </div>
                                 </Sidebar>
 
                                 {children}
