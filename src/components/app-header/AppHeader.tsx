@@ -16,7 +16,7 @@ export default function AppHeader({
 }: IAppHeaderProps): JSX.Element {
     return (
         <div className={cx(styles.header, className)}>
-            <Typography element="h2" variant="h3">
+            <Typography element="h2" variant="h4">
                 {title}
             </Typography>
 
