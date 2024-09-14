@@ -1,12 +1,14 @@
 import { useState } from 'react';
 
+import { TApiClientResult } from 'types/apiClient.types';
+
 interface IUseAsyncActionHandlerArgs<T, R> {
-    onSubmit: (data: T) => R;
+    action: (data: T) => TApiClientResult<R>;
     onCompleted?: VoidFunction;
     onError?: (error: Error) => void;
 }
 
-type TAsyncActionHandler<T, R> = (data: T) => Promise<R | void>;
+type TAsyncActionHandler<T, R> = (data: T) => TApiClientResult<R>;
 
 interface IUseAsyncActionHandlerResult<T, R> {
     isLoading: boolean;
@@ -14,7 +16,7 @@ interface IUseAsyncActionHandlerResult<T, R> {
 }
 
 export const useAsyncActionHandler = <T, R>({
-    onSubmit,
+    action,
     onCompleted,
     onError,
 }: IUseAsyncActionHandlerArgs<T, R>): IUseAsyncActionHandlerResult<T, R> => {
@@ -23,7 +25,7 @@ export const useAsyncActionHandler = <T, R>({
     const asyncActionHandler: TAsyncActionHandler<T, R> = async (...args) => {
         try {
             setIsLoading(true);
-            const result = await onSubmit(...args);
+            const result = await action(...args);
 
             if (onCompleted) {
                 onCompleted();
@@ -32,10 +34,13 @@ export const useAsyncActionHandler = <T, R>({
             return result;
         } catch (error) {
             if (onError) {
-                return onError(error);
+                onError(error);
             }
 
-            throw error;
+            return {
+                data: null,
+                error,
+            };
         } finally {
             setIsLoading(false);
         }

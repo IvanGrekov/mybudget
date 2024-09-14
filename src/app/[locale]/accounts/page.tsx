@@ -30,7 +30,7 @@ export default async function AccountsPage({
 
     // TODO: Get rid of hardcoded user id
     const { data, error } = await MyBudgetApi.getAccounts({
-        userId: 62,
+        userId: 68,
     });
 
     if (error) {

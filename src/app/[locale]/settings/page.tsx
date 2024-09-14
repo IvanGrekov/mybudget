@@ -27,7 +27,7 @@ export default async function SettingsPage({
     });
 
     // TODO: Get rid of hardcoded user id
-    const { data, error } = await MyBudgetApi.getUser('62');
+    const { data, error } = await MyBudgetApi.getUser(68);
 
     if (error) {
         return (

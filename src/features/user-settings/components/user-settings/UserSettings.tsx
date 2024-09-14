@@ -35,10 +35,8 @@ export default function UserSettings({
     const { formState, handleSubmit, reset, getValues } = methods;
 
     const { isLoading, asyncActionHandler } = useAsyncActionHandler({
-        onSubmit: editUser,
-        onCompleted: () => {
-            reset(getValues());
-        },
+        action: editUser,
+        onCompleted: () => reset(getValues()),
     });
 
     const onSubmit: SubmitHandler<IFormData> = ({ timeZone, nickname }) => {

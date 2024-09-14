@@ -33,8 +33,8 @@ export default async function HomePage({
 
     // TODO: Get rid of hardcoded user id
     const { data, error } = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.USER, '62'],
-        queryFn: () => MyBudgetApi.getUser('62'),
+        queryKey: [EFetchingTags.USER, '68'],
+        queryFn: () => MyBudgetApi.getUser(68),
     });
 
     if (error) {
@@ -63,11 +63,9 @@ export default async function HomePage({
                 <Typography element="p" variant="body1">
                     nickname: {nickname}
                 </Typography>
-
                 <Typography element="p" variant="body1">
                     defaultCurrency: {defaultCurrency}
                 </Typography>
-
                 <Typography element="p" variant="body1">
                     timeZone: {timeZone}
                 </Typography>

@@ -11,7 +11,7 @@ import {
 export class MyBudgetApi {
     private constructor() {}
 
-    static async getUser(id: string): TApiClientResult<User> {
+    static async getUser(id: number): TApiClientResult<User> {
         return ApiClient.get<User>(`/users/${id}`, {
             next: { tags: [`${EFetchingTags.USER}${id}`] },
         });
