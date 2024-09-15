@@ -1,11 +1,10 @@
-import { TApiClientResult } from 'types/apiClient.types';
+import { TAsyncApiClientResult } from 'types/apiClient.types';
 
 export class ApiClient {
     private constructor() {}
 
     private static baseUrl =
         process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-    private static isDev = process.env.NODE_ENV === 'development';
 
     private static getApiKey(): string {
         return process.env.NEXT_PUBLIC_API_KEY || '';
@@ -21,7 +20,7 @@ export class ApiClient {
     private static async request<T>(
         url: string,
         options?: RequestInit,
-    ): TApiClientResult<T> {
+    ): TAsyncApiClientResult<T> {
         const { headers = ApiClient.getBaseHeaders(), ...rest } = options || {};
 
         const response = await fetch(`${ApiClient.baseUrl}${url}`, {
@@ -31,21 +30,16 @@ export class ApiClient {
         const result = await response.json();
 
         if (!response.ok) {
-            return {
-                data: null,
-                error: ApiClient.isDev
-                    ? result.message
-                    : 'Something went wrong',
-            };
+            throw new Error(result.message);
         }
 
-        return { data: result, error: null };
+        return result;
     }
 
     static async get<T>(
         url: string,
         options?: RequestInit,
-    ): TApiClientResult<T> {
+    ): TAsyncApiClientResult<T> {
         return ApiClient.request<T>(url, { ...options, method: 'GET' });
     }
 
@@ -53,7 +47,7 @@ export class ApiClient {
         url: string,
         data: Record<string, unknown>,
         options?: RequestInit,
-    ): TApiClientResult<T> {
+    ): TAsyncApiClientResult<T> {
         return ApiClient.request(url, {
             ...options,
             method: 'POST',
@@ -65,7 +59,7 @@ export class ApiClient {
         url: string,
         data: Record<string, unknown>,
         options?: RequestInit,
-    ): TApiClientResult<T> {
+    ): TAsyncApiClientResult<T> {
         return ApiClient.request(url, {
             ...options,
             method: 'PATCH',

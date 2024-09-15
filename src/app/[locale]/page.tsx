@@ -7,7 +7,9 @@ import EmptyState from 'components/empty-state/EmptyState';
 import PageError from 'components/page-error/PageError';
 import Typography from 'components/typography/Typography';
 import { MyBudgetApi } from 'models/myBudgetApi';
+import { TApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
+import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -30,14 +32,15 @@ export default async function HomePage({
     });
 
     const queryClient = getQueryClient();
+    let data: TApiClientResult<User> = null;
 
-    // TODO: Get rid of hardcoded user id
-    const { data, error } = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.USER, '68'],
-        queryFn: () => MyBudgetApi.getUser(68),
-    });
-
-    if (error) {
+    try {
+        // TODO: Get rid of hardcoded user id
+        data = await queryClient.fetchQuery({
+            queryKey: [EFetchingTags.USER, { id: 69 }],
+            queryFn: () => MyBudgetApi.getUser(69),
+        });
+    } catch (error) {
         return (
             <Container>
                 <PageError error={error} />

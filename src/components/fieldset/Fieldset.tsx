@@ -60,7 +60,7 @@ export default function Fieldset({
             </legend>
 
             <div className={styles.stack}>
-                <div>{children}</div>
+                <div className={styles['children-stack']}>{children}</div>
 
                 {!!actions && <ButtonGroup>{actions}</ButtonGroup>}
             </div>

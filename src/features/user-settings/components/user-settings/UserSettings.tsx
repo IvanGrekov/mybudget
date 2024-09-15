@@ -1,12 +1,13 @@
 'use client';
 
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
+
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editUser } from 'actions/editUser';
-import Button from 'components/button/Button';
-import Fieldset from 'components/fieldset/Fieldset';
-import TimeZoneField from 'features/user-settings/components/time-zone-field/TimeZoneField';
-import { useAsyncActionHandler } from 'hooks/useAsyncActionHandler';
+import UserSettingsForm from 'features/user-settings/components/user-settings-form/UserSettingsForm';
+import { IUserSettingsFormData } from 'features/user-settings/types/userSettingsFormData';
+import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
 
 interface IUserSettingsProps {
@@ -15,17 +16,13 @@ interface IUserSettingsProps {
     userNickname: User['nickname'];
 }
 
-interface IFormData {
-    timeZone: string;
-    nickname: string;
-}
-
 export default function UserSettings({
     userId,
     userTimeZone,
     userNickname,
 }: IUserSettingsProps): JSX.Element {
-    const methods = useForm<IFormData>({
+    const methods = useForm<IUserSettingsFormData>({
+        // TODO: Add validation (IG)
         defaultValues: {
             timeZone: userTimeZone,
             nickname: userNickname,
@@ -34,38 +31,28 @@ export default function UserSettings({
 
     const { formState, handleSubmit, reset, getValues } = methods;
 
-    const { isLoading, asyncActionHandler } = useAsyncActionHandler({
-        action: editUser,
-        onCompleted: () => reset(getValues()),
+    const queryClient = useQueryClient();
+    const { mutate, isPending } = useMutation({
+        mutationFn: (data: IUserSettingsFormData) => {
+            return editUser({ userId, ...data });
+        },
+        onSuccess: (data) => {
+            queryClient.setQueryData(
+                [EFetchingTags.USER, { id: userId }],
+                (oldData: User) => ({ ...oldData, ...data }),
+            );
+            reset(getValues());
+        },
     });
-
-    const onSubmit: SubmitHandler<IFormData> = ({ timeZone, nickname }) => {
-        asyncActionHandler({
-            userId,
-            timeZone,
-            nickname,
-        });
-    };
 
     return (
         <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Fieldset
-                    title="User Settings"
-                    actions={
-                        <>
-                            <Button
-                                text="Save"
-                                type="submit"
-                                isLoading={isLoading}
-                                isDisabled={!formState.isDirty}
-                            />
-                        </>
-                    }
-                >
-                    <TimeZoneField />
-                </Fieldset>
-            </form>
+            <UserSettingsForm
+                isLoading={isPending}
+                isDirty={formState.isDirty}
+                editUser={mutate}
+                handleSubmit={handleSubmit}
+            />
         </FormProvider>
     );
 }

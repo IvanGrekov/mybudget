@@ -32,6 +32,7 @@ export default function TextField({
     placeholderClassName,
     errorClassName,
     className,
+    nativeSelectRefCallback,
     onFocus,
     onBlur,
     onChange,
@@ -52,6 +53,7 @@ export default function TextField({
         onInputChange,
     } = useTextField({
         type,
+        nativeSelectRefCallback,
         onFocus,
         onBlur,
         onClick,
@@ -64,11 +66,13 @@ export default function TextField({
         <InputContainer
             error={error}
             disabled={disabled}
+            isFullWidth={isFullWidth}
             className={containerClassName}
             errorClassName={errorClassName}
         >
             <TextFieldWrapper
                 disabled={disabled}
+                isFullWidth={isFullWidth}
                 className={textFieldWrapperClassName}
             >
                 <input

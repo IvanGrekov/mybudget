@@ -37,6 +37,7 @@ export default function Select<T>({
     arrowButtonClassName,
     clearValueButtonClassName,
     className,
+    nativeSelectRefCallback,
     onFocus,
     onBlur,
     onChange,
@@ -67,6 +68,7 @@ export default function Select<T>({
     } = useSelectField<T>({
         value,
         shouldCloseOnChange,
+        nativeSelectRefCallback,
         getOptionValue,
         onFocus,
         onBlur,

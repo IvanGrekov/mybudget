@@ -1,4 +1,3 @@
-export type TApiClientResult<T> = Promise<{
-    data: null | T;
-    error: null | string;
-}>;
+export type TApiClientResult<T> = null | T;
+
+export type TAsyncApiClientResult<T> = Promise<TApiClientResult<T>>;

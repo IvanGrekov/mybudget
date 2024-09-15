@@ -23,6 +23,7 @@ export type TTextFieldProps = InputHTMLAttributes<HTMLInputElement> &
             | 'url'
             | 'search'
             | 'date';
+        nativeSelectRefCallback?: (ref: HTMLInputElement) => void;
         placeholderVariant?: TTextFieldPlaceholderProps['variant'];
         Icon?: (props: IIconProps) => JSX.Element;
         iconSize?: IIconProps['size'];

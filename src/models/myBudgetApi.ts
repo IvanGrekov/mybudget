@@ -1,5 +1,5 @@
 import { ApiClient } from 'models/apiClient';
-import { TApiClientResult } from 'types/apiClient.types';
+import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import { User, Account, TransactionCategory } from 'types/generated.types';
 import {
@@ -11,7 +11,7 @@ import {
 export class MyBudgetApi {
     private constructor() {}
 
-    static async getUser(id: number): TApiClientResult<User> {
+    static async getUser(id: number): TAsyncApiClientResult<User> {
         return ApiClient.get<User>(`/users/${id}`, {
             next: { tags: [`${EFetchingTags.USER}${id}`] },
         });
@@ -20,13 +20,13 @@ export class MyBudgetApi {
     static async editUser({
         userId,
         ...data
-    }: IEditUserArgs): TApiClientResult<User> {
+    }: IEditUserArgs): TAsyncApiClientResult<User> {
         return ApiClient.patch<User>(`/users/${userId}`, data);
     }
 
     static async getAccounts({
         userId,
-    }: IGetAccountsArgs): TApiClientResult<Account[]> {
+    }: IGetAccountsArgs): TAsyncApiClientResult<Account[]> {
         return ApiClient.get<Account[]>(`/accounts?userId=${userId}`, {
             next: { tags: [EFetchingTags.ACCOUNTS] },
         });
@@ -34,7 +34,9 @@ export class MyBudgetApi {
 
     static async getTransactionCategories({
         userId,
-    }: IGetTransactionCategoriesArgs): TApiClientResult<TransactionCategory[]> {
+    }: IGetTransactionCategoriesArgs): TAsyncApiClientResult<
+        TransactionCategory[]
+    > {
         return ApiClient.get<TransactionCategory[]>(
             `/transaction-categories?userId=${userId}`,
             {

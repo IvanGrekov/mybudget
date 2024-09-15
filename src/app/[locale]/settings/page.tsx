@@ -1,3 +1,4 @@
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
 import AppHeader from 'components/app-header/AppHeader';
@@ -6,9 +7,13 @@ import EmptyState from 'components/empty-state/EmptyState';
 import PageError from 'components/page-error/PageError';
 import UserSettings from 'features/user-settings/components/user-settings/UserSettings';
 import { MyBudgetApi } from 'models/myBudgetApi';
+import { TApiClientResult } from 'types/apiClient.types';
+import { EFetchingTags } from 'types/fetchingTags';
+import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
+import { getQueryClient } from 'utils/getQueryClient';
 
 const pageName = 'SettingsPage';
 
@@ -26,10 +31,16 @@ export default async function SettingsPage({
         pageName,
     });
 
-    // TODO: Get rid of hardcoded user id
-    const { data, error } = await MyBudgetApi.getUser(68);
+    const queryClient = getQueryClient();
+    let data: TApiClientResult<User> = null;
 
-    if (error) {
+    try {
+        // TODO: Get rid of hardcoded user id
+        data = await queryClient.fetchQuery({
+            queryKey: [EFetchingTags.USER, { id: 69 }],
+            queryFn: () => MyBudgetApi.getUser(69),
+        });
+    } catch (error) {
         return (
             <Container>
                 <PageError error={error} />
@@ -51,11 +62,13 @@ export default async function SettingsPage({
         <Container>
             <AppHeader title={title} />
 
-            <UserSettings
-                userId={id}
-                userTimeZone={timeZone}
-                userNickname={nickname}
-            />
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <UserSettings
+                    userId={id}
+                    userTimeZone={timeZone}
+                    userNickname={nickname}
+                />
+            </HydrationBoundary>
         </Container>
     );
 }

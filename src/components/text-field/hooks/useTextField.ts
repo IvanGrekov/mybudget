@@ -8,12 +8,17 @@ import {
 import { getInputHandlers } from 'components/text-field/utils/textField.utils';
 
 type TUseTextField = (
-    args: IInputHandlersArgs & {
-        type: TTextFieldProps['type'];
-    },
+    args: IInputHandlersArgs &
+        Pick<TTextFieldProps, 'nativeSelectRefCallback'> & {
+            type: TTextFieldProps['type'];
+        },
 ) => IUseTextFieldResult;
 
-export const useTextField: TUseTextField = ({ type, ...rest }) => {
+export const useTextField: TUseTextField = ({
+    type,
+    nativeSelectRefCallback,
+    ...rest
+}) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const id = useId();
@@ -21,6 +26,12 @@ export const useTextField: TUseTextField = ({ type, ...rest }) => {
     const [isInputFilled, setIsInputFilled] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     const [isValueVisible, setIsValueVisible] = useState(false);
+
+    useEffect(() => {
+        if (nativeSelectRefCallback && inputRef.current) {
+            nativeSelectRefCallback(inputRef.current);
+        }
+    }, [nativeSelectRefCallback]);
 
     useEffect(() => {
         setIsInputFilled(Boolean(inputRef.current?.value));
