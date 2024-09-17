@@ -4,7 +4,6 @@ import { Metadata } from 'next';
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
-import PageError from 'components/page-error/PageError';
 import UserSettings from 'features/user-settings/components/user-settings/UserSettings';
 import { MyBudgetApi } from 'models/myBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
@@ -34,19 +33,11 @@ export default async function SettingsPage({
     const queryClient = getQueryClient();
     let data: TApiClientResult<User> = null;
 
-    try {
-        // TODO: Get rid of hardcoded user id
-        data = await queryClient.fetchQuery({
-            queryKey: [EFetchingTags.USER, { id: 69 }],
-            queryFn: () => MyBudgetApi.getUser(69),
-        });
-    } catch (error) {
-        return (
-            <Container>
-                <PageError error={error} />
-            </Container>
-        );
-    }
+    // TODO: Get rid of hardcoded user id
+    data = await queryClient.fetchQuery({
+        queryKey: [EFetchingTags.USER, { id: 69 }],
+        queryFn: () => MyBudgetApi.getUser(69),
+    });
 
     if (!data) {
         return (

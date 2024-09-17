@@ -18,10 +18,13 @@ export default function SelectValuePreview<T>({
     getOptionLabel = defaultGetOptionLabel,
     onChange,
 }: TSelectValuePreview<T>): JSX.Element | null {
-    const isMultipleValue = Array.isArray(value);
-    const isEmptyValue = isMultipleValue ? value.length === 0 : !value;
+    if (!value) {
+        return null;
+    }
 
-    if (isEmptyValue) {
+    const isMultipleValue = Array.isArray(value);
+
+    if (isMultipleValue && !value.length) {
         return null;
     }
 

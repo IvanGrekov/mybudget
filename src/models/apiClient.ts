@@ -21,6 +21,9 @@ export class ApiClient {
         url: string,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
+        // eslint-disable-next-line no-console
+        console.log('process.env', process.env);
+
         const { headers = ApiClient.getBaseHeaders(), ...rest } = options || {};
 
         const response = await fetch(`${ApiClient.baseUrl}${url}`, {

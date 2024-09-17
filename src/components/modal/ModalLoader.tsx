@@ -1,5 +1,5 @@
 import styles from 'components/modal/Modal.module.scss';
-import { ILoaderProps } from 'components/modal/types';
+import { ILoaderProps } from 'components/modal/types/modalProps';
 import Skeleton from 'components/skeleton/Skeleton';
 
 export default function ModalLoader({

@@ -5,7 +5,6 @@ import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import Link from 'components/link/Link';
-import PageError from 'components/page-error/PageError';
 import Typography from 'components/typography/Typography';
 import { MyBudgetApi } from 'models/myBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
@@ -36,22 +35,14 @@ export default async function AccountsPage({
     const queryClient = getQueryClient();
     let data: TApiClientResult<Account[]> = null;
 
-    try {
-        // TODO: Get rid of hardcoded user id
-        data = await queryClient.fetchQuery({
-            queryKey: [EFetchingTags.ACCOUNTS],
-            queryFn: () =>
-                MyBudgetApi.getAccounts({
-                    userId: 69,
-                }),
-        });
-    } catch (error) {
-        return (
-            <Container>
-                <PageError error={error} />
-            </Container>
-        );
-    }
+    // TODO: Get rid of hardcoded user id
+    data = await queryClient.fetchQuery({
+        queryKey: [EFetchingTags.ACCOUNTS],
+        queryFn: () =>
+            MyBudgetApi.getAccounts({
+                userId: 69,
+            }),
+    });
 
     if (!data?.length) {
         return (
