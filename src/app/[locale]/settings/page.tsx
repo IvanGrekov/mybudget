@@ -47,7 +47,7 @@ export default async function SettingsPage({
         );
     }
 
-    const { id, timeZone, nickname } = data;
+    const { id, nickname, timeZone } = data;
 
     return (
         <Container>
@@ -56,8 +56,8 @@ export default async function SettingsPage({
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <UserSettings
                     userId={id}
-                    userTimeZone={timeZone}
                     userNickname={nickname}
+                    userTimeZone={timeZone}
                 />
             </HydrationBoundary>
         </Container>

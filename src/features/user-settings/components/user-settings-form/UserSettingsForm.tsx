@@ -1,4 +1,8 @@
-import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
+import {
+    FieldErrors,
+    SubmitHandler,
+    UseFormHandleSubmit,
+} from 'react-hook-form';
 
 import Button from 'components/button/Button';
 import Fieldset from 'components/fieldset/Fieldset';
@@ -9,6 +13,7 @@ import { IUserSettingsFormData } from 'features/user-settings/types/userSettings
 interface IUserSettingsFormProps {
     isLoading: boolean;
     isDirty: boolean;
+    errors: FieldErrors<IUserSettingsFormData>;
     editUser: (data: IUserSettingsFormData) => void;
     handleSubmit: UseFormHandleSubmit<IUserSettingsFormData, undefined>;
 }
@@ -16,9 +21,12 @@ interface IUserSettingsFormProps {
 export default function UserSettingsForm({
     isLoading,
     isDirty,
+    errors,
     editUser,
     handleSubmit,
 }: IUserSettingsFormProps): JSX.Element {
+    const isSubmitDisabled = !isDirty || Object.keys(errors).length > 0;
+
     const onSubmit: SubmitHandler<IUserSettingsFormData> = (data) => {
         editUser(data);
     };
@@ -33,7 +41,7 @@ export default function UserSettingsForm({
                             text="Save"
                             type="submit"
                             isLoading={isLoading}
-                            isDisabled={!isDirty}
+                            isDisabled={isSubmitDisabled}
                         />
                     </>
                 }

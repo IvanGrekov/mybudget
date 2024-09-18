@@ -6,30 +6,32 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editUser } from 'actions/editUser';
 import UserSettingsForm from 'features/user-settings/components/user-settings-form/UserSettingsForm';
+import { USER_SETTINGS_FORM_VALIDATION } from 'features/user-settings/constants/userSettingsForm.constants';
 import { IUserSettingsFormData } from 'features/user-settings/types/userSettingsFormData';
 import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
 
 interface IUserSettingsProps {
     userId: User['id'];
-    userTimeZone: User['timeZone'];
     userNickname: User['nickname'];
+    userTimeZone: User['timeZone'];
 }
 
 export default function UserSettings({
     userId,
-    userTimeZone,
     userNickname,
+    userTimeZone,
 }: IUserSettingsProps): JSX.Element {
     const methods = useForm<IUserSettingsFormData>({
-        // TODO: Add validation (IG)
         defaultValues: {
-            timeZone: userTimeZone,
             nickname: userNickname,
+            timeZone: userTimeZone,
         },
+        resolver: USER_SETTINGS_FORM_VALIDATION,
     });
 
     const { formState, handleSubmit, reset, getValues } = methods;
+    const { isDirty, errors } = formState;
 
     const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
@@ -49,7 +51,8 @@ export default function UserSettings({
         <FormProvider {...methods}>
             <UserSettingsForm
                 isLoading={isPending}
-                isDirty={formState.isDirty}
+                isDirty={isDirty}
+                errors={errors}
                 editUser={mutate}
                 handleSubmit={handleSubmit}
             />
