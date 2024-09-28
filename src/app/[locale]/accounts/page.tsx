@@ -40,7 +40,7 @@ export default async function AccountsPage({
         queryKey: [EFetchingTags.ACCOUNTS],
         queryFn: () =>
             MyBudgetApi.getAccounts({
-                userId: 69,
+                userId: 72,
             }),
     });
 

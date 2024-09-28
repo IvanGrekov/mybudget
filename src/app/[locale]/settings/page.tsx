@@ -35,8 +35,8 @@ export default async function SettingsPage({
 
     // TODO: Get rid of hardcoded user id
     data = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.USER, { id: 69 }],
-        queryFn: () => MyBudgetApi.getUser(69),
+        queryKey: [EFetchingTags.USER, { id: 72 }],
+        queryFn: () => MyBudgetApi.getUser(72),
     });
 
     if (!data) {

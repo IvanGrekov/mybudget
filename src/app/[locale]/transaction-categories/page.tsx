@@ -40,7 +40,7 @@ export default async function TransactionCategoriesPage({
         queryKey: [EFetchingTags.TRANSACTION_CATEGORIES],
         queryFn: () =>
             MyBudgetApi.getTransactionCategories({
-                userId: 69,
+                userId: 72,
             }),
     });
 
