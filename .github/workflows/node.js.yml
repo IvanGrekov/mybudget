@@ -1,0 +1,35 @@
+name: mybudgetweb CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.12.2]
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+    
+    - name: Create .env file
+      run: |
+        touch .env
+        echo NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }} >> .env
+        echo NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} >> .env
+        echo NEXT_PUBLIC_USER_ID=${{ secrets.NEXT_PUBLIC_USER_ID }} >> .env
+        echo PORT=${{ secrets.PORT }} >> .env
+
+    - name: Build and deploy
+      run: docker-compose up -d --build
