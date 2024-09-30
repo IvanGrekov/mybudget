@@ -15,6 +15,8 @@ import { getMockedUserId } from 'utils/getMockedUserId';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
+export const dynamic = 'force-dynamic';
+
 const pageName = 'HomePage';
 
 export async function generateMetadata({
