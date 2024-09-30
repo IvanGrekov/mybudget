@@ -11,6 +11,7 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getMockedUserId } from 'utils/getMockedUserId';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
@@ -35,8 +36,8 @@ export default async function SettingsPage({
 
     // TODO: Get rid of hardcoded user id
     data = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.USER, { id: 72 }],
-        queryFn: () => MyBudgetApi.getUser(72),
+        queryKey: [EFetchingTags.USER, { id: getMockedUserId() }],
+        queryFn: () => MyBudgetApi.getUser(getMockedUserId()),
     });
 
     if (!data) {
