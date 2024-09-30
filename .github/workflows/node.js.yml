@@ -30,6 +30,7 @@ jobs:
         echo NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} >> .env
         echo NEXT_PUBLIC_USER_ID=${{ secrets.NEXT_PUBLIC_USER_ID }} >> .env
         echo PORT=${{ secrets.PORT }} >> .env
+        echo VERCEL_UNDICI=${{ secrets.VERCEL_UNDICI }} >> .env
 
     - name: Build and deploy
       run: docker-compose up -d --build
