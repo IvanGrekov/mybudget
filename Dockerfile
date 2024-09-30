@@ -13,8 +13,5 @@ RUN yarn install
 # Copy the rest of the code necessary for your API
 COPY . .
 
-# Build the app
-RUN yarn build
-
 # Define the command to run your app using CMD which turns your container into an executable
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "dev" ]
