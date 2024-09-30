@@ -24,7 +24,7 @@ export class ApiClient {
         const { headers = ApiClient.getBaseHeaders(), ...rest } = options || {};
 
         // eslint-disable-next-line no-console
-        console.log(`${ApiClient.baseUrl}${url}`, `${ApiClient.baseUrl}${url}`);
+        console.log('${ApiClient.baseUrl}${url}', `${ApiClient.baseUrl}${url}`);
 
         const response = await fetch(`${ApiClient.baseUrl}${url}`, {
             headers,

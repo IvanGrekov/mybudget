@@ -1,5 +1,5 @@
 # Use an official Node runtime as a parent image
-FROM node:20.12.2
+FROM node:20.17.0
 
 # Set the working directory in the container to /mybudget
 WORKDIR /mybudget
