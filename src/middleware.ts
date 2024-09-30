@@ -13,6 +13,9 @@ import {
 export default async function middleware(
     request: NextRequest,
 ): Promise<NextResponse> {
+    // eslint-disable-next-line no-console
+    console.log('request.url', request.url);
+
     const handleIntlRouting = createIntlMiddleware({
         locales,
         defaultLocale,
