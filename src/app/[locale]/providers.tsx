@@ -1,5 +1,7 @@
 'use client';
 
+import { PropsWithChildren } from 'react';
+
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -11,9 +13,7 @@ import { getQueryClient } from 'utils/getQueryClient';
 
 export default function Providers({
     children,
-}: {
-    children: React.ReactNode;
-}): JSX.Element {
+}: PropsWithChildren): JSX.Element {
     return (
         <PageLoadingProvider>
             <QueryClientProvider client={getQueryClient()}>

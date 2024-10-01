@@ -4,4 +4,5 @@ export enum EAppRoutes {
     Accounts = '/accounts',
     TransactionCategories = '/transaction-categories',
     Settings = '/settings',
+    Auth = '/auth',
 }

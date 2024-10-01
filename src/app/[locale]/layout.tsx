@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 import cx from 'classnames';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
@@ -22,6 +22,8 @@ import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSw
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
 import { WebVitals } from 'components/web-vitals/WebVitals';
+import { URL_HEADER } from 'constants/headers';
+import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
@@ -42,7 +44,11 @@ export default async function RootLocaleLayout({
     params: { locale },
 }: TRootLocaleLayoutProps): Promise<JSX.Element> {
     const messages = await getMessages();
+
     const isDarkTheme = getIsDarkUserThemeFromCookie(cookies());
+
+    const pathname = headers().get(URL_HEADER);
+    const isAuth = pathname?.includes(EAppRoutes.Auth);
 
     return (
         <html lang={locale} className={isDarkTheme ? ETheme.DARK : undefined}>
@@ -51,24 +57,29 @@ export default async function RootLocaleLayout({
                     <WebVitals />
                     <NextIntlClientProvider messages={messages}>
                         <Providers>
-                            <Header isSidebarLayout={true} />
+                            <Header isSidebarLayout={!isAuth} />
 
                             <main
-                                className={cx(
-                                    styles['sidebar-layout'],
-                                    styles['header-spacing'],
-                                )}
+                                className={cx(styles['header-spacing'], {
+                                    [styles['sidebar-layout']]: !isAuth,
+                                })}
                             >
-                                <Sidebar
-                                    mobileSidebarHeader={
-                                        <PreferencesSwitchers />
-                                    }
-                                >
-                                    <div className={styles['sidebar-content']}>
-                                        <AppLogo />
-                                        <NavigationList />
-                                    </div>
-                                </Sidebar>
+                                {!isAuth && (
+                                    <Sidebar
+                                        mobileSidebarHeader={
+                                            <PreferencesSwitchers />
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                styles['sidebar-content']
+                                            }
+                                        >
+                                            <AppLogo />
+                                            <NavigationList />
+                                        </div>
+                                    </Sidebar>
+                                )}
 
                                 {children}
                             </main>

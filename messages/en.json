@@ -3,6 +3,9 @@
         "title": "My Budget",
         "description": "Track your incomes and costs"
     },
+    "Auth": {
+        "title": "Sign In / Sign Up"
+    },
     "HomePage": {
         "title": "Home"
     },
