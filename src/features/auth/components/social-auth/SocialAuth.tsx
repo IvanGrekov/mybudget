@@ -28,7 +28,10 @@ export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
                         }),
                     })
                         .then((response) => response.json())
-                        .then((data) => console.log(data));
+                        .then((data) => {
+                            // eslint-disable-next-line no-console
+                            console.log(data);
+                        });
                 }}
             />
         </GoogleOAuthProvider>
