@@ -8,8 +8,9 @@ interface ISocialAuthProps {
 
 export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
     const clientId = process.env.NEXT_PUBLIC_AUTH_CLIENT_ID;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    if (!clientId) {
+    if (!clientId || !apiUrl) {
         throw new Error('Missing auth data');
     }
 
@@ -18,7 +19,7 @@ export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
             <GoogleLogin
                 locale={locale}
                 onSuccess={(response) => {
-                    fetch('http://localhost:3001/auth/google', {
+                    fetch(`${apiUrl}/authentication/google`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
