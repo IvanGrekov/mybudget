@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react';
 
 import styles from 'components/text-field-label-text/TextFieldLabelText.module.scss';
 import Typography from 'components/typography/Typography';
+import { getCapitalizedString } from 'utils/string.utils';
 
 export interface ITextFieldLabelTextProps extends PropsWithChildren {
     text: string;
@@ -14,7 +15,7 @@ export default function TextFieldLabelText({
 }: ITextFieldLabelTextProps): JSX.Element {
     return (
         <Typography element="span" variant={variant} className={styles.text}>
-            {text}
+            {getCapitalizedString(text)}
         </Typography>
     );
 }

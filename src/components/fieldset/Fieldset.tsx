@@ -8,7 +8,7 @@ import Typography from 'components/typography/Typography';
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
 
 interface IFieldsetProps extends PropsWithChildren {
-    title: string;
+    title?: string;
     actions?: ReactNode;
     disabled?: boolean;
     titleVariant?: TTypographyVariants;
@@ -37,27 +37,29 @@ export default function Fieldset({
                 className,
             )}
         >
-            <legend
-                className={cx(
-                    styles.legend,
-                    { [styles['legend--border']]: withBorder },
-                    legendClassName,
-                )}
-            >
-                <Typography
-                    element="span"
-                    variant={titleVariant}
+            {title && (
+                <legend
                     className={cx(
-                        styles.title,
-                        {
-                            [styles['title--disabled']]: disabled,
-                        },
-                        titleClassName,
+                        styles.legend,
+                        { [styles['legend--border']]: withBorder },
+                        legendClassName,
                     )}
                 >
-                    {title}
-                </Typography>
-            </legend>
+                    <Typography
+                        element="span"
+                        variant={titleVariant}
+                        className={cx(
+                            styles.title,
+                            {
+                                [styles['title--disabled']]: disabled,
+                            },
+                            titleClassName,
+                        )}
+                    >
+                        {title}
+                    </Typography>
+                </legend>
+            )}
 
             <div className={styles.stack}>
                 <div className={styles['children-stack']}>{children}</div>

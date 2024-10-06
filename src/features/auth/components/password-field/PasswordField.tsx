@@ -1,24 +1,24 @@
 import { useFormContext, Controller } from 'react-hook-form';
 
 import TextField from 'components/text-field/TextField';
-import { USER_SETTINGS_FORM_FIELD_NAMES } from 'features/user-settings/constants/userSettingsForm.constants';
+import { SIGN_IN_FORM_FIELD_NAMES } from 'features/auth/constants/signInForm.constants';
 
-export default function NicknameField(): JSX.Element {
+export default function PasswordField(): JSX.Element {
     const { control } = useFormContext();
 
     return (
         <Controller
-            name={USER_SETTINGS_FORM_FIELD_NAMES.nickname}
+            name={SIGN_IN_FORM_FIELD_NAMES.password}
             control={control}
-            render={({ field, fieldState }) => {
+            render={({ field }) => {
                 const { ref, ...fieldProps } = field;
 
                 return (
                     <TextField
-                        label={USER_SETTINGS_FORM_FIELD_NAMES.nickname}
+                        label={SIGN_IN_FORM_FIELD_NAMES.password}
                         isFullWidth={true}
+                        type="password"
                         nativeSelectRefCallback={ref}
-                        error={fieldState.error?.message}
                         {...fieldProps}
                     />
                 );

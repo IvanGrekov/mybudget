@@ -1,0 +1,9 @@
+@import 'styles/variables.scss';
+
+.wrapper {
+    padding-top: 1rem;
+
+    iframe {
+        margin: 0 !important;
+    }
+}

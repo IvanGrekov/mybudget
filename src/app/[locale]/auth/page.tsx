@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
+import SignIn from 'features/auth/components/sign-in/SignIn';
 import SocialAuth from 'features/auth/components/social-auth/SocialAuth';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
@@ -28,6 +29,8 @@ export default async function AuthPage({
     return (
         <Container>
             <AppHeader title={title} />
+
+            <SignIn />
 
             <SocialAuth locale={locale} />
         </Container>

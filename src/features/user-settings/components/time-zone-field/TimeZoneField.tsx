@@ -17,6 +17,7 @@ export default function TimeZoneField(): JSX.Element {
 
                 return (
                     <Select
+                        label={USER_SETTINGS_FORM_FIELD_NAMES.timeZone}
                         options={OPTIONS}
                         shouldAddSearch={true}
                         isFullWidth={true}

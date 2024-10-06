@@ -36,14 +36,12 @@ export default function UserSettingsForm({
             <Fieldset
                 title="User Settings"
                 actions={
-                    <>
-                        <Button
-                            text="Save"
-                            type="submit"
-                            isLoading={isLoading}
-                            isDisabled={isSubmitDisabled}
-                        />
-                    </>
+                    <Button
+                        text="Save"
+                        type="submit"
+                        isLoading={isLoading}
+                        isDisabled={isSubmitDisabled}
+                    />
                 }
             >
                 <NicknameField />

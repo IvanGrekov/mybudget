@@ -44,15 +44,30 @@ export interface TransactionCategory {
     createdAt: string;
 }
 
+export interface ApiKey {
+    id: number;
+    key: string;
+    uuid: string;
+    apiKey: string;
+    user: User;
+}
+
 export interface User {
     /** Default currency for users accounts and transactions */
     defaultCurrency: UserDefaultCurrencyEnum;
     id: number;
+    googleId: string;
+    email: string;
+    password: string;
+    isTfaEnabled: boolean;
+    tfaSecret: string;
+    role: UserRoleEnum;
     accounts: Account[];
     transactionCategories: TransactionCategory[];
     transactions: Transaction[];
     nickname: string;
     timeZone: string;
+    apiKeys: ApiKey[];
     /** @format date-time */
     createdAt: string;
 }
@@ -76,14 +91,10 @@ export interface Account {
     createdAt: string;
 }
 
-export interface CreateUserDto {
-    nickname: string;
-    defaultCurrency: CreateUserDtoDefaultCurrencyEnum;
-    language: CreateUserDtoLanguageEnum;
-    timeZone: string;
-}
-
 export interface EditUserDto {
+    email?: string;
+    googleId?: string;
+    password?: string;
     nickname?: string;
     timeZone?: string;
 }
@@ -94,7 +105,11 @@ export interface EditUserCurrencyDto {
     isAccountsCurrencySoftUpdate?: boolean;
     isTransactionCategoriesCurrencySoftUpdate?: boolean;
     isTransactionCategoriesCurrencyForceUpdate?: boolean;
-    defaultCurrency: EditUserCurrencyDtoDefaultCurrencyEnum;
+    defaultCurrency?: EditUserCurrencyDtoDefaultCurrencyEnum;
+}
+
+export interface EditUserRoleDto {
+    role: EditUserRoleDtoRoleEnum;
 }
 
 export interface CreateAccountDto {
@@ -179,6 +194,48 @@ export interface EditTransactionDto {
     description?: string;
 }
 
+export interface CreateUserDto {
+    email: string;
+    googleId?: string;
+    password?: string;
+    nickname?: string;
+    defaultCurrency?: CreateUserDtoDefaultCurrencyEnum;
+    language?: CreateUserDtoLanguageEnum;
+    timeZone?: string;
+}
+
+export interface GeneratedTokensDto {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface SignInDto {
+    tfaToken?: string;
+    email: string;
+    password?: string;
+}
+
+export interface RefreshTokenDto {
+    refreshToken: string;
+}
+
+export interface GoogleIdTokenDto {
+    token: string;
+}
+
+export interface CreateApiKeyForUserDto {
+    userId: number;
+}
+
+export interface GeneratedApiKeyDto {
+    apiKey: string;
+    hashedKey: string;
+}
+
+export interface GetApiKeyByUserIdDto {
+    userId: number;
+}
+
 export enum TransactionTypeEnum {
     INCOME = 'INCOME',
     EXPENSE = 'EXPENSE',
@@ -189,15 +246,10 @@ export enum TransactionTypeEnum {
 export enum TransactionCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
 }
 
 export enum TransactionCategoryTypeEnum {
@@ -213,30 +265,25 @@ export enum TransactionCategoryStatusEnum {
 export enum TransactionCategoryCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
 }
 
 /** Default currency for users accounts and transactions */
 export enum UserDefaultCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
+}
+
+export enum UserRoleEnum {
+    Admin = 'admin',
+    User = 'user',
 }
 
 export enum AccountTypeEnum {
@@ -254,48 +301,24 @@ export enum AccountStatusEnum {
 export enum AccountCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
-}
-
-export enum CreateUserDtoDefaultCurrencyEnum {
-    USD = 'USD',
-    EUR = 'EUR',
-    UAH = 'UAH',
-    BGN = 'BGN',
-    CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
-    PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
-}
-
-export enum CreateUserDtoLanguageEnum {
-    EN = 'EN',
-    UA = 'UA',
 }
 
 export enum EditUserCurrencyDtoDefaultCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
+}
+
+export enum EditUserRoleDtoRoleEnum {
+    Admin = 'admin',
+    User = 'user',
 }
 
 export enum CreateAccountDtoTypeEnum {
@@ -308,15 +331,10 @@ export enum CreateAccountDtoTypeEnum {
 export enum CreateAccountDtoCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
 }
 
 export enum EditAccountDtoStatusEnum {
@@ -327,15 +345,10 @@ export enum EditAccountDtoStatusEnum {
 export enum EditAccountCurrencyDtoCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
 }
 
 export enum CreateTransactionCategoryDtoTypeEnum {
@@ -346,15 +359,10 @@ export enum CreateTransactionCategoryDtoTypeEnum {
 export enum CreateTransactionCategoryDtoCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
 }
 
 export enum EditTransactionCategoryDtoStatusEnum {
@@ -365,15 +373,10 @@ export enum EditTransactionCategoryDtoStatusEnum {
 export enum EditTransactionCategoryCurrencyDtoCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
+    GBP = 'GBP',
     UAH = 'UAH',
-    BGN = 'BGN',
     CZK = 'CZK',
-    DKK = 'DKK',
-    HUF = 'HUF',
-    NOK = 'NOK',
     PLN = 'PLN',
-    RON = 'RON',
-    SEK = 'SEK',
 }
 
 export enum CreateTransactionDtoTypeEnum {
@@ -381,6 +384,20 @@ export enum CreateTransactionDtoTypeEnum {
     EXPENSE = 'EXPENSE',
     TRANSFER = 'TRANSFER',
     BALANCE_CORRECTION = 'BALANCE_CORRECTION',
+}
+
+export enum CreateUserDtoDefaultCurrencyEnum {
+    USD = 'USD',
+    EUR = 'EUR',
+    GBP = 'GBP',
+    UAH = 'UAH',
+    CZK = 'CZK',
+    PLN = 'PLN',
+}
+
+export enum CreateUserDtoLanguageEnum {
+    EN = 'EN',
+    UA = 'UA',
 }
 
 export enum AccountsControllerFindAllParamsTypeEnum {
@@ -690,10 +707,10 @@ export class Api<
          * No description
          *
          * @tags users
-         * @name UsersControllerFindMe
+         * @name UsersControllerGetMe
          * @request GET:/users/me
          */
-        usersControllerFindMe: (params: RequestParams = {}) =>
+        usersControllerGetMe: (params: RequestParams = {}) =>
             this.request<User, any>({
                 path: `/users/me`,
                 method: 'GET',
@@ -735,30 +752,10 @@ export class Api<
          * No description
          *
          * @tags users
-         * @name UsersControllerCreate
-         * @request POST:/users
-         */
-        usersControllerCreate: (
-            data: CreateUserDto,
-            params: RequestParams = {},
-        ) =>
-            this.request<User, any>({
-                path: `/users`,
-                method: 'POST',
-                body: data,
-                type: ContentType.Json,
-                format: 'json',
-                ...params,
-            }),
-
-        /**
-         * No description
-         *
-         * @tags users
-         * @name UsersControllerFindOne
+         * @name UsersControllerGetOne
          * @request GET:/users/{id}
          */
-        usersControllerFindOne: (id: number, params: RequestParams = {}) =>
+        usersControllerGetOne: (id: number, params: RequestParams = {}) =>
             this.request<User, any>({
                 path: `/users/${id}`,
                 method: 'GET',
@@ -806,16 +803,37 @@ export class Api<
          * No description
          *
          * @tags users
-         * @name UsersControllerEditOnesCurrency
+         * @name UsersControllerEditCurrency
          * @request PATCH:/users/currency/{id}
          */
-        usersControllerEditOnesCurrency: (
+        usersControllerEditCurrency: (
             id: number,
             data: EditUserCurrencyDto,
             params: RequestParams = {},
         ) =>
             this.request<User, any>({
                 path: `/users/currency/${id}`,
+                method: 'PATCH',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags users
+         * @name UsersControllerEditRole
+         * @request PATCH:/users/role/{id}
+         */
+        usersControllerEditRole: (
+            id: number,
+            data: EditUserRoleDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<User, any>({
+                path: `/users/role/${id}`,
                 method: 'PATCH',
                 body: data,
                 type: ContentType.Json,
@@ -872,10 +890,10 @@ export class Api<
          * No description
          *
          * @tags accounts
-         * @name AccountsControllerFindOne
+         * @name AccountsControllerGetOne
          * @request GET:/accounts/{id}
          */
-        accountsControllerFindOne: (id: number, params: RequestParams = {}) =>
+        accountsControllerGetOne: (id: number, params: RequestParams = {}) =>
             this.request<Account, any>({
                 path: `/accounts/${id}`,
                 method: 'GET',
@@ -1012,10 +1030,10 @@ export class Api<
          * No description
          *
          * @tags transaction-categories
-         * @name TransactionCategoriesControllerFindOne
+         * @name TransactionCategoriesControllerGetOne
          * @request GET:/transaction-categories/{id}
          */
-        transactionCategoriesControllerFindOne: (
+        transactionCategoriesControllerGetOne: (
             id: number,
             params: RequestParams = {},
         ) =>
@@ -1172,10 +1190,10 @@ export class Api<
          * No description
          *
          * @tags transactions
-         * @name TransactionsControllerFindOne
+         * @name TransactionsControllerGetOne
          * @request GET:/transactions/{id}
          */
-        transactionsControllerFindOne: (
+        transactionsControllerGetOne: (
             id: number,
             params: RequestParams = {},
         ) =>
@@ -1221,6 +1239,142 @@ export class Api<
             this.request<Transaction, any>({
                 path: `/transactions/${id}`,
                 method: 'DELETE',
+                format: 'json',
+                ...params,
+            }),
+    };
+    authentication = {
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerSignUp
+         * @request POST:/authentication/sign-up
+         */
+        authenticationControllerSignUp: (
+            data: CreateUserDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<GeneratedTokensDto, any>({
+                path: `/authentication/sign-up`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerSignIn
+         * @request POST:/authentication/sign-in
+         */
+        authenticationControllerSignIn: (
+            data: SignInDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<GeneratedTokensDto, any>({
+                path: `/authentication/sign-in`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerRefreshToken
+         * @request POST:/authentication/refresh-token
+         */
+        authenticationControllerRefreshToken: (
+            data: RefreshTokenDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<GeneratedTokensDto, any>({
+                path: `/authentication/refresh-token`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerGoogleSignIn
+         * @request POST:/authentication/google
+         */
+        authenticationControllerGoogleSignIn: (
+            data: GoogleIdTokenDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<GeneratedTokensDto, any>({
+                path: `/authentication/google`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerEnableTfa
+         * @request POST:/authentication/enable-tfa
+         */
+        authenticationControllerEnableTfa: (params: RequestParams = {}) =>
+            this.request<void, any>({
+                path: `/authentication/enable-tfa`,
+                method: 'POST',
+                ...params,
+            }),
+    };
+    apiKeys = {
+        /**
+         * No description
+         *
+         * @tags api-keys
+         * @name ApiKeysControllerCreateForUser
+         * @request POST:/api-keys/createForUser
+         */
+        apiKeysControllerCreateForUser: (
+            data: CreateApiKeyForUserDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<GeneratedApiKeyDto, any>({
+                path: `/api-keys/createForUser`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags api-keys
+         * @name ApiKeysControllerGetByUserId
+         * @request GET:/api-keys/getByUserId
+         */
+        apiKeysControllerGetByUserId: (
+            data: GetApiKeyByUserIdDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<string, any>({
+                path: `/api-keys/getByUserId`,
+                method: 'GET',
+                body: data,
+                type: ContentType.Json,
                 format: 'json',
                 ...params,
             }),
