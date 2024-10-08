@@ -1,17 +1,49 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
+import { signIn } from 'actions/signIn';
+import { usePageLoading } from 'contexts/PageLoadingContext';
+import { SIGN_IN_FORM_VALIDATION } from 'features/auth/components/sign-in/constants/signInFormValidation';
 import SignInForm from 'features/auth/components/sign-in-form/SignInForm';
-import { SignInDto } from 'types/generated.types';
+import { ISignInFormValues } from 'features/auth/types/signInFormValues';
 
 export default function SignIn(): JSX.Element {
-    const methods = useForm<SignInDto>();
+    const { setIsLoading } = usePageLoading();
+    const [error, setError] = useState<string | null>(null);
 
-    const { formState, handleSubmit } = methods;
+    const methods = useForm<ISignInFormValues>({
+        defaultValues: {
+            email: '',
+            password: '',
+            tfaToken: '',
+            isVerificationRequired: false,
+        },
+        resolver: SIGN_IN_FORM_VALIDATION,
+    });
 
-    const signIn = (data: SignInDto): void => {
-        console.log(data);
+    const { formState, setValue, handleSubmit, watch } = methods;
+
+    const handler = async ({
+        email,
+        password,
+        tfaToken,
+    }: ISignInFormValues): Promise<void> => {
+        setError(null);
+        setIsLoading(true);
+
+        const result = await signIn({ email, password, tfaToken }).finally(() =>
+            setIsLoading(false),
+        );
+
+        if (result?.shouldPassTfa) {
+            setValue('isVerificationRequired', true);
+        }
+
+        if (result?.error) {
+            setError(result.error);
+        }
     };
 
     return (
@@ -19,7 +51,9 @@ export default function SignIn(): JSX.Element {
             <SignInForm
                 isLoading={false}
                 isDirty={formState.isDirty}
-                signIn={signIn}
+                shouldShowVerificationCode={watch('isVerificationRequired')}
+                error={error}
+                signIn={handler}
                 handleSubmit={handleSubmit}
             />
         </FormProvider>

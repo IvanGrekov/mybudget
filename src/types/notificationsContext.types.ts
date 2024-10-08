@@ -6,6 +6,11 @@ export enum ENotificationType {
     INFO = 'info',
 }
 
+export enum ENotificationSize {
+    REGULAR = 'regular',
+    SMALL = 'small',
+}
+
 export enum ENotificationPriority {
     HIGHEST = 1,
     HIGH = 2,
@@ -18,6 +23,9 @@ export interface INotification {
     message: string;
     type: ENotificationType;
     priority: ENotificationPriority;
+    fullWidth?: boolean;
+    className?: string;
+    size?: ENotificationSize;
 }
 
 export type TNotifications = Array<INotification>;

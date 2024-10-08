@@ -2,13 +2,17 @@
 
 import { useReportWebVitals } from 'next/web-vitals';
 
-const LOGGABLE_METRICS = ['FCP', 'LCP', 'CLS', 'FID', 'TTFB'];
+import { setLocalStorageValue } from 'utils/localStorage.utils';
+
+const LOGABLE_METRICS = ['FCP', 'LCP', 'CLS', 'FID', 'TTFB'];
 
 export function WebVitals(): null {
     useReportWebVitals((metric) => {
-        if (LOGGABLE_METRICS.includes(metric.name)) {
-            // eslint-disable-next-line no-console
-            console.log(metric);
+        if (LOGABLE_METRICS.includes(metric.name)) {
+            setLocalStorageValue({
+                key: metric.name,
+                value: metric,
+            });
         }
     });
 

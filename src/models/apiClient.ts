@@ -1,10 +1,10 @@
 import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 
 export class ApiClient {
     private constructor() {}
 
-    private static baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    static baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
     private static getApiKey(): string {
         return process.env.NEXT_PUBLIC_API_KEY || '';
@@ -30,7 +30,7 @@ export class ApiClient {
         const result = await response.json();
 
         if (!response.ok) {
-            throw new Error(result.message);
+            throw new Error(getFailedResponseMessage(result));
         }
 
         return result;
