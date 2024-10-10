@@ -10,6 +10,7 @@ import OpenMobileSidebarButton from 'components/open-mobile-sidebar-button/OpenM
 import PageLoadingIndicator from 'components/page-loading-indicator/PageLoadingIndicator';
 import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSwitchers';
 import Show from 'components/show/Show';
+import SignOutButton from 'components/sign-out-button/SignOutButton';
 import { useIsHeaderFixed } from 'hooks/useIsHeaderFixed';
 
 interface IHeaderProps extends PropsWithChildren {
@@ -42,9 +43,13 @@ export default function Header({
                 <OpenMobileSidebarButton />
 
                 <div className={styles.content}>
-                    <Show when={shouldShowPreferencesSwitchers}>
-                        <PreferencesSwitchers tooltipPosition="bottom-left" />
-                    </Show>
+                    <div className={styles['actions']}>
+                        <Show when={shouldShowPreferencesSwitchers}>
+                            <PreferencesSwitchers tooltipPosition="bottom-left" />
+                        </Show>
+
+                        <SignOutButton />
+                    </div>
 
                     {children}
                 </div>

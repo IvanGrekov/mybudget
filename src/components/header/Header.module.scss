@@ -26,6 +26,11 @@
     right: 0;
 }
 
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
 .content-wrapper,
 .content {
     display: flex;

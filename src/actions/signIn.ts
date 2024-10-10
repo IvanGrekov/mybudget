@@ -1,7 +1,12 @@
 'use server';
 
+import { redirect } from 'next/navigation';
+
+import { setCookie } from 'actions/setCookie';
+import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
 import { ApiClient } from 'models/apiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { EAppRoutes } from 'types/appRoutes';
 import { SignInDto } from 'types/generated.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 
@@ -21,9 +26,13 @@ export async function signIn(
     const isOkStatus = result.ok;
 
     if (isOkStatus) {
-        console.log('signIn success', data);
+        await setCookie({
+            key: SESSION_COOKIE_NAME,
+            value: JSON.stringify(data),
+            httpOnly: true,
+        });
 
-        return null;
+        return redirect(EAppRoutes.Root);
     }
 
     const isUnauthorized = result.statusText.toLowerCase() === 'unauthorized';
