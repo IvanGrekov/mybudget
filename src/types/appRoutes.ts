@@ -5,4 +5,5 @@ export enum EAppRoutes {
     TransactionCategories = '/transaction-categories',
     Settings = '/settings',
     Auth = '/auth',
+    SignUp = '/sign-up',
 }

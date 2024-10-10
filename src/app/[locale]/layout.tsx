@@ -23,10 +23,10 @@ import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
 import { WebVitals } from 'components/web-vitals/WebVitals';
 import { URL_HEADER } from 'constants/headers';
-import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
+import { getIsAuthPage } from 'utils/getIsAuthPage';
 import { getIsDarkUserThemeFromCookie } from 'utils/userThemeFromCookie.utils';
 
 const INTER = Inter({ subsets: ['latin'] });
@@ -47,8 +47,7 @@ export default async function RootLocaleLayout({
 
     const isDarkTheme = getIsDarkUserThemeFromCookie(cookies());
 
-    const pathname = headers().get(URL_HEADER);
-    const isAuth = pathname?.includes(EAppRoutes.Auth);
+    const isAuthPage = getIsAuthPage(headers().get(URL_HEADER));
 
     return (
         <html lang={locale} className={isDarkTheme ? ETheme.DARK : undefined}>
@@ -57,14 +56,14 @@ export default async function RootLocaleLayout({
                     <WebVitals />
                     <NextIntlClientProvider messages={messages}>
                         <Providers>
-                            <Header isSidebarLayout={!isAuth} />
+                            <Header isSidebarLayout={!isAuthPage} />
 
                             <main
                                 className={cx(styles['header-spacing'], {
-                                    [styles['sidebar-layout']]: !isAuth,
+                                    [styles['sidebar-layout']]: !isAuthPage,
                                 })}
                             >
-                                {!isAuth && (
+                                {!isAuthPage && (
                                     <Sidebar
                                         mobileSidebarHeader={
                                             <PreferencesSwitchers />

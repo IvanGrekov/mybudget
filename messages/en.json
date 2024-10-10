@@ -3,8 +3,11 @@
         "title": "My Budget",
         "description": "Track your incomes and costs"
     },
-    "Auth": {
-        "title": "Sign In / Sign Up"
+    "Sign In": {
+        "title": "Sign In"
+    },
+    "Sign Up": {
+        "title": "Sign Up"
     },
     "HomePage": {
         "title": "Home"

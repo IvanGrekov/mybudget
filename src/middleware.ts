@@ -10,6 +10,9 @@ import {
     LOCALES as locales,
     PRIMARY_LOCALE as defaultLocale,
 } from 'constants/locales';
+import { EAppRoutes } from 'types/appRoutes';
+import { getIsAuthPage } from 'utils/getIsAuthPage';
+import { getIsAuthenticated } from 'utils/getIsAuthenticated';
 
 export default async function middleware(
     request: NextRequest,
@@ -28,6 +31,16 @@ export default async function middleware(
     }
 
     response.headers.set(URL_HEADER, url);
+
+    const isAuthPage = getIsAuthPage(url);
+    const isAuthenticated = getIsAuthenticated(cookies);
+    if (!isAuthenticated && !isAuthPage) {
+        return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
+    }
+
+    if (isAuthenticated && isAuthPage) {
+        return NextResponse.redirect(new URL(EAppRoutes.Root, url));
+    }
 
     return response;
 }

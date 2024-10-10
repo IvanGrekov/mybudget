@@ -1,5 +1,5 @@
 import LoadingScreen from 'components/loading-screen/LoadingScreen';
 
-export default function SignInLoading(): JSX.Element {
+export default function SignUpLoading(): JSX.Element {
     return <LoadingScreen />;
 }

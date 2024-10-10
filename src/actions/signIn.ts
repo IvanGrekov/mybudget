@@ -21,6 +21,8 @@ export async function signIn(
     const isOkStatus = result.ok;
 
     if (isOkStatus) {
+        console.log('signIn success', data);
+
         return null;
     }
 

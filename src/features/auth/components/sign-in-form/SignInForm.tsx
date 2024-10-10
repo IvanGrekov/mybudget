@@ -3,11 +3,13 @@ import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
 import Button from 'components/button/Button';
 import ErrorMessage from 'components/error-message/ErrorMessage';
 import Fieldset from 'components/fieldset/Fieldset';
+import Link from 'components/link/Link';
 import Show from 'components/show/Show';
 import EmailField from 'features/auth/components/email-field/EmailField';
 import PasswordField from 'features/auth/components/password-field/PasswordField';
 import styles from 'features/auth/components/sign-in-form/SignInForm.module.scss';
 import VerificationField from 'features/auth/components/verification-field/VerificationField';
+import { EAppRoutes } from 'types/appRoutes';
 import { SignInDto } from 'types/generated.types';
 
 interface ISignInFormProps {
@@ -35,12 +37,19 @@ export default function SignInForm({
         <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
             <Fieldset
                 actions={
-                    <Button
-                        text="Sign In"
-                        type="submit"
-                        isLoading={isLoading}
-                        isDisabled={!isDirty}
-                    />
+                    <>
+                        <Link
+                            href={`${EAppRoutes.Auth}${EAppRoutes.SignUp}`}
+                            text="Sign Up"
+                        />
+                        {/* <Button text="Register Now" isLoading={isLoading} /> */}
+                        <Button
+                            text="Sign In"
+                            type="submit"
+                            isLoading={isLoading}
+                            isDisabled={!isDirty}
+                        />
+                    </>
                 }
             >
                 <ErrorMessage
