@@ -27,12 +27,14 @@ export const getMaxLengthValidationWarning: TGetLengthValidationWarning = (
     return `${formattedFieldName} cannot exceed ${maxLength} characters`;
 };
 
-type TGetRequiredValidationWarning = (fieldName: string) => string;
-
-export const getRequiredValidationWarning: TGetRequiredValidationWarning = (
-    fieldName,
-) => {
+export const getRequiredValidationWarning = (fieldName: string): string => {
     const formattedFieldName = getCapitalizedString(fieldName);
 
     return `${formattedFieldName} is required`;
+};
+
+export const getMatchValidationWarning = (fieldName: string): string => {
+    const formattedFieldName = getCapitalizedString(fieldName);
+
+    return `Incorrect ${formattedFieldName}`;
 };

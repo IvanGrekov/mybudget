@@ -1,9 +1,9 @@
 import { useFormContext, Controller } from 'react-hook-form';
 
 import Select from 'components/select/Select';
-import { OPTIONS } from 'features/user-settings/components/time-zone-field/constants/options';
-import { getTimeZoneFieldLabel } from 'features/user-settings/components/time-zone-field/utils/getTimeZoneFieldLabel';
+import { OPTIONS } from 'constants/timeZoneOptions';
 import { USER_SETTINGS_FORM_FIELD_NAMES } from 'features/user-settings/constants/userSettingsForm.constants';
+import { getTimeZoneFieldLabel } from 'utils/getTimeZoneFieldLabel';
 
 export default function TimeZoneField(): JSX.Element {
     const { control } = useFormContext();

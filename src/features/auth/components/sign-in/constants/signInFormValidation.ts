@@ -6,12 +6,16 @@ import {
     TFA_TOKEN_LABEL,
 } from 'features/auth/constants/signInForm.constants';
 import { ISignInFormValues } from 'features/auth/types/signInFormValues';
-import { getRequiredValidationWarning } from 'utils/formValidationWarning.utils';
+import {
+    getRequiredValidationWarning,
+    getMatchValidationWarning,
+} from 'utils/formValidationWarning.utils';
 
 export const SIGN_IN_FORM_VALIDATION = yupResolver<ISignInFormValues>(
     yup.object().shape({
         email: yup
             .string()
+            .email(getMatchValidationWarning(SIGN_IN_FORM_FIELD_NAMES.email))
             .required(
                 getRequiredValidationWarning(SIGN_IN_FORM_FIELD_NAMES.email),
             ),

@@ -6,4 +6,5 @@ export enum EAppRoutes {
     Settings = '/settings',
     Auth = '/auth',
     SignUp = '/sign-up',
+    ResetPassword = '/reset-password',
 }

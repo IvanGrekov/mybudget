@@ -47,6 +47,8 @@ export default function UserSettings({
         },
     });
 
+    // TODO: Add TFA settings (IG)
+
     return (
         <FormProvider {...methods}>
             <UserSettingsForm

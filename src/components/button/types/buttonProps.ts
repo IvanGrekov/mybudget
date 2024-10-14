@@ -24,6 +24,7 @@ export interface IButtonProps extends IBaseButtonProps {
     style?: CSSProperties;
     className?: string;
     color?: 'red' | 'green' | 'primary';
+    href?: string;
 }
 
 export interface IIconButtonProps extends IBaseButtonProps {

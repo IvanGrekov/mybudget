@@ -4,12 +4,13 @@ import { Metadata } from 'next';
 
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
-import SignUp from 'features/auth/components/sign-up/SignUp';
+import Link from 'components/link/Link';
+import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 
-const pageName = 'Sign Up';
+const pageName = 'Reset Password';
 
 export async function generateMetadata({
     params: { locale },
@@ -17,7 +18,7 @@ export async function generateMetadata({
     return getAppPageTitle({ locale, pageName });
 }
 
-export default async function SignUpPage({
+export default async function ResetPasswordPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
     const title = await getPageHeaderTitle({
@@ -29,7 +30,7 @@ export default async function SignUpPage({
         <Container>
             <AppHeader title={title} />
 
-            <SignUp />
+            <Link href={`${EAppRoutes.Auth}`} text="Cancel" />
         </Container>
     );
 }

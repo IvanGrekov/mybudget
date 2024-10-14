@@ -1,15 +1,14 @@
 import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
 
-import Button from 'components/button/Button';
 import ErrorMessage from 'components/error-message/ErrorMessage';
 import Fieldset from 'components/fieldset/Fieldset';
-import Link from 'components/link/Link';
 import Show from 'components/show/Show';
 import EmailField from 'features/auth/components/email-field/EmailField';
 import PasswordField from 'features/auth/components/password-field/PasswordField';
-import styles from 'features/auth/components/sign-in-form/SignInForm.module.scss';
+import SignInPageActions from 'features/auth/components/sign-in-page-actions/SignInPageActions';
 import VerificationField from 'features/auth/components/verification-field/VerificationField';
-import { EAppRoutes } from 'types/appRoutes';
+import { SIGN_IN_FORM_FIELD_NAMES } from 'features/auth/constants/signInForm.constants';
+import styles from 'features/auth/styles/AuthForm.module.scss';
 import { SignInDto } from 'types/generated.types';
 
 interface ISignInFormProps {
@@ -37,27 +36,26 @@ export default function SignInForm({
         <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
             <Fieldset
                 actions={
-                    <>
-                        <Link
-                            href={`${EAppRoutes.Auth}${EAppRoutes.SignUp}`}
-                            text="Sign Up"
-                        />
-                        {/* <Button text="Register Now" isLoading={isLoading} /> */}
-                        <Button
-                            text="Sign In"
-                            type="submit"
-                            isLoading={isLoading}
-                            isDisabled={!isDirty}
-                        />
-                    </>
+                    <SignInPageActions
+                        isLoading={isLoading}
+                        isSubmitDisabled={!isDirty}
+                    />
                 }
             >
                 <ErrorMessage
                     message={error}
                     className={styles['error-message']}
                 />
-                <EmailField disabled={shouldShowVerificationCode} />
-                <PasswordField disabled={shouldShowVerificationCode} />
+                <EmailField
+                    name={SIGN_IN_FORM_FIELD_NAMES.email}
+                    label={SIGN_IN_FORM_FIELD_NAMES.email}
+                    disabled={shouldShowVerificationCode}
+                />
+                <PasswordField
+                    name={SIGN_IN_FORM_FIELD_NAMES.password}
+                    label={SIGN_IN_FORM_FIELD_NAMES.password}
+                    disabled={shouldShowVerificationCode}
+                />
                 <Show when={!!shouldShowVerificationCode}>
                     <VerificationField />
                 </Show>

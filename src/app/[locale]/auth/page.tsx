@@ -2,10 +2,13 @@ import React from 'react';
 
 import { Metadata } from 'next';
 
+import styles from 'app/[locale]/auth/SignInPage.module.scss';
 import AppHeader from 'components/app-header/AppHeader';
+import Button from 'components/button/Button';
 import Container from 'components/container/Container';
 import SignIn from 'features/auth/components/sign-in/SignIn';
 import SocialAuth from 'features/auth/components/social-auth/SocialAuth';
+import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -18,7 +21,7 @@ export async function generateMetadata({
     return getAppPageTitle({ locale, pageName });
 }
 
-export default async function AuthPage({
+export default async function SignInPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
     const title = await getPageHeaderTitle({
@@ -32,7 +35,14 @@ export default async function AuthPage({
 
             <SignIn />
 
-            <SocialAuth locale={locale} />
+            <div className={styles.actions}>
+                <SocialAuth locale={locale} />
+
+                <Button
+                    text="Forgot Password?"
+                    href={`${EAppRoutes.Auth}${EAppRoutes.ResetPassword}`}
+                />
+            </div>
         </Container>
     );
 }
