@@ -37,7 +37,7 @@ export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
                 [yup.ref(SIGN_UP_FORM_FIELD_LABELS.password)],
                 'Passwords must match',
             ),
-        nickname: yup.string(),
+        nickname: yup.string().transform((value) => value || undefined),
         defaultCurrency: yup
             .string()
             .oneOf(Object.values(CreateUserDtoDefaultCurrencyEnum))

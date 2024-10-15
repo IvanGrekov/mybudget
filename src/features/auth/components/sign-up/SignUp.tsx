@@ -44,7 +44,7 @@ export default function SignUp(): JSX.Element {
             password,
             defaultCurrency,
             timeZone,
-            nickname: nickname ? nickname : undefined,
+            nickname,
         }).finally(() => setIsLoading(false));
 
         if (result?.error) {
