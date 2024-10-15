@@ -2,11 +2,9 @@ import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
 
 import ErrorMessage from 'components/error-message/ErrorMessage';
 import Fieldset from 'components/fieldset/Fieldset';
+import FormTextField from 'components/form-fields/FormTextField';
 import Show from 'components/show/Show';
-import EmailField from 'features/auth/components/email-field/EmailField';
-import PasswordField from 'features/auth/components/password-field/PasswordField';
 import SignInPageActions from 'features/auth/components/sign-in-page-actions/SignInPageActions';
-import VerificationField from 'features/auth/components/verification-field/VerificationField';
 import { SIGN_IN_FORM_FIELD_NAMES } from 'features/auth/constants/signInForm.constants';
 import styles from 'features/auth/styles/AuthForm.module.scss';
 import { SignInDto } from 'types/generated.types';
@@ -46,18 +44,29 @@ export default function SignInForm({
                     message={error}
                     className={styles['error-message']}
                 />
-                <EmailField
+                <FormTextField
+                    type="email"
                     name={SIGN_IN_FORM_FIELD_NAMES.email}
                     label={SIGN_IN_FORM_FIELD_NAMES.email}
                     disabled={shouldShowVerificationCode}
+                    required={true}
                 />
-                <PasswordField
+                <FormTextField
+                    type="password"
                     name={SIGN_IN_FORM_FIELD_NAMES.password}
                     label={SIGN_IN_FORM_FIELD_NAMES.password}
                     disabled={shouldShowVerificationCode}
+                    required={true}
                 />
                 <Show when={!!shouldShowVerificationCode}>
-                    <VerificationField />
+                    <FormTextField
+                        type="number"
+                        maxLength={6}
+                        name={SIGN_IN_FORM_FIELD_NAMES.tfaToken}
+                        label={SIGN_IN_FORM_FIELD_NAMES.tfaToken}
+                        disabled={shouldShowVerificationCode}
+                        required={true}
+                    />
                 </Show>
             </Fieldset>
         </form>

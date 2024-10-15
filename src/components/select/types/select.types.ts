@@ -14,6 +14,7 @@ export type TSelectBaseProps = TTextFieldBaseProps & {
     required?: boolean;
     disabled?: boolean;
     placeholder?: string;
+    isClearable?: boolean;
     arrowButtonClassName?: string;
     clearValueButtonClassName?: string;
     className?: string;

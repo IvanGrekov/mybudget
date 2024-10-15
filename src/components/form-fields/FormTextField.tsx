@@ -1,18 +1,23 @@
-import { useFormContext, Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import TextField from 'components/text-field/TextField';
+import { TTextFieldProps } from 'components/text-field/types/textField.types';
 
-interface IPasswordFieldProps {
+type TFormTextFieldProps = Pick<
+    TTextFieldProps,
+    'label' | 'type' | 'disabled' | 'required' | 'maxLength'
+> & {
     name: string;
-    label: string;
-    disabled?: boolean;
-}
+};
 
-export default function PasswordField({
+export default function FormTextField({
     name,
     label,
+    type,
     disabled,
-}: IPasswordFieldProps): JSX.Element {
+    required,
+    maxLength,
+}: TFormTextFieldProps): JSX.Element {
     const { control } = useFormContext();
 
     return (
@@ -26,10 +31,12 @@ export default function PasswordField({
                     <TextField
                         label={label}
                         isFullWidth={true}
-                        type="password"
+                        type={type}
                         disabled={disabled}
-                        error={fieldState.error?.message}
+                        required={required}
+                        maxLength={maxLength}
                         nativeSelectRefCallback={ref}
+                        error={fieldState.error?.message}
                         {...fieldProps}
                     />
                 );

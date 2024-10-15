@@ -19,10 +19,10 @@ export const defaultGetOptionValue = <T>(option: T): string => {
 };
 
 export const getDefaultGetIsOptionSelected = <T>(
-    getOptionValue: TGetOptionValue<T>,
+    getOptionValue?: TGetOptionValue<T>,
 ): TGetIsOptionSelected<T> => {
     return ({ option, value }) => {
-        const optionValue = getOptionValue(option);
+        const optionValue = getOptionValue ? getOptionValue(option) : option;
 
         const isArray = Array.isArray(value);
 

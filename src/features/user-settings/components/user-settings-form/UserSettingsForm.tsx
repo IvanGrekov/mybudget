@@ -6,8 +6,12 @@ import {
 
 import Button from 'components/button/Button';
 import Fieldset from 'components/fieldset/Fieldset';
-import NicknameField from 'features/user-settings/components/nickname-field/NicknameField';
-import TimeZoneField from 'features/user-settings/components/time-zone-field/TimeZoneField';
+import FormTextField from 'components/form-fields/FormTextField';
+import TimeZoneField from 'components/time-zone-field/TimeZoneField';
+import {
+    USER_SETTINGS_FORM_FIELD_NAMES,
+    USER_SETTINGS_FORM_FIELD_LABELS,
+} from 'features/user-settings/constants/userSettingsForm.constants';
 import { IUserSettingsFormData } from 'features/user-settings/types/userSettingsFormData';
 
 interface IUserSettingsFormProps {
@@ -44,8 +48,15 @@ export default function UserSettingsForm({
                     />
                 }
             >
-                <NicknameField />
-                <TimeZoneField />
+                <FormTextField
+                    name={USER_SETTINGS_FORM_FIELD_NAMES.nickname}
+                    label={USER_SETTINGS_FORM_FIELD_LABELS.nickname}
+                    required={true}
+                />
+                <TimeZoneField
+                    name={USER_SETTINGS_FORM_FIELD_NAMES.timeZone}
+                    label={USER_SETTINGS_FORM_FIELD_LABELS.timeZone}
+                />
             </Fieldset>
         </form>
     );

@@ -29,6 +29,7 @@ export default function Select<T>({
     shouldCloseOnChange = multiple ? false : true,
     shouldAddSearch,
     isFullWidth,
+    isClearable = true,
     containerClassName,
     labelClassName,
     placeholderClassName,
@@ -149,7 +150,7 @@ export default function Select<T>({
                                 onClick={onArrowButtonClick}
                             />
 
-                            {isFieldFilled && !disabled && (
+                            {isFieldFilled && !disabled && isClearable && (
                                 <ClearValueButton
                                     onChange={onChange}
                                     clearValueButtonClassName={

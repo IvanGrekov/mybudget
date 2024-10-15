@@ -33,7 +33,7 @@ export default function OptionItem<T>({
     getIsOptionHidden,
     getIsOptionDisabled,
     getOptionLabel = defaultGetOptionLabel,
-    getIsOptionSelected = getDefaultGetIsOptionSelected(getOptionLabel),
+    getIsOptionSelected = getDefaultGetIsOptionSelected(),
 }: TOptionItemProps<T>): JSX.Element | null {
     const isHidden = getIsOptionHidden?.(option);
 

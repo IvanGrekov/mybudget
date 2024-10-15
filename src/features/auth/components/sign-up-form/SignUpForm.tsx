@@ -2,8 +2,9 @@ import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
 
 import ErrorMessage from 'components/error-message/ErrorMessage';
 import Fieldset from 'components/fieldset/Fieldset';
-import EmailField from 'features/auth/components/email-field/EmailField';
-import PasswordField from 'features/auth/components/password-field/PasswordField';
+import FormTextField from 'components/form-fields/FormTextField';
+import TimeZoneField from 'components/time-zone-field/TimeZoneField';
+import CurrencyField from 'features/auth/components/currency-field/CurrencyField';
 import SignUpPageActions from 'features/auth/components/sign-up-page-actions/SignUpPageActions';
 import {
     SIGN_UP_FORM_FIELD_NAMES,
@@ -45,17 +46,35 @@ export default function SignUpForm({
                     message={error}
                     className={styles['error-message']}
                 />
-                <EmailField
+                <FormTextField
+                    type="email"
                     name={SIGN_UP_FORM_FIELD_NAMES.email}
                     label={SIGN_UP_FORM_FIELD_LABELS.email}
+                    required={true}
                 />
-                <PasswordField
+                <FormTextField
+                    type="password"
                     name={SIGN_UP_FORM_FIELD_NAMES.password}
                     label={SIGN_UP_FORM_FIELD_LABELS.password}
+                    required={true}
                 />
-                <PasswordField
+                <FormTextField
+                    type="password"
                     name={SIGN_UP_FORM_FIELD_NAMES.confirmPassword}
                     label={SIGN_UP_FORM_FIELD_LABELS.confirmPassword}
+                    required={true}
+                />
+                <CurrencyField
+                    name={SIGN_UP_FORM_FIELD_NAMES.defaultCurrency}
+                    label={SIGN_UP_FORM_FIELD_LABELS.defaultCurrency}
+                />
+                <TimeZoneField
+                    name={SIGN_UP_FORM_FIELD_NAMES.timeZone}
+                    label={SIGN_UP_FORM_FIELD_LABELS.timeZone}
+                />
+                <FormTextField
+                    name={SIGN_UP_FORM_FIELD_NAMES.nickname}
+                    label={SIGN_UP_FORM_FIELD_LABELS.nickname}
                 />
             </Fieldset>
         </form>
