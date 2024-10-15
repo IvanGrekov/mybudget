@@ -4,6 +4,8 @@ import { EFetchingTags } from 'types/fetchingTags';
 import {
     CreateUserDto,
     GeneratedTokensDto,
+    InitiateResetPasswordDto,
+    ResetPasswordDto,
     User,
     Account,
     TransactionCategory,
@@ -17,13 +19,28 @@ import {
 export class MyBudgetApi {
     private constructor() {}
 
-    static async createUser({
-        ...data
-    }: CreateUserDto): TAsyncApiClientResult<GeneratedTokensDto> {
+    static async createUser(
+        dto: CreateUserDto,
+    ): TAsyncApiClientResult<GeneratedTokensDto> {
         return ApiClient.post<GeneratedTokensDto>(
             '/authentication/sign-up',
-            data,
+            dto,
         );
+    }
+
+    static async initiateResetPassword(
+        dto: InitiateResetPasswordDto,
+    ): TAsyncApiClientResult<void> {
+        return ApiClient.post<void>(
+            '/authentication/initiate-reset-password',
+            dto,
+        );
+    }
+
+    static async resetPassword(
+        dto: ResetPasswordDto,
+    ): TAsyncApiClientResult<void> {
+        return ApiClient.post<void>('/authentication/reset-password', dto);
     }
 
     static async getUser(id: number): TAsyncApiClientResult<User> {

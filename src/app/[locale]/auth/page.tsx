@@ -40,6 +40,7 @@ export default async function SignInPage({
 
                 <Button
                     text="Forgot Password?"
+                    variant="contained"
                     href={`${EAppRoutes.Auth}${EAppRoutes.ResetPassword}`}
                 />
             </div>

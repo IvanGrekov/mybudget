@@ -6,6 +6,7 @@ import FormTextField from 'components/form-fields/FormTextField';
 import Show from 'components/show/Show';
 import SignInPageActions from 'features/auth/components/sign-in-page-actions/SignInPageActions';
 import { SIGN_IN_FORM_FIELD_NAMES } from 'features/auth/constants/signInForm.constants';
+import { VERIFICATION_CODE_LENGTH } from 'features/auth/constants/verificationCodeLength';
 import styles from 'features/auth/styles/AuthForm.module.scss';
 import { SignInDto } from 'types/generated.types';
 
@@ -61,7 +62,7 @@ export default function SignInForm({
                 <Show when={!!shouldShowVerificationCode}>
                     <FormTextField
                         type="number"
-                        maxLength={6}
+                        maxLength={VERIFICATION_CODE_LENGTH}
                         name={SIGN_IN_FORM_FIELD_NAMES.tfaToken}
                         label={SIGN_IN_FORM_FIELD_NAMES.tfaToken}
                         disabled={shouldShowVerificationCode}

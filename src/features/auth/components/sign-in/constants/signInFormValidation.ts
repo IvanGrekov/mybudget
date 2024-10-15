@@ -27,16 +27,21 @@ export const SIGN_IN_FORM_VALIDATION = yupResolver<ISignInFormValues>(
         isVerificationRequired: yup.boolean(),
         tfaToken: yup
             .string()
-            .when('isVerificationRequired', ([isVerificationRequired]) => {
-                if (isVerificationRequired) {
+            .when(
+                SIGN_IN_FORM_FIELD_NAMES.isVerificationRequired,
+                ([isVerificationRequired]) => {
+                    if (isVerificationRequired) {
+                        return yup
+                            .string()
+                            .required(
+                                getRequiredValidationWarning(TFA_TOKEN_LABEL),
+                            );
+                    }
+
                     return yup
                         .string()
-                        .required(
-                            getRequiredValidationWarning(TFA_TOKEN_LABEL),
-                        );
-                }
-
-                return yup.string().transform((value) => value || undefined);
-            }),
+                        .transform((value) => value || undefined);
+                },
+            ),
     }),
 );

@@ -1,7 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { SIGN_UP_FORM_FIELD_LABELS } from 'features/auth/constants/signUpForm.constants';
+import { PASSWORD_MIN_LENGTH } from 'features/auth/constants/passwordMinLength';
+import {
+    SIGN_UP_FORM_FIELD_NAMES,
+    SIGN_UP_FORM_FIELD_LABELS,
+} from 'features/auth/constants/signUpForm.constants';
 import { TSignUpFormValues } from 'features/auth/types/signUpFormValues';
 import { CreateUserDtoDefaultCurrencyEnum } from 'types/generated.types';
 import {
@@ -20,9 +24,15 @@ export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
             ),
         password: yup
             .string()
-            .min(8, 'Password must be at least 8 characters')
-            .required(
+            .min(
+                PASSWORD_MIN_LENGTH,
                 getMinLengthValidationWarning(
+                    SIGN_UP_FORM_FIELD_LABELS.password,
+                    PASSWORD_MIN_LENGTH,
+                ),
+            )
+            .required(
+                getRequiredValidationWarning(
                     SIGN_UP_FORM_FIELD_LABELS.password,
                 ),
             ),
@@ -34,7 +44,7 @@ export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
                 ),
             )
             .oneOf(
-                [yup.ref(SIGN_UP_FORM_FIELD_LABELS.password)],
+                [yup.ref(SIGN_UP_FORM_FIELD_NAMES.password)],
                 'Passwords must match',
             ),
         nickname: yup.string().transform((value) => value || undefined),

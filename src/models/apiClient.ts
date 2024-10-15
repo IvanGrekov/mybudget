@@ -45,7 +45,7 @@ export class ApiClient {
 
     static async post<T>(
         url: string,
-        data: Record<string, unknown>,
+        data: unknown,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
         return ApiClient.request(url, {
@@ -57,7 +57,7 @@ export class ApiClient {
 
     static async patch<T>(
         url: string,
-        data: Record<string, unknown>,
+        data: unknown,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
         return ApiClient.request(url, {

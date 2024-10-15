@@ -210,9 +210,9 @@ export interface GeneratedTokensDto {
 }
 
 export interface SignInDto {
+    password: string;
     tfaToken?: string;
     email: string;
-    password?: string;
 }
 
 export interface RefreshTokenDto {
@@ -221,6 +221,16 @@ export interface RefreshTokenDto {
 
 export interface GoogleIdTokenDto {
     token: string;
+}
+
+export interface InitiateResetPasswordDto {
+    email: string;
+}
+
+export interface ResetPasswordDto {
+    email: string;
+    newPassword: string;
+    verificationCode: string;
 }
 
 export interface CreateApiKeyForUserDto {
@@ -1317,6 +1327,45 @@ export class Api<
         ) =>
             this.request<GeneratedTokensDto, any>({
                 path: `/authentication/google`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerInitiateResetPassword
+         * @request POST:/authentication/initiate-reset-password
+         */
+        authenticationControllerInitiateResetPassword: (
+            data: InitiateResetPasswordDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<void, any>({
+                path: `/authentication/initiate-reset-password`,
+                method: 'POST',
+                body: data,
+                type: ContentType.Json,
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerResetPassword
+         * @request POST:/authentication/reset-password
+         */
+        authenticationControllerResetPassword: (
+            data: ResetPasswordDto,
+            params: RequestParams = {},
+        ) =>
+            this.request<GeneratedTokensDto, any>({
+                path: `/authentication/reset-password`,
                 method: 'POST',
                 body: data,
                 type: ContentType.Json,
