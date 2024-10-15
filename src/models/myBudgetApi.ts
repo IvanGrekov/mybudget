@@ -1,7 +1,13 @@
 import { ApiClient } from 'models/apiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
-import { User, Account, TransactionCategory } from 'types/generated.types';
+import {
+    CreateUserDto,
+    GeneratedTokensDto,
+    User,
+    Account,
+    TransactionCategory,
+} from 'types/generated.types';
 import {
     IEditUserArgs,
     IGetAccountsArgs,
@@ -10,6 +16,15 @@ import {
 
 export class MyBudgetApi {
     private constructor() {}
+
+    static async createUser({
+        ...data
+    }: CreateUserDto): TAsyncApiClientResult<GeneratedTokensDto> {
+        return ApiClient.post<GeneratedTokensDto>(
+            '/authentication/sign-up',
+            data,
+        );
+    }
 
     static async getUser(id: number): TAsyncApiClientResult<User> {
         return ApiClient.get<User>(`/users/${id}`, {

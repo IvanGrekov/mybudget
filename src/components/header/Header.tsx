@@ -3,6 +3,7 @@
 import { PropsWithChildren } from 'react';
 
 import cx from 'classnames';
+import { usePathname } from 'next/navigation';
 
 import styles from 'components/header/Header.module.scss';
 import { useShouldShowPreferencesSwitchers } from 'components/header/hooks/useShouldShowPreferencesSwitchers';
@@ -12,6 +13,7 @@ import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSw
 import Show from 'components/show/Show';
 import SignOutButton from 'components/sign-out-button/SignOutButton';
 import { useIsHeaderFixed } from 'hooks/useIsHeaderFixed';
+import { getIsAuthPage } from 'utils/getIsAuthPage';
 
 interface IHeaderProps extends PropsWithChildren {
     className?: string;
@@ -23,8 +25,10 @@ export default function Header({
     isSidebarLayout,
     children,
 }: IHeaderProps): JSX.Element {
+    const pathname = usePathname();
     const { isFixed } = useIsHeaderFixed();
     const shouldShowPreferencesSwitchers = useShouldShowPreferencesSwitchers();
+    const isAuthPage = getIsAuthPage(pathname);
 
     return (
         <header
@@ -48,7 +52,9 @@ export default function Header({
                             <PreferencesSwitchers tooltipPosition="bottom-left" />
                         </Show>
 
-                        <SignOutButton />
+                        <Show when={!isAuthPage}>
+                            <SignOutButton />
+                        </Show>
                     </div>
 
                     {children}

@@ -7,6 +7,7 @@ import { CreateUserDtoDefaultCurrencyEnum } from 'types/generated.types';
 import {
     getRequiredValidationWarning,
     getMatchValidationWarning,
+    getMinLengthValidationWarning,
 } from 'utils/formValidationWarning.utils';
 
 export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
@@ -19,8 +20,9 @@ export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
             ),
         password: yup
             .string()
+            .min(8, 'Password must be at least 8 characters')
             .required(
-                getRequiredValidationWarning(
+                getMinLengthValidationWarning(
                     SIGN_UP_FORM_FIELD_LABELS.password,
                 ),
             ),

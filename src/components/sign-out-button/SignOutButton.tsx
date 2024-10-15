@@ -1,15 +1,13 @@
 import { useState } from 'react';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { setCookie } from 'actions/setCookie';
 import Button from 'components/button/Button';
 import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
 import { EAppRoutes } from 'types/appRoutes';
-import { getIsAuthPage } from 'utils/getIsAuthPage';
 
-export default function SignOutButton(): JSX.Element | null {
-    const pathname = usePathname();
+export default function SignOutButton(): JSX.Element {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -22,10 +20,6 @@ export default function SignOutButton(): JSX.Element | null {
 
         router.replace(EAppRoutes.Auth);
     };
-
-    if (getIsAuthPage(pathname)) {
-        return null;
-    }
 
     return <Button text="Sign out" onClick={onClick} isLoading={isLoading} />;
 }

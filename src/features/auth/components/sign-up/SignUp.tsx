@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
+import { signUp } from 'actions/signUp';
 import { usePageLoading } from 'contexts/PageLoadingContext';
 import { SIGN_UP_FORM_VALIDATION } from 'features/auth/components/sign-up/constants/signUpFormValidation';
 import { USER_TIME_ZONE } from 'features/auth/components/sign-up/constants/userTimeZone';
@@ -28,23 +29,27 @@ export default function SignUp(): JSX.Element {
 
     const { formState, handleSubmit } = methods;
 
-    const handler = async (formValues: TSignUpFormValues): Promise<void> => {
+    const handler = async ({
+        email,
+        password,
+        defaultCurrency,
+        timeZone,
+        nickname,
+    }: TSignUpFormValues): Promise<void> => {
         setError(null);
         setIsLoading(true);
 
-        formValues;
+        const result = await signUp({
+            email,
+            password,
+            defaultCurrency,
+            timeZone,
+            nickname: nickname ? nickname : undefined,
+        }).finally(() => setIsLoading(false));
 
-        // const result = await signIn({ email, password, tfaToken }).finally(() =>
-        //     setIsLoading(false),
-        // );
-
-        // if (result?.shouldPassTfa) {
-        //     setValue('isVerificationRequired', true);
-        // }
-
-        // if (result?.error) {
-        //     setError(result.error);
-        // }
+        if (result?.error) {
+            setError(result.error);
+        }
     };
 
     return (
