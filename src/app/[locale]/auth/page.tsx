@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Metadata } from 'next';
 
-import styles from 'app/[locale]/auth/SignInPage.module.scss';
+import styles from 'app/[locale]/auth/AuthPage.module.scss';
 import AppHeader from 'components/app-header/AppHeader';
 import Button from 'components/button/Button';
 import Container from 'components/container/Container';

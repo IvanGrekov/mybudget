@@ -11,7 +11,7 @@ const Button = (
 ): JSX.Element => {
     if (href) {
         return (
-            <Link href={href}>
+            <Link href={href} style={{ width: 'fit-content' }}>
                 <ButtonBody {...props} ref={ref} />
             </Link>
         );
