@@ -1,4 +1,8 @@
+import { cookies } from 'next/headers';
+
+import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { getCookie } from 'utils/getCookie';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 
 export class ApiClient {
@@ -10,10 +14,18 @@ export class ApiClient {
         return process.env.NEXT_PUBLIC_API_KEY || '';
     }
 
+    private static getAccessToken(): string {
+        if (typeof document !== 'undefined') {
+            return getCookie(SESSION_COOKIE_NAME) || '';
+        }
+
+        return cookies().get(SESSION_COOKIE_NAME)?.value || '';
+    }
+
     static getBaseHeaders(): Record<string, string> {
         return {
             'Content-Type': 'application/json',
-            Authorization: ApiClient.getApiKey(),
+            Authorization: `Bearer ${this.getAccessToken()}`,
         };
     }
 

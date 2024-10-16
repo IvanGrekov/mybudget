@@ -13,7 +13,6 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { Account } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
-import { getMockedUserId } from 'utils/getMockedUserId';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
@@ -36,13 +35,9 @@ export default async function AccountsPage({
     const queryClient = getQueryClient();
     let data: TApiClientResult<Account[]> = null;
 
-    // TODO: Get rid of hardcoded user id
     data = await queryClient.fetchQuery({
         queryKey: [EFetchingTags.ACCOUNTS],
-        queryFn: () =>
-            MyBudgetApi.getAccounts({
-                userId: getMockedUserId(),
-            }),
+        queryFn: () => MyBudgetApi.getAccounts(),
     });
 
     if (!data?.length) {

@@ -6,10 +6,7 @@ import EmptyState from 'components/empty-state/EmptyState';
 import Spacing from 'components/spacing/Spacing';
 import { IPageErrorProps } from 'types/pageErrorProps';
 
-export default function PageError({
-    error,
-    reset,
-}: IPageErrorProps): JSX.Element {
+export default function PageError({ error }: IPageErrorProps): JSX.Element {
     useEffect(() => {
         if (!error) {
             return;
@@ -17,7 +14,6 @@ export default function PageError({
 
         console.error(error);
     }, [error]);
-    reset;
 
     return (
         <>
@@ -27,7 +23,8 @@ export default function PageError({
                 text={
                     typeof error === 'string'
                         ? error
-                        : 'Error occurred on the page. Try to reload the page'
+                        : error?.message ||
+                          'Error occurred on the page. Try to reload the page'
                 }
             />
         </>

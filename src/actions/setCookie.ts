@@ -24,6 +24,7 @@ export async function setCookie({
             value,
             maxAge,
             httpOnly: httpOnly,
+            sameSite: 'strict',
             expires: new Date(Date.now() + maxAge),
             path: '/',
         });

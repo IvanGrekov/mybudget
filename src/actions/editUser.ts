@@ -13,8 +13,7 @@ export async function editUser({
     ...data
 }: IEditUserArgs): TAsyncApiClientResult<User> {
     const result = await MyBudgetApi.editUser({ userId, ...data });
-
-    revalidateTag(`${EFetchingTags.USER}${userId}`);
+    revalidateTag(EFetchingTags.ME);
 
     return result;
 }

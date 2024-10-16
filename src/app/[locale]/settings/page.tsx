@@ -11,7 +11,6 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
-import { getMockedUserId } from 'utils/getMockedUserId';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
@@ -34,10 +33,9 @@ export default async function SettingsPage({
     const queryClient = getQueryClient();
     let data: TApiClientResult<User> = null;
 
-    // TODO: Get rid of hardcoded user id
     data = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.USER, { id: getMockedUserId() }],
-        queryFn: () => MyBudgetApi.getUser(getMockedUserId()),
+        queryKey: [EFetchingTags.ME],
+        queryFn: () => MyBudgetApi.getMe(),
     });
 
     if (!data) {

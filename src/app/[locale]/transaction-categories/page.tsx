@@ -13,7 +13,6 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { TransactionCategory } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
-import { getMockedUserId } from 'utils/getMockedUserId';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
@@ -36,13 +35,9 @@ export default async function TransactionCategoriesPage({
     const queryClient = getQueryClient();
     let data: TApiClientResult<TransactionCategory[]> = null;
 
-    // TODO: Get rid of hardcoded user id
     data = await queryClient.fetchQuery({
         queryKey: [EFetchingTags.TRANSACTION_CATEGORIES],
-        queryFn: () =>
-            MyBudgetApi.getTransactionCategories({
-                userId: getMockedUserId(),
-            }),
+        queryFn: () => MyBudgetApi.getTransactionCategories(),
     });
 
     if (!data?.length) {

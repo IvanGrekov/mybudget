@@ -3,7 +3,10 @@
 import { redirect } from 'next/navigation';
 
 import { setCookie } from 'actions/setCookie';
-import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
+import {
+    SESSION_COOKIE_NAME,
+    REFRESH_TOKEN_COOKIE_NAME,
+} from 'constants/cookiesKeys.constants';
 import { ApiClient } from 'models/apiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
@@ -26,11 +29,17 @@ export async function googleSignIn(
     const isOkStatus = result.ok;
 
     if (isOkStatus) {
-        await setCookie({
-            key: SESSION_COOKIE_NAME,
-            value: JSON.stringify(data),
-            httpOnly: true,
-        });
+        await Promise.all([
+            setCookie({
+                key: SESSION_COOKIE_NAME,
+                value: data.accessToken,
+            }),
+            setCookie({
+                key: REFRESH_TOKEN_COOKIE_NAME,
+                value: data.refreshToken,
+                httpOnly: true,
+            }),
+        ]);
 
         return redirect(EAppRoutes.Root);
     }
