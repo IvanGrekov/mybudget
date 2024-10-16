@@ -5,7 +5,7 @@ import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import Typography from 'components/typography/Typography';
-import { MyBudgetApi } from 'models/myBudgetApi';
+import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
@@ -35,7 +35,7 @@ export default async function HomePage({
 
     data = await queryClient.fetchQuery({
         queryKey: [EFetchingTags.ME],
-        queryFn: () => MyBudgetApi.getMe(),
+        queryFn: () => SERVER_MY_BUDGET_API.getMe(),
     });
 
     if (!data) {

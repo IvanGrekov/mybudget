@@ -1,4 +1,4 @@
-import { ApiClient } from 'models/apiClient';
+import { BaseApiClient } from 'models/apiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
@@ -12,59 +12,59 @@ import {
 } from 'types/generated.types';
 import { IEditUserArgs } from 'types/muBudgetApi.types';
 
-export class MyBudgetApi {
-    private constructor() {}
+export abstract class BaseMyBudgetApi {
+    constructor(private apiClient: BaseApiClient) {}
 
-    static async createUser(
+    async createUser(
         dto: CreateUserDto,
     ): TAsyncApiClientResult<GeneratedTokensDto> {
-        return ApiClient.post<GeneratedTokensDto>(
+        return this.apiClient.post<GeneratedTokensDto>(
             '/authentication/sign-up',
             dto,
         );
     }
 
-    static async initiateResetPassword(
+    async initiateResetPassword(
         dto: InitiateResetPasswordDto,
     ): TAsyncApiClientResult<void> {
-        return ApiClient.post<void>(
+        return this.apiClient.post<void>(
             '/authentication/initiate-reset-password',
             dto,
         );
     }
 
-    static async resetPassword(
+    async resetPassword(
         dto: ResetPasswordDto,
     ): TAsyncApiClientResult<GeneratedTokensDto> {
-        return ApiClient.post<GeneratedTokensDto>(
+        return this.apiClient.post<GeneratedTokensDto>(
             '/authentication/reset-password',
             dto,
         );
     }
 
-    static async getMe(): TAsyncApiClientResult<User> {
-        return ApiClient.get<User>('/users/me', {
+    async getMe(): TAsyncApiClientResult<User> {
+        return this.apiClient.get<User>('/users/me', {
             next: { tags: [EFetchingTags.ME] },
         });
     }
 
-    static async editUser({
+    async editUser({
         userId,
         ...data
     }: IEditUserArgs): TAsyncApiClientResult<User> {
-        return ApiClient.patch<User>(`/users/${userId}`, data);
+        return this.apiClient.patch<User>(`/users/${userId}`, data);
     }
 
-    static async getAccounts(): TAsyncApiClientResult<Account[]> {
-        return ApiClient.get<Account[]>('/accounts/my', {
+    async getAccounts(): TAsyncApiClientResult<Account[]> {
+        return this.apiClient.get<Account[]>('/accounts/my', {
             next: { tags: [EFetchingTags.ACCOUNTS] },
         });
     }
 
-    static async getTransactionCategories(): TAsyncApiClientResult<
+    async getTransactionCategories(): TAsyncApiClientResult<
         TransactionCategory[]
     > {
-        return ApiClient.get<TransactionCategory[]>(
+        return this.apiClient.get<TransactionCategory[]>(
             '/transaction-categories/my',
             {
                 next: { tags: [EFetchingTags.TRANSACTION_CATEGORIES] },

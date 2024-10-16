@@ -1,41 +1,29 @@
-import { cookies } from 'next/headers';
-
-import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
-import { getCookie } from 'utils/getCookie';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 
-export class ApiClient {
-    private constructor() {}
+export abstract class BaseApiClient {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
-    static baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    constructor(private getAccessToken: () => string) {}
 
-    private static getApiKey(): string {
-        return process.env.NEXT_PUBLIC_API_KEY || '';
-    }
+    // private getApiKey(): string {
+    //     return process.env.NEXT_PUBLIC_API_KEY || '';
+    // }
 
-    private static getAccessToken(): string {
-        if (typeof document !== 'undefined') {
-            return getCookie(SESSION_COOKIE_NAME) || '';
-        }
-
-        return cookies().get(SESSION_COOKIE_NAME)?.value || '';
-    }
-
-    static getBaseHeaders(): Record<string, string> {
+    private getBaseHeaders(): Record<string, string> {
         return {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${this.getAccessToken()}`,
         };
     }
 
-    private static async request<T>(
+    private async request<T>(
         url: string,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
-        const { headers = ApiClient.getBaseHeaders(), ...rest } = options || {};
+        const { headers = this.getBaseHeaders(), ...rest } = options || {};
 
-        const response = await fetch(`${ApiClient.baseUrl}${url}`, {
+        const response = await fetch(`${this.baseUrl}${url}`, {
             headers,
             ...rest,
         });
@@ -48,31 +36,28 @@ export class ApiClient {
         return result;
     }
 
-    static async get<T>(
-        url: string,
-        options?: RequestInit,
-    ): TAsyncApiClientResult<T> {
-        return ApiClient.request<T>(url, { ...options, method: 'GET' });
+    async get<T>(url: string, options?: RequestInit): TAsyncApiClientResult<T> {
+        return this.request<T>(url, { ...options, method: 'GET' });
     }
 
-    static async post<T>(
+    async post<T>(
         url: string,
         data: unknown,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
-        return ApiClient.request(url, {
+        return this.request(url, {
             ...options,
             method: 'POST',
             body: JSON.stringify(data),
         });
     }
 
-    static async patch<T>(
+    async patch<T>(
         url: string,
         data: unknown,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
-        return ApiClient.request(url, {
+        return this.request(url, {
             ...options,
             method: 'PATCH',
             body: JSON.stringify(data),

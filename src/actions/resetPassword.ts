@@ -7,7 +7,7 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { MyBudgetApi } from 'models/myBudgetApi';
+import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { ResetPasswordDto } from 'types/generated.types';
@@ -18,7 +18,9 @@ export async function resetPassword(
     resetPasswordDto: ResetPasswordDto,
 ): TAsyncApiClientResult<TResetPasswordResponse> {
     try {
-        const tokens = await MyBudgetApi.resetPassword(resetPasswordDto);
+        const tokens = await SERVER_MY_BUDGET_API.resetPassword(
+            resetPasswordDto,
+        );
 
         if (!tokens) {
             return { error: 'Something went wrong' };

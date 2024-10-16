@@ -8,7 +8,7 @@ import { usePageLoading } from 'contexts/PageLoadingContext';
 import { RESET_PASSWORD_FORM_VALIDATION } from 'features/auth/components/reset-password/constants/resetPasswordFormValidation';
 import ResetPasswordForm from 'features/auth/components/reset-password-form/ResetPasswordForm';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
-import { MyBudgetApi } from 'models/myBudgetApi';
+import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 
 export default function ResetPassword(): JSX.Element {
     const { setIsLoading } = usePageLoading();
@@ -38,7 +38,7 @@ export default function ResetPassword(): JSX.Element {
 
         try {
             if (!isVerificationCodeSent) {
-                await MyBudgetApi.initiateResetPassword({ email });
+                await CLIENT_MY_BUDGET_API.initiateResetPassword({ email });
                 setValue('isVerificationCodeSent', true);
             } else if (newPassword && verificationCode) {
                 const result = await resetPassword({

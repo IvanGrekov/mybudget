@@ -6,7 +6,7 @@ import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import Link from 'components/link/Link';
 import Typography from 'components/typography/Typography';
-import { MyBudgetApi } from 'models/myBudgetApi';
+import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
@@ -37,7 +37,7 @@ export default async function TransactionCategoriesPage({
 
     data = await queryClient.fetchQuery({
         queryKey: [EFetchingTags.TRANSACTION_CATEGORIES],
-        queryFn: () => MyBudgetApi.getTransactionCategories(),
+        queryFn: () => SERVER_MY_BUDGET_API.getTransactionCategories(),
     });
 
     if (!data?.length) {

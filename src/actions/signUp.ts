@@ -7,7 +7,7 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { MyBudgetApi } from 'models/myBudgetApi';
+import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { CreateUserDto } from 'types/generated.types';
@@ -18,7 +18,7 @@ export async function signUp(
     signUpDto: CreateUserDto,
 ): TAsyncApiClientResult<TSignUpResponse> {
     try {
-        const tokens = await MyBudgetApi.createUser(signUpDto);
+        const tokens = await SERVER_MY_BUDGET_API.createUser(signUpDto);
 
         if (!tokens) {
             return { error: 'Something went wrong' };

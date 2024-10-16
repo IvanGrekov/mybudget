@@ -7,7 +7,7 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { ApiClient } from 'models/apiClient';
+import { SERVER_API_CLIENT } from 'models/serverApiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { SignInDto } from 'types/generated.types';
@@ -18,13 +18,16 @@ type TSignInResponse = null | { shouldPassTfa?: boolean; error?: string };
 export async function signIn(
     signInDto: SignInDto,
 ): TAsyncApiClientResult<TSignInResponse> {
-    const result = await fetch(`${ApiClient.baseUrl}/authentication/sign-in`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
+    const result = await fetch(
+        `${SERVER_API_CLIENT.baseUrl}/authentication/sign-in`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(signInDto),
         },
-        body: JSON.stringify(signInDto),
-    });
+    );
     const data = await result.json();
     const isOkStatus = result.ok;
 
