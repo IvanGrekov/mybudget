@@ -123,9 +123,7 @@ export default function TextField({
                         error={error}
                         variant={placeholderVariant}
                         isFullWidth={isFullWidth}
-                        className={cx(placeholderClassName, {
-                            [styles['placeholder--limited']]: isPasswordInput,
-                        })}
+                        className={cx(placeholderClassName)}
                     />
                 )}
 
