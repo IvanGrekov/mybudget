@@ -3,15 +3,7 @@ import { redirect } from 'next/navigation';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
-import {
-    Account,
-    CreateUserDto,
-    GeneratedTokensDto,
-    InitiateResetPasswordDto,
-    ResetPasswordDto,
-    TransactionCategory,
-    User,
-} from 'types/generated.types';
+import { Account, TransactionCategory, User } from 'types/generated.types';
 import { IEditUserArgs } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 
@@ -91,24 +83,6 @@ export abstract class MyBudgetApi {
             method: 'PATCH',
             body: JSON.stringify(data),
         });
-    }
-
-    async createUser(
-        dto: CreateUserDto,
-    ): TAsyncApiClientResult<GeneratedTokensDto> {
-        return this.post('/authentication/sign-up', dto);
-    }
-
-    async resetPassword(
-        dto: ResetPasswordDto,
-    ): TAsyncApiClientResult<GeneratedTokensDto> {
-        return this.post('/authentication/reset-password', dto);
-    }
-
-    async initiateResetPassword(
-        dto: InitiateResetPasswordDto,
-    ): TAsyncApiClientResult<void> {
-        return this.post('/authentication/initiate-reset-password', dto);
     }
 
     async getMe(): TAsyncApiClientResult<User> {

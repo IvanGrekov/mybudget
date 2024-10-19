@@ -65,7 +65,7 @@ export default function SignInForm({
                         maxLength={VERIFICATION_CODE_LENGTH}
                         name={SIGN_IN_FORM_FIELD_NAMES.tfaToken}
                         label={SIGN_IN_FORM_FIELD_NAMES.tfaToken}
-                        disabled={shouldShowVerificationCode}
+                        disabled={!shouldShowVerificationCode}
                         required={true}
                     />
                 </Show>
