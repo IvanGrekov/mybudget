@@ -20,7 +20,7 @@ export async function signUp(
     try {
         const tokens = await SERVER_MY_BUDGET_API.createUser(signUpDto);
 
-        if (!tokens) {
+        if (!tokens || !tokens.accessToken || !tokens.refreshToken) {
             return { error: 'Something went wrong' };
         }
 

@@ -7,7 +7,6 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { SERVER_API_CLIENT } from 'models/serverApiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { SignInDto } from 'types/generated.types';
@@ -19,7 +18,7 @@ export async function signIn(
     signInDto: SignInDto,
 ): TAsyncApiClientResult<TSignInResponse> {
     const result = await fetch(
-        `${SERVER_API_CLIENT.baseUrl}/authentication/sign-in`,
+        `${process.env.NEXT_PUBLIC_API_URL}/authentication/sign-in`,
         {
             method: 'POST',
             headers: {

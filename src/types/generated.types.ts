@@ -410,6 +410,18 @@ export enum CreateUserDtoLanguageEnum {
     UA = 'UA',
 }
 
+export enum AccountsControllerFindMyParamsTypeEnum {
+    REGULAR = 'REGULAR',
+    SAVINGS = 'SAVINGS',
+    I_OWE = 'I_OWE',
+    OWE_ME = 'OWE_ME',
+}
+
+export enum AccountsControllerFindMyParamsStatusEnum {
+    ACTIVE = 'ACTIVE',
+    ARCHIVED = 'ARCHIVED',
+}
+
 export enum AccountsControllerFindAllParamsTypeEnum {
     REGULAR = 'REGULAR',
     SAVINGS = 'SAVINGS',
@@ -422,6 +434,16 @@ export enum AccountsControllerFindAllParamsStatusEnum {
     ARCHIVED = 'ARCHIVED',
 }
 
+export enum TransactionCategoriesControllerFindMyParamsTypeEnum {
+    INCOME = 'INCOME',
+    EXPENSE = 'EXPENSE',
+}
+
+export enum TransactionCategoriesControllerFindMyParamsStatusEnum {
+    ACTIVE = 'ACTIVE',
+    ARCHIVED = 'ARCHIVED',
+}
+
 export enum TransactionCategoriesControllerFindAllParamsTypeEnum {
     INCOME = 'INCOME',
     EXPENSE = 'EXPENSE',
@@ -430,6 +452,13 @@ export enum TransactionCategoriesControllerFindAllParamsTypeEnum {
 export enum TransactionCategoriesControllerFindAllParamsStatusEnum {
     ACTIVE = 'ACTIVE',
     ARCHIVED = 'ARCHIVED',
+}
+
+export enum TransactionsControllerFindMyParamsTypeEnum {
+    INCOME = 'INCOME',
+    EXPENSE = 'EXPENSE',
+    TRANSFER = 'TRANSFER',
+    BALANCE_CORRECTION = 'BALANCE_CORRECTION',
 }
 
 export enum TransactionsControllerFindAllParamsTypeEnum {
@@ -856,6 +885,29 @@ export class Api<
          * No description
          *
          * @tags accounts
+         * @name AccountsControllerFindMy
+         * @request GET:/accounts/my
+         */
+        accountsControllerFindMy: (
+            query?: {
+                type?: AccountsControllerFindMyParamsTypeEnum;
+                status?: AccountsControllerFindMyParamsStatusEnum;
+                excludeId?: number;
+            },
+            params: RequestParams = {},
+        ) =>
+            this.request<Account[], any>({
+                path: `/accounts/my`,
+                method: 'GET',
+                query: query,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags accounts
          * @name AccountsControllerFindAll
          * @request GET:/accounts
          */
@@ -990,6 +1042,31 @@ export class Api<
             }),
     };
     transactionCategories = {
+        /**
+         * No description
+         *
+         * @tags transaction-categories
+         * @name TransactionCategoriesControllerFindMy
+         * @request GET:/transaction-categories/my
+         */
+        transactionCategoriesControllerFindMy: (
+            query?: {
+                type?: TransactionCategoriesControllerFindMyParamsTypeEnum;
+                status?: TransactionCategoriesControllerFindMyParamsStatusEnum;
+                excludeId?: number;
+                parentId?: number;
+                shouldFilterChildTransactionCategories?: boolean;
+            },
+            params: RequestParams = {},
+        ) =>
+            this.request<TransactionCategory[], any>({
+                path: `/transaction-categories/my`,
+                method: 'GET',
+                query: query,
+                format: 'json',
+                ...params,
+            }),
+
         /**
          * No description
          *
@@ -1139,6 +1216,42 @@ export class Api<
             }),
     };
     transactions = {
+        /**
+         * No description
+         *
+         * @tags transactions
+         * @name TransactionsControllerFindMy
+         * @request GET:/transactions/my
+         */
+        transactionsControllerFindMy: (
+            query?: {
+                /**
+                 * @min 1
+                 * @default 10
+                 */
+                limit?: number;
+                /**
+                 * @min 1
+                 * @default 1
+                 */
+                offset?: number;
+                accountId?: number;
+                transactionCategoryId?: number;
+                type?: TransactionsControllerFindMyParamsTypeEnum;
+                search?: string;
+                from?: string;
+                to?: string;
+            },
+            params: RequestParams = {},
+        ) =>
+            this.request<Transaction[], any>({
+                path: `/transactions/my`,
+                method: 'GET',
+                query: query,
+                format: 'json',
+                ...params,
+            }),
+
         /**
          * No description
          *
@@ -1377,10 +1490,26 @@ export class Api<
          * No description
          *
          * @tags authentication
-         * @name AuthenticationControllerEnableTfa
+         * @name AuthenticationControllerInitiateTfaEnabling
+         * @request POST:/authentication/initiate-tfa-enabling
+         */
+        authenticationControllerInitiateTfaEnabling: (
+            params: RequestParams = {},
+        ) =>
+            this.request<void, any>({
+                path: `/authentication/initiate-tfa-enabling`,
+                method: 'POST',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerDisableTfa
          * @request POST:/authentication/enable-tfa
          */
-        authenticationControllerEnableTfa: (params: RequestParams = {}) =>
+        authenticationControllerDisableTfa: (params: RequestParams = {}) =>
             this.request<void, any>({
                 path: `/authentication/enable-tfa`,
                 method: 'POST',

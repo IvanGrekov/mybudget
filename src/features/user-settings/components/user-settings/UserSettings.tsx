@@ -5,6 +5,8 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editUser } from 'actions/editUser';
+import UserSecuritySection from 'features/user-settings/components/user-security-section/UserSecuritySection';
+import styles from 'features/user-settings/components/user-settings/UserSettings.module.scss';
 import UserSettingsForm from 'features/user-settings/components/user-settings-form/UserSettingsForm';
 import { USER_SETTINGS_FORM_VALIDATION } from 'features/user-settings/constants/userSettingsForm.constants';
 import { IUserSettingsFormData } from 'features/user-settings/types/userSettingsFormData';
@@ -13,16 +15,19 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
 
 interface IUserSettingsProps {
-    userId: User['id'];
-    userNickname: User['nickname'];
-    userTimeZone: User['timeZone'];
+    user: User;
 }
 
 export default function UserSettings({
-    userId,
-    userNickname,
-    userTimeZone,
+    user,
 }: IUserSettingsProps): JSX.Element {
+    const {
+        id: userId,
+        nickname: userNickname,
+        timeZone: userTimeZone,
+        isTfaEnabled,
+    } = user;
+
     const addErrorMessage = useAddErrorMessageToNotifications();
 
     const methods = useForm<IUserSettingsFormData>({
@@ -55,17 +60,19 @@ export default function UserSettings({
         },
     });
 
-    // TODO: Add TFA settings (IG)
-
     return (
-        <FormProvider {...methods}>
-            <UserSettingsForm
-                isLoading={isPending}
-                isDirty={isDirty}
-                errors={errors}
-                editUser={mutate}
-                handleSubmit={handleSubmit}
-            />
-        </FormProvider>
+        <div className={styles.container}>
+            <FormProvider {...methods}>
+                <UserSettingsForm
+                    isLoading={isPending}
+                    isDirty={isDirty}
+                    errors={errors}
+                    editUser={mutate}
+                    handleSubmit={handleSubmit}
+                />
+            </FormProvider>
+
+            <UserSecuritySection isTfaEnabled={isTfaEnabled} />
+        </div>
     );
 }

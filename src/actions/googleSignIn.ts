@@ -7,7 +7,6 @@ import {
     SESSION_COOKIE_NAME,
     REFRESH_TOKEN_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { SERVER_API_CLIENT } from 'models/serverApiClient';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { GoogleIdTokenDto } from 'types/generated.types';
@@ -19,7 +18,7 @@ export async function googleSignIn(
     dto: GoogleIdTokenDto,
 ): TAsyncApiClientResult<TGoogleSignInResponse> {
     const result = await fetch(
-        `${SERVER_API_CLIENT.baseUrl}/authentication/google`,
+        `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`,
         {
             method: 'POST',
             headers: {

@@ -22,7 +22,7 @@ export async function resetPassword(
             resetPasswordDto,
         );
 
-        if (!tokens) {
+        if (!tokens || !tokens.accessToken || !tokens.refreshToken) {
             return { error: 'Something went wrong' };
         }
 

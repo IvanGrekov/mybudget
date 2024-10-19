@@ -1,10 +1,16 @@
-import { BaseMyBudgetApi } from 'models/myBudgetApi';
-import { SERVER_API_CLIENT } from 'models/serverApiClient';
+import 'server-only';
 
-class ServerBaseMyBudgetApi extends BaseMyBudgetApi {
+import { cookies } from 'next/headers';
+
+import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
+import { MyBudgetApi } from 'models/myBudgetApi';
+
+export class ServerMyBudgetApi extends MyBudgetApi {
     constructor() {
-        super(SERVER_API_CLIENT);
+        super(() => {
+            return cookies().get(SESSION_COOKIE_NAME)?.value || '';
+        });
     }
 }
 
-export const SERVER_MY_BUDGET_API = new ServerBaseMyBudgetApi();
+export const SERVER_MY_BUDGET_API = new ServerMyBudgetApi();

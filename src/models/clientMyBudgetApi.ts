@@ -1,10 +1,13 @@
-import { CLIENT_API_CLIENT } from 'models/clientApiClient';
-import { BaseMyBudgetApi } from 'models/myBudgetApi';
+import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
+import { MyBudgetApi } from 'models/myBudgetApi';
+import { getCookie } from 'utils/getCookie';
 
-class ClientBaseMyBudgetApi extends BaseMyBudgetApi {
+export class ClientMyBudgetApi extends MyBudgetApi {
     constructor() {
-        super(CLIENT_API_CLIENT);
+        super(() => {
+            return getCookie(SESSION_COOKIE_NAME) || '';
+        });
     }
 }
 
-export const CLIENT_MY_BUDGET_API = new ClientBaseMyBudgetApi();
+export const CLIENT_MY_BUDGET_API = new ClientMyBudgetApi();
