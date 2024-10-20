@@ -10,6 +10,8 @@ import {
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { ResetPasswordDto } from 'types/generated.types';
+import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { makeApiFetch } from 'utils/makeApiFetch';
 
 type TResetPasswordResponse = null | { error?: string };
 
@@ -17,35 +19,30 @@ export async function resetPassword(
     resetPasswordDto: ResetPasswordDto,
 ): TAsyncApiClientResult<TResetPasswordResponse> {
     try {
-        const result = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/authentication/reset-password`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(resetPasswordDto),
-            },
-        );
-        const tokens = await result.json();
+        const result = await makeApiFetch({
+            url: '/authentication/reset-password',
+            method: 'POST',
+            body: resetPasswordDto,
+        });
+        const data = await result.json();
 
-        if (!tokens || !tokens.accessToken || !tokens.refreshToken) {
-            return { error: 'Something went wrong' };
+        if (!result.ok) {
+            return { error: getFailedResponseMessage(data) };
         }
 
         await Promise.all([
             setCookie({
                 key: SESSION_COOKIE_NAME,
-                value: tokens.accessToken,
+                value: data.accessToken,
             }),
             setCookie({
                 key: REFRESH_TOKEN_COOKIE_NAME,
-                value: tokens.refreshToken,
+                value: data.refreshToken,
                 httpOnly: true,
             }),
         ]);
     } catch (error) {
-        return { error: error.message };
+        return { error: getFailedResponseMessage(error) };
     }
 
     return redirect(EAppRoutes.Root);

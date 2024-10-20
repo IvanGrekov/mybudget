@@ -18,9 +18,8 @@ export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
     const addErrorNotification = useAddErrorMessageToNotifications();
 
     const clientId = process.env.NEXT_PUBLIC_AUTH_CLIENT_ID;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    if (!clientId || !apiUrl) {
+    if (!clientId) {
         throw new Error('Missing auth data');
     }
 

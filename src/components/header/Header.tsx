@@ -44,7 +44,9 @@ export default function Header({
             <PageLoadingIndicator wrapperClassName={styles.loading} />
 
             <div className={styles['content-wrapper']}>
-                <OpenMobileSidebarButton />
+                <Show when={!isAuthPage}>
+                    <OpenMobileSidebarButton />
+                </Show>
 
                 <div className={styles.content}>
                     <div className={styles['actions']}>

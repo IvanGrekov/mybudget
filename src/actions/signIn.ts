@@ -11,26 +11,35 @@ import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { SignInDto } from 'types/generated.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { makeApiFetch } from 'utils/makeApiFetch';
 
 type TSignInResponse = null | { shouldPassTfa?: boolean; error?: string };
 
 export async function signIn(
     signInDto: SignInDto,
 ): TAsyncApiClientResult<TSignInResponse> {
-    const result = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/sign-in`,
-        {
+    try {
+        const result = await makeApiFetch({
+            url: '/authentication/sign-in',
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(signInDto),
-        },
-    );
-    const data = await result.json();
-    const isOkStatus = result.ok;
+            body: signInDto,
+        });
+        const data = await result.json();
 
-    if (isOkStatus) {
+        if (!result.ok) {
+            const isUnauthorized =
+                result.statusText.toLowerCase() === 'unauthorized';
+            const isTfaRequired = data?.['cause']
+                .toLowerCase()
+                .includes('two-factor');
+
+            if (isUnauthorized && isTfaRequired && !signInDto.tfaToken) {
+                return { shouldPassTfa: true };
+            }
+
+            return { error: getFailedResponseMessage(data) };
+        }
+
         await Promise.all([
             setCookie({
                 key: SESSION_COOKIE_NAME,
@@ -42,16 +51,9 @@ export async function signIn(
                 httpOnly: true,
             }),
         ]);
-
-        return redirect(EAppRoutes.Root);
+    } catch (error) {
+        return { error: getFailedResponseMessage(error) };
     }
 
-    const isUnauthorized = result.statusText.toLowerCase() === 'unauthorized';
-    const isTfaRequired = data?.['cause'].toLowerCase().includes('two-factor');
-
-    if (isUnauthorized && isTfaRequired && !signInDto.tfaToken) {
-        return { shouldPassTfa: true };
-    }
-
-    return { error: getFailedResponseMessage(data) };
+    return redirect(EAppRoutes.Root);
 }

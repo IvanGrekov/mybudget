@@ -11,26 +11,25 @@ import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { GoogleIdTokenDto } from 'types/generated.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { makeApiFetch } from 'utils/makeApiFetch';
 
 type TGoogleSignInResponse = null | { error?: string };
 
 export async function googleSignIn(
     dto: GoogleIdTokenDto,
 ): TAsyncApiClientResult<TGoogleSignInResponse> {
-    const result = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`,
-        {
+    try {
+        const result = await makeApiFetch({
+            url: '/authentication/google',
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dto),
-        },
-    );
-    const data = await result.json();
-    const isOkStatus = result.ok;
+            body: dto,
+        });
+        const data = await result.json();
 
-    if (isOkStatus) {
+        if (!result.ok) {
+            return { error: getFailedResponseMessage(data) };
+        }
+
         await Promise.all([
             setCookie({
                 key: SESSION_COOKIE_NAME,
@@ -42,9 +41,9 @@ export async function googleSignIn(
                 httpOnly: true,
             }),
         ]);
-
-        return redirect(EAppRoutes.Root);
+    } catch (error) {
+        return { error: getFailedResponseMessage(error) };
     }
 
-    return { error: getFailedResponseMessage(data) };
+    return redirect(EAppRoutes.Root);
 }

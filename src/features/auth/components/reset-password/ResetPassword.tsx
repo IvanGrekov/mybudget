@@ -8,6 +8,8 @@ import { usePageLoading } from 'contexts/PageLoadingContext';
 import { RESET_PASSWORD_FORM_VALIDATION } from 'features/auth/components/reset-password/constants/resetPasswordFormValidation';
 import ResetPasswordForm from 'features/auth/components/reset-password-form/ResetPasswordForm';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
+import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { makeApiFetch } from 'utils/makeApiFetch';
 
 export default function ResetPassword(): JSX.Element {
     const { setIsLoading } = usePageLoading();
@@ -37,16 +39,11 @@ export default function ResetPassword(): JSX.Element {
 
         try {
             if (!isVerificationCodeSent) {
-                await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/authentication/initiate-reset-password`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email }),
-                    },
-                );
+                await makeApiFetch({
+                    url: '/authentication/initiate-reset-password',
+                    method: 'POST',
+                    body: { email },
+                });
                 setValue('isVerificationCodeSent', true);
             } else if (newPassword && verificationCode) {
                 const result = await resetPassword({
@@ -62,7 +59,7 @@ export default function ResetPassword(): JSX.Element {
                 setError('New password and verification code are required');
             }
         } catch (error) {
-            setError(error.message);
+            setError(getFailedResponseMessage(error));
         }
 
         setIsLoading(false);

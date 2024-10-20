@@ -21,6 +21,7 @@ import {
 import { EAppRoutes } from 'types/appRoutes';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
 import { getIsAuthenticated } from 'utils/getIsAuthenticated';
+import { makeApiFetch } from 'utils/makeApiFetch';
 
 export default async function middleware(
     request: NextRequest,
@@ -102,23 +103,24 @@ async function refreshTokens(
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
 
-    const tokensResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/refresh-token`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                refreshToken,
-            }),
+    const tokensResponse = await makeApiFetch({
+        url: '/authentication/refresh-token',
+        method: 'POST',
+        body: {
+            refreshToken,
         },
-    );
-    const newTokensData = await tokensResponse.json();
+    }).catch(() => {
+        return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
+    });
 
     if (!tokensResponse.ok) {
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
+
+    const newTokensData = await tokensResponse.json();
+
+    // eslint-disable-next-line no-console
+    console.log('set new tokens');
 
     response.cookies.set(SESSION_COOKIE_NAME, newTokensData.accessToken, {
         maxAge: SESSION_COOKIE_MAX_AGE,

@@ -6,6 +6,7 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { Account, TransactionCategory, User } from 'types/generated.types';
 import { IEditUserArgs } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { makeApiFetch } from 'utils/makeApiFetch';
 
 export abstract class MyBudgetApi {
     constructor(private getAccessToken: () => string) {}
@@ -18,7 +19,6 @@ export abstract class MyBudgetApi {
         }
 
         return {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         };
     }
@@ -33,25 +33,28 @@ export abstract class MyBudgetApi {
             return redirect(EAppRoutes.Auth);
         }
 
-        const { headers: optionsHeaders, ...rest } = options || {};
+        try {
+            const { headers: optionsHeaders, ...requestOptions } =
+                options || {};
 
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}${url}`,
-            {
+            const response = await makeApiFetch({
+                url,
                 headers: {
                     ...baseHeaders,
                     ...optionsHeaders,
                 },
-                ...rest,
-            },
-        );
-        const result = await response.json();
+                requestOptions,
+            });
+            const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(getFailedResponseMessage(result));
+            if (!response.ok) {
+                throw new Error(getFailedResponseMessage(data));
+            }
+
+            return data;
+        } catch (error) {
+            throw new Error(error);
         }
-
-        return result;
     }
 
     private async get<T>(
