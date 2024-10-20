@@ -114,12 +114,12 @@ async function refreshTokens(
     });
 
     if (!tokensResponse.ok) {
-        const dataJson = await tokensResponse.json().catch((e) => {
+        const data = await tokensResponse.text().catch((e) => {
             // eslint-disable-next-line no-console
             console.error('error of transform', e);
         });
         // eslint-disable-next-line no-console
-        console.error('dataJson', dataJson);
+        console.error('data', data);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
