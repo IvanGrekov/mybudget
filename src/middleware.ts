@@ -115,8 +115,11 @@ async function refreshTokens(
 
     if (!tokensResponse.ok) {
         const data = await tokensResponse.text();
+        const dataJson = await tokensResponse.json();
         // eslint-disable-next-line no-console
         console.error('data', data);
+        // eslint-disable-next-line no-console
+        console.error('dataJson', dataJson);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
