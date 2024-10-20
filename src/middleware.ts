@@ -109,9 +109,15 @@ async function refreshTokens(
         body: {
             refreshToken,
         },
-    }).catch(() => {
+    }).catch((e) => {
+        // eslint-disable-next-line no-console
+        console.log('catch', e);
+
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     });
+
+    // eslint-disable-next-line no-console
+    console.log('tokensResponse.ok', tokensResponse.ok);
 
     if (!tokensResponse.ok) {
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
