@@ -114,20 +114,10 @@ async function refreshTokens(
     });
 
     if (!tokensResponse.ok) {
-        const data = await tokensResponse.text().catch((e) => {
-            // eslint-disable-next-line no-console
-            console.error('error of transform', e);
-        });
-        // eslint-disable-next-line no-console
-        console.error('data', data);
-
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
 
     const newTokensData = await tokensResponse.json();
-
-    // eslint-disable-next-line no-console
-    console.log('set new tokens');
 
     response.cookies.set(SESSION_COOKIE_NAME, newTokensData.accessToken, {
         maxAge: SESSION_COOKIE_MAX_AGE,
