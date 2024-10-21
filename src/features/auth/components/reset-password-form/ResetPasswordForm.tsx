@@ -5,12 +5,12 @@ import ErrorMessage from 'components/error-message/ErrorMessage';
 import Fieldset from 'components/fieldset/Fieldset';
 import FormTextField from 'components/form-fields/FormTextField';
 import Show from 'components/show/Show';
+import { VERIFICATION_CODE_LENGTH } from 'constants/verificationCodeLength';
 import ResetPasswordPageActions from 'features/auth/components/reset-password-page-actions/ResetPasswordPageActions';
 import {
     RESET_PASSWORD_FORM_FIELD_NAMES,
     RESET_PASSWORD_FORM_FIELD_LABELS,
 } from 'features/auth/constants/resetPasswordForm.constants';
-import { VERIFICATION_CODE_LENGTH } from 'features/auth/constants/verificationCodeLength';
 import styles from 'features/auth/styles/AuthForm.module.scss';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
 

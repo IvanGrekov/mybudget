@@ -101,6 +101,52 @@ export abstract class MyBudgetApi {
         return this.patch(`/users/${userId}`, data);
     }
 
+    async initiateTfaEnabling(
+        signal?: AbortSignal,
+    ): TAsyncApiClientResult<{ img: string }> {
+        const baseHeaders = this.getBaseHeaders();
+
+        if (!baseHeaders) {
+            throw new Error('Forbidden');
+        }
+
+        const response = await makeApiFetch({
+            url: '/authentication/initiate-tfa-enabling',
+            headers: baseHeaders,
+            requestOptions: { method: 'POST', signal },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to get QR code');
+        }
+
+        const data = await response.blob();
+
+        return {
+            img: URL.createObjectURL(data),
+        };
+    }
+
+    async enableTfa(tfaToken: string): TAsyncApiClientResult<void> {
+        const baseHeaders = this.getBaseHeaders();
+
+        if (!baseHeaders) {
+            throw new Error('Forbidden');
+        }
+
+        const response = await makeApiFetch({
+            url: '/authentication/enable-tfa',
+            headers: baseHeaders,
+            body: { tfaToken },
+            requestOptions: { method: 'POST' },
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error);
+        }
+    }
+
     async getAccounts(): TAsyncApiClientResult<Account[]> {
         return this.get('/accounts/my', {
             next: { tags: [EFetchingTags.ACCOUNTS] },

@@ -13,7 +13,6 @@ export const useCheckbox: TUseCheckbox = (props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const labelRef = useRef<HTMLLabelElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const [isChecked, setIsChecked] = useState(false);
     const [isActive, setIsActive] = useState(false);
 
     useInputLabelEnterKeyHandler(labelRef);
@@ -21,7 +20,6 @@ export const useCheckbox: TUseCheckbox = (props) => {
     const checkboxHandlers = getCheckboxHandlers({
         inputRef,
         buttonRef,
-        setIsChecked,
         setIsActive,
         ...props,
     });
@@ -30,7 +28,6 @@ export const useCheckbox: TUseCheckbox = (props) => {
         inputRef,
         labelRef,
         buttonRef,
-        isChecked,
         isActive,
         ...checkboxHandlers,
     };

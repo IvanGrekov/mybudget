@@ -66,6 +66,13 @@
     }
 }
 
+.placeholder-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: 2rem;
+}
+
 .title {
     padding-bottom: 1.5rem;
 }

@@ -14,6 +14,7 @@ import {
 } from 'constants/input.constants';
 
 export default function Checkbox({
+    checked = false,
     label,
     typographyVariant = INPUT_LABEL_TYPOGRAPHY_VARIANT,
     error,
@@ -32,7 +33,6 @@ export default function Checkbox({
         inputRef,
         labelRef,
         buttonRef,
-        isChecked,
         isActive,
         onLabelMouseEnter,
         onLabelMouseLeave,
@@ -69,6 +69,7 @@ export default function Checkbox({
             >
                 <input
                     ref={inputRef}
+                    checked={checked}
                     type="checkbox"
                     disabled={disabled}
                     className={cx(styles.input)}
@@ -80,7 +81,7 @@ export default function Checkbox({
 
                 <IconButton
                     ref={buttonRef}
-                    Icon={getIcon(isChecked)}
+                    Icon={getIcon(checked)}
                     isActive={isActive}
                     isDisabled={disabled}
                     iconSize={INPUT_ICON_SIZE}

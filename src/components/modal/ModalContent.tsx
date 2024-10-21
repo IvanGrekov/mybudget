@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import FocusTrap from 'focus-trap-react';
 
+import CircularLoading from 'components/circular-loading/CircularLoading';
 import styles from 'components/modal/Modal.module.scss';
 import ModalActions from 'components/modal/ModalActions';
 import ModalLoader from 'components/modal/ModalLoader';
@@ -39,7 +40,13 @@ export default function ModalContent({
                 >
                     <ModalTitle text={title} />
 
-                    {children}
+                    {isOpen ? (
+                        <>{children}</>
+                    ) : (
+                        <div className={styles['placeholder-loader']}>
+                            <CircularLoading size={150} />
+                        </div>
+                    )}
 
                     <ModalActions>{actions}</ModalActions>
 

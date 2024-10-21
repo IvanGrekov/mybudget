@@ -9,23 +9,26 @@ import {
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
 import { TBaseInputContainerProps } from 'types/input.types';
 
-export type TCheckboxProps = InputHTMLAttributes<HTMLInputElement> &
+export type TCheckboxProps = Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'onChange'
+> &
     TBaseInputContainerProps & {
         label: string;
         typographyVariant?: TTypographyVariants;
         className?: string;
         containerClassName?: string;
         labelClassName?: string;
+        onChange?: (checked: boolean) => void;
     };
 
 export interface IGetCheckboxHandlersArgs {
     inputRef: RefObject<HTMLInputElement>;
     buttonRef: RefObject<HTMLButtonElement>;
-    setIsChecked: (value: boolean) => void;
     setIsActive: (value: boolean) => void;
     onFocus?: FocusEventHandler<HTMLInputElement>;
     onBlur?: FocusEventHandler<HTMLInputElement>;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onChange?: (checked: boolean) => void;
 }
 
 export interface IGetCheckboxHandlersResult {
@@ -46,6 +49,5 @@ export interface IUseCheckboxResult extends IGetCheckboxHandlersResult {
     inputRef: RefObject<HTMLInputElement>;
     labelRef: RefObject<HTMLLabelElement>;
     buttonRef: RefObject<HTMLButtonElement>;
-    isChecked: boolean;
     isActive: boolean;
 }

@@ -5,6 +5,7 @@ export interface IConfirmActionProps {
     confirmText?: string;
     confirmColor?: IButtonProps['color'];
     isLoading?: boolean;
+    isDisabled?: boolean;
     onConfirm: () => void;
 }
 
