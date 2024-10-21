@@ -21,6 +21,8 @@ export default function DisableTfaModal({
                 </>
             }
             onClose={onClose}
-        />
+        >
+            Under development
+        </Modal>
     );
 }
