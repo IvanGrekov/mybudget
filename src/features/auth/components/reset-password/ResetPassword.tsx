@@ -43,8 +43,14 @@ export default function ResetPassword(): JSX.Element {
                     url: '/authentication/initiate-reset-password',
                     method: 'POST',
                     body: { email },
+                }).then(async (response) => {
+                    if (!response.ok) {
+                        const data = await response.json();
+                        setError(getFailedResponseMessage(data));
+                    } else {
+                        setValue('isVerificationCodeSent', true);
+                    }
                 });
-                setValue('isVerificationCodeSent', true);
             } else if (newPassword && verificationCode) {
                 const result = await resetPassword({
                     email,

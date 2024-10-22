@@ -2,10 +2,8 @@ import React from 'react';
 
 import { Metadata } from 'next';
 
-import styles from 'app/[locale]/auth/reset-password/ResetPasswordPage.module.scss';
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
-import ErrorMessage from 'components/error-message/ErrorMessage';
 import ResetPassword from 'features/auth/components/reset-password/ResetPassword';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
@@ -30,11 +28,6 @@ export default async function ResetPasswordPage({
     return (
         <Container>
             <AppHeader title={title} />
-
-            <ErrorMessage
-                className={styles['error-message']}
-                message="Sorry, I didn't buy an email domain for this project, so I can't send you a verification code. But trust me, I get your verification codes in mailtrap service ;D"
-            />
 
             <ResetPassword />
         </Container>
