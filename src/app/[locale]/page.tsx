@@ -46,7 +46,7 @@ export default async function HomePage({
         );
     }
 
-    const { nickname, defaultCurrency, timeZone } = data;
+    const { nickname, defaultCurrency, timeZone, isTfaEnabled } = data;
 
     return (
         <Container>
@@ -61,6 +61,9 @@ export default async function HomePage({
                 </Typography>
                 <Typography element="p" variant="body1">
                     timeZone: {timeZone}
+                </Typography>
+                <Typography element="p" variant="body1">
+                    isTfaEnabled: {String(isTfaEnabled)}
                 </Typography>
             </HydrationBoundary>
         </Container>

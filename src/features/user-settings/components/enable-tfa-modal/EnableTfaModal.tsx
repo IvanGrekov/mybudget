@@ -1,5 +1,8 @@
 import { useState, lazy, Suspense } from 'react';
 
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+
+import { enableTfa } from 'actions/enableTfa';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ConfirmAction from 'components/confirmation-modal/ConfirmAction';
@@ -11,8 +14,8 @@ import EnableTfaModalSkeleton from 'features/user-settings/components/enable-tfa
 import ScanQrCodeStageContent from 'features/user-settings/components/enable-tfa-modal/ScanQrCodeStageContent';
 import { EEnableTfaStages } from 'features/user-settings/components/enable-tfa-modal/types/enableTfaStages';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
-import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
-import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { EFetchingTags } from 'types/fetchingTags';
+import { User } from 'types/generated.types';
 
 const EnterCodeStageContentLazy = lazy(
     () =>
@@ -31,8 +34,24 @@ export default function EnableTfaModal({
     const [img, setImg] = useState<string | null>(null);
     const [isConfirmedScanning, setIsConfirmedScanning] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
     const [stage, setStage] = useState(INITIAL_STAGE);
+    const queryClient = useQueryClient();
+    const { mutate, isPending } = useMutation({
+        mutationFn: () => {
+            return enableTfa(code);
+        },
+        onSuccess: () => {
+            queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
+                ...oldData,
+                isTfaEnabled: true,
+            }));
+            onClose();
+            resetState();
+        },
+        onError: (error) => {
+            setError(error.message);
+        },
+    });
 
     const confirmText = stage === INITIAL_STAGE ? 'Next' : 'Enable';
     const isConfirmButtonDisabled =
@@ -49,27 +68,11 @@ export default function EnableTfaModal({
         setCode('');
     };
 
-    const resetModal = (): void => {
+    const resetState = (): void => {
         setCode('');
         setImg(null);
         setIsConfirmedScanning(false);
         setStage(INITIAL_STAGE);
-    };
-
-    const enableTfa = async (): Promise<void> => {
-        setIsLoading(true);
-
-        await CLIENT_MY_BUDGET_API.enableTfa(code)
-            .then(() => {
-                onClose();
-                resetModal();
-            })
-            .catch((e) => {
-                setError(getFailedResponseMessage(e));
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
     };
 
     const onCancel = (): void => {
@@ -82,12 +85,14 @@ export default function EnableTfaModal({
     const onConfirm =
         stage === EEnableTfaStages.SCAN_QR_CODE
             ? confirmQrCodeScanning
-            : enableTfa;
+            : mutate;
 
     return (
         <Modal
             isOpen={isOpen}
             title="Enable Two-Factor Authentication"
+            isLoading={isPending}
+            onClose={onClose}
             actions={
                 <>
                     <Show when={stage === EEnableTfaStages.ENTER_CODE}>
@@ -99,15 +104,13 @@ export default function EnableTfaModal({
                     </Show>
                     <ConfirmAction
                         confirmText={confirmText}
-                        isLoading={isLoading}
+                        isLoading={isPending}
                         isDisabled={isConfirmButtonDisabled}
                         onConfirm={onConfirm}
                     />
                     <CancelAction onCancel={onCancel} />
                 </>
             }
-            isLoading={isLoading}
-            onClose={onClose}
         >
             <div className={styles.container}>
                 {error && (

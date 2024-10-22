@@ -1,5 +1,5 @@
 import CircularLoading from 'components/circular-loading/CircularLoading';
-import styles from 'features/user-settings/components/enable-tfa-modal/EnableTfaModalSkeleton.module.scss';
+import styles from 'features/user-settings/components/enable-tfa-modal/EnableTfaModal.module.scss';
 
 export default function EnableTfaModalSkeleton(): JSX.Element {
     return (

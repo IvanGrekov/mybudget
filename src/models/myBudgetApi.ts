@@ -53,7 +53,7 @@ export abstract class MyBudgetApi {
 
             return data;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(getFailedResponseMessage(error));
         }
     }
 
@@ -143,7 +143,27 @@ export abstract class MyBudgetApi {
 
         if (!response.ok) {
             const error = await response.json();
-            throw new Error(error);
+            throw new Error(getFailedResponseMessage(error));
+        }
+    }
+
+    async disableTfa(tfaToken: string): TAsyncApiClientResult<void> {
+        const baseHeaders = this.getBaseHeaders();
+
+        if (!baseHeaders) {
+            throw new Error('Forbidden');
+        }
+
+        const response = await makeApiFetch({
+            url: '/authentication/disable-tfa',
+            headers: baseHeaders,
+            body: { tfaToken },
+            requestOptions: { method: 'POST' },
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(getFailedResponseMessage(error));
         }
     }
 
