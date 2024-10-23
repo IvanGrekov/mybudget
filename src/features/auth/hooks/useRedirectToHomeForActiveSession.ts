@@ -12,21 +12,10 @@ export const useRedirectToHomeForActiveSession = (): void => {
     const pathname = usePathname();
 
     useEffect(() => {
-        // eslint-disable-next-line no-console
-        console.log('pathname', pathname);
-
-        if (!getIsAuthPage(pathname)) {
+        if (!getIsAuthPage(pathname) || !getCookie(SESSION_COOKIE_NAME)) {
             return;
         }
 
-        const sessionCookie = getCookie(SESSION_COOKIE_NAME);
-
-        if (!sessionCookie) {
-            return;
-        }
-
-        // eslint-disable-next-line no-console
-        console.log('redirect');
         window.location.href = EAppRoutes.Root;
     }, [pathname, router]);
 };
