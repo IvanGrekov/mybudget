@@ -15,7 +15,7 @@ import ScanQrCodeStageContent from 'features/user-settings/components/enable-tfa
 import { EEnableTfaStages } from 'features/user-settings/components/enable-tfa-modal/types/enableTfaStages';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
 import { EFetchingTags } from 'types/fetchingTags';
-import { User } from 'types/generated.types';
+import { InitiateTfaEnablingDtoResult, User } from 'types/generated.types';
 
 const EnterCodeStageContentLazy = lazy(
     () =>
@@ -31,7 +31,9 @@ export default function EnableTfaModal({
     onClose,
 }: ITfaSettingsModalProps): JSX.Element {
     const [code, setCode] = useState('');
-    const [img, setImg] = useState<string | null>(null);
+    const [tfaData, setTfaData] = useState<InitiateTfaEnablingDtoResult | null>(
+        null,
+    );
     const [isConfirmedScanning, setIsConfirmedScanning] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [stage, setStage] = useState(INITIAL_STAGE);
@@ -70,7 +72,7 @@ export default function EnableTfaModal({
 
     const resetState = (): void => {
         setCode('');
-        setImg(null);
+        setTfaData(null);
         setIsConfirmedScanning(false);
         setStage(INITIAL_STAGE);
     };
@@ -92,6 +94,7 @@ export default function EnableTfaModal({
             isOpen={isOpen}
             title="Enable Two-Factor Authentication"
             isLoading={isPending}
+            size="medium"
             onClose={onClose}
             actions={
                 <>
@@ -121,9 +124,9 @@ export default function EnableTfaModal({
                 )}
                 <Show when={stage === EEnableTfaStages.SCAN_QR_CODE}>
                     <ScanQrCodeStageContent
-                        img={img}
+                        tfaData={tfaData}
                         isConfirmedScanning={isConfirmedScanning}
-                        setImg={setImg}
+                        setTfaData={setTfaData}
                         setIsConfirmedScanning={setIsConfirmedScanning}
                         setError={setError}
                     />

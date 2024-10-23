@@ -235,6 +235,7 @@ export interface ResetPasswordDto {
 
 export interface InitiateTfaEnablingDtoResult {
     dataUrl: string;
+    secret: string;
 }
 
 export interface CreateApiKeyForUserDto {
