@@ -88,6 +88,21 @@ async function refreshTokens(
     const accessToken = cookies.get(SESSION_COOKIE_NAME)?.value;
     const refreshToken = cookies.get(REFRESH_TOKEN_COOKIE_NAME)?.value;
 
+    // eslint-disable-next-line no-console
+    console.log('------------------');
+    // eslint-disable-next-line no-console
+    console.log(url);
+    // eslint-disable-next-line no-console
+    console.log('isAuthPage', !!isAuthPage);
+    // eslint-disable-next-line no-console
+    console.log('refreshToken', !!refreshToken);
+    // eslint-disable-next-line no-console
+    console.log('accessToken', !!accessToken);
+    // eslint-disable-next-line no-console
+    console.log('cookies', cookies.getAll());
+    // eslint-disable-next-line no-console
+    console.log('------------------');
+
     if (isAuthPage) {
         accessToken && response.cookies.delete(SESSION_COOKIE_NAME);
         refreshToken && response.cookies.delete(REFRESH_TOKEN_COOKIE_NAME);
