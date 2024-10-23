@@ -11,6 +11,6 @@ export const REFRESH_TOKEN_MAX_AGE = parseInt(
     10,
 );
 
-export const DEFAULT_COOKIE_SAME_SITE = 'strict';
+export const DEFAULT_COOKIE_SAME_SITE = 'lax';
 
 export const DEFAULT_COOKIE_PATH = '/';
