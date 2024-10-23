@@ -3,13 +3,22 @@ import { redirect } from 'next/navigation';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
-import { Account, TransactionCategory, User } from 'types/generated.types';
+import {
+    Account,
+    InitiateTfaEnablingDtoResult,
+    TransactionCategory,
+    User,
+} from 'types/generated.types';
 import { IEditUserArgs } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
 export abstract class MyBudgetApi {
-    constructor(private getAccessToken: () => string) {}
+    constructor(private getAccessToken: () => string, private apiUrl?: string) {
+        if (!apiUrl) {
+            throw new Error('Api URL is required');
+        }
+    }
 
     private getBaseHeaders(): Record<string, string> | null {
         const token = this.getAccessToken();
@@ -44,6 +53,7 @@ export abstract class MyBudgetApi {
                     ...optionsHeaders,
                 },
                 requestOptions,
+                apiUrl: this.apiUrl,
             });
             const data = await response.json();
 
@@ -72,7 +82,7 @@ export abstract class MyBudgetApi {
         return this.request<T>(url, {
             ...options,
             method: 'POST',
-            body: JSON.stringify(data),
+            body: data ? JSON.stringify(data) : undefined,
         });
     }
 
@@ -103,28 +113,10 @@ export abstract class MyBudgetApi {
 
     async initiateTfaEnabling(
         signal?: AbortSignal,
-    ): TAsyncApiClientResult<{ img: string }> {
-        const baseHeaders = this.getBaseHeaders();
-
-        if (!baseHeaders) {
-            throw new Error('Forbidden');
-        }
-
-        const response = await makeApiFetch({
-            url: '/authentication/initiate-tfa-enabling',
-            headers: baseHeaders,
-            requestOptions: { method: 'POST', signal },
+    ): TAsyncApiClientResult<InitiateTfaEnablingDtoResult> {
+        return this.post('/authentication/initiate-tfa-enabling', null, {
+            signal,
         });
-
-        if (!response.ok) {
-            throw new Error('Failed to get QR code');
-        }
-
-        const data = await response.blob();
-
-        return {
-            img: URL.createObjectURL(data),
-        };
     }
 
     async enableTfa(tfaToken: string): TAsyncApiClientResult<void> {
@@ -139,6 +131,7 @@ export abstract class MyBudgetApi {
             headers: baseHeaders,
             body: { tfaToken },
             requestOptions: { method: 'POST' },
+            apiUrl: this.apiUrl,
         });
 
         if (!response.ok) {
@@ -159,6 +152,7 @@ export abstract class MyBudgetApi {
             headers: baseHeaders,
             body: { tfaToken },
             requestOptions: { method: 'POST' },
+            apiUrl: this.apiUrl,
         });
 
         if (!response.ok) {

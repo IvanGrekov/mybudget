@@ -233,6 +233,10 @@ export interface ResetPasswordDto {
     verificationCode: string;
 }
 
+export interface InitiateTfaEnablingDtoResult {
+    dataUrl: string;
+}
+
 export interface CreateApiKeyForUserDto {
     userId: number;
 }
@@ -1496,8 +1500,23 @@ export class Api<
         authenticationControllerInitiateTfaEnabling: (
             params: RequestParams = {},
         ) =>
-            this.request<void, any>({
+            this.request<InitiateTfaEnablingDtoResult, any>({
                 path: `/authentication/initiate-tfa-enabling`,
+                method: 'POST',
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags authentication
+         * @name AuthenticationControllerEnableTfa
+         * @request POST:/authentication/enable-tfa
+         */
+        authenticationControllerEnableTfa: (params: RequestParams = {}) =>
+            this.request<void, any>({
+                path: `/authentication/enable-tfa`,
                 method: 'POST',
                 ...params,
             }),
@@ -1507,11 +1526,11 @@ export class Api<
          *
          * @tags authentication
          * @name AuthenticationControllerDisableTfa
-         * @request POST:/authentication/enable-tfa
+         * @request POST:/authentication/disable-tfa
          */
         authenticationControllerDisableTfa: (params: RequestParams = {}) =>
             this.request<void, any>({
-                path: `/authentication/enable-tfa`,
+                path: `/authentication/disable-tfa`,
                 method: 'POST',
                 ...params,
             }),

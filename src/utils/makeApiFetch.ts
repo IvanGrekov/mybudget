@@ -4,6 +4,7 @@ type TMakeApiFetch = (args: {
     body?: unknown;
     headers?: HeadersInit;
     requestOptions?: RequestInit;
+    apiUrl?: string;
 }) => Promise<Response>;
 
 export const makeApiFetch: TMakeApiFetch = ({
@@ -12,8 +13,9 @@ export const makeApiFetch: TMakeApiFetch = ({
     method = 'GET',
     headers,
     requestOptions,
+    apiUrl = process.env.NEXT_PUBLIC_API_URL,
 }) => {
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+    return fetch(`${apiUrl}${url}`, {
         method,
         headers: {
             'Content-Type': 'application/json',

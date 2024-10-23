@@ -6,7 +6,7 @@ export class ClientMyBudgetApi extends MyBudgetApi {
     constructor() {
         super(() => {
             return getCookie(SESSION_COOKIE_NAME) || '';
-        });
+        }, process.env.NEXT_PUBLIC_API_CLIENT_URL);
     }
 }
 

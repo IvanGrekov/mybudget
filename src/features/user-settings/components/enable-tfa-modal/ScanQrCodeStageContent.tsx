@@ -36,10 +36,11 @@ export default function ScanQrCodeStageContent({
 
         CLIENT_MY_BUDGET_API.initiateTfaEnabling(ABORT_CONTROLLER.signal)
             .then((data) => {
-                if (!data) {
+                const dataUrl = data?.dataUrl;
+                if (!dataUrl) {
                     throw new Error('Failed to get QR code');
                 }
-                setImg(data.img);
+                setImg(dataUrl);
             })
             .catch((error) => {
                 if (error?.message.toLowerCase().includes('aborted')) {

@@ -9,7 +9,7 @@ export class ServerMyBudgetApi extends MyBudgetApi {
     constructor() {
         super(() => {
             return cookies().get(SESSION_COOKIE_NAME)?.value || '';
-        });
+        }, process.env.NEXT_PUBLIC_API_URL);
     }
 }
 
