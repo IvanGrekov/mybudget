@@ -8,15 +8,12 @@ import { usePageLoading } from 'contexts/PageLoadingContext';
 import { SIGN_UP_FORM_VALIDATION } from 'features/auth/components/sign-up/constants/signUpFormValidation';
 import { USER_TIME_ZONE } from 'features/auth/components/sign-up/constants/userTimeZone';
 import SignUpForm from 'features/auth/components/sign-up-form/SignUpForm';
-import { useRedirectToHomeForActiveSession } from 'features/auth/hooks/useRedirectToHomeForActiveSession';
 import { TSignUpFormValues } from 'features/auth/types/signUpFormValues';
 import { CreateUserDtoDefaultCurrencyEnum } from 'types/generated.types';
 
 export default function SignUp(): JSX.Element {
     const { setIsLoading } = usePageLoading();
     const [error, setError] = useState<string | null>(null);
-
-    useRedirectToHomeForActiveSession();
 
     const methods = useForm<TSignUpFormValues>({
         defaultValues: {

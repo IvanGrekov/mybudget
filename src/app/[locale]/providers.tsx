@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
+import AuthProvider from 'components/auth-provider/AuthProvider';
 import { ConfirmNavigationProvider } from 'contexts/ConfirmNavigationContext';
 import { MobileSidebarProvider } from 'contexts/MobileSidebarContext';
 import { NotificationsProvider } from 'contexts/NotificationsContext';
@@ -21,7 +22,7 @@ export default function Providers({
                 <ConfirmNavigationProvider>
                     <MobileSidebarProvider>
                         <NotificationsProvider>
-                            {children}
+                            <AuthProvider>{children}</AuthProvider>
                         </NotificationsProvider>
                     </MobileSidebarProvider>
                 </ConfirmNavigationProvider>
