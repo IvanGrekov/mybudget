@@ -7,11 +7,14 @@ import { signIn } from 'actions/signIn';
 import { usePageLoading } from 'contexts/PageLoadingContext';
 import { SIGN_IN_FORM_VALIDATION } from 'features/auth/components/sign-in/constants/signInFormValidation';
 import SignInForm from 'features/auth/components/sign-in-form/SignInForm';
+import { useRedirectToHomeForActiveSession } from 'features/auth/hooks/useRedirectToHomeForActiveSession';
 import { ISignInFormValues } from 'features/auth/types/signInFormValues';
 
 export default function SignIn(): JSX.Element {
     const { setIsLoading } = usePageLoading();
     const [error, setError] = useState<string | null>(null);
+
+    useRedirectToHomeForActiveSession();
 
     const methods = useForm<ISignInFormValues>({
         defaultValues: {
