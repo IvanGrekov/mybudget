@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 import styles from 'app/[locale]/auth/AuthPage.module.scss';
 import AppHeader from 'components/app-header/AppHeader';
@@ -11,6 +12,7 @@ import SocialAuth from 'features/auth/components/social-auth/SocialAuth';
 import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getIsActiveSession } from 'utils/getIsActiveSession';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 
 const pageName = 'Sign In';
@@ -28,6 +30,11 @@ export default async function SignInPage({
         locale,
         pageName,
     });
+
+    const isActiveSession = getIsActiveSession(cookies());
+
+    // eslint-disable-next-line no-console
+    console.log('isActiveSession', isActiveSession);
 
     return (
         <Container>
