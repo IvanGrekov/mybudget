@@ -31,9 +31,7 @@ export default async function HomePage({
     });
 
     const queryClient = getQueryClient();
-    let data: TApiClientResult<User> = null;
-
-    data = await queryClient.fetchQuery({
+    const data: TApiClientResult<User> = await queryClient.fetchQuery({
         queryKey: [EFetchingTags.ME],
         queryFn: () => SERVER_MY_BUDGET_API.getMe(),
     });

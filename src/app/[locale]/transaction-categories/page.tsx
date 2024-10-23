@@ -33,12 +33,11 @@ export default async function TransactionCategoriesPage({
     });
 
     const queryClient = getQueryClient();
-    let data: TApiClientResult<TransactionCategory[]> = null;
-
-    data = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.TRANSACTION_CATEGORIES],
-        queryFn: () => SERVER_MY_BUDGET_API.getTransactionCategories(),
-    });
+    const data: TApiClientResult<TransactionCategory[]> =
+        await queryClient.fetchQuery({
+            queryKey: [EFetchingTags.TRANSACTION_CATEGORIES],
+            queryFn: () => SERVER_MY_BUDGET_API.getTransactionCategories(),
+        });
 
     if (!data?.length) {
         return (

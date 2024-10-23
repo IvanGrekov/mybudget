@@ -12,11 +12,8 @@ export const useRedirectToHomeForActiveSession = (): void => {
     useEffect(() => {
         const sessionCookie = getCookie(SESSION_COOKIE_NAME);
 
-        // eslint-disable-next-line no-console
-        console.log('sessionCookie', sessionCookie);
-
         if (sessionCookie) {
-            router.replace(EAppRoutes.Root);
+            router.push(EAppRoutes.Root);
         }
     }, [router]);
 };

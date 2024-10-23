@@ -33,9 +33,7 @@ export default async function AccountsPage({
     });
 
     const queryClient = getQueryClient();
-    let data: TApiClientResult<Account[]> = null;
-
-    data = await queryClient.fetchQuery({
+    const data: TApiClientResult<Account[]> = await queryClient.fetchQuery({
         queryKey: [EFetchingTags.ACCOUNTS],
         queryFn: () => SERVER_MY_BUDGET_API.getAccounts(),
     });

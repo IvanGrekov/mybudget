@@ -31,18 +31,10 @@ export default async function SettingsPage({
     });
 
     const queryClient = getQueryClient();
-    let data: TApiClientResult<User> = null;
-
-    data = await queryClient
-        .fetchQuery({
-            queryKey: [EFetchingTags.ME],
-            queryFn: () => SERVER_MY_BUDGET_API.getMe(),
-        })
-        .catch((e) => {
-            console.error(e);
-
-            return null;
-        });
+    const data: TApiClientResult<User> = await queryClient.fetchQuery({
+        queryKey: [EFetchingTags.ME],
+        queryFn: () => SERVER_MY_BUDGET_API.getMe(),
+    });
 
     if (!data) {
         return (
