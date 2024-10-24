@@ -5,6 +5,8 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editUser } from 'actions/editUser';
+import Show from 'components/show/Show';
+import UserCurrencySection from 'features/user-settings/components/user-currency-section/UserCurrencySection';
 import UserSecuritySection from 'features/user-settings/components/user-security-section/UserSecuritySection';
 import styles from 'features/user-settings/components/user-settings/UserSettings.module.scss';
 import UserSettingsForm from 'features/user-settings/components/user-settings-form/UserSettingsForm';
@@ -25,6 +27,7 @@ export default function UserSettings({
         id: userId,
         nickname: userNickname,
         timeZone: userTimeZone,
+        defaultCurrency: userDefaultCurrency,
         isTfaEnabled,
         googleId,
     } = user;
@@ -73,10 +76,11 @@ export default function UserSettings({
                 />
             </FormProvider>
 
-            <UserSecuritySection
-                isTfaEnabled={isTfaEnabled}
-                googleId={googleId}
-            />
+            <UserCurrencySection userDefaultCurrency={userDefaultCurrency} />
+
+            <Show when={!googleId}>
+                <UserSecuritySection isTfaEnabled={isTfaEnabled} />
+            </Show>
         </div>
     );
 }

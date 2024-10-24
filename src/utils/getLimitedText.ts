@@ -1,16 +1,26 @@
 import { TTypographyChildren } from 'types/typographyChildren';
 
 type TGetLimitedText = (args: {
-    text: TTypographyChildren;
+    children: TTypographyChildren;
     maxLength?: number;
 }) => TTypographyChildren;
 
-export const getLimitedText: TGetLimitedText = ({ text, maxLength }) => {
-    if (typeof maxLength === 'undefined') {
-        return text;
+export const getLimitedText: TGetLimitedText = ({ children, maxLength }) => {
+    if (!children) {
+        return '';
     }
 
-    const string = Array.isArray(text) ? text.join('') : text.toString();
+    if (typeof children === 'function' || typeof children === 'object') {
+        return children;
+    }
+
+    if (typeof maxLength === 'undefined') {
+        return children;
+    }
+
+    const string = Array.isArray(children)
+        ? children.join('')
+        : children.toString();
 
     const slicedText = string
         .slice(0, maxLength)

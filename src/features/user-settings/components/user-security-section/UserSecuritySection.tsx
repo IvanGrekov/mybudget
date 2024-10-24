@@ -4,18 +4,12 @@ import { useModal } from 'hooks/useModal';
 
 interface IUserSecuritySectionProps {
     isTfaEnabled: boolean;
-    googleId?: string;
 }
 
 export default function UserSecuritySection({
     isTfaEnabled,
-    googleId,
-}: IUserSecuritySectionProps): JSX.Element | null {
+}: IUserSecuritySectionProps): JSX.Element {
     const { isModalOpen, openModal, closeModal } = useModal();
-
-    if (googleId) {
-        return null;
-    }
 
     const text = isTfaEnabled
         ? 'Disable Two-Factor Authentication'

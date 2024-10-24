@@ -30,7 +30,7 @@ export default function Typography({
     className,
 }: ITypographyProps): JSX.Element {
     const Element = element;
-    const text = getLimitedText({ text: children, maxLength });
+    const text = getLimitedText({ children, maxLength });
 
     return (
         <Element
