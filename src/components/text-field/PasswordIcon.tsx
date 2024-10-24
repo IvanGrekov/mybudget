@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, MouseEvent } from 'react';
 
 import cx from 'classnames';
 
@@ -24,7 +24,8 @@ export default function PasswordIcon({
         return null;
     }
 
-    const onClick = (): void => {
+    const onClick = (e: MouseEvent<HTMLButtonElement>): void => {
+        e.preventDefault();
         setIsValueVisible((prev) => !prev);
     };
 

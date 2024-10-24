@@ -9,12 +9,12 @@ export interface IBaseButtonProps {
     isActive?: boolean;
     isDisabled?: boolean;
     tabIndex?: number;
+    type?: 'button' | 'submit';
     className?: string;
 }
 
 export interface IButtonProps extends IBaseButtonProps {
     text: string;
-    type?: 'button' | 'submit';
     form?: string;
     variant?: 'outlined' | 'contained' | 'ghost';
     size?: 'small' | 'big' | 'regular';

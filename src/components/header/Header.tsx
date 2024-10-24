@@ -24,11 +24,15 @@ export default function Header({
     className,
     isSidebarLayout,
     children,
-}: IHeaderProps): JSX.Element {
+}: IHeaderProps): JSX.Element | null {
     const pathname = usePathname();
     const { isFixed } = useIsHeaderFixed();
     const shouldShowPreferencesSwitchers = useShouldShowPreferencesSwitchers();
     const isAuthPage = getIsAuthPage(pathname);
+
+    if (isAuthPage) {
+        return null;
+    }
 
     return (
         <header
@@ -44,9 +48,7 @@ export default function Header({
             <PageLoadingIndicator wrapperClassName={styles.loading} />
 
             <div className={styles['content-wrapper']}>
-                <Show when={!isAuthPage}>
-                    <OpenMobileSidebarButton />
-                </Show>
+                <OpenMobileSidebarButton />
 
                 <div className={styles.content}>
                     <div className={styles['actions']}>
@@ -54,9 +56,7 @@ export default function Header({
                             <PreferencesSwitchers tooltipPosition="bottom-left" />
                         </Show>
 
-                        <Show when={!isAuthPage}>
-                            <SignOutButton />
-                        </Show>
+                        <SignOutButton />
                     </div>
 
                     {children}
