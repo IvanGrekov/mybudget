@@ -26,6 +26,7 @@ export default function UserSettings({
         nickname: userNickname,
         timeZone: userTimeZone,
         isTfaEnabled,
+        googleId,
     } = user;
 
     const addErrorMessage = useAddErrorMessageToNotifications();
@@ -72,7 +73,10 @@ export default function UserSettings({
                 />
             </FormProvider>
 
-            <UserSecuritySection isTfaEnabled={isTfaEnabled} />
+            <UserSecuritySection
+                isTfaEnabled={isTfaEnabled}
+                googleId={googleId}
+            />
         </div>
     );
 }
