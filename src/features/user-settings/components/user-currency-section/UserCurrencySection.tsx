@@ -17,7 +17,6 @@ export default function UserCurrencySection({
     return (
         <>
             <Button
-                variant="contained"
                 text="Change Currency"
                 onClick={openModal}
             />
