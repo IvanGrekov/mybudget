@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
@@ -26,6 +27,7 @@ export default function AccountDetailsModal({
             actions={<Button text="Close" onClick={onClose} />}
             onClose={onClose}
         >
+            <UnderDevelopmentMessage />
             <AccountDetails accountId={id} />
         </Modal>
     );

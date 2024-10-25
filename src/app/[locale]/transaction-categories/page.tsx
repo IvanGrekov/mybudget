@@ -6,6 +6,7 @@ import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import Link from 'components/link/Link';
 import Typography from 'components/typography/Typography';
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
@@ -52,6 +53,7 @@ export default async function TransactionCategoriesPage({
             <AppHeader title={title} />
 
             <HydrationBoundary state={dehydrate(queryClient)}>
+                <UnderDevelopmentMessage />
                 <ul>
                     {data.map(({ id, name }) => (
                         <li key={id}>

@@ -76,11 +76,15 @@ export default function UserSettings({
                 />
             </FormProvider>
 
-            <UserCurrencySection userDefaultCurrency={userDefaultCurrency} />
+            <div className={styles.actions}>
+                <UserCurrencySection
+                    userDefaultCurrency={userDefaultCurrency}
+                />
 
-            <Show when={!googleId}>
-                <UserSecuritySection isTfaEnabled={isTfaEnabled} />
-            </Show>
+                <Show when={!googleId}>
+                    <UserSecuritySection isTfaEnabled={isTfaEnabled} />
+                </Show>
+            </div>
         </div>
     );
 }

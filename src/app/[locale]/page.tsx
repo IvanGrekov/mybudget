@@ -5,6 +5,7 @@ import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import Typography from 'components/typography/Typography';
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
@@ -51,6 +52,8 @@ export default async function HomePage({
             <AppHeader title={title} subtitle="Check your transactions here" />
 
             <HydrationBoundary state={dehydrate(queryClient)}>
+                <UnderDevelopmentMessage />
+
                 <Typography element="p" variant="body1">
                     nickname: {nickname}
                 </Typography>

@@ -4,6 +4,7 @@ export enum ENotificationType {
     SUCCESS = 'success',
     ERROR = 'error',
     INFO = 'info',
+    WARNING = 'warning',
 }
 
 export enum ENotificationSize {

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
@@ -25,6 +26,7 @@ export default function TransactionCategoryDetailsModal({
             actions={<Button text="Close" onClick={onClose} />}
             onClose={onClose}
         >
+            <UnderDevelopmentMessage />
             <TransactionCategoryDetails transactionCategoryId={id} />
         </Modal>
     );

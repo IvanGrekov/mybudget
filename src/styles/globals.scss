@@ -14,6 +14,7 @@
     --red: #f45050;
     --green: #47a992;
     --blue: #3a98b9;
+    --orange: #f9a825;
 
     --middle-color: rgba(var(--middle));
     --middle-opacity: rgba(var(--middle), 0.5);
@@ -24,6 +25,7 @@
     --error: var(--red);
     --success: var(--green);
     --info: var(--blue);
+    --warning: var(--orange);
 
     --box-shadow-color: 0, 0, 0;
     --box-shadow-xs: 0px 4px 2px -3px rgba(var(--box-shadow-color), 0.1),
@@ -231,6 +233,15 @@ svg {
 
 .blue-background {
     background: var(--blue) !important;
+}
+
+.orange-color {
+    color: var(--orange) !important;
+    fill: var(--orange) !important;
+}
+
+.orange-background {
+    background: var(--orange) !important;
 }
 
 .info-color {

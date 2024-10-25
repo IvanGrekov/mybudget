@@ -2,6 +2,7 @@ import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import Modal from 'components/modal/Modal';
 import Typography from 'components/typography/Typography';
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { useModal } from 'hooks/useModal';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
 
@@ -29,9 +30,11 @@ export default function UserCurrencySection({
                     </>
                 }
             >
+                <UnderDevelopmentMessage />
                 <Typography>
                     Current currency:{' '}
                     <Typography
+                        element="span"
                         style={{
                             fontWeight: 'bold',
                         }}
@@ -39,8 +42,6 @@ export default function UserCurrencySection({
                         {userDefaultCurrency}
                     </Typography>
                 </Typography>
-
-                <Typography>Feature is under development...</Typography>
             </Modal>
         </>
     );
