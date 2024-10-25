@@ -16,14 +16,11 @@ export default function UserCurrencySection({
 
     return (
         <>
-            <Button
-                text="Change Currency"
-                onClick={openModal}
-            />
+            <Button text="Change Default Currency" onClick={openModal} />
 
             <Modal
                 isOpen={isModalOpen}
-                title="Change Currency"
+                title="Change Default Currency"
                 size="medium"
                 onClose={closeModal}
                 actions={
