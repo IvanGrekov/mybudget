@@ -100,12 +100,12 @@ export interface EditUserDto {
 }
 
 export interface EditUserCurrencyDto {
+    defaultCurrency: EditUserCurrencyDtoDefaultCurrencyEnum;
     /** @min 1 */
     rate: number;
     isAccountsCurrencySoftUpdate?: boolean;
     isTransactionCategoriesCurrencySoftUpdate?: boolean;
     isTransactionCategoriesCurrencyForceUpdate?: boolean;
-    defaultCurrency?: EditUserCurrencyDtoDefaultCurrencyEnum;
 }
 
 export interface EditUserRoleDto {

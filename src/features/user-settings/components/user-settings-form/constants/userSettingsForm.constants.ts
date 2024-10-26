@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { IUserSettingsFormData } from 'features/user-settings/types/userSettingsFormData';
+import { IUserSettingsFormData } from 'features/user-settings/components/user-settings-form/types/userSettingsFormData';
 import {
     getMinLengthValidationWarning,
     getMaxLengthValidationWarning,

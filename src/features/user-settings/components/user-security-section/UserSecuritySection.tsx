@@ -1,3 +1,5 @@
+'use client';
+
 import Button from 'components/button/Button';
 import TfaSettingsModal from 'features/user-settings/components/tfa-settings-modal/TfaSettingsModal';
 import { useModal } from 'hooks/useModal';

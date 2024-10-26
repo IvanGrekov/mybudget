@@ -1,8 +1,7 @@
+'use client';
+
 import Button from 'components/button/Button';
-import CancelAction from 'components/confirmation-modal/CancelAction';
-import Modal from 'components/modal/Modal';
-import Typography from 'components/typography/Typography';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
+import UserCurrencyModal from 'features/user-settings/components/user-currency-modal/UserCurrencyModal';
 import { useModal } from 'hooks/useModal';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
 
@@ -19,30 +18,11 @@ export default function UserCurrencySection({
         <>
             <Button text="Change Default Currency" onClick={openModal} />
 
-            <Modal
+            <UserCurrencyModal
                 isOpen={isModalOpen}
-                title="Change Default Currency"
-                size="medium"
+                userDefaultCurrency={userDefaultCurrency}
                 onClose={closeModal}
-                actions={
-                    <>
-                        <CancelAction onCancel={closeModal} />
-                    </>
-                }
-            >
-                <UnderDevelopmentMessage />
-                <Typography>
-                    Current currency:{' '}
-                    <Typography
-                        element="span"
-                        style={{
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        {userDefaultCurrency}
-                    </Typography>
-                </Typography>
-            </Modal>
+            />
         </>
     );
 }
