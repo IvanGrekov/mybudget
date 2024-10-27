@@ -7,6 +7,7 @@ import ModalActions from 'components/modal/ModalActions';
 import ModalLoader from 'components/modal/ModalLoader';
 import ModalTitle from 'components/modal/ModalTitle';
 import { TModalProps } from 'components/modal/types/modalProps';
+import Show from 'components/show/Show';
 
 export default function ModalContent({
     isOpen,
@@ -48,7 +49,9 @@ export default function ModalContent({
                         </div>
                     )}
 
-                    <ModalActions>{actions}</ModalActions>
+                    <Show when={!!actions}>
+                        <ModalActions>{actions}</ModalActions>
+                    </Show>
 
                     <ModalLoader isLoading={isLoading} />
                 </div>

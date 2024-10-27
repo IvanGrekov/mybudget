@@ -20,6 +20,7 @@ export type TCheckboxProps = Omit<
         containerClassName?: string;
         labelClassName?: string;
         onChange?: (checked: boolean) => void;
+        nativeSelectRefCallback?: (ref: HTMLInputElement) => void;
     };
 
 export interface IGetCheckboxHandlersArgs {
@@ -29,6 +30,7 @@ export interface IGetCheckboxHandlersArgs {
     onFocus?: FocusEventHandler<HTMLInputElement>;
     onBlur?: FocusEventHandler<HTMLInputElement>;
     onChange?: (checked: boolean) => void;
+    nativeSelectRefCallback?: (ref: HTMLInputElement) => void;
 }
 
 export interface IGetCheckboxHandlersResult {
@@ -38,11 +40,12 @@ export interface IGetCheckboxHandlersResult {
     onLabelMouseEnter: MouseEventHandler<HTMLLabelElement>;
     onLabelMouseLeave: MouseEventHandler<HTMLLabelElement>;
     onButtonClick: MouseEventHandler<HTMLButtonElement>;
+    onLabelClick?: MouseEventHandler<HTMLLabelElement>;
 }
 
 export type TUseCheckboxArgs = Pick<
     IGetCheckboxHandlersArgs,
-    'onFocus' | 'onBlur' | 'onChange'
+    'onFocus' | 'onBlur' | 'onChange' | 'nativeSelectRefCallback'
 >;
 
 export interface IUseCheckboxResult extends IGetCheckboxHandlersResult {

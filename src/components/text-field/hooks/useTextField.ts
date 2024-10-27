@@ -6,6 +6,7 @@ import {
     IUseTextFieldResult,
 } from 'components/text-field/types/textField.types';
 import { getInputHandlers } from 'components/text-field/utils/textField.utils';
+import { useNativeSelectRefCallback } from 'hooks/useNativeSelectRefCallback';
 
 type TUseTextField = (
     args: IInputHandlersArgs &
@@ -27,11 +28,10 @@ export const useTextField: TUseTextField = ({
     const [isFocused, setIsFocused] = useState(false);
     const [isValueVisible, setIsValueVisible] = useState(false);
 
-    useEffect(() => {
-        if (nativeSelectRefCallback && inputRef.current) {
-            nativeSelectRefCallback(inputRef.current);
-        }
-    }, [nativeSelectRefCallback]);
+    useNativeSelectRefCallback({
+        inputRef,
+        nativeSelectRefCallback,
+    });
 
     useEffect(() => {
         setIsInputFilled(Boolean(inputRef.current?.value));

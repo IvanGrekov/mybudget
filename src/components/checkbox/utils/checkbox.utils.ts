@@ -19,6 +19,7 @@ type TGetCheckboxHandlers = (
 export const getCheckboxHandlers: TGetCheckboxHandlers = ({
     inputRef,
     buttonRef,
+    nativeSelectRefCallback,
     setIsActive,
     onFocus,
     onBlur,
@@ -33,6 +34,17 @@ export const getCheckboxHandlers: TGetCheckboxHandlers = ({
         () => {
             setIsActive(false);
         };
+
+    const onLabelClick: IGetCheckboxHandlersResult['onLabelClick'] =
+        nativeSelectRefCallback
+            ? (e): void => {
+                  if (inputRef.current) {
+                      e.preventDefault();
+                      const newState = !inputRef.current.checked;
+                      onChange?.(newState);
+                  }
+              }
+            : undefined;
 
     const onInputFocus: IGetCheckboxHandlersResult['onInputFocus'] = (e) => {
         buttonRef.current?.focus();
@@ -57,11 +69,12 @@ export const getCheckboxHandlers: TGetCheckboxHandlers = ({
     };
 
     return {
+        onLabelMouseEnter,
+        onLabelMouseLeave,
+        onLabelClick,
         onInputFocus,
         onInputBlur,
         onInputChange,
-        onLabelMouseEnter,
-        onLabelMouseLeave,
         onButtonClick,
     };
 };

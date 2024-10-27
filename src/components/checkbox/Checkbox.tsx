@@ -24,6 +24,7 @@ export default function Checkbox({
     containerClassName,
     errorClassName,
     labelClassName,
+    nativeSelectRefCallback,
     onFocus,
     onBlur,
     onChange,
@@ -36,11 +37,13 @@ export default function Checkbox({
         isActive,
         onLabelMouseEnter,
         onLabelMouseLeave,
+        onLabelClick,
         onInputFocus,
         onInputBlur,
         onInputChange,
         onButtonClick,
     } = useCheckbox({
+        nativeSelectRefCallback,
         onFocus,
         onBlur,
         onChange,
@@ -57,6 +60,7 @@ export default function Checkbox({
                 ref={labelRef}
                 onMouseEnter={onLabelMouseEnter}
                 onMouseLeave={onLabelMouseLeave}
+                onClick={onLabelClick}
                 tabIndex={disabled ? -1 : 0}
                 className={cx(
                     styles.label,
