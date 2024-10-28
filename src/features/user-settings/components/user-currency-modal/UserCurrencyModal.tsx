@@ -4,11 +4,13 @@ import UserCurrencyModalContent from 'features/user-settings/components/user-cur
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
 
 interface IUserCurrencyModalProps extends IModalBaseProps {
+    userId: number;
     userDefaultCurrency: UserDefaultCurrencyEnum;
 }
 
 export default function UserCurrencyModal({
     isOpen,
+    userId,
     userDefaultCurrency,
     onClose,
 }: IUserCurrencyModalProps): JSX.Element {
@@ -20,6 +22,7 @@ export default function UserCurrencyModal({
             onClose={onClose}
         >
             <UserCurrencyModalContent
+                userId={userId}
                 userDefaultCurrency={userDefaultCurrency}
                 onClose={onClose}
             />

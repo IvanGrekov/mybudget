@@ -31,6 +31,7 @@ export default function UserSettings({
 
             <div className={styles.actions}>
                 <UserCurrencySection
+                    userId={userId}
                     userDefaultCurrency={userDefaultCurrency}
                 />
 

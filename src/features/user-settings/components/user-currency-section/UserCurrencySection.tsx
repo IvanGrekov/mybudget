@@ -6,10 +6,12 @@ import { useModal } from 'hooks/useModal';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
 
 interface IUserCurrencySectionProps {
+    userId: number;
     userDefaultCurrency: UserDefaultCurrencyEnum;
 }
 
 export default function UserCurrencySection({
+    userId,
     userDefaultCurrency,
 }: IUserCurrencySectionProps): JSX.Element {
     const { isModalOpen, openModal, closeModal } = useModal();
@@ -20,6 +22,7 @@ export default function UserCurrencySection({
 
             <UserCurrencyModal
                 isOpen={isModalOpen}
+                userId={userId}
                 userDefaultCurrency={userDefaultCurrency}
                 onClose={closeModal}
             />
