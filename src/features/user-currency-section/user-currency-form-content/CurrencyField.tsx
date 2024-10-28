@@ -37,7 +37,7 @@ export default function CurrencyField(): JSX.Element {
             isClearable={false}
             required={true}
             getOptionLabel={(option) => {
-                if (option === 'USD') {
+                if (option === currentUserCurrency) {
                     return option;
                 }
 

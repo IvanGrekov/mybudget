@@ -1,5 +1,5 @@
 import Show from 'components/show/Show';
-import UserCurrencySection from 'features/user-settings/components/user-currency-section/UserCurrencySection';
+import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
 import UserSecuritySection from 'features/user-settings/components/user-security-section/UserSecuritySection';
 import styles from 'features/user-settings/components/user-settings/UserSettings.module.scss';
 import UserSettingsForm from 'features/user-settings/components/user-settings-form/UserSettingsForm';

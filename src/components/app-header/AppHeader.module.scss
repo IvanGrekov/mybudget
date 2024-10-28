@@ -1,6 +1,19 @@
+@import 'styles/variables.scss';
+
 .header {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 2rem;
+}
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    @media (max-width: $screen-sm) {
+        flex-direction: column;
+    }
 }

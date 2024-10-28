@@ -8,9 +8,9 @@ import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
-import UserCurrencyFormContent from 'features/user-settings/components/user-currency-form-content/UserCurrencyFormContent';
-import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-settings/components/user-currency-modal/constants/userCurrencyFormValidation';
-import { getDefaultCurrency } from 'features/user-settings/components/user-currency-modal/utils/getDefaultCurrency';
+import UserCurrencyFormContent from 'features/user-currency-section/user-currency-form-content/UserCurrencyFormContent';
+import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-currency-section/user-currency-modal/constants/userCurrencyFormValidation';
+import { getDefaultCurrency } from 'features/user-currency-section/user-currency-modal/utils/getDefaultCurrency';
 import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
@@ -69,7 +69,6 @@ export default function UserCurrencyModalContent({
     const onSubmit: SubmitHandler<EditUserCurrencyDto> = (data) => {
         // eslint-disable-next-line no-console
         console.log(data);
-
         // mutate(data);
         mutate;
     };

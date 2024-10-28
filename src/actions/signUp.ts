@@ -1,15 +1,21 @@
 'use server';
 
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { setCookie } from 'actions/setCookie';
 import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
+    COOKIES_NEXT_LOCALE_KEY,
 } from 'constants/cookiesKeys.constants';
+import { PRIMARY_LOCALE } from 'constants/locales';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
-import { CreateUserDto } from 'types/generated.types';
+import {
+    CreateUserDto,
+    CreateUserDtoLanguageEnum,
+} from 'types/generated.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
@@ -19,10 +25,19 @@ export async function signUp(
     signUpDto: CreateUserDto,
 ): TAsyncApiClientResult<TSignUpResponse> {
     try {
+        const cookiesStorage = cookies();
+        const locale = cookiesStorage.get(COOKIES_NEXT_LOCALE_KEY)?.value;
+        const isPrimaryLocale = !locale || locale === PRIMARY_LOCALE;
+
         const result = await makeApiFetch({
             url: '/authentication/sign-up',
             method: 'POST',
-            body: signUpDto,
+            body: {
+                ...signUpDto,
+                language: isPrimaryLocale
+                    ? CreateUserDtoLanguageEnum.EN
+                    : CreateUserDtoLanguageEnum.UA,
+            },
         });
         const data = await result.json();
 

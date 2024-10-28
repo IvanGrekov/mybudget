@@ -10,8 +10,8 @@ import Switcher, { ISwitcherProps } from 'components/switcher/Switcher';
 import { PRIMARY_LOCALE } from 'constants/locales';
 
 export default function LanguageSwitcher({
-    tooltipPosition,
-}: Pick<ISwitcherProps, 'tooltipPosition'>): JSX.Element | null {
+    tooltipPosition = 'bottom',
+}: Partial<Pick<ISwitcherProps, 'tooltipPosition'>>): JSX.Element | null {
     const t = useTranslations('SwitcherActionTitles');
     const { value, toggleValue } = useUserLanguageValue();
 

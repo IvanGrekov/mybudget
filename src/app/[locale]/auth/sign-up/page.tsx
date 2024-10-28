@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import styles from 'app/[locale]/auth/AuthPage.module.scss';
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
+import LanguageSwitcher from 'components/language-switcher/LanguageSwitcher';
 import SignUp from 'features/auth/components/sign-up/SignUp';
 import SocialAuth from 'features/auth/components/social-auth/SocialAuth';
 import { IWithLocaleParamProps } from 'types/pageProps';
@@ -29,7 +30,7 @@ export default async function SignUpPage({
 
     return (
         <Container>
-            <AppHeader title={title} />
+            <AppHeader title={title} actions={<LanguageSwitcher />} />
 
             <SignUp />
 
