@@ -2,11 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { USER_CURRENCY_FORM_FIELD_LABELS } from 'features/user-settings/constants/userCurrencyForm.constants';
-import { TUserCurrencyFormData } from 'features/user-settings/types/userCurrencyFormData';
-import { EditUserCurrencyDtoDefaultCurrencyEnum } from 'types/generated.types';
+import {
+    EditUserCurrencyDto,
+    EditUserCurrencyDtoDefaultCurrencyEnum,
+} from 'types/generated.types';
 import { getRequiredValidationWarning } from 'utils/formValidationWarning.utils';
 
-export const USER_CURRENCY_FORM_VALIDATION = yupResolver<TUserCurrencyFormData>(
+export const USER_CURRENCY_FORM_VALIDATION = yupResolver<EditUserCurrencyDto>(
     yup.object().shape({
         defaultCurrency: yup
             .mixed<EditUserCurrencyDtoDefaultCurrencyEnum>()
@@ -19,5 +21,6 @@ export const USER_CURRENCY_FORM_VALIDATION = yupResolver<TUserCurrencyFormData>(
         isAccountsCurrencySoftUpdate: yup.boolean(),
         isTransactionCategoriesCurrencySoftUpdate: yup.boolean(),
         isTransactionCategoriesCurrencyForceUpdate: yup.boolean(),
+        rate: yup.number().required(),
     }),
 );

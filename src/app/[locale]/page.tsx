@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
-import Typography from 'components/typography/Typography';
+import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
@@ -45,24 +45,19 @@ export default async function HomePage({
         );
     }
 
-    const { nickname, defaultCurrency, timeZone } = data;
+    const { nickname, defaultCurrency } = data;
 
     return (
         <Container>
-            <AppHeader title={title} subtitle="Check your transactions here" />
+            <AppHeader
+                title={title}
+                subtitle={`Hello, ${nickname}! Check your transactions here`}
+            />
 
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <UnderDevelopmentMessage />
 
-                <Typography element="p" variant="body1">
-                    nickname: {nickname}
-                </Typography>
-                <Typography element="p" variant="body1">
-                    timeZone: {timeZone}
-                </Typography>
-                <Typography element="p" variant="body1">
-                    defaultCurrency: {defaultCurrency}
-                </Typography>
+                <ExchangeRates userCurrency={defaultCurrency} />
             </HydrationBoundary>
         </Container>
     );

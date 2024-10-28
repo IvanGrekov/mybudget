@@ -11,10 +11,7 @@ import {
 import { IConfirmNavigationContext } from 'types/confirmNavigationContextValue';
 
 export const ConfirmNavigationContext =
-    createContext<IConfirmNavigationContext>({
-        shouldConfirmNavigation: false,
-        setShouldConfirmNavigation: () => {},
-    });
+    createContext<IConfirmNavigationContext | null>(null);
 
 export function ConfirmNavigationProvider({
     children,
@@ -38,5 +35,13 @@ export function ConfirmNavigationProvider({
 }
 
 export const useConfirmNavigationContext = (): IConfirmNavigationContext => {
-    return useContext(ConfirmNavigationContext);
+    const context = useContext(ConfirmNavigationContext);
+
+    if (!context) {
+        throw new Error(
+            'useConfirmNavigationContext must be used within a ConfirmNavigationProvider',
+        );
+    }
+
+    return context;
 };

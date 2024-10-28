@@ -12,12 +12,14 @@ import 'styles/globals.scss';
 import styles from 'app/[locale]/layout.module.scss';
 import Providers from 'app/[locale]/providers';
 import AppLogo from 'components/app-logo/AppLogo';
+import Container from 'components/container/Container';
 import CookiesAgreementModal from 'components/cookies-agreement-modal/CookiesAgreementModal';
 import ErrorBoundary from 'components/error-boundary/ErrorBoundary';
 import Header from 'components/header/Header';
 import NavigationList from 'components/navigation-list/NavigationList';
 import NetworkStatusIndicator from 'components/network-status-indicator/NetworkStatusIndicator';
 import Notifications from 'components/notifications/Notifications';
+import PageError from 'components/page-error/PageError';
 import PreferencesSwitchers from 'components/preferences-switchers/PreferencesSwitchers';
 import ScrollTopButton from 'components/scroll-top-button/ScrollTopButton';
 import Sidebar from 'components/sidebar/Sidebar';
@@ -26,6 +28,7 @@ import { URL_HEADER } from 'constants/headers';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
+import { getExchangeRates } from 'utils/getExchangeRates';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
 import { getIsDarkUserThemeFromCookie } from 'utils/userThemeFromCookie.utils';
 
@@ -49,13 +52,33 @@ export default async function RootLocaleLayout({
 
     const isAuthPage = getIsAuthPage(headers().get(URL_HEADER));
 
+    const exchangeRates = await getExchangeRates().catch(() => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch exchange rates');
+    });
+
+    if (!exchangeRates) {
+        return (
+            <html
+                lang={locale}
+                className={isDarkTheme ? ETheme.DARK : undefined}
+            >
+                <body className={INTER.className}>
+                    <Container>
+                        <PageError error="Sorry, some external API required for the app is currently unavailable. Please try again later." />
+                    </Container>
+                </body>
+            </html>
+        );
+    }
+
     return (
         <html lang={locale} className={isDarkTheme ? ETheme.DARK : undefined}>
             <body className={INTER.className}>
                 <ErrorBoundary>
                     <WebVitals />
                     <NextIntlClientProvider messages={messages}>
-                        <Providers>
+                        <Providers exchangeRates={exchangeRates}>
                             <Header isSidebarLayout={!isAuthPage} />
 
                             <main

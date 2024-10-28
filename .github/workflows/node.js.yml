@@ -33,6 +33,7 @@ jobs:
         echo NEXT_PUBLIC_AUTH_CLIENT_SECRET=${{ secrets.NEXT_PUBLIC_AUTH_CLIENT_SECRET }} >> .env
         echo NEXT_PUBLIC_SESSION_COOKIE_MAX_AGE=${{ secrets.NEXT_PUBLIC_SESSION_COOKIE_MAX_AGE }} >> .env
         echo NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE=${{ secrets.NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE }} >> .env
+        echo EXCHANGE_RATE_ACCESS_KEY=${{ secrets.EXCHANGE_RATE_ACCESS_KEY }} >> .env
         echo PORT=${{ secrets.PORT }} >> .env
   
     - name: Build and deploy

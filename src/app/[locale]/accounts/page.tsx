@@ -54,11 +54,11 @@ export default async function AccountsPage({
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <UnderDevelopmentMessage />
                 <ul>
-                    {data.map(({ id, name }) => (
+                    {data.map(({ id, name, currency }) => (
                         <li key={id}>
                             <Link href={`${EAppRoutes.Accounts}/${id}`}>
                                 <Typography element="p" variant="body1">
-                                    {name}
+                                    {name} - {currency}
                                 </Typography>
                             </Link>
                         </li>

@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+.chip {
+    flex-grow: 0;
+    flex-shrink: 0;
+}

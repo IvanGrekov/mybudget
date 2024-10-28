@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { UseFormWatch, UseFormSetValue } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import FormCheckboxField from 'components/form-fields/FormCheckboxField';
 import CurrencyField from 'features/user-settings/components/user-currency-form-content/CurrencyField';
@@ -8,17 +8,11 @@ import {
     USER_CURRENCY_FORM_FIELD_NAMES,
     USER_CURRENCY_FORM_FIELD_LABELS,
 } from 'features/user-settings/constants/userCurrencyForm.constants';
-import { TUserCurrencyFormData } from 'features/user-settings/types/userCurrencyFormData';
+import { EditUserCurrencyDto } from 'types/generated.types';
 
-interface IUserCurrencyFormContent {
-    watch: UseFormWatch<TUserCurrencyFormData>;
-    setValue: UseFormSetValue<TUserCurrencyFormData>;
-}
+export default function UserCurrencyFormContent(): JSX.Element {
+    const { watch, setValue } = useFormContext<EditUserCurrencyDto>();
 
-export default function UserCurrencyFormContent({
-    watch,
-    setValue,
-}: IUserCurrencyFormContent): JSX.Element {
     const isTransactionCategoriesCurrencyForceUpdate = watch(
         'isTransactionCategoriesCurrencyForceUpdate',
     );

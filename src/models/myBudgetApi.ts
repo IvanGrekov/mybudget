@@ -9,7 +9,7 @@ import {
     TransactionCategory,
     User,
 } from 'types/generated.types';
-import { IEditUserArgs } from 'types/muBudgetApi.types';
+import { IEditUserArgs, IEditUserCurrencyArgs } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
@@ -109,6 +109,13 @@ export abstract class MyBudgetApi {
         ...data
     }: IEditUserArgs): TAsyncApiClientResult<User> {
         return this.patch(`/users/${userId}`, data);
+    }
+
+    async editUserCurrency({
+        userId,
+        ...dto
+    }: IEditUserCurrencyArgs): TAsyncApiClientResult<User> {
+        return this.patch(`/users/currency/${userId}`, dto);
     }
 
     async initiateTfaEnabling(
