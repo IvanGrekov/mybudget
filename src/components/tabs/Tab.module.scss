@@ -1,0 +1,28 @@
+@import 'styles/variables.scss';
+
+.tab {
+    width: $tab-width;
+
+    &:first-of-type .tab-button {
+        border-top-left-radius: $border-radius-lg;
+    }
+
+    &:last-of-type .tab-button {
+        border-top-right-radius: $border-radius-lg;
+    }
+
+    &--active {
+        .tab-button {
+            color: var(--middle-color);
+        }
+    }
+}
+
+.tab-button {
+    width: 100%;
+    border-radius: 0;
+
+    &:hover {
+        color: var(--background);
+    }
+}

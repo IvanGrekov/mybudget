@@ -1,0 +1,31 @@
+@import 'styles/variables.scss';
+
+.tabs {
+    position: relative;
+    border-bottom: $border-width solid;
+    border-color: var(--middle-color);
+}
+
+.list {
+    display: flex;
+}
+
+.indicator {
+    position: absolute;
+    bottom: calc(#{$border-width} * -1);
+    left: 0;
+    transition: left, max-width, opacity;
+    transition-duration: $base-transition-duration;
+
+    max-width: 100%;
+    width: 100%;
+    height: 0.1875rem;
+
+    background-color: var(--middle-color);
+    opacity: 0.75;
+
+    &--active {
+        max-width: $tab-width;
+        opacity: 1;
+    }
+}

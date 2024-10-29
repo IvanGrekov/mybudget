@@ -1,8 +1,8 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, PropsWithChildren } from 'react';
 
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
 
-export interface IChipProps {
+export interface IChipProps extends PropsWithChildren {
     title: string;
     variant?: 'contained' | 'outlined';
     size?: 'small' | 'regular' | 'big';

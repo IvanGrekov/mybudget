@@ -4,12 +4,16 @@ import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
-    Account,
     InitiateTfaEnablingDtoResult,
-    TransactionCategory,
     User,
+    Account,
+    TransactionCategory,
 } from 'types/generated.types';
-import { IEditUserArgs, IEditUserCurrencyArgs } from 'types/muBudgetApi.types';
+import {
+    IEditUserArgs,
+    IEditUserCurrencyArgs,
+    IGetAccountsArgs,
+} from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
@@ -168,9 +172,25 @@ export abstract class MyBudgetApi {
         }
     }
 
-    async getAccounts(): TAsyncApiClientResult<Account[]> {
-        return this.get('/accounts/my', {
-            next: { tags: [EFetchingTags.ACCOUNTS] },
+    async getAccounts({
+        status,
+        type,
+    }: IGetAccountsArgs): TAsyncApiClientResult<Account[]> {
+        let url = `/accounts/my`;
+        let tag: string = EFetchingTags.ACCOUNTS;
+
+        if (status) {
+            url += `?status=${status}`;
+            tag += `-${status}`;
+        }
+
+        if (type) {
+            url += status ? `&type=${type}` : `?type=${type}`;
+            tag += `-${type}`;
+        }
+
+        return this.get(url, {
+            next: { tags: [tag] },
         });
     }
 

@@ -4,6 +4,7 @@ import EmptyIcon from 'components/icons/EmptyIcon';
 import ErrorIcon from 'components/icons/ErrorIcon';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
+import { getCapitalizedString } from 'utils/string.utils';
 
 interface IEmptyStateProps {
     isError?: boolean;
@@ -44,7 +45,7 @@ export default function EmptyState({
                     variant="h5"
                     className={colorClassName}
                 >
-                    {text || defaultText}
+                    {text ? getCapitalizedString(text) : defaultText}
                 </Typography>
 
                 <Show when={!!onClick}>

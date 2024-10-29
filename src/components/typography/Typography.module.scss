@@ -102,6 +102,10 @@
 
     &--subtitle2 {
         font-size: 1.25rem;
+
+        @media (max-width: $screen-sm) {
+            font-size: 1.15rem;
+        }
     }
 
     &--body1 {

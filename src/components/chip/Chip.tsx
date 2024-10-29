@@ -1,3 +1,5 @@
+import { forwardRef, Ref } from 'react';
+
 import cx from 'classnames';
 
 import IconButton from 'components/button/IconButton';
@@ -6,17 +8,22 @@ import { IChipProps } from 'components/chip/types/chipProps';
 import CloseIcon from 'components/icons/CloseIcon';
 import Typography from 'components/typography/Typography';
 
-export default function Chip({
-    title,
-    variant = 'contained',
-    size = 'regular',
-    titleVariant,
-    buttonTabIndex = 0,
-    className,
-    onDelete,
-}: IChipProps): JSX.Element {
+function Chip(
+    {
+        title,
+        variant = 'contained',
+        size = 'regular',
+        titleVariant,
+        buttonTabIndex = 0,
+        className,
+        children,
+        onDelete,
+    }: IChipProps,
+    ref: Ref<HTMLDivElement>,
+): JSX.Element {
     return (
         <div
+            ref={ref}
             className={cx(
                 styles.chip,
                 styles[`chip--${variant}`],
@@ -32,6 +39,8 @@ export default function Chip({
                 {title}
             </Typography>
 
+            {children}
+
             {onDelete && (
                 <IconButton
                     Icon={CloseIcon}
@@ -45,3 +54,5 @@ export default function Chip({
         </div>
     );
 }
+
+export default forwardRef(Chip);
