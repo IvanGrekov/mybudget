@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactElement, useRef, useState } from 'react';
+import { ReactElement, useRef } from 'react';
 
 import cx from 'classnames';
 
@@ -11,26 +11,20 @@ import TabsContextProvider from 'contexts/TabsContext';
 
 interface ITabsProps {
     children: Array<ReactElement<typeof Tab>>;
-    isDelayed?: boolean;
 }
 
-export default function Tabs({ children, isDelayed }: ITabsProps): JSX.Element {
+export default function Tabs({ children }: ITabsProps): JSX.Element {
+    const tabsElementRef = useRef<HTMLDivElement | null>(null);
     const indicatorElementRef = useRef<HTMLDivElement | null>(null);
 
-    const [indicatorLeftPosition, setIndicatorLeftPosition] = useState<
-        null | number
-    >(null);
-
-    useInitIndicator({
+    const indicatorLeftPosition = useInitIndicator({
         indicatorElementRef,
-        isDelayed,
-        setIndicatorLeftPosition,
     });
 
     const isIndicatorInitialized = indicatorLeftPosition !== null;
 
     return (
-        <div className={styles.tabs}>
+        <div ref={tabsElementRef} className={styles.tabs}>
             <div
                 ref={indicatorElementRef}
                 className={cx(styles.indicator, {
@@ -40,6 +34,7 @@ export default function Tabs({ children, isDelayed }: ITabsProps): JSX.Element {
 
             <TabsContextProvider
                 value={{
+                    tabsElement: tabsElementRef.current,
                     indicatorElement: indicatorElementRef.current,
                     initialIndicatorLeftPosition: indicatorLeftPosition || 0,
                 }}

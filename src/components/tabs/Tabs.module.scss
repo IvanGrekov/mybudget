@@ -4,6 +4,9 @@
     position: relative;
     border-bottom: $border-width solid;
     border-color: var(--middle-color);
+    scrollbar-width: none;
+    overflow: auto hidden;
+    white-space: nowrap;
 }
 
 .list {

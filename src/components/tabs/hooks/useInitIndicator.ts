@@ -1,18 +1,16 @@
-import { MutableRefObject, Dispatch, SetStateAction, useEffect } from 'react';
-
-import { BASE_ANIMATION_DURATION } from 'constants/animationDuration.constants';
+import { MutableRefObject, useState, useEffect } from 'react';
 
 type TUseInitIndicator = (args: {
-    isDelayed?: boolean;
     indicatorElementRef: MutableRefObject<HTMLDivElement | null>;
-    setIndicatorLeftPosition: Dispatch<SetStateAction<number | null>>;
-}) => void;
+}) => number | null;
 
 export const useInitIndicator: TUseInitIndicator = ({
-    isDelayed,
     indicatorElementRef,
-    setIndicatorLeftPosition,
 }) => {
+    const [indicatorLeftPosition, setIndicatorLeftPosition] = useState<
+        null | number
+    >(null);
+
     useEffect(() => {
         const resizeHandler = (): void => {
             const indicatorElementRect =
@@ -23,14 +21,14 @@ export const useInitIndicator: TUseInitIndicator = ({
             }
         };
 
-        const delay = isDelayed ? BASE_ANIMATION_DURATION * 0.85 : 0;
-        const timeoutId = setTimeout(resizeHandler, delay);
+        resizeHandler();
 
         window.addEventListener('resize', resizeHandler);
 
         return () => {
-            clearTimeout(timeoutId);
             window.removeEventListener('resize', resizeHandler);
         };
-    }, [isDelayed, indicatorElementRef, setIndicatorLeftPosition]);
+    }, [indicatorElementRef, setIndicatorLeftPosition]);
+
+    return indicatorLeftPosition;
 };

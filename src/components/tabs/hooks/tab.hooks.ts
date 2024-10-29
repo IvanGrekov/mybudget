@@ -1,4 +1,4 @@
-import { useEffect, MutableRefObject } from 'react';
+import { useEffect, MutableRefObject, useRef } from 'react';
 
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -27,7 +27,10 @@ export const useTabIndicatorConnection: TUseTabIndicatorConnection = ({
     currentTab,
     customCurrentTab,
 }) => {
-    const { indicatorElement, initialIndicatorLeftPosition } = useTabsContext();
+    const isConnected = useRef(false);
+
+    const { tabsElement, indicatorElement, initialIndicatorLeftPosition } =
+        useTabsContext();
 
     const activeTab = customCurrentTab ?? currentTab;
 
@@ -44,11 +47,22 @@ export const useTabIndicatorConnection: TUseTabIndicatorConnection = ({
 
         if (value === activeTab) {
             const newLeftPosition =
-                tabElementRect.left - initialIndicatorLeftPosition;
+                tabElementRect.left -
+                initialIndicatorLeftPosition +
+                (tabsElement?.scrollLeft || 0);
+
+            !isConnected.current &&
+                tabsElement?.scrollTo({
+                    left: newLeftPosition,
+                    behavior: 'smooth',
+                });
             indicatorElement.style.left = `${newLeftPosition}px`;
         }
+
+        isConnected.current = true;
     }, [
         tabElementRef,
+        tabsElement,
         indicatorElement,
         initialIndicatorLeftPosition,
         value,

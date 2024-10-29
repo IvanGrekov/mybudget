@@ -3,6 +3,7 @@
 import { createContext, PropsWithChildren, useContext } from 'react';
 
 interface ITabsContextValue {
+    tabsElement: HTMLDivElement | null;
     indicatorElement: HTMLDivElement | null;
     initialIndicatorLeftPosition: number;
 }

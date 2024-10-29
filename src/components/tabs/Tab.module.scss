@@ -2,6 +2,7 @@
 
 .tab {
     width: $tab-width;
+    flex-shrink: 0;
 
     &:first-of-type .tab-button {
         border-top-left-radius: $border-radius-lg;
