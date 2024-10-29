@@ -11,7 +11,10 @@ import UnderDevelopmentMessage from 'components/under-development-message/UnderD
 import UserCurrencyFormContent from 'features/user-currency-section/user-currency-form-content/UserCurrencyFormContent';
 import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-currency-section/user-currency-modal/constants/userCurrencyFormValidation';
 import { getDefaultCurrency } from 'features/user-currency-section/user-currency-modal/utils/getDefaultCurrency';
-import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
+import {
+    useAddSuccessMessageToNotifications,
+    useAddErrorMessageToNotifications,
+} from 'hooks/notifications.hooks';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
     EditUserCurrencyDto,
@@ -46,7 +49,9 @@ export default function UserCurrencyModalContent({
         resolver: USER_CURRENCY_FORM_VALIDATION,
     });
 
+    const addSuccessMessage = useAddSuccessMessageToNotifications();
     const addErrorMessage = useAddErrorMessageToNotifications();
+
     const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
         mutationFn: (data: EditUserCurrencyDto) => {
@@ -57,6 +62,9 @@ export default function UserCurrencyModalContent({
                 ...oldData,
                 ...data,
             }));
+            addSuccessMessage({
+                message: 'Default currency has been updated!',
+            });
             onClose();
         },
         onError: (error: Error) => {
