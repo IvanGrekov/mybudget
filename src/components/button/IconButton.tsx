@@ -8,6 +8,7 @@ import { IIconButtonProps } from 'components/button/types/buttonProps';
 function IconButton(
     {
         Icon,
+        type = 'button',
         title,
         isDisabled,
         isActive,
@@ -22,6 +23,7 @@ function IconButton(
     return (
         <button
             ref={ref}
+            type={type}
             title={title}
             onClick={onClick}
             disabled={isDisabled}

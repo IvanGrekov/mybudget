@@ -30,10 +30,6 @@ export default function Header({
     const shouldShowPreferencesSwitchers = useShouldShowPreferencesSwitchers();
     const isAuthPage = getIsAuthPage(pathname);
 
-    if (isAuthPage) {
-        return null;
-    }
-
     return (
         <header
             className={cx(
@@ -48,15 +44,21 @@ export default function Header({
             <PageLoadingIndicator wrapperClassName={styles.loading} />
 
             <div className={styles['content-wrapper']}>
-                <OpenMobileSidebarButton />
+                <Show when={!isAuthPage}>
+                    <OpenMobileSidebarButton />
+                </Show>
 
                 <div className={styles.content}>
                     <div className={styles['actions']}>
-                        <Show when={shouldShowPreferencesSwitchers}>
+                        <Show
+                            when={shouldShowPreferencesSwitchers || isAuthPage}
+                        >
                             <PreferencesSwitchers tooltipPosition="bottom-left" />
                         </Show>
 
-                        <SignOutButton />
+                        <Show when={!isAuthPage}>
+                            <SignOutButton />
+                        </Show>
                     </div>
 
                     {children}
