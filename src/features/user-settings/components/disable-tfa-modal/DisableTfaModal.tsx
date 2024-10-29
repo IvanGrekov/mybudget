@@ -1,8 +1,5 @@
 import { useState } from 'react';
 
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-
-import { disableTfa } from 'actions/disableTfa';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ConfirmAction from 'components/confirmation-modal/ConfirmAction';
 import ErrorMessage from 'components/error-message/ErrorMessage';
@@ -10,9 +7,8 @@ import Modal from 'components/modal/Modal';
 import TextField from 'components/text-field/TextField';
 import { VERIFICATION_CODE_LENGTH } from 'constants/verificationCodeLength';
 import styles from 'features/user-settings/components/disable-tfa-modal/DisableTfaModal.module.scss';
+import { useDisableTfa } from 'features/user-settings/components/disable-tfa-modal/hooks/useDisableTfa';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
-import { EFetchingTags } from 'types/fetchingTags';
-import { User } from 'types/generated.types';
 
 export default function DisableTfaModal({
     isOpen,
@@ -20,59 +16,38 @@ export default function DisableTfaModal({
 }: ITfaSettingsModalProps): JSX.Element {
     const [code, setCode] = useState('');
     const [error, setError] = useState<string | null>(null);
-    const queryClient = useQueryClient();
-    const { mutate, isPending } = useMutation({
-        mutationFn: () => {
-            return disableTfa(code);
-        },
-        onSuccess: () => {
-            queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
-                ...oldData,
-                isTfaEnabled: false,
-            }));
-            onClose();
-            resetState();
-        },
-        onError: (error) => {
-            setError(error.message);
-        },
-    });
 
-    const resetState = (): void => {
+    const onCompleted = (): void => {
         setCode('');
         setError(null);
+        onClose();
     };
 
-    const onCancel = (): void => {
-        onClose();
-        resetState();
-    };
+    const { mutate, isLoading } = useDisableTfa({
+        code,
+        onCompleted,
+        setError,
+    });
 
     return (
         <Modal
             isOpen={isOpen}
             title="Disable Two-Factor Authentication"
-            isLoading={isPending}
             onClose={onClose}
             actions={
                 <>
                     <ConfirmAction
                         confirmText="Confirm"
-                        isLoading={isPending}
+                        isLoading={isLoading}
                         isDisabled={!code}
                         onConfirm={mutate}
                     />
-                    <CancelAction onCancel={onCancel} />
+                    <CancelAction onCancel={onCompleted} />
                 </>
             }
         >
             <div className={styles.container}>
-                {error && (
-                    <ErrorMessage
-                        message={error}
-                        className={styles['error-message']}
-                    />
-                )}
+                {error && <ErrorMessage message={error} />}
                 <TextField
                     value={code}
                     onChange={(e) => setCode(e.target.value)}

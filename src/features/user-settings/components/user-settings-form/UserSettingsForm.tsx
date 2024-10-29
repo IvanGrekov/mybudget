@@ -2,9 +2,6 @@
 
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-
-import { editUser } from 'actions/editUser';
 import Button from 'components/button/Button';
 import Fieldset from 'components/fieldset/Fieldset';
 import FormTextField from 'components/form-fields/FormTextField';
@@ -14,10 +11,8 @@ import {
     USER_SETTINGS_FORM_FIELD_NAMES,
     USER_SETTINGS_FORM_FIELD_LABELS,
 } from 'features/user-settings/components/user-settings-form/constants/userSettingsForm.constants';
+import { useEditUser } from 'features/user-settings/components/user-settings-form/hooks/useEditUser';
 import { IUserSettingsFormData } from 'features/user-settings/components/user-settings-form/types/userSettingsFormData';
-import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
-import { EFetchingTags } from 'types/fetchingTags';
-import { User } from 'types/generated.types';
 import { getIsSubmitButtonDisabled } from 'utils/getIsSubmitButtonDisabled';
 
 interface IUserSettingsFormProps {
@@ -31,8 +26,6 @@ export default function UserSettingsForm({
     userNickname,
     userTimeZone,
 }: IUserSettingsFormProps): JSX.Element {
-    const addErrorMessage = useAddErrorMessageToNotifications();
-
     const methods = useForm<IUserSettingsFormData>({
         defaultValues: {
             nickname: userNickname,
@@ -42,30 +35,21 @@ export default function UserSettingsForm({
     });
 
     const { formState, handleSubmit, reset, getValues } = methods;
-    const { isDirty, errors } = formState;
 
-    const queryClient = useQueryClient();
-    const { mutate, isPending } = useMutation({
-        mutationFn: (data: IUserSettingsFormData) => {
-            return editUser({ userId, ...data });
-        },
-        onSuccess: (data) => {
-            queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
-                ...oldData,
-                ...data,
-            }));
-            reset(getValues());
-        },
-        onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
-        },
+    const onCompleted = (): void => {
+        reset(getValues());
+    };
+
+    const { mutate, isLoading } = useEditUser({
+        userId,
+        onCompleted,
     });
 
     const onSubmit: SubmitHandler<IUserSettingsFormData> = (data) => {
         mutate(data);
     };
+
+    const { isDirty, errors } = formState;
 
     return (
         <FormProvider {...methods}>
@@ -76,7 +60,7 @@ export default function UserSettingsForm({
                         <Button
                             text="Save"
                             type="submit"
-                            isLoading={isPending}
+                            isLoading={isLoading}
                             isDisabled={getIsSubmitButtonDisabled({
                                 isDirty,
                                 errors,

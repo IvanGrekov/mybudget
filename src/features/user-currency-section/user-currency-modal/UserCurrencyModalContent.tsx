@@ -1,24 +1,17 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-
-import { editUserCurrency } from 'actions/editUserCurrency';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
+import ErrorMessage from 'components/error-message/ErrorMessage';
 import ModalActions from 'components/modal/ModalActions';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import UserCurrencyFormContent from 'features/user-currency-section/user-currency-form-content/UserCurrencyFormContent';
+import styles from 'features/user-currency-section/user-currency-modal/UserCurrencyModalContent.module.scss';
 import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-currency-section/user-currency-modal/constants/userCurrencyFormValidation';
+import { useEditUserCurrency } from 'features/user-currency-section/user-currency-modal/hooks/useEditUserCurrency';
 import { getDefaultCurrency } from 'features/user-currency-section/user-currency-modal/utils/getDefaultCurrency';
 import {
-    useAddSuccessMessageToNotifications,
-    useAddErrorMessageToNotifications,
-} from 'hooks/notifications.hooks';
-import { EFetchingTags } from 'types/fetchingTags';
-import {
     EditUserCurrencyDto,
-    User,
     UserDefaultCurrencyEnum,
 } from 'types/generated.types';
 
@@ -33,6 +26,8 @@ export default function UserCurrencyModalContent({
     userDefaultCurrency,
     onClose,
 }: IUserCurrencyModalContentProps): JSX.Element {
+    const [error, setError] = useState<string | null>(null);
+
     const defaultCurrency = useMemo(
         () => getDefaultCurrency(userDefaultCurrency),
 
@@ -49,44 +44,23 @@ export default function UserCurrencyModalContent({
         resolver: USER_CURRENCY_FORM_VALIDATION,
     });
 
-    const addSuccessMessage = useAddSuccessMessageToNotifications();
-    const addErrorMessage = useAddErrorMessageToNotifications();
-
-    const queryClient = useQueryClient();
-    const { mutate, isPending } = useMutation({
-        mutationFn: (data: EditUserCurrencyDto) => {
-            return editUserCurrency(userId, { ...data });
-        },
-        onSuccess: (data) => {
-            queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
-                ...oldData,
-                ...data,
-            }));
-            addSuccessMessage({
-                message: 'Default currency has been updated!',
-            });
-            onClose();
-        },
-        onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
-        },
+    const { mutate, isLoading } = useEditUserCurrency({
+        userId,
+        onCompleted: onClose,
+        setError,
     });
 
     const onSubmit: SubmitHandler<EditUserCurrencyDto> = (data) => {
-        // eslint-disable-next-line no-console
-        console.log(data);
-        // mutate(data);
-        mutate;
+        mutate(data);
     };
 
     const { formState, handleSubmit } = methods;
     const { errors, dirtyFields } = formState;
 
     return (
-        <>
-            <UnderDevelopmentMessage />
+        <div className={styles.container}>
+            {error && <ErrorMessage message={error} />}
+
             <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <UserCurrencyFormContent />
@@ -96,7 +70,7 @@ export default function UserCurrencyModalContent({
                         <Button
                             text="Change"
                             type="submit"
-                            isLoading={isPending}
+                            isLoading={isLoading}
                             isDisabled={
                                 !dirtyFields.defaultCurrency ||
                                 Object.keys(errors).length > 0
@@ -105,6 +79,6 @@ export default function UserCurrencyModalContent({
                     </ModalActions>
                 </form>
             </FormProvider>
-        </>
+        </div>
     );
 }
