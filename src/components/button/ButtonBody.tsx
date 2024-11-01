@@ -17,7 +17,7 @@ const ButtonBody = (
         Icon,
         variant = 'outlined',
         size = 'regular',
-        textVariant = size === 'small' ? 'body2' : 'button',
+        textVariant = size === 'big' ? 'button' : 'body2',
         isDisabled,
         isLoading,
         isActive,

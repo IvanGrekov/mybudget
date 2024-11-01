@@ -32,6 +32,7 @@ export default function NavigationList(): JSX.Element {
                             locale,
                             itemHref: href,
                         })}
+                        textVariant="h6"
                         onClick={onClick}
                     />
                 </li>

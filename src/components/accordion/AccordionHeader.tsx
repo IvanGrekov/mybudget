@@ -8,7 +8,7 @@ import Typography from 'components/typography/Typography';
 
 export default function AccordionHeader({
     title,
-    titleVariant = 'subtitle2',
+    titleVariant = 'subtitle1',
     isOpen,
     onClick,
 }: IAccordionHeaderProps): JSX.Element {

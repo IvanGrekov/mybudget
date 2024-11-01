@@ -23,7 +23,7 @@ export default function Fieldset({
     actions,
     children,
     disabled,
-    titleVariant = 'subtitle2',
+    titleVariant = 'subtitle1',
     withBorder = true,
     titleClassName,
     legendClassName,

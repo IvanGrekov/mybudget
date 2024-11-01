@@ -32,6 +32,10 @@
     }
 }
 
+.children-wrapper {
+    flex-shrink: 0;
+}
+
 .delete-button {
     flex-shrink: 0;
     padding: $spacing-0-5;

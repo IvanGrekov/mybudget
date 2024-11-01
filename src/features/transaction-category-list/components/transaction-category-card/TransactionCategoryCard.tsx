@@ -38,7 +38,6 @@ export default function TransactionCategoryCard({
 
                 <Button
                     text="Details"
-                    size={isMobile ? 'small' : 'regular'}
                     href={`${EAppRoutes.TransactionCategories}/${id}`}
                 />
             </CardContent>

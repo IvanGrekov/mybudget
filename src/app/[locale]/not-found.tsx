@@ -20,7 +20,7 @@ export default function NotFoundPage(): JSX.Element {
                     size={2}
                     className={styles['not-found-divider']}
                 />
-                <Typography variant="subtitle2">{t('title')}</Typography>
+                <Typography variant="subtitle1">{t('title')}</Typography>
             </div>
         </div>
     );

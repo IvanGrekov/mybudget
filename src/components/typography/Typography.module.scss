@@ -25,22 +25,22 @@
 
     &--body1,
     &--h1 {
-        font-size: 5rem;
+        font-size: 4rem;
 
         @media (max-width: $screen-lg) {
-            font-size: 4rem;
+            font-size: 3.5rem;
         }
 
         @media (max-width: $screen-md) {
-            font-size: 3.5rem;
+            font-size: 3.25rem;
         }
     }
 
     &--h2 {
-        font-size: 3.75rem;
+        font-size: 3.25rem;
 
         @media (max-width: $screen-lg) {
-            font-size: 3.25rem;
+            font-size: 3rem;
         }
 
         @media (max-width: $screen-md) {
@@ -49,14 +49,14 @@
     }
 
     &--h3 {
-        font-size: 2.5rem;
+        font-size: 2.75rem;
 
         @media (max-width: $screen-lg) {
-            font-size: 2.25rem;
+            font-size: 2.5rem;
         }
 
         @media (max-width: $screen-md) {
-            font-size: 2rem;
+            font-size: 2.25rem;
         }
     }
 
@@ -73,7 +73,7 @@
     }
 
     &--h5 {
-        font-size: 1.875rem;
+        font-size: 2rem;
 
         @media (max-width: $screen-lg) {
             font-size: 1.75rem;
@@ -85,31 +85,35 @@
     }
 
     &--h6 {
-        font-size: 1.625rem;
+        font-size: 1.75rem;
 
         @media (max-width: $screen-lg) {
             font-size: 1.5rem;
         }
+
+        @media (max-width: $screen-md) {
+            font-size: 1.25rem;
+        }
     }
 
     &--subtitle1 {
-        font-size: 1.4375rem;
+        font-size: 1.5rem;
 
-        @media (max-width: $screen-lg) {
-            font-size: 1.25rem;
+        @media (max-width: $screen-md) {
+            font-size: 1rem;
         }
     }
 
     &--subtitle2 {
         font-size: 1.25rem;
 
-        @media (max-width: $screen-sm) {
-            font-size: 1.15rem;
+        @media (max-width: $screen-md) {
+            font-size: 0.875rem;
         }
     }
 
     &--body1 {
-        font-size: 1.125rem;
+        font-size: 1rem;
     }
 
     &--body2 {

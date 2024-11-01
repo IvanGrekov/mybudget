@@ -18,7 +18,10 @@ export default function ItemsLeftChip({
     currentItemsLength,
     maxItemsLength,
 }: IItemsLeftChipProps): JSX.Element {
-    const isMobile = useIsScreenSize(EScreenSizeNames.XS);
+    const isMobile = useIsScreenSize([
+        EScreenSizeNames.XS,
+        EScreenSizeNames.SM,
+    ]);
     const endWithY = itemName.endsWith('y');
     const itemsName = `${getCapitalizedString(
         endWithY ? itemName.slice(0, -1) : itemName,
@@ -32,8 +35,8 @@ export default function ItemsLeftChip({
             <Chip
                 title={`${itemsName} (${currentItemsLength}/${maxItemsLength})`}
                 variant="outlined"
-                size="big"
-                titleVariant={isMobile ? 'subtitle2' : 'subtitle1'}
+                size={isMobile ? 'regular' : 'big'}
+                titleVariant={isMobile ? 'subtitle1' : 'subtitle1'}
             >
                 <InfoIcon size="extraSmall" />
             </Chip>

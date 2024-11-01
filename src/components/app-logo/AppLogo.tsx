@@ -5,7 +5,7 @@ import styles from 'components/app-logo/AppLogo.module.scss';
 import Typography from 'components/typography/Typography';
 import { EAppRoutes } from 'types/appRoutes';
 
-const LOGO_SIZE = 45;
+const LOGO_SIZE = 50;
 
 export default function AppLogo(): JSX.Element {
     return (
@@ -17,7 +17,7 @@ export default function AppLogo(): JSX.Element {
                 height={LOGO_SIZE}
             />
 
-            <Typography element="h1" variant="h6">
+            <Typography element="h1" variant="h5">
                 MyBudget
             </Typography>
         </Link>

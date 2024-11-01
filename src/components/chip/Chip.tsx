@@ -39,7 +39,9 @@ function Chip(
                 {title}
             </Typography>
 
-            {children}
+            {children && (
+                <div className={styles['children-wrapper']}>{children}</div>
+            )}
 
             {onDelete && (
                 <IconButton

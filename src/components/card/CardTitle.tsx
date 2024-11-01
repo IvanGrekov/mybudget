@@ -11,7 +11,7 @@ interface ICardTitleProps {
 
 export default function CardTitle({
     title,
-    variant = 'subtitle2',
+    variant = 'subtitle1',
     className,
     maxLength,
 }: ICardTitleProps): JSX.Element {

@@ -7,7 +7,7 @@
     align-items: center;
     gap: 1rem;
 
-    padding: 0.75rem 1.125rem;
+    padding: 0.625rem 1rem;
 
     color: var(--foreground);
     border-radius: $border-radius-lg;
@@ -15,8 +15,8 @@
     background-color: transparent;
     transition: all $base-transition-duration;
 
-    @media (max-width: $screen-lg) {
-        padding: 0.625rem 1rem;
+    @media (max-width: $screen-md) {
+        padding: 0.5rem 0.75rem;
     }
 
     &--outlined {
@@ -107,12 +107,8 @@
         border-radius: $border-radius;
 
         @media (max-width: $screen-lg) {
-            padding: 0.9375rem 1.3125rem;
+            padding: 0.75rem 1.125rem;
         }
-    }
-
-    &--small {
-        padding: 0.5rem 0.75rem;
     }
 
     &:focus {
