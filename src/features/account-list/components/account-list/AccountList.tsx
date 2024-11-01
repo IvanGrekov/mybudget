@@ -32,7 +32,7 @@ export default function AccountList({
                 <LinearProgress />
             </Show>
 
-            <Show when={isEmptyState}>
+            <Show when={isEmptyState && !isLoading}>
                 <EmptyState text={`No '${type}' accounts found`} />
             </Show>
 

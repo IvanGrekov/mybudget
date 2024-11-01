@@ -38,7 +38,7 @@ export default function TransactionCategoryList({
                 <LinearProgress />
             </Show>
 
-            <Show when={isEmptyState}>
+            <Show when={isEmptyState && !isLoading}>
                 <EmptyState
                     text={`No '${type}' transaction categories found`}
                 />
