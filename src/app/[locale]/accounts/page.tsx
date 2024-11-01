@@ -4,6 +4,8 @@ import { headers } from 'next/headers';
 
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
+import ExchangeRates from 'components/exchange-rates/ExchangeRates';
+import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import { URL_HEADER } from 'constants/headers';
 import AccountList from 'features/account-list/components/account-list/AccountList';
 import { getAccountListCurrentTabFromUrl } from 'features/account-list/utils/accountListCurrentTab.utils';
@@ -13,6 +15,7 @@ import { EFetchingTags } from 'types/fetchingTags';
 import { Account, AccountStatusEnum } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
 
 const pageName = 'AccountsPage';
@@ -29,6 +32,11 @@ export default async function AccountsPage(): Promise<JSX.Element> {
     );
 
     const queryClient = getQueryClient();
+    const me = await getMeOnServerSide(queryClient);
+
+    if (!me) {
+        return <MeEmptyState />;
+    }
 
     const activeAccounts: TApiClientResult<Account[]> =
         await queryClient.fetchQuery({
@@ -39,11 +47,12 @@ export default async function AccountsPage(): Promise<JSX.Element> {
                 }),
         });
 
+    // NOTE: prefetch accounts by type
     await queryClient.prefetchQuery({
         queryKey: [
             EFetchingTags.ACCOUNTS,
-            accountsType,
             AccountStatusEnum.ACTIVE,
+            accountsType,
         ],
         queryFn: () =>
             SERVER_MY_BUDGET_API.getAccounts({
@@ -63,6 +72,7 @@ export default async function AccountsPage(): Promise<JSX.Element> {
     return (
         <Container>
             <HydrationBoundary state={dehydrate(queryClient)}>
+                <ExchangeRates userCurrency={me.defaultCurrency} />
                 <AccountList currentItemsLength={activeAccounts.length} />
             </HydrationBoundary>
         </Container>

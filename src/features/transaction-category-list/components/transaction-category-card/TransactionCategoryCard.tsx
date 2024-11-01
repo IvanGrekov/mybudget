@@ -5,16 +5,16 @@ import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
 import Typography from 'components/typography/Typography';
 import { EAppRoutes } from 'types/appRoutes';
-import { Account } from 'types/generated.types';
+import { TransactionCategory } from 'types/generated.types';
 
-interface IAccountCardProps {
-    account: Account;
+interface ITransactionCategoryCardProps {
+    transactionCategory: TransactionCategory;
 }
 
-export default function AccountCard({
-    account,
-}: IAccountCardProps): JSX.Element {
-    const { id, name, balance, currency } = account;
+export default function TransactionCategoryCard({
+    transactionCategory,
+}: ITransactionCategoryCardProps): JSX.Element {
+    const { id, name, currency } = transactionCategory;
 
     return (
         <Card>
@@ -23,14 +23,12 @@ export default function AccountCard({
                 actions={
                     <Button
                         text="Details"
-                        href={`${EAppRoutes.Accounts}/${id}`}
+                        href={`${EAppRoutes.TransactionCategories}/${id}`}
                     />
                 }
             />
             <CardContent>
-                <Typography variant="subtitle2">
-                    Balance: {balance} {currency}
-                </Typography>
+                <Typography variant="body1">Currency: {currency}</Typography>
             </CardContent>
         </Card>
     );

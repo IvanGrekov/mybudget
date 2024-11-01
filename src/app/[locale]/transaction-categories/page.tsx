@@ -4,16 +4,17 @@ import { Metadata } from 'next';
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
-import Link from 'components/link/Link';
-import Typography from 'components/typography/Typography';
+import ExchangeRates from 'components/exchange-rates/ExchangeRates';
+import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
+import TransactionCategoryCard from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
-import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
 import { TransactionCategory } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
@@ -34,6 +35,12 @@ export default async function TransactionCategoriesPage({
     });
 
     const queryClient = getQueryClient();
+    const me = await getMeOnServerSide(queryClient);
+
+    if (!me) {
+        return <MeEmptyState />;
+    }
+
     const data: TApiClientResult<TransactionCategory[]> =
         await queryClient.fetchQuery({
             queryKey: [EFetchingTags.TRANSACTION_CATEGORIES],
@@ -50,20 +57,18 @@ export default async function TransactionCategoriesPage({
 
     return (
         <Container>
-            <AppHeader title={title} />
-
             <HydrationBoundary state={dehydrate(queryClient)}>
+                <ExchangeRates userCurrency={me.defaultCurrency} />
+
+                <AppHeader title={title} />
+
                 <UnderDevelopmentMessage />
                 <ul>
-                    {data.map(({ id, name, currency }) => (
-                        <li key={id}>
-                            <Link
-                                href={`${EAppRoutes.TransactionCategories}/${id}`}
-                            >
-                                <Typography element="p" variant="body1">
-                                    {name} - {currency}
-                                </Typography>
-                            </Link>
+                    {data.map((transactionCategory) => (
+                        <li key={transactionCategory.id}>
+                            <TransactionCategoryCard
+                                transactionCategory={transactionCategory}
+                            />
                         </li>
                     ))}
                 </ul>

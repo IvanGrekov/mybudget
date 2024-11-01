@@ -3,16 +3,13 @@ import { Metadata } from 'next';
 
 import styles from 'app/[locale]/page.module.scss';
 import Container from 'components/container/Container';
-import EmptyState from 'components/empty-state/EmptyState';
 import ExchangeRates from 'components/exchange-rates/ExchangeRates';
+import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
-import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
-import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
 
 const pageName = 'HomePage';
@@ -25,32 +22,26 @@ export async function generateMetadata({
 
 export default async function HomePage(): Promise<JSX.Element> {
     const queryClient = getQueryClient();
-    const data: TApiClientResult<User> = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.ME],
-        queryFn: () => SERVER_MY_BUDGET_API.getMe(),
-    });
+    const me = await getMeOnServerSide(queryClient);
 
-    if (!data) {
-        return (
-            <Container>
-                <EmptyState text="User not found" />
-            </Container>
-        );
+    if (!me) {
+        return <MeEmptyState />;
     }
 
-    const { id, defaultCurrency } = data;
+    const { id, defaultCurrency } = me;
 
     return (
         <Container>
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <ExchangeRates userCurrency={defaultCurrency} />
+                <ExchangeRates
+                    userCurrency={defaultCurrency}
+                    className={styles['exchange-rates']}
+                />
 
-                <div className={styles.actions}>
-                    <UserCurrencySection
-                        userId={id}
-                        userDefaultCurrency={defaultCurrency}
-                    />
-                </div>
+                <UserCurrencySection
+                    userId={id}
+                    userDefaultCurrency={defaultCurrency}
+                />
 
                 <UnderDevelopmentMessage />
             </HydrationBoundary>

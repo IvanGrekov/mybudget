@@ -4,5 +4,31 @@
     border-radius: $border-radius-md;
     background-color: var(--background-opacity);
     box-shadow: var(--box-shadow-sm);
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
     padding: $spacing-4;
+    border-bottom: $border-width solid var(--border);
+
+    @media (max-width: $screen-md) {
+        padding: $spacing-3;
+    }
+}
+
+.card-header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.card-content {
+    padding: $spacing-4;
+
+    @media (max-width: $screen-md) {
+        padding: $spacing-3;
+    }
 }
