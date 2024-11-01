@@ -6,6 +6,7 @@ import { TTypographyVariants } from 'components/typography/types/typographyVaria
 export interface IBaseButtonProps {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     title?: string;
+    href?: string;
     isActive?: boolean;
     isDisabled?: boolean;
     tabIndex?: number;
@@ -24,7 +25,6 @@ export interface IButtonProps extends IBaseButtonProps {
     style?: CSSProperties;
     className?: string;
     color?: 'red' | 'green' | 'primary';
-    href?: string;
 }
 
 export interface IIconButtonProps extends IBaseButtonProps {

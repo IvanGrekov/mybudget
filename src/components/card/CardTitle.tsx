@@ -1,13 +1,31 @@
+import Tooltip from 'components/tooltip/Tooltip';
 import Typography from 'components/typography/Typography';
+import { TTypographyVariants } from 'components/typography/types/typographyVariants';
 
 interface ICardTitleProps {
     title: string;
+    variant?: TTypographyVariants;
+    className?: string;
+    maxLength?: number;
 }
 
-export default function CardTitle({ title }: ICardTitleProps): JSX.Element {
+export default function CardTitle({
+    title,
+    variant = 'subtitle2',
+    className,
+    maxLength,
+}: ICardTitleProps): JSX.Element {
     return (
-        <Typography variant="subtitle2" element="h3">
-            {title}
-        </Typography>
+        <Tooltip text={title}>
+            <Typography
+                variant={variant}
+                element="h3"
+                lineClamp={1}
+                className={className}
+                maxLength={maxLength}
+            >
+                {title}
+            </Typography>
+        </Tooltip>
     );
 }

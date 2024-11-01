@@ -4,11 +4,11 @@ import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import AccountCard from 'features/account-list/components/account-card/AccountCard';
-import styles from 'features/account-list/components/account-list/AccountList.module.scss';
 import AccountListHeader from 'features/account-list/components/account-list/AccountListHeader';
 import { useGetAccounts } from 'features/account-list/components/account-list/hooks/useGetAccounts';
 import AccountListTabs from 'features/account-list/components/account-list-tabs/AccountListTabs';
 import { useAccountListCurrentTab } from 'features/account-list/hooks/useAccountListCurrentTab';
+import styles from 'styles/ItemList.module.scss';
 
 interface IAccountListProps {
     currentItemsLength: number;

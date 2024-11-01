@@ -22,6 +22,10 @@ export const getLimitedText: TGetLimitedText = ({ children, maxLength }) => {
         ? children.join('')
         : children.toString();
 
+    if (string.length <= maxLength) {
+        return string;
+    }
+
     const slicedText = string
         .slice(0, maxLength)
         .replace(/[^а-яА-Яa-zA-Z0-9]+$/, '');

@@ -27,16 +27,16 @@ export async function generateMetadata({
 }
 
 export default async function AccountsPage(): Promise<JSX.Element> {
-    const accountsType = getAccountListCurrentTabFromUrl(
-        headers().get(URL_HEADER) || '',
-    );
-
     const queryClient = getQueryClient();
     const me = await getMeOnServerSide(queryClient);
 
     if (!me) {
         return <MeEmptyState />;
     }
+
+    const accountsType = getAccountListCurrentTabFromUrl(
+        headers().get(URL_HEADER) || '',
+    );
 
     const activeAccounts: TApiClientResult<Account[]> =
         await queryClient.fetchQuery({

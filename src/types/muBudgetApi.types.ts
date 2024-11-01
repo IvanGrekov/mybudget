@@ -4,6 +4,8 @@ import {
     User,
     AccountStatusEnum,
     AccountTypeEnum,
+    TransactionCategoryStatusEnum,
+    TransactionCategoryTypeEnum,
 } from 'types/generated.types';
 
 export interface IEditUserArgs extends EditUserDto {
@@ -17,4 +19,9 @@ export interface IEditUserCurrencyArgs extends EditUserCurrencyDto {
 export interface IGetAccountsArgs {
     status?: AccountStatusEnum;
     type?: AccountTypeEnum;
+}
+
+export interface IGetTransactionCategoriesArgs {
+    status?: TransactionCategoryStatusEnum;
+    type?: TransactionCategoryTypeEnum;
 }

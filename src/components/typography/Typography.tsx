@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, forwardRef, Ref } from 'react';
 
 import cx from 'classnames';
 
@@ -19,21 +19,25 @@ interface ITypographyProps {
     className?: string;
 }
 
-export default function Typography({
-    children,
-    element = 'p',
-    variant = 'body1',
-    lineClamp = 'none',
-    maxLength,
-    textOverflow = 'ellipsis',
-    style = {},
-    className,
-}: ITypographyProps): JSX.Element {
+function Typography(
+    {
+        children,
+        element = 'p',
+        variant = 'body1',
+        lineClamp = 'none',
+        maxLength,
+        textOverflow = 'ellipsis',
+        style = {},
+        className,
+    }: ITypographyProps,
+    ref: Ref<HTMLHeadingElement>,
+): JSX.Element {
     const Element = element;
     const text = getLimitedText({ children, maxLength });
 
     return (
         <Element
+            ref={ref}
             className={cx(
                 styles.typography,
                 styles[`typography--${variant}`],
@@ -52,3 +56,5 @@ export default function Typography({
         </Element>
     );
 }
+
+export default forwardRef(Typography);

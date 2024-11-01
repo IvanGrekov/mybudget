@@ -13,6 +13,7 @@ import {
     IEditUserArgs,
     IEditUserCurrencyArgs,
     IGetAccountsArgs,
+    IGetTransactionCategoriesArgs,
 } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
@@ -194,11 +195,27 @@ export abstract class MyBudgetApi {
         });
     }
 
-    async getTransactionCategories(): TAsyncApiClientResult<
+    async getTransactionCategories({
+        status,
+        type,
+    }: IGetTransactionCategoriesArgs): TAsyncApiClientResult<
         TransactionCategory[]
     > {
-        return this.get('/transaction-categories/my', {
-            next: { tags: [EFetchingTags.TRANSACTION_CATEGORIES] },
+        let url = `/transaction-categories/my`;
+        let tag: string = EFetchingTags.TRANSACTION_CATEGORIES;
+
+        if (status) {
+            url += `?status=${status}`;
+            tag += `-${status}`;
+        }
+
+        if (type) {
+            url += status ? `&type=${type}` : `?type=${type}`;
+            tag += `-${type}`;
+        }
+
+        return this.get(url, {
+            next: { tags: [tag] },
         });
     }
 }

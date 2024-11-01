@@ -1,46 +1,23 @@
 import { forwardRef, Ref } from 'react';
 
-import cx from 'classnames';
+import Link from 'next/link';
 
-import styles from 'components/button/IconButton.module.scss';
+import IconButtonBody from 'components/button/IconButtonBody';
 import { IIconButtonProps } from 'components/button/types/buttonProps';
 
 function IconButton(
-    {
-        Icon,
-        type = 'button',
-        title,
-        isDisabled,
-        isActive,
-        tabIndex,
-        iconSize,
-        variant,
-        className,
-        onClick,
-    }: IIconButtonProps,
+    { href, ...props }: IIconButtonProps,
     ref: Ref<HTMLButtonElement>,
 ): JSX.Element {
-    return (
-        <button
-            ref={ref}
-            type={type}
-            title={title}
-            onClick={onClick}
-            disabled={isDisabled}
-            tabIndex={tabIndex}
-            className={cx(
-                styles['icon-button'],
-                styles[`icon-button--${variant}`],
-                {
-                    [styles['icon-button--active']]: isActive,
-                    [styles['icon-button--disabled']]: isDisabled,
-                },
-                className,
-            )}
-        >
-            <Icon size={iconSize} />
-        </button>
-    );
+    if (href) {
+        return (
+            <Link href={href} style={{ width: 'fit-content' }}>
+                <IconButtonBody {...props} ref={ref} />
+            </Link>
+        );
+    }
+
+    return <IconButtonBody {...props} ref={ref} />;
 }
 
 export default forwardRef(IconButton);

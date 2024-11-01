@@ -19,7 +19,10 @@ export default function ItemsLeftChip({
     maxItemsLength,
 }: IItemsLeftChipProps): JSX.Element {
     const isMobile = useIsScreenSize(EScreenSizeNames.XS);
-    const itemsName = `${getCapitalizedString(itemName)}s`;
+    const endWithY = itemName.endsWith('y');
+    const itemsName = `${getCapitalizedString(
+        endWithY ? itemName.slice(0, -1) : itemName,
+    )}${itemName.endsWith('y') ? 'ies' : 's'}`;
 
     return (
         <Tooltip
