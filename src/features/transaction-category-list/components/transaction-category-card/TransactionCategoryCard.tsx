@@ -4,8 +4,10 @@ import CardContent from 'components/card/CardContent';
 import CardTitle from 'components/card/CardTitle';
 import Typography from 'components/typography/Typography';
 import styles from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard.module.scss';
+import { useIsScreenSize } from 'hooks/useIsScreenSize';
 import { EAppRoutes } from 'types/appRoutes';
 import { TransactionCategory } from 'types/generated.types';
+import { EScreenSizeNames } from 'types/screenSizeNames';
 
 interface ITransactionCategoryCardProps {
     transactionCategory: TransactionCategory;
@@ -14,6 +16,10 @@ interface ITransactionCategoryCardProps {
 export default function TransactionCategoryCard({
     transactionCategory,
 }: ITransactionCategoryCardProps): JSX.Element {
+    const isMobile = useIsScreenSize([
+        EScreenSizeNames.XS,
+        EScreenSizeNames.SM,
+    ]);
     const { id, name, currency } = transactionCategory;
 
     return (
@@ -22,16 +28,17 @@ export default function TransactionCategoryCard({
                 <div className={styles.header}>
                     <CardTitle
                         title={name}
-                        variant="body1"
+                        variant={isMobile ? 'body2' : 'body1'}
                         className={styles.title}
                     />
-                    <Typography variant="body2">
+                    <Typography variant={isMobile ? 'caption' : 'body2'}>
                         Currency: {currency}
                     </Typography>
                 </div>
 
                 <Button
                     text="Details"
+                    size={isMobile ? 'small' : 'regular'}
                     href={`${EAppRoutes.TransactionCategories}/${id}`}
                 />
             </CardContent>
