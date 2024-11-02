@@ -16,3 +16,7 @@ export const useIsScreenSize = (
 
     return windowSize === screenSize;
 };
+
+export const useIsMobile = (): boolean => {
+    return useIsScreenSize([EScreenSizeNames.XS, EScreenSizeNames.SM]);
+};

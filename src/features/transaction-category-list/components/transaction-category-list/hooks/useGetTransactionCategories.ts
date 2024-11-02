@@ -2,12 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
 import {
     TransactionCategory,
     TransactionCategoryTypeEnum,
-    TransactionCategoryStatusEnum,
 } from 'types/generated.types';
+import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 
 interface IUseGetTransactionCategoriesResult {
     transactionCategories?: TApiClientResult<TransactionCategory[]>;
@@ -18,14 +17,11 @@ export const useGetTransactionCategories = (
     type: TransactionCategoryTypeEnum,
 ): IUseGetTransactionCategoriesResult => {
     const { isPending, data } = useQuery({
-        queryKey: [
-            EFetchingTags.TRANSACTION_CATEGORIES,
+        queryKey: getTransactionCategoriesQueryKey({
             type,
-            TransactionCategoryStatusEnum.ACTIVE,
-        ],
+        }),
         queryFn: () =>
             CLIENT_MY_BUDGET_API.getTransactionCategories({
-                status: TransactionCategoryStatusEnum.ACTIVE,
                 type,
             }),
     });

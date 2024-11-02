@@ -11,15 +11,12 @@ import TransactionCategoryList from 'features/transaction-category-list/componen
 import { getTransactionCategoryListCurrentTabFromUrl } from 'features/transaction-category-list/utils/transactionCategoryListCurrentTab.utils';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
-import {
-    TransactionCategory,
-    TransactionCategoryStatusEnum,
-} from 'types/generated.types';
+import { TransactionCategory } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
+import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 
 const pageName = 'TransactionCategoriesPage';
 
@@ -44,26 +41,17 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
 
     const activeTransactionCategories: TApiClientResult<TransactionCategory[]> =
         await queryClient.fetchQuery({
-            queryKey: [
-                EFetchingTags.TRANSACTION_CATEGORIES,
-                TransactionCategoryStatusEnum.ACTIVE,
-            ],
-            queryFn: () =>
-                SERVER_MY_BUDGET_API.getTransactionCategories({
-                    status: TransactionCategoryStatusEnum.ACTIVE,
-                }),
+            queryKey: getTransactionCategoriesQueryKey(),
+            queryFn: () => SERVER_MY_BUDGET_API.getTransactionCategories(),
         });
 
     // NOTE: prefetch transaction categories by type
     await queryClient.prefetchQuery({
-        queryKey: [
-            EFetchingTags.TRANSACTION_CATEGORIES,
-            TransactionCategoryStatusEnum.ACTIVE,
-            transactionCategoriesType,
-        ],
+        queryKey: getTransactionCategoriesQueryKey({
+            type: transactionCategoriesType,
+        }),
         queryFn: () =>
             SERVER_MY_BUDGET_API.getTransactionCategories({
-                status: TransactionCategoryStatusEnum.ACTIVE,
                 type: transactionCategoriesType,
             }),
     });

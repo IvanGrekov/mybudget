@@ -111,18 +111,14 @@ async function refreshTokens(
         },
     }).catch((e) => {
         // eslint-disable-next-line no-console
-        console.error(e);
+        console.error('Token refreshing failed:', e);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     });
 
     if (!tokensResponse.ok) {
         // eslint-disable-next-line no-console
-        console.error(tokensResponse);
-        // eslint-disable-next-line no-console
-        console.error(tokensResponse.status);
-        // eslint-disable-next-line no-console
-        console.error(tokensResponse.statusText);
+        console.error('Token refreshing failed:', tokensResponse.statusText);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }

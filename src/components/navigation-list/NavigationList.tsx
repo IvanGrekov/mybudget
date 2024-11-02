@@ -8,6 +8,7 @@ import styles from 'components/navigation-list/NavigationList.module.scss';
 import { NAVIGATION_LIST } from 'components/navigation-list/constants/navigationList';
 import { getIsNavItemActive } from 'components/navigation-list/utils/getIsNavItemActive';
 import { useMobileSidebarContext } from 'contexts/MobileSidebarContext';
+import { useIsMobile } from 'hooks/screenSize.hooks';
 
 export default function NavigationList(): JSX.Element {
     const locale = useLocale();
@@ -15,6 +16,8 @@ export default function NavigationList(): JSX.Element {
 
     const pathName = usePathname();
     const { setIsOpen } = useMobileSidebarContext();
+
+    const isMobile = useIsMobile();
 
     const onClick = (): void => {
         setIsOpen(false);
@@ -32,7 +35,7 @@ export default function NavigationList(): JSX.Element {
                             locale,
                             itemHref: href,
                         })}
-                        textVariant="h6"
+                        textVariant={isMobile ? 'h6' : 'subtitle2'}
                         onClick={onClick}
                     />
                 </li>

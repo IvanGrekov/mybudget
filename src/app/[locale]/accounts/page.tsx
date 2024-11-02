@@ -11,12 +11,12 @@ import AccountList from 'features/account-list/components/account-list/AccountLi
 import { getAccountListCurrentTabFromUrl } from 'features/account-list/utils/accountListCurrentTab.utils';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
-import { Account, AccountStatusEnum } from 'types/generated.types';
+import { Account } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
+import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 const pageName = 'AccountsPage';
 
@@ -40,23 +40,17 @@ export default async function AccountsPage(): Promise<JSX.Element> {
 
     const activeAccounts: TApiClientResult<Account[]> =
         await queryClient.fetchQuery({
-            queryKey: [EFetchingTags.ACCOUNTS, AccountStatusEnum.ACTIVE],
-            queryFn: () =>
-                SERVER_MY_BUDGET_API.getAccounts({
-                    status: AccountStatusEnum.ACTIVE,
-                }),
+            queryKey: getAccountsQueryKey(),
+            queryFn: () => SERVER_MY_BUDGET_API.getAccounts(),
         });
 
     // NOTE: prefetch accounts by type
     await queryClient.prefetchQuery({
-        queryKey: [
-            EFetchingTags.ACCOUNTS,
-            AccountStatusEnum.ACTIVE,
-            accountsType,
-        ],
+        queryKey: getAccountsQueryKey({
+            type: accountsType,
+        }),
         queryFn: () =>
             SERVER_MY_BUDGET_API.getAccounts({
-                status: AccountStatusEnum.ACTIVE,
                 type: accountsType,
             }),
     });

@@ -23,5 +23,9 @@ export const makeApiFetch: TMakeApiFetch = ({
         },
         body: body ? JSON.stringify(body) : undefined,
         ...requestOptions,
+        next: {
+            revalidate: 60 * 60,
+            ...requestOptions?.next,
+        },
     });
 };

@@ -2,7 +2,7 @@
 
 import IconButton from 'components/button/IconButton';
 import AddIcon from 'components/icons/AddIcon';
-import { useIsScreenSize } from 'hooks/useIsScreenSize';
+import { useIsScreenSize } from 'hooks/screenSize.hooks';
 import { EScreenSizeNames } from 'types/screenSizeNames';
 
 interface ICreateItemButtonProps {

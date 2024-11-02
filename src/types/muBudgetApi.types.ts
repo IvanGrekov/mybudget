@@ -1,3 +1,4 @@
+import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import {
     EditUserDto,
     EditUserCurrencyDto,
@@ -24,4 +25,10 @@ export interface IGetAccountsArgs {
 export interface IGetTransactionCategoriesArgs {
     status?: TransactionCategoryStatusEnum;
     type?: TransactionCategoryTypeEnum;
+}
+
+export interface IGetTransactionsArgs {
+    types?: TTransactionTypesInput;
+    limit?: number;
+    offset?: number;
 }
