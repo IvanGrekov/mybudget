@@ -1,7 +1,6 @@
+import { getTransactionCategoryListCurrentTab } from 'features/transaction-category-list/utils/transactionCategoryListCurrentTab.utils';
 import { useCurrentTab } from 'hooks/useCurrentTab';
 import { TransactionCategoryTypeEnum } from 'types/generated.types';
-
-import { getTransactionCategoryListCurrentTab } from '../utils/transactionCategoryListCurrentTab.utils';
 
 export const useTransactionCategoryListCurrentTab =
     (): TransactionCategoryTypeEnum => {
