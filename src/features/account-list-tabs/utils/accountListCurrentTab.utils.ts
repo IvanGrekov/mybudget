@@ -1,4 +1,4 @@
-import { ACCOUNT_LIST_DEFAULT_TAB } from 'features/account-list/constants/accountListDefaultTab';
+import { ACCOUNT_LIST_DEFAULT_TAB } from 'features/account-list-tabs/constants/accountListDefaultTab';
 import { AccountTypeEnum } from 'types/generated.types';
 import { getCurrentTab } from 'utils/getCurrentTab';
 

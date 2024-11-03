@@ -1,14 +1,16 @@
 'use client';
 
+import Button from 'components/button/Button';
 import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import AccountCard from 'features/account-list/components/account-card/AccountCard';
 import AccountListHeader from 'features/account-list/components/account-list/AccountListHeader';
-import { useGetAccounts } from 'features/account-list/components/account-list/hooks/useGetAccounts';
-import AccountListTabs from 'features/account-list/components/account-list-tabs/AccountListTabs';
-import { useAccountListCurrentTab } from 'features/account-list/hooks/useAccountListCurrentTab';
+import AccountListTabs from 'features/account-list-tabs/components/account-list-tabs/AccountListTabs';
+import { useAccountListCurrentTab } from 'features/account-list-tabs/hooks/useAccountListCurrentTab';
+import { useGetAccounts } from 'hooks/useGetAccounts';
 import styles from 'styles/ItemList.module.scss';
+import { EAppRoutes } from 'types/appRoutes';
 
 interface IAccountListProps {
     currentItemsLength: number;
@@ -37,13 +39,23 @@ export default function AccountList({
             </Show>
 
             {!isEmptyState && (
-                <ul className={styles.list}>
-                    {accounts.map((account) => (
-                        <li key={account.id}>
-                            <AccountCard account={account} />
-                        </li>
-                    ))}
-                </ul>
+                <>
+                    <ul className={styles.list}>
+                        {accounts.map((account) => (
+                            <li key={account.id}>
+                                <AccountCard account={account} />
+                            </li>
+                        ))}
+                    </ul>
+
+                    <Button
+                        text="Reorder accounts"
+                        variant="contained"
+                        href={EAppRoutes.AccountsReordering}
+                        style={{ width: '100%' }}
+                        linkClassName={styles.action}
+                    />
+                </>
             )}
         </div>
     );

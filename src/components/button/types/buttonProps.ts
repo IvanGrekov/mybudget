@@ -24,6 +24,7 @@ export interface IButtonProps extends IBaseButtonProps {
     Icon?: (props: IIconProps) => JSX.Element;
     style?: CSSProperties;
     className?: string;
+    linkClassName?: string;
     color?: 'red' | 'green' | 'primary';
 }
 

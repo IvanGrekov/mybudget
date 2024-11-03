@@ -21,6 +21,9 @@
     "AccountsPage": {
         "title": "Рахунки"
     },
+    "ReorderAccountsPage": {
+        "title": "Порядок Рахунків"
+    },
     "AccountDetailsPage": {
         "title": "Деталі Рахунку"
     },

@@ -1,17 +1,19 @@
 import { forwardRef, Ref } from 'react';
 
+import cx from 'classnames';
 import Link from 'next/link';
 
 import ButtonBody from 'components/button//ButtonBody';
+import styles from 'components/button/Button.module.scss';
 import { IButtonProps } from 'components/button/types/buttonProps';
 
 const Button = (
-    { href, ...props }: IButtonProps,
+    { href, linkClassName, ...props }: IButtonProps,
     ref: Ref<HTMLButtonElement>,
 ): JSX.Element => {
     if (href) {
         return (
-            <Link href={href} style={{ width: 'fit-content' }}>
+            <Link href={href} className={cx(linkClassName, styles.link)}>
                 <ButtonBody {...props} ref={ref} />
             </Link>
         );
