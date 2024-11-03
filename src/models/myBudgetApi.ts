@@ -239,8 +239,6 @@ export abstract class MyBudgetApi {
         tags.push(`${EFetchingTags.TRANSACTIONS}-offset-${offset}`);
         tags.push(`${EFetchingTags.TRANSACTIONS}-limit-${limit}`);
 
-        console.log(tags);
-
         return this.get(url, {
             next: { tags },
         });
