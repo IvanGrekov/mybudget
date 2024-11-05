@@ -4,14 +4,19 @@ import ArrowIcon from 'components/icons/ArrowIcon';
 
 interface IBackButtonProps {
     href: string;
+    isDisabled?: boolean;
 }
 
-export default function BackButton({ href }: IBackButtonProps): JSX.Element {
+export default function BackButton({
+    href,
+    isDisabled,
+}: IBackButtonProps): JSX.Element {
     return (
         <IconButton
             Icon={ArrowIcon}
             title="Go Back"
             href={href}
+            isDisabled={isDisabled}
             className={styles.button}
         />
     );

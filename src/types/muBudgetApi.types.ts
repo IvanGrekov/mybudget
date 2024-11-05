@@ -32,3 +32,8 @@ export interface IGetTransactionsArgs {
     limit?: number;
     offset?: number;
 }
+
+export interface IReorderAccountArgs {
+    id: number;
+    order: number;
+}

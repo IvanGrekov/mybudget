@@ -16,6 +16,7 @@ import { useCurrentTab } from 'hooks/useCurrentTab';
 export default function Tab({
     value,
     label,
+    isDisabled,
     customCurrentTab,
     customClickHandler,
 }: ITabProps): JSX.Element | null {
@@ -46,6 +47,7 @@ export default function Tab({
                 text={label}
                 variant="ghost"
                 textVariant="body2"
+                isDisabled={isDisabled}
                 className={styles['tab-button']}
                 onClick={onClick}
             />

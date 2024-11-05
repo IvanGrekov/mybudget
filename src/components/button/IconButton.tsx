@@ -11,7 +11,13 @@ function IconButton(
 ): JSX.Element {
     if (href) {
         return (
-            <Link href={href} style={{ width: 'fit-content' }}>
+            <Link
+                href={href}
+                style={{
+                    width: 'fit-content',
+                    pointerEvents: props.isDisabled ? 'none' : 'auto',
+                }}
+            >
                 <IconButtonBody {...props} ref={ref} />
             </Link>
         );

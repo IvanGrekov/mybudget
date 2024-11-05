@@ -5,12 +5,9 @@ import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import UserSettings from 'features/user-settings/components/user-settings/UserSettings';
-import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
-import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
+import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 
@@ -31,12 +28,9 @@ export default async function SettingsPage({
     });
 
     const queryClient = getQueryClient();
-    const data: TApiClientResult<User> = await queryClient.fetchQuery({
-        queryKey: [EFetchingTags.ME],
-        queryFn: () => SERVER_MY_BUDGET_API.getMe(),
-    });
+    const me = await getMeOnServerSide(queryClient);
 
-    if (!data) {
+    if (!me) {
         return (
             <Container>
                 <EmptyState text="User not found" />
@@ -49,7 +43,7 @@ export default async function SettingsPage({
             <AppHeader title={title} />
 
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <UserSettings user={data} />
+                <UserSettings user={me} />
             </HydrationBoundary>
         </Container>
     );

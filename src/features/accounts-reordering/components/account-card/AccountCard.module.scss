@@ -1,0 +1,7 @@
+.card {
+    cursor: grab;
+
+    &--loading {
+        cursor: progress;
+    }
+}

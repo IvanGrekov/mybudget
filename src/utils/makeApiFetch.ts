@@ -1,6 +1,6 @@
 type TMakeApiFetch = (args: {
     url: string;
-    method?: 'POST' | 'GET' | 'PATCH' | 'DELETE';
+    method?: string;
     body?: unknown;
     headers?: HeadersInit;
     requestOptions?: RequestInit;
@@ -24,7 +24,7 @@ export const makeApiFetch: TMakeApiFetch = ({
         body: body ? JSON.stringify(body) : undefined,
         ...requestOptions,
         next: {
-            revalidate: 60 * 60,
+            revalidate: method === 'GET' ? 60 * 60 : 0,
             ...requestOptions?.next,
         },
     });

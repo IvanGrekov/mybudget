@@ -20,6 +20,7 @@ import {
     IGetAccountsArgs,
     IGetTransactionCategoriesArgs,
     IGetTransactionsArgs,
+    IReorderAccountArgs,
 } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
@@ -54,11 +55,17 @@ export abstract class MyBudgetApi {
         }
 
         try {
-            const { headers: optionsHeaders, ...requestOptions } =
-                options || {};
+            const {
+                headers: optionsHeaders,
+                method,
+                body,
+                ...requestOptions
+            } = options || {};
 
             const response = await makeApiFetch({
                 url,
+                method,
+                body,
                 headers: {
                     ...baseHeaders,
                     ...optionsHeaders,
@@ -93,7 +100,9 @@ export abstract class MyBudgetApi {
         return this.request<T>(url, {
             ...options,
             method: 'POST',
-            body: data ? JSON.stringify(data) : undefined,
+            // eslint-disable-next-line
+            // @ts-ignore
+            body: data,
         });
     }
 
@@ -105,7 +114,9 @@ export abstract class MyBudgetApi {
         return this.request<T>(url, {
             ...options,
             method: 'PATCH',
-            body: JSON.stringify(data),
+            // eslint-disable-next-line
+            // @ts-ignore
+            body: data,
         });
     }
 
@@ -241,6 +252,15 @@ export abstract class MyBudgetApi {
 
         return this.get(url, {
             next: { tags },
+        });
+    }
+
+    async reorderAccount({
+        id,
+        order,
+    }: IReorderAccountArgs): TAsyncApiClientResult<Account[]> {
+        return this.patch(`/accounts/reorder/${id}`, {
+            order,
         });
     }
 }

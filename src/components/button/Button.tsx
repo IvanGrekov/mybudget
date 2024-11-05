@@ -13,7 +13,13 @@ const Button = (
 ): JSX.Element => {
     if (href) {
         return (
-            <Link href={href} className={cx(linkClassName, styles.link)}>
+            <Link
+                href={href}
+                className={cx(linkClassName, styles.link)}
+                style={{
+                    pointerEvents: props.isDisabled ? 'none' : 'auto',
+                }}
+            >
                 <ButtonBody {...props} ref={ref} />
             </Link>
         );

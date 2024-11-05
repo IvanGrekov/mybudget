@@ -14,6 +14,10 @@
     padding: $spacing-4;
     border-bottom: $border-width solid var(--border);
 
+    &--hide-border {
+        border-bottom: none;
+    }
+
     @media (max-width: $screen-md) {
         padding: $spacing-3;
     }
