@@ -33,9 +33,9 @@ export default function AccountReorderingList(): JSX.Element {
             },
         }),
         useSensor(TouchSensor, {
-            // NOTE: Press delay of 250ms, with tolerance of 5px of movement
+            // NOTE: Press delay of 125ms, with tolerance of 5px of movement
             activationConstraint: {
-                delay: 250,
+                delay: 125,
                 tolerance: 5,
             },
         }),
