@@ -112,8 +112,14 @@ export const useSortableTransactionCategories = (
                 //     order: newIndex,
                 // });
 
+                const newSortableItems = arrayMove(
+                    sortableItems,
+                    oldIndex,
+                    newIndex,
+                );
+
                 setPrevSortableItems(sortableItems);
-                setSortableItems(arrayMove(sortableItems, oldIndex, newIndex));
+                setSortableItems(newSortableItems);
             }
         },
         [
