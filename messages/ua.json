@@ -30,6 +30,9 @@
     "TransactionCategoriesPage": {
         "title": "Категорії Транзакцій"
     },
+    "ReorderTransactionCategoriesPage": {
+        "title": "Порядок Категорій Транзакцій"
+    },
     "TransactionCategoryDetailsPage": {
         "title": "Деталі Категорії Транзакцій"
     },

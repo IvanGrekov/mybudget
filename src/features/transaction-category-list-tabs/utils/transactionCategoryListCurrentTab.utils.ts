@@ -1,4 +1,4 @@
-import { TRANSACTION_CATEGORY_LIST_DEFAULT_TAB } from 'features/transaction-category-list/constants/transactionCategoryListDefaultTab';
+import { TRANSACTION_CATEGORY_LIST_DEFAULT_TAB } from 'features/transaction-category-list-tabs/constants/transactionCategoryListDefaultTab';
 import { TransactionCategoryTypeEnum } from 'types/generated.types';
 import { getCurrentTab } from 'utils/getCurrentTab';
 

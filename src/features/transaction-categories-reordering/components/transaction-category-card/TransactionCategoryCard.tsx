@@ -3,18 +3,18 @@ import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
 import DragDropListItem from 'components/drag-drop-list-item/DragDropListItem';
 import DragIcon from 'components/icons/DragIcon';
-import { Account } from 'types/generated.types';
+import { TransactionCategory } from 'types/generated.types';
 
-interface IAccountCardProps {
-    account: Account;
+interface ITransactionCategoryCardProps {
+    transactionCategory: TransactionCategory;
     isLoading: boolean;
 }
 
-export default function AccountCard({
-    account,
+export default function TransactionCategoryCard({
+    transactionCategory,
     isLoading,
-}: IAccountCardProps): JSX.Element {
-    const { name, id } = account;
+}: ITransactionCategoryCardProps): JSX.Element {
+    const { name, id } = transactionCategory;
 
     return (
         <DragDropListItem id={id} isLoading={isLoading}>

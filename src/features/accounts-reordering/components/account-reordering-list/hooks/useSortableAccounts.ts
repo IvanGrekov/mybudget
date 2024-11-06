@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
@@ -10,6 +10,7 @@ import {
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
 import { useGetAccounts } from 'hooks/useGetAccounts';
+import { useSortableItems } from 'hooks/useSortableItems';
 import { Account, AccountTypeEnum } from 'types/generated.types';
 import { IReorderAccountArgs } from 'types/muBudgetApi.types';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
@@ -74,26 +75,21 @@ interface IUseSortableAccountsResult {
 export const useSortableAccounts = (
     type: AccountTypeEnum,
 ): IUseSortableAccountsResult => {
-    const [prevSortableItems, setPrevSortableItems] = useState<Account[]>([]);
-    const [sortableItems, setSortableItems] = useState<Account[]>([]);
-
     const { accounts, isLoading: isGetAccountsLoading } = useGetAccounts(type);
+
+    const {
+        sortableItems,
+        setPrevSortableItems,
+        setSortableItems,
+        onSuccessfulUpdate,
+        onFailedUpdate,
+    } = useSortableItems(accounts);
+
     const { editAccountOrder, isEditOrderLoading } = useEditAccountOrder({
         type,
-        onSuccess: () => {
-            setPrevSortableItems(sortableItems);
-        },
-        onError: () => {
-            setSortableItems(prevSortableItems);
-        },
+        onSuccess: onSuccessfulUpdate,
+        onError: onFailedUpdate,
     });
-
-    useLayoutEffect(() => {
-        if (accounts) {
-            setPrevSortableItems(accounts);
-            setSortableItems(accounts);
-        }
-    }, [accounts]);
 
     const handleDragEnd = useCallback(
         ({ active, over }: DragEndEvent): void => {
@@ -114,7 +110,12 @@ export const useSortableAccounts = (
                 setSortableItems(arrayMove(sortableItems, oldIndex, newIndex));
             }
         },
-        [sortableItems, editAccountOrder],
+        [
+            sortableItems,
+            editAccountOrder,
+            setPrevSortableItems,
+            setSortableItems,
+        ],
     );
 
     return {

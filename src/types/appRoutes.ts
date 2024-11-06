@@ -4,6 +4,7 @@ export enum EAppRoutes {
     Accounts = '/accounts',
     AccountsReordering = '/reorder-accounts',
     TransactionCategories = '/transaction-categories',
+    TransactionCategoriesReordering = '/reorder-transaction-categories',
     Settings = '/settings',
     Auth = '/auth',
     SignUp = '/sign-up',

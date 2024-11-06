@@ -1,22 +1,9 @@
 'use client';
 
-import {
-    DndContext,
-    closestCenter,
-    KeyboardSensor,
-    TouchSensor,
-    MouseSensor,
-    useSensor,
-    useSensors,
-} from '@dnd-kit/core';
-import {
-    SortableContext,
-    sortableKeyboardCoordinates,
-} from '@dnd-kit/sortable';
-
 import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
+import DragDropContext from 'contexts/DragDropContext';
 import AccountListTabs from 'features/account-list-tabs/components/account-list-tabs/AccountListTabs';
 import { useAccountListCurrentTab } from 'features/account-list-tabs/hooks/useAccountListCurrentTab';
 import AccountCard from 'features/accounts-reordering/components/account-card/AccountCard';
@@ -25,25 +12,6 @@ import { useSortableAccounts } from 'features/accounts-reordering/components/acc
 import styles from 'styles/ItemList.module.scss';
 
 export default function AccountReorderingList(): JSX.Element {
-    const sensors = useSensors(
-        useSensor(MouseSensor, {
-            // NOTE: Require the mouse to move by 10 pixels before activating
-            activationConstraint: {
-                distance: 10,
-            },
-        }),
-        useSensor(TouchSensor, {
-            // NOTE: Press delay of 125ms, with tolerance of 5px of movement
-            activationConstraint: {
-                delay: 125,
-                tolerance: 5,
-            },
-        }),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        }),
-    );
-
     const type = useAccountListCurrentTab();
     const {
         sortableItems,
@@ -70,23 +38,20 @@ export default function AccountReorderingList(): JSX.Element {
             </Show>
 
             {!isEmptyState && (
-                <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragEnd={handleDragEnd}
+                <DragDropContext
+                    items={sortableItems}
+                    handleDragEnd={handleDragEnd}
                 >
-                    <SortableContext items={sortableItems}>
-                        <ul className={styles['grid-list']}>
-                            {sortableItems.map((account) => (
-                                <AccountCard
-                                    key={account.id}
-                                    account={account}
-                                    isLoading={isEditOrderLoading}
-                                />
-                            ))}
-                        </ul>
-                    </SortableContext>
-                </DndContext>
+                    <ul className={styles['grid-list']}>
+                        {sortableItems.map((account) => (
+                            <AccountCard
+                                key={account.id}
+                                account={account}
+                                isLoading={isEditOrderLoading}
+                            />
+                        ))}
+                    </ul>
+                </DragDropContext>
             )}
         </div>
     );

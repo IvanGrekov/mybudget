@@ -30,6 +30,9 @@
     "TransactionCategoriesPage": {
         "title": "Transaction Categories"
     },
+    "ReorderTransactionCategoriesPage": {
+        "title": "Transaction Categories Reordering"
+    },
     "TransactionCategoryDetailsPage": {
         "title": "Transaction Category Details"
     },
