@@ -45,7 +45,6 @@ export default function AccountCard({
                     actions={<DragIcon />}
                     shouldHideBorder={true}
                 />
-                {id}
             </Card>
         </li>
     );

@@ -4,7 +4,8 @@ import {
     DndContext,
     closestCenter,
     KeyboardSensor,
-    PointerSensor,
+    TouchSensor,
+    MouseSensor,
     useSensor,
     useSensors,
 } from '@dnd-kit/core';
@@ -25,7 +26,19 @@ import styles from 'styles/ItemList.module.scss';
 
 export default function AccountReorderingList(): JSX.Element {
     const sensors = useSensors(
-        useSensor(PointerSensor),
+        useSensor(MouseSensor, {
+            // NOTE: Require the mouse to move by 10 pixels before activating
+            activationConstraint: {
+                distance: 10,
+            },
+        }),
+        useSensor(TouchSensor, {
+            // NOTE: Press delay of 250ms, with tolerance of 5px of movement
+            activationConstraint: {
+                delay: 250,
+                tolerance: 5,
+            },
+        }),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
         }),
