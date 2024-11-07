@@ -20,6 +20,7 @@
     }
 
     &--visible {
+        background-color: var(--background) !important;
         @include visible-animated-element();
     }
 }

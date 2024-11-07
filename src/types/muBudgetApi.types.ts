@@ -7,6 +7,7 @@ import {
     AccountTypeEnum,
     TransactionCategoryStatusEnum,
     TransactionCategoryTypeEnum,
+    ReorderParentTransactionCategoryDto,
 } from 'types/generated.types';
 
 export interface IEditUserArgs extends EditUserDto {
@@ -36,4 +37,8 @@ export interface IGetTransactionsArgs {
 export interface IReorderAccountArgs {
     id: number;
     order: number;
+}
+
+export interface IReorderTransactionCategoriesArgs {
+    parentNodes: ReorderParentTransactionCategoryDto[];
 }

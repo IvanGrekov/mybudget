@@ -20,16 +20,16 @@
 
 @mixin responsive-spacing($screen-size) {
     max-width: $screen-size;
-    padding: 0 $default-spacing-md $spacing-7;
+    padding: 0 $default-spacing-md $spacing-8;
 
     @media (max-width: $screen-md) {
-        padding: 0 $default-spacing-sm $spacing-7;
+        padding: 0 $default-spacing-sm $spacing-8;
     }
 }
 
 .container {
     margin: 0 auto;
-    padding-bottom: $spacing-7;
+    padding-bottom: $spacing-8;
 }
 
 .xl {

@@ -9,13 +9,14 @@ export default function Tooltip({
     children,
     text,
     className,
+    wrapperClassName,
     position = 'top',
     open = true,
 }: ITooltipProps): JSX.Element {
     const { isOpen, childWithRef } = useTooltip(children);
 
     return (
-        <div className={cx(styles.tooltip)}>
+        <div className={cx(styles.tooltip, wrapperClassName)}>
             {childWithRef}
 
             <div

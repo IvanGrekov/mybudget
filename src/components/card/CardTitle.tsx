@@ -1,3 +1,4 @@
+import styles from 'components/card/Card.module.scss';
 import Tooltip from 'components/tooltip/Tooltip';
 import Typography from 'components/typography/Typography';
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
@@ -16,7 +17,7 @@ export default function CardTitle({
     maxLength,
 }: ICardTitleProps): JSX.Element {
     return (
-        <Tooltip text={title}>
+        <Tooltip text={title} wrapperClassName={styles.title}>
             <Typography
                 variant={variant}
                 element="h3"

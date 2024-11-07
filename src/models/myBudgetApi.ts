@@ -21,6 +21,7 @@ import {
     IGetTransactionCategoriesArgs,
     IGetTransactionsArgs,
     IReorderAccountArgs,
+    IReorderTransactionCategoriesArgs,
 } from 'types/muBudgetApi.types';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
@@ -261,6 +262,16 @@ export abstract class MyBudgetApi {
     }: IReorderAccountArgs): TAsyncApiClientResult<Account[]> {
         return this.patch(`/accounts/reorder/${id}`, {
             order,
+        });
+    }
+
+    async reorderTransactionCategories({
+        parentNodes,
+    }: IReorderTransactionCategoriesArgs): TAsyncApiClientResult<
+        TransactionCategory[]
+    > {
+        return this.patch('/transaction-categories/reorder', {
+            parentNodes,
         });
     }
 }

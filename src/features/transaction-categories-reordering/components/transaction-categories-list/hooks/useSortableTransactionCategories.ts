@@ -2,71 +2,74 @@ import { useCallback } from 'react';
 
 import { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-// import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// import { reorderAccount } from 'actions/reorderAccount';
-// import {
-//     useAddSuccessMessageToNotifications,
-//     useAddErrorMessageToNotifications,
-// } from 'hooks/notifications.hooks';
+import { reorderTransactionCategories } from 'actions/reorderTransactionCategories';
+import { getReorderParentTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getReorderParentTransactionCategories';
+import {
+    useAddSuccessMessageToNotifications,
+    useAddErrorMessageToNotifications,
+} from 'hooks/notifications.hooks';
 import { useGetTransactionCategories } from 'hooks/useGetTransactionCategories';
 import { useSortableItems } from 'hooks/useSortableItems';
 import {
     TransactionCategory,
     TransactionCategoryTypeEnum,
 } from 'types/generated.types';
-// import { IReorderAccountArgs } from 'types/muBudgetApi.types';
-// import { getAccountsQueryKey } from 'utils/queryKey.utils';
+import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
+import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 
-// type TEditAccountOrder = (args: IReorderAccountArgs) => void;
+type TReorderTransactionCategories = (
+    args: IReorderTransactionCategoriesArgs,
+) => void;
 
-// type TUseEditAccountOrder = (args: {
-//     type: AccountTypeEnum;
-//     onSuccess: VoidFunction;
-//     onError: VoidFunction;
-// }) => {
-//     editAccountOrder: TEditAccountOrder;
-//     isEditOrderLoading: boolean;
-// };
+type TUseReorderTransactionCategories = (args: {
+    type: TransactionCategoryTypeEnum;
+    onSuccess: VoidFunction;
+    onError: VoidFunction;
+}) => {
+    reorderTransactionCategories: TReorderTransactionCategories;
+    isEditOrderLoading: boolean;
+};
 
-// const useEditAccountOrder: TUseEditAccountOrder = ({
-//     type,
-//     onSuccess,
-//     onError,
-// }) => {
-//     const addSuccessMessage = useAddSuccessMessageToNotifications();
-//     const addErrorMessage = useAddErrorMessageToNotifications();
+const useReorderTransactionCategories: TUseReorderTransactionCategories = ({
+    type,
+    onSuccess,
+    onError,
+}) => {
+    const addSuccessMessage = useAddSuccessMessageToNotifications();
+    const addErrorMessage = useAddErrorMessageToNotifications();
 
-//     const queryClient = useQueryClient();
-//     const { mutate, isPending } = useMutation({
-//         mutationFn: (data: IReorderAccountArgs) => {
-//             return reorderAccount({ type, ...data });
-//         },
-//         onSuccess: (data) => {
-//             queryClient.setQueryData(
-//                 getAccountsQueryKey({
-//                     type,
-//                 }),
-//                 data,
-//             );
-//             addSuccessMessage({
-//                 message: 'Account order has been updated!',
-//             });
-//             onSuccess();
-//         },
-//         onError: (error: Error) => {
-//             addErrorMessage({
-//                 message: error.message,
-//             });
-//             onError();
-//         },
-//     });
+    const queryClient = useQueryClient();
+    const { mutate, isPending } = useMutation({
+        mutationFn: (data: IReorderTransactionCategoriesArgs) => {
+            return reorderTransactionCategories({ type, ...data });
+        },
+        onSuccess: (data) => {
+            queryClient.setQueryData(
+                getTransactionCategoriesQueryKey({
+                    type,
+                }),
+                data,
+            );
+            addSuccessMessage({
+                message: 'Transaction Category order has been updated!',
+            });
+            onSuccess();
+        },
+        onError: (error: Error) => {
+            addErrorMessage({
+                message: error.message,
+            });
+            onError();
+        },
+    });
 
-//     return {
-//         editAccountOrder: mutate,
-//         isEditOrderLoading: isPending,
-//     };
-// };
+    return {
+        reorderTransactionCategories: mutate,
+        isEditOrderLoading: isPending,
+    };
+};
 
 interface IUseSortableTransactionCategoriesResult {
     sortableItems: TransactionCategory[];
@@ -87,15 +90,16 @@ export const useSortableTransactionCategories = (
         sortableItems,
         setPrevSortableItems,
         setSortableItems,
-        // onSuccessfulUpdate,
-        // onFailedUpdate,
+        onSuccessfulUpdate,
+        onFailedUpdate,
     } = useSortableItems(transactionCategories);
 
-    // const { editAccountOrder, isEditOrderLoading } = useEditAccountOrder({
-    //     type,
-    //     onSuccess: onSuccessfulUpdate,
-    //     onError: onFailedUpdate,
-    // });
+    const { reorderTransactionCategories, isEditOrderLoading } =
+        useReorderTransactionCategories({
+            type,
+            onSuccess: onSuccessfulUpdate,
+            onError: onFailedUpdate,
+        });
 
     const handleDragEnd = useCallback(
         ({ active, over }: DragEndEvent): void => {
@@ -107,16 +111,16 @@ export const useSortableTransactionCategories = (
                     (item) => item.id === over.id,
                 );
 
-                // editAccountOrder({
-                //     id: Number(active.id),
-                //     order: newIndex,
-                // });
-
                 const newSortableItems = arrayMove(
                     sortableItems,
                     oldIndex,
                     newIndex,
                 );
+
+                reorderTransactionCategories({
+                    parentNodes:
+                        getReorderParentTransactionCategories(newSortableItems),
+                });
 
                 setPrevSortableItems(sortableItems);
                 setSortableItems(newSortableItems);
@@ -124,7 +128,7 @@ export const useSortableTransactionCategories = (
         },
         [
             sortableItems,
-            // editAccountOrder,
+            reorderTransactionCategories,
             setPrevSortableItems,
             setSortableItems,
         ],
@@ -133,7 +137,7 @@ export const useSortableTransactionCategories = (
     return {
         sortableItems,
         isGetTransactionCategoriesLoading,
-        isEditOrderLoading: false,
+        isEditOrderLoading,
         handleDragEnd,
     };
 };
