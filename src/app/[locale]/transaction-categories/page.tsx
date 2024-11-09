@@ -13,6 +13,7 @@ import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { TransactionCategory } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
+import { calculateActiveTransactionCategories } from 'utils/calculateActiveTransactionCategories';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
@@ -70,7 +71,9 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
                 <ExchangeRates userCurrency={me.defaultCurrency} />
 
                 <TransactionCategoryList
-                    currentItemsLength={activeTransactionCategories.length}
+                    currentItemsLength={calculateActiveTransactionCategories(
+                        activeTransactionCategories,
+                    )}
                 />
             </HydrationBoundary>
         </Container>

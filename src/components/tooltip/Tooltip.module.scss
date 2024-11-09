@@ -2,7 +2,6 @@
 @import 'styles/mixins.scss';
 
 .tooltip {
-    // position: relative;
     z-index: $zindex-tooltip;
     width: fit-content;
     height: fit-content;
@@ -40,7 +39,7 @@
     &--bottom,
     &--top {
         &::before {
-            left: 50%;
+            left: 30%;
             border-left: var(--arrow-size) solid transparent;
             border-right: var(--arrow-size) solid transparent;
         }

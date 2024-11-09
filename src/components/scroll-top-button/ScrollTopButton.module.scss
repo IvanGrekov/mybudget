@@ -24,3 +24,11 @@
         @include visible-animated-element();
     }
 }
+
+.tooltip-wrapper {
+    overflow: visible !important;
+}
+
+.tooltip {
+    translate: 0 -275% !important;
+}

@@ -19,7 +19,11 @@ export default function ScrollTopButton({
 
     return (
         <div className={styles.wrapper}>
-            <Tooltip text="Scroll to top">
+            <Tooltip
+                text="Scroll to top"
+                wrapperClassName={styles['tooltip-wrapper']}
+                className={styles.tooltip}
+            >
                 <IconButton
                     Icon={TopArrowIcon}
                     className={cx(
