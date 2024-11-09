@@ -27,7 +27,6 @@ export default function Subcategories({
                             className={styles.title}
                         >
                             {name}
-                            {name}
                         </Typography>
                     </Tooltip>
 
