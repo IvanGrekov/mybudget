@@ -41,8 +41,6 @@ export const useTooltip: TUseTooltip = (children) => {
         }
 
         const open = (): void => {
-            console.log('open');
-
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
