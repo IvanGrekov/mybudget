@@ -17,32 +17,48 @@ type TUseTooltip = (children: ITooltipProps['children']) => {
     childWithRef: FunctionComponentElement<{
         ref: MutableRefObject<TChildWithRef>;
     }>;
+    tooltipTextRef: MutableRefObject<HTMLDivElement | null>;
 };
 
 export const useTooltip: TUseTooltip = (children) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const childRef = useRef<TChildWithRef>(null);
     const childWithRef = cloneElement(Children.only(children), {
         ref: childRef,
     });
 
+    const tooltipTextRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const child = childRef.current as unknown as TChild;
+        const tooltipText = tooltipTextRef.current;
 
-        if (!child) {
+        if (!child || !tooltipText) {
             return;
         }
 
         const open = (): void => {
+            console.log('open');
+
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
             setIsOpen(true);
         };
         const close = (): void => {
-            setIsOpen(false);
+            timeoutRef.current = setTimeout(() => {
+                setIsOpen(false);
+            }, 100);
         };
         const onClick = (): void => {
             child.blur();
         };
+
+        tooltipText.addEventListener('mouseenter', open);
+        tooltipText.addEventListener('mouseleave', close);
 
         child.addEventListener('mouseenter', open);
         child.addEventListener('mouseleave', close);
@@ -51,6 +67,9 @@ export const useTooltip: TUseTooltip = (children) => {
         child.addEventListener('click', onClick);
 
         return (): void => {
+            tooltipText.removeEventListener('mouseenter', open);
+            tooltipText.removeEventListener('mouseleave', close);
+
             child.removeEventListener('mouseenter', open);
             child.removeEventListener('mouseleave', close);
             child.removeEventListener('focus', open);
@@ -62,5 +81,6 @@ export const useTooltip: TUseTooltip = (children) => {
     return {
         isOpen,
         childWithRef,
+        tooltipTextRef,
     };
 };

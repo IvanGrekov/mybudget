@@ -2,17 +2,16 @@
 @import 'styles/mixins.scss';
 
 .tooltip {
-    position: relative;
+    // position: relative;
     z-index: $zindex-tooltip;
     width: fit-content;
     height: fit-content;
+    overflow: hidden;
 }
 
 .text {
     --background-color: var(--foreground-opacity);
     --arrow-size: 0.4rem;
-    --vertical-distance: 105%;
-    --horizontal-distance: 110%;
 
     @include hidden-animated-element();
 
@@ -40,9 +39,6 @@
 
     &--bottom,
     &--top {
-        left: 50%;
-        translate: -50% 0;
-
         &::before {
             left: 50%;
             border-left: var(--arrow-size) solid transparent;
@@ -51,7 +47,7 @@
     }
 
     &--bottom {
-        top: var(--vertical-distance);
+        translate: 0 25%;
 
         &::before {
             top: 0;
@@ -61,7 +57,7 @@
     }
 
     &--top {
-        bottom: var(--vertical-distance);
+        translate: 0 -225%;
 
         &::before {
             bottom: 0;
@@ -70,41 +66,8 @@
         }
     }
 
-    &--left,
-    &--right {
-        top: 50%;
-        translate: 0 -50%;
-
-        &::before {
-            top: 50%;
-            border-top: var(--arrow-size) solid transparent;
-            border-bottom: var(--arrow-size) solid transparent;
-        }
-    }
-
-    &--left {
-        right: var(--horizontal-distance);
-
-        &::before {
-            right: 0;
-            border-left: var(--arrow-size) solid var(--background-color);
-            translate: 100% -50%;
-        }
-    }
-
-    &--right {
-        left: var(--horizontal-distance);
-
-        &::before {
-            left: 0;
-            border-right: var(--arrow-size) solid var(--background-color);
-            translate: -100% -50%;
-        }
-    }
-
     &--bottom-left {
-        top: calc(var(--vertical-distance) / 1.1);
-        right: calc(var(--horizontal-distance) / 1.2);
+        translate: -90% 20%;
 
         &::before {
             top: 0;
