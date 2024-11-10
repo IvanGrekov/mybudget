@@ -9,21 +9,26 @@ import {
     DndContext,
     closestCenter,
     DragEndEvent,
+    DragOverEvent,
 } from '@dnd-kit/core';
 import {
     sortableKeyboardCoordinates,
     SortableContext,
 } from '@dnd-kit/sortable';
 
+import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
+
 interface IDragDropContextProps extends PropsWithChildren {
     items: { id: number }[];
     handleDragEnd: (event: DragEndEvent) => void;
+    handleDragOver?: (event: DragOverEvent) => void;
 }
 
 export default function DragDropContext({
     items,
     children,
     handleDragEnd,
+    handleDragOver,
 }: IDragDropContextProps): JSX.Element {
     const sensors = useSensors(
         useSensor(MouseSensor, {
@@ -49,8 +54,11 @@ export default function DragDropContext({
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
+            onDragOver={handleDragOver}
         >
-            <SortableContext items={items}>{children}</SortableContext>
+            <SortableContext items={items} id={ROOT_CONTAINER_ID}>
+                {children}
+            </SortableContext>
         </DndContext>
     );
 }

@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
 
-import { DragEndEvent } from '@dnd-kit/core';
+import { DragEndEvent, DragOverEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { reorderTransactionCategories } from 'actions/reorderTransactionCategories';
+import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
 import { getReorderParentTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getReorderParentTransactionCategories';
 import {
     useAddSuccessMessageToNotifications,
@@ -18,6 +19,7 @@ import {
 } from 'types/generated.types';
 import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
+import { getIndexes } from 'utils/sortableItems.utils';
 
 type TReorderTransactionCategories = (
     args: IReorderTransactionCategoriesArgs,
@@ -76,6 +78,7 @@ interface IUseSortableTransactionCategoriesResult {
     isGetTransactionCategoriesLoading: boolean;
     isEditOrderLoading: boolean;
     handleDragEnd: (event: DragEndEvent) => void;
+    handleDragOver: (event: DragOverEvent) => void;
 }
 
 export const useSortableTransactionCategories = (
@@ -103,28 +106,63 @@ export const useSortableTransactionCategories = (
 
     const handleDragEnd = useCallback(
         ({ active, over }: DragEndEvent): void => {
-            if (over && active.id !== over.id) {
-                const oldIndex = sortableItems.findIndex(
-                    (item) => item.id === active.id,
-                );
-                const newIndex = sortableItems.findIndex(
-                    (item) => item.id === over.id,
-                );
+            if (!over || over.id === active.id) {
+                return;
+            }
 
-                const newSortableItems = arrayMove(
-                    sortableItems,
+            let newSortableItems: TransactionCategory[] = [];
+
+            const sortableContainerId =
+                active.data.current?.sortable.containerId;
+            const isRootReordering = sortableContainerId === ROOT_CONTAINER_ID;
+
+            if (isRootReordering) {
+                const { oldIndex, newIndex } = getIndexes({
+                    items: sortableItems,
+                    active,
+                    over,
+                });
+
+                newSortableItems = arrayMove(sortableItems, oldIndex, newIndex);
+            } else {
+                const { id: parentId, children } =
+                    sortableItems.find(
+                        ({ id }) => id === parseInt(sortableContainerId),
+                    ) || {};
+
+                if (!parentId || !children) {
+                    return;
+                }
+
+                const { oldIndex, newIndex } = getIndexes({
+                    items: children,
+                    active,
+                    over,
+                });
+
+                const newSortableChildItems = arrayMove(
+                    children,
                     oldIndex,
                     newIndex,
                 );
 
-                reorderTransactionCategories({
-                    parentNodes:
-                        getReorderParentTransactionCategories(newSortableItems),
-                });
-
-                setPrevSortableItems(sortableItems);
-                setSortableItems(newSortableItems);
+                newSortableItems = sortableItems.map((item) =>
+                    item.id === parentId
+                        ? {
+                              ...item,
+                              children: newSortableChildItems,
+                          }
+                        : item,
+                );
             }
+
+            reorderTransactionCategories({
+                parentNodes:
+                    getReorderParentTransactionCategories(newSortableItems),
+            });
+
+            setPrevSortableItems(sortableItems);
+            setSortableItems(newSortableItems);
         },
         [
             sortableItems,
@@ -134,10 +172,16 @@ export const useSortableTransactionCategories = (
         ],
     );
 
+    const handleDragOver = useCallback((event: DragOverEvent) => {
+        event;
+        // console.log('over event', event);
+    }, []);
+
     return {
         sortableItems,
         isGetTransactionCategoriesLoading,
         isEditOrderLoading,
         handleDragEnd,
+        handleDragOver,
     };
 };

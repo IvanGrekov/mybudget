@@ -1,34 +1,30 @@
-// import DragIcon from 'components/icons/DragIcon';
-import Tooltip from 'components/tooltip/Tooltip';
-import Typography from 'components/typography/Typography';
+import { SortableContext } from '@dnd-kit/sortable';
+
+import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-card/SubcategoryItem';
 import styles from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { TransactionCategory } from 'types/generated.types';
-
 interface ISubcategoriesProps {
+    parentId: number;
     subcategories: TransactionCategory[];
+    isLoading: boolean;
 }
 
 export default function Subcategories({
+    parentId,
     subcategories,
+    isLoading,
 }: ISubcategoriesProps): JSX.Element {
     return (
-        <ul className={styles.subcategories}>
-            {subcategories.map(({ id, name }) => (
-                <li key={id} className={styles.subcategory}>
-                    <Tooltip text={name}>
-                        <Typography
-                            variant="subtitle2"
-                            element="h4"
-                            lineClamp={1}
-                            className={styles.title}
-                        >
-                            {name}
-                        </Typography>
-                    </Tooltip>
-
-                    {/* <DragIcon size={30} /> */}
-                </li>
-            ))}
-        </ul>
+        <SortableContext items={subcategories} id={String(parentId)}>
+            <ul className={styles.subcategories}>
+                {subcategories.map((subcategory) => (
+                    <SubcategoryItem
+                        key={subcategory.id}
+                        subcategory={subcategory}
+                        isLoading={isLoading}
+                    />
+                ))}
+            </ul>
+        </SortableContext>
     );
 }

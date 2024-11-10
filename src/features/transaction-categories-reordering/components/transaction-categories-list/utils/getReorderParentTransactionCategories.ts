@@ -7,10 +7,10 @@ import {
 const getReorderChildTransactionCategories = (
     items: TransactionCategory[],
 ): ReorderTransactionCategoryDto[] => {
-    return items.map(({ id, order }) => {
+    return items.map(({ id }, index) => {
         return {
             id,
-            order,
+            order: index,
         };
     });
 };

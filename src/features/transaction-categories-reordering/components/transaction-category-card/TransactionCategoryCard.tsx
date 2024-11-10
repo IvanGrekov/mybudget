@@ -34,7 +34,11 @@ export default function TransactionCategoryCard({
                     <CardContent className={styles.content}>
                         <Divider />
 
-                        <Subcategories subcategories={children} />
+                        <Subcategories
+                            parentId={id}
+                            subcategories={children}
+                            isLoading={isLoading}
+                        />
                     </CardContent>
                 </Show>
             </Card>

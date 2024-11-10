@@ -18,6 +18,7 @@ export default function TransactionCategoriesList(): JSX.Element {
         isGetTransactionCategoriesLoading,
         isEditOrderLoading,
         handleDragEnd,
+        handleDragOver,
     } = useSortableTransactionCategories(type);
     const isEmptyState = !sortableItems.length;
 
@@ -45,6 +46,7 @@ export default function TransactionCategoriesList(): JSX.Element {
                 <DragDropContext
                     items={sortableItems}
                     handleDragEnd={handleDragEnd}
+                    handleDragOver={handleDragOver}
                 >
                     <ul className={styles['grid-list']}>
                         {sortableItems.map((transactionCategory) => (
