@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 
 import Button from 'components/button/Button';
@@ -28,15 +28,9 @@ export default function UserCurrencyModalContent({
 }: IUserCurrencyModalContentProps): JSX.Element {
     const [error, setError] = useState<string | null>(null);
 
-    const defaultCurrency = useMemo(
-        () => getDefaultCurrency(userDefaultCurrency),
-
-        [userDefaultCurrency],
-    );
-
     const methods = useForm<EditUserCurrencyDto>({
         defaultValues: {
-            defaultCurrency,
+            defaultCurrency: getDefaultCurrency(userDefaultCurrency),
             isAccountsCurrencySoftUpdate: false,
             isTransactionCategoriesCurrencySoftUpdate: false,
             isTransactionCategoriesCurrencyForceUpdate: false,

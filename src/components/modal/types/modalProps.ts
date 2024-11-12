@@ -14,7 +14,7 @@ export type TModalSize = 'small' | 'medium' | 'large';
 export type TModalProps = IModalBaseProps &
     PropsWithChildren &
     ILoaderProps & {
-        title?: string;
+        title: string;
         actions?: JSX.Element;
         size?: TModalSize;
         style?: CSSProperties;

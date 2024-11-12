@@ -39,7 +39,7 @@ export default function ModalContent({
                     }}
                     style={style}
                 >
-                    <ModalTitle text={title} />
+                    <ModalTitle text={title} onClose={onClose} />
 
                     {isOpen ? <>{children}</> : <ModalCircularLoading />}
 

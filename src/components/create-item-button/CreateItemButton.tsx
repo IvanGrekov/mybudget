@@ -7,10 +7,12 @@ import { EScreenSizeNames } from 'types/screenSizeNames';
 
 interface ICreateItemButtonProps {
     isDisabled?: boolean;
+    onClick?: VoidFunction;
 }
 
 export default function CreateItemButton({
     isDisabled,
+    onClick,
 }: ICreateItemButtonProps): JSX.Element {
     const isMobile = useIsScreenSize(EScreenSizeNames.XS);
 
@@ -20,6 +22,7 @@ export default function CreateItemButton({
             isDisabled={isDisabled}
             title="Create new item"
             iconSize={isMobile ? 'medium' : 'large'}
+            onClick={onClick}
         />
     );
 }
