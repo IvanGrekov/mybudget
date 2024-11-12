@@ -1,11 +1,13 @@
 import { useCallback } from 'react';
 
-import { DragEndEvent, DragOverEvent } from '@dnd-kit/core';
-import { arrayMove } from '@dnd-kit/sortable';
+import { DragStartEvent, DragEndEvent } from '@dnd-kit/core';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { reorderTransactionCategories } from 'actions/reorderTransactionCategories';
 import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
+import { getNewSortableItemsOnParentChanging } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentChanging';
+import { getNewSortableItemsOnRootReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnRootReordering';
+import { getNewSortableItemsOnSubcategoryReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnSubcategoryReordering';
 import { getReorderParentTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getReorderParentTransactionCategories';
 import {
     useAddSuccessMessageToNotifications,
@@ -19,7 +21,6 @@ import {
 } from 'types/generated.types';
 import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
-import { getIndexes } from 'utils/sortableItems.utils';
 
 type TReorderTransactionCategories = (
     args: IReorderTransactionCategoriesArgs,
@@ -75,10 +76,11 @@ const useReorderTransactionCategories: TUseReorderTransactionCategories = ({
 
 interface IUseSortableTransactionCategoriesResult {
     sortableItems: TransactionCategory[];
+    activeItem: TransactionCategory | null;
     isGetTransactionCategoriesLoading: boolean;
     isEditOrderLoading: boolean;
+    handleDragStart: (event: DragStartEvent) => void;
     handleDragEnd: (event: DragEndEvent) => void;
-    handleDragOver: (event: DragOverEvent) => void;
 }
 
 export const useSortableTransactionCategories = (
@@ -91,6 +93,8 @@ export const useSortableTransactionCategories = (
 
     const {
         sortableItems,
+        activeItem,
+        setActiveItem,
         setPrevSortableItems,
         setSortableItems,
         onSuccessfulUpdate,
@@ -106,54 +110,56 @@ export const useSortableTransactionCategories = (
 
     const handleDragEnd = useCallback(
         ({ active, over }: DragEndEvent): void => {
-            if (!over || over.id === active.id) {
+            const currentActiveItem = activeItem;
+            setActiveItem(null);
+
+            if (!over || over.id === active.id || !active.data.current) {
                 return;
             }
 
-            let newSortableItems: TransactionCategory[] = [];
+            let newSortableItems: TransactionCategory[] | null = null;
 
             const sortableContainerId =
-                active.data.current?.sortable.containerId;
+                active.data.current.sortable.containerId;
             const isRootReordering = sortableContainerId === ROOT_CONTAINER_ID;
+            const overParentElement = isRootReordering
+                ? null
+                : sortableItems.find(({ id, children }) => {
+                      if (id === over.id) {
+                          return true;
+                      }
 
-            if (isRootReordering) {
-                const { oldIndex, newIndex } = getIndexes({
-                    items: sortableItems,
+                      return children.some((child) => child.id === over.id);
+                  });
+            const isParentChanging =
+                currentActiveItem?.parent &&
+                currentActiveItem.parent.id !== overParentElement?.id;
+
+            if (isParentChanging) {
+                newSortableItems = getNewSortableItemsOnParentChanging({
+                    overParentElement,
+                    currentActiveItem,
+                    sortableItems,
                     active,
                     over,
                 });
-
-                newSortableItems = arrayMove(sortableItems, oldIndex, newIndex);
+            } else if (isRootReordering) {
+                newSortableItems = getNewSortableItemsOnRootReordering({
+                    sortableItems,
+                    active,
+                    over,
+                });
             } else {
-                const { id: parentId, children } =
-                    sortableItems.find(
-                        ({ id }) => id === parseInt(sortableContainerId),
-                    ) || {};
-
-                if (!parentId || !children) {
-                    return;
-                }
-
-                const { oldIndex, newIndex } = getIndexes({
-                    items: children,
+                newSortableItems = getNewSortableItemsOnSubcategoryReordering({
+                    sortableItems,
+                    sortableContainerId,
                     active,
                     over,
                 });
+            }
 
-                const newSortableChildItems = arrayMove(
-                    children,
-                    oldIndex,
-                    newIndex,
-                );
-
-                newSortableItems = sortableItems.map((item) =>
-                    item.id === parentId
-                        ? {
-                              ...item,
-                              children: newSortableChildItems,
-                          }
-                        : item,
-                );
+            if (!newSortableItems) {
+                return;
             }
 
             reorderTransactionCategories({
@@ -165,23 +171,46 @@ export const useSortableTransactionCategories = (
             setSortableItems(newSortableItems);
         },
         [
+            activeItem,
             sortableItems,
             reorderTransactionCategories,
             setPrevSortableItems,
             setSortableItems,
+            setActiveItem,
         ],
     );
 
-    const handleDragOver = useCallback((event: DragOverEvent) => {
-        event;
-        // console.log('over event', event);
-    }, []);
+    const handleDragStart = ({
+        active: { id: activeId },
+    }: DragStartEvent): void => {
+        for (const item of sortableItems) {
+            const { id, children } = item;
+
+            if (id === activeId) {
+                setActiveItem(item);
+                break;
+            }
+
+            if (children.length) {
+                for (const child of children) {
+                    if (child.id === activeId) {
+                        setActiveItem({
+                            ...child,
+                            parent: item,
+                        });
+                        break;
+                    }
+                }
+            }
+        }
+    };
 
     return {
         sortableItems,
+        activeItem,
         isGetTransactionCategoriesLoading,
         isEditOrderLoading,
+        handleDragStart,
         handleDragEnd,
-        handleDragOver,
     };
 };

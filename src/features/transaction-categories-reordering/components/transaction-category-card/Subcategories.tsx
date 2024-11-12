@@ -1,30 +1,55 @@
 import { SortableContext } from '@dnd-kit/sortable';
 
+import DragDropListItem from 'components/drag-drop-list-item/DragDropListItem';
 import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-card/SubcategoryItem';
 import styles from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { TransactionCategory } from 'types/generated.types';
+
 interface ISubcategoriesProps {
-    parentId: number;
     subcategories: TransactionCategory[];
-    isLoading: boolean;
+    isLoading?: boolean;
+    isDragging?: boolean;
 }
 
 export default function Subcategories({
-    parentId,
     subcategories,
     isLoading,
+    isDragging,
 }: ISubcategoriesProps): JSX.Element {
     return (
+        <ul className={styles.subcategories}>
+            {subcategories.map((subcategory) => {
+                const { id } = subcategory;
+
+                if (isDragging) {
+                    return (
+                        <SubcategoryItem key={id} subcategory={subcategory} />
+                    );
+                }
+
+                return (
+                    <DragDropListItem key={id} id={id} isLoading={isLoading}>
+                        <SubcategoryItem subcategory={subcategory} />
+                    </DragDropListItem>
+                );
+            })}
+        </ul>
+    );
+}
+
+interface ISortableSubcategoriesProps
+    extends Omit<ISubcategoriesProps, 'isDragging'> {
+    parentId: number;
+}
+
+export function SortableSubcategories({
+    parentId,
+    subcategories,
+    ...rest
+}: ISortableSubcategoriesProps): JSX.Element {
+    return (
         <SortableContext items={subcategories} id={String(parentId)}>
-            <ul className={styles.subcategories}>
-                {subcategories.map((subcategory) => (
-                    <SubcategoryItem
-                        key={subcategory.id}
-                        subcategory={subcategory}
-                        isLoading={isLoading}
-                    />
-                ))}
-            </ul>
+            <Subcategories subcategories={subcategories} {...rest} />
         </SortableContext>
     );
 }

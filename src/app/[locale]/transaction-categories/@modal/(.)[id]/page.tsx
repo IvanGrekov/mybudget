@@ -1,13 +1,22 @@
 'use client';
 
+import { lazy, Suspense } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
+import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
-import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
+
+const TransactionCategoryDetailsLazy = lazy(
+    () =>
+        import(
+            'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails'
+        ),
+);
 
 export default function TransactionCategoryDetailsModal({
     params: { id },
@@ -27,7 +36,9 @@ export default function TransactionCategoryDetailsModal({
             onClose={onClose}
         >
             <UnderDevelopmentMessage />
-            <TransactionCategoryDetails transactionCategoryId={id} />
+            <Suspense fallback={<ModalCircularLoading />}>
+                <TransactionCategoryDetailsLazy transactionCategoryId={id} />
+            </Suspense>
         </Modal>
     );
 }

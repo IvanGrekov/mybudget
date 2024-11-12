@@ -4,7 +4,9 @@ import { TApiClientResult } from 'types/apiClient.types';
 
 interface IUseSortableItemsResult<T> {
     sortableItems: T[];
+    activeItem: T | null;
     setSortableItems: (items: T[]) => void;
+    setActiveItem: (item: T | null) => void;
     setPrevSortableItems: (items: T[]) => void;
     onSuccessfulUpdate: VoidFunction;
     onFailedUpdate: VoidFunction;
@@ -13,6 +15,7 @@ interface IUseSortableItemsResult<T> {
 export const useSortableItems = <T extends { id: number }>(
     items: TApiClientResult<T[]> | undefined,
 ): IUseSortableItemsResult<T> => {
+    const [activeItem, setActiveItem] = useState<T | null>(null);
     const [prevSortableItems, setPrevSortableItems] = useState<T[]>([]);
     const [sortableItems, setSortableItems] = useState<T[]>([]);
 
@@ -33,7 +36,9 @@ export const useSortableItems = <T extends { id: number }>(
 
     return {
         sortableItems,
+        activeItem,
         setSortableItems,
+        setActiveItem,
         setPrevSortableItems,
         onSuccessfulUpdate,
         onFailedUpdate,

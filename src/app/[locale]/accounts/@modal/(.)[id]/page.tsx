@@ -1,13 +1,22 @@
 'use client';
 
+import { lazy, Suspense } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
+import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
-import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
+
+const AccountDetailsLazy = lazy(
+    () =>
+        import(
+            'features/account-details/components/account-details/AccountDetails'
+        ),
+);
 
 export default function AccountDetailsModal({
     params: { id },
@@ -28,7 +37,9 @@ export default function AccountDetailsModal({
             onClose={onClose}
         >
             <UnderDevelopmentMessage />
-            <AccountDetails accountId={id} />
+            <Suspense fallback={<ModalCircularLoading />}>
+                <AccountDetailsLazy accountId={id} />
+            </Suspense>
         </Modal>
     );
 }

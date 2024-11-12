@@ -8,12 +8,17 @@ import Modal from 'components/modal/Modal';
 import Show from 'components/show/Show';
 import styles from 'features/user-settings/components/enable-tfa-modal/EnableTfaModal.module.scss';
 import EnableTfaModalSkeleton from 'features/user-settings/components/enable-tfa-modal/EnableTfaModalSkeleton';
-import ScanQrCodeStageContent from 'features/user-settings/components/enable-tfa-modal/ScanQrCodeStageContent';
 import { useEnableTfa } from 'features/user-settings/components/enable-tfa-modal/hooks/useEnableTfa';
 import { EEnableTfaStages } from 'features/user-settings/components/enable-tfa-modal/types/enableTfaStages';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
 import { InitiateTfaEnablingDtoResult } from 'types/generated.types';
 
+const ScanQrCodeStageContentLazy = lazy(
+    () =>
+        import(
+            'features/user-settings/components/enable-tfa-modal/ScanQrCodeStageContent'
+        ),
+);
 const EnterCodeStageContentLazy = lazy(
     () =>
         import(
@@ -101,27 +106,27 @@ export default function EnableTfaModal({
                 </>
             }
         >
-            <div className={styles.container}>
-                {error && <ErrorMessage message={error} />}
-                <Show when={stage === EEnableTfaStages.SCAN_QR_CODE}>
-                    <ScanQrCodeStageContent
-                        tfaData={tfaData}
-                        isConfirmedScanning={isConfirmedScanning}
-                        setTfaData={setTfaData}
-                        setIsConfirmedScanning={setIsConfirmedScanning}
-                        setError={setError}
-                    />
-                </Show>
+            <Suspense fallback={<EnableTfaModalSkeleton />}>
+                <div className={styles.container}>
+                    {error && <ErrorMessage message={error} />}
+                    <Show when={stage === EEnableTfaStages.SCAN_QR_CODE}>
+                        <ScanQrCodeStageContentLazy
+                            tfaData={tfaData}
+                            isConfirmedScanning={isConfirmedScanning}
+                            setTfaData={setTfaData}
+                            setIsConfirmedScanning={setIsConfirmedScanning}
+                            setError={setError}
+                        />
+                    </Show>
 
-                <Show when={stage === EEnableTfaStages.ENTER_CODE}>
-                    <Suspense fallback={<EnableTfaModalSkeleton />}>
+                    <Show when={stage === EEnableTfaStages.ENTER_CODE}>
                         <EnterCodeStageContentLazy
                             code={code}
                             setCode={setCode}
                         />
-                    </Suspense>
-                </Show>
-            </div>
+                    </Show>
+                </div>
+            </Suspense>
         </Modal>
     );
 }

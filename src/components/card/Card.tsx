@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, Ref, forwardRef } from 'react';
 
 import cx from 'classnames';
 
@@ -8,6 +8,15 @@ interface ICardProps extends PropsWithChildren {
     className?: string;
 }
 
-export default function Card({ className, children }: ICardProps): JSX.Element {
-    return <article className={cx(styles.card, className)}>{children}</article>;
+function Card(
+    { className, children }: ICardProps,
+    ref: Ref<HTMLDivElement>,
+): JSX.Element {
+    return (
+        <article ref={ref} className={cx(styles.card, className)}>
+            {children}
+        </article>
+    );
 }
+
+export default forwardRef(Card);

@@ -1,7 +1,16 @@
+import { lazy, Suspense } from 'react';
+
 import Modal from 'components/modal/Modal';
+import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
-import UserCurrencyModalContent from 'features/user-currency-section/user-currency-modal/UserCurrencyModalContent';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
+
+const UserCurrencyModalContentLazy = lazy(
+    () =>
+        import(
+            'features/user-currency-section/user-currency-modal/UserCurrencyModalContent'
+        ),
+);
 
 interface IUserCurrencyModalProps extends IModalBaseProps {
     userId: number;
@@ -21,11 +30,13 @@ export default function UserCurrencyModal({
             size="large"
             onClose={onClose}
         >
-            <UserCurrencyModalContent
-                userId={userId}
-                userDefaultCurrency={userDefaultCurrency}
-                onClose={onClose}
-            />
+            <Suspense fallback={<ModalCircularLoading />}>
+                <UserCurrencyModalContentLazy
+                    userId={userId}
+                    userDefaultCurrency={userDefaultCurrency}
+                    onClose={onClose}
+                />
+            </Suspense>
         </Modal>
     );
 }

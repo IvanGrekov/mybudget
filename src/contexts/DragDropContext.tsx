@@ -8,6 +8,7 @@ import {
     useSensors,
     DndContext,
     closestCenter,
+    DragStartEvent,
     DragEndEvent,
     DragOverEvent,
 } from '@dnd-kit/core';
@@ -21,6 +22,7 @@ import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
 interface IDragDropContextProps extends PropsWithChildren {
     items: { id: number }[];
     handleDragEnd: (event: DragEndEvent) => void;
+    handleDragStart?: (event: DragStartEvent) => void;
     handleDragOver?: (event: DragOverEvent) => void;
 }
 
@@ -28,6 +30,7 @@ export default function DragDropContext({
     items,
     children,
     handleDragEnd,
+    handleDragStart,
     handleDragOver,
 }: IDragDropContextProps): JSX.Element {
     const sensors = useSensors(
@@ -53,8 +56,9 @@ export default function DragDropContext({
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
             onDragOver={handleDragOver}
+            onDragEnd={handleDragEnd}
         >
             <SortableContext items={items} id={ROOT_CONTAINER_ID}>
                 {children}
