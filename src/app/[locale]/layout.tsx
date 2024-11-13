@@ -12,6 +12,7 @@ import 'styles/globals.scss';
 import styles from 'app/[locale]/layout.module.scss';
 import Providers from 'app/[locale]/providers';
 import AppLogo from 'components/app-logo/AppLogo';
+import ConfirmNavigationModal from 'components/confirm-navigation-modal/ConfirmNavigationModal';
 import Container from 'components/container/Container';
 import CookiesAgreementModal from 'components/cookies-agreement-modal/CookiesAgreementModal';
 import ErrorBoundary from 'components/error-boundary/ErrorBoundary';
@@ -113,6 +114,8 @@ export default async function RootLocaleLayout({
                             <ScrollTopButton />
 
                             <CookiesAgreementModal />
+
+                            <ConfirmNavigationModal />
                         </Providers>
 
                         <div id="modal-root" />

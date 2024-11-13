@@ -2166,6 +2166,11 @@ next-intl@^3.17.2:
     negotiator "^0.6.3"
     use-intl "^3.17.3"
 
+next-navigation-guard@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/next-navigation-guard/-/next-navigation-guard-0.1.1.tgz#fb4eec1c8ad1c472622085ba84a4dd7df6b11c8f"
+  integrity sha512-uHpG6awlxYzcF9BRRibM4Xew5fKbl7gOzC1n8dhcqL3zk1+kY0YsPGiPN7QMwnDxY7YuOcasUMlVKFeEykLctQ==
+
 next@14.2.5:
   version "14.2.5"
   resolved "https://registry.yarnpkg.com/next/-/next-14.2.5.tgz#afe4022bb0b752962e2205836587a289270efbea"

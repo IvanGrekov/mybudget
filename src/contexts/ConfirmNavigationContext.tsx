@@ -18,13 +18,22 @@ export function ConfirmNavigationProvider({
 }: PropsWithChildren): JSX.Element {
     const [shouldConfirmNavigation, setShouldConfirmNavigation] =
         useState(false);
+    const [
+        shouldShowCloseModalConfirmation,
+        setShouldShowCloseModalConfirmation,
+    ] = useState(false);
+    const [onConfirm, setOnConfirm] = useState<VoidFunction | null>(null);
 
     const value = useMemo(
         () => ({
             shouldConfirmNavigation,
+            shouldShowCloseModalConfirmation,
             setShouldConfirmNavigation,
+            setShouldShowCloseModalConfirmation,
+            onConfirm,
+            setOnConfirm,
         }),
-        [shouldConfirmNavigation],
+        [shouldConfirmNavigation, shouldShowCloseModalConfirmation, onConfirm],
     );
 
     return (

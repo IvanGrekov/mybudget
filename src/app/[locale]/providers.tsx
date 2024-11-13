@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { NavigationGuardProvider } from 'next-navigation-guard';
 
 import AuthProvider from 'components/auth-provider/AuthProvider';
 import { ConfirmNavigationProvider } from 'contexts/ConfirmNavigationContext';
@@ -27,15 +28,17 @@ export default function Providers({
             <QueryClientProvider client={getQueryClient()}>
                 <ReactQueryDevtools />
                 <ConfirmNavigationProvider>
-                    <MobileSidebarProvider>
-                        <NotificationsProvider>
-                            <ExchangeRatesProvider
-                                exchangeRates={exchangeRates}
-                            >
-                                <AuthProvider>{children}</AuthProvider>
-                            </ExchangeRatesProvider>
-                        </NotificationsProvider>
-                    </MobileSidebarProvider>
+                    <NavigationGuardProvider>
+                        <MobileSidebarProvider>
+                            <NotificationsProvider>
+                                <ExchangeRatesProvider
+                                    exchangeRates={exchangeRates}
+                                >
+                                    <AuthProvider>{children}</AuthProvider>
+                                </ExchangeRatesProvider>
+                            </NotificationsProvider>
+                        </MobileSidebarProvider>
+                    </NavigationGuardProvider>
                 </ConfirmNavigationProvider>
             </QueryClientProvider>
         </PageLoadingProvider>

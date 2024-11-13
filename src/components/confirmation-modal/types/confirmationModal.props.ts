@@ -14,6 +14,8 @@ export interface ICancelActionProps {
     onCancel: () => void;
 }
 
-export type TConfirmationModalProps = Omit<TModalProps, 'actions'> &
+export type TConfirmationModalProps = Omit<TModalProps, 'actions' | 'title'> &
     IConfirmActionProps &
-    ICancelActionProps;
+    ICancelActionProps & {
+        title?: string;
+    };

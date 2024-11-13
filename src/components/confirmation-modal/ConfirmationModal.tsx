@@ -9,6 +9,7 @@ export default function ConfirmationModal({
     cancelText,
     confirmColor,
     isLoading,
+    children,
     onConfirm,
     onCancel,
     ...rest
@@ -28,6 +29,8 @@ export default function ConfirmationModal({
                     <CancelAction cancelText={cancelText} onCancel={onCancel} />
                 </>
             }
-        />
+        >
+            {children}
+        </Modal>
     );
 }
