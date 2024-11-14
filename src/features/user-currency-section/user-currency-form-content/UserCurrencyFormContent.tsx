@@ -11,7 +11,13 @@ import {
 import { EditUserCurrencyDto } from 'types/generated.types';
 
 export default function UserCurrencyFormContent(): JSX.Element {
-    const { watch, setValue } = useFormContext<EditUserCurrencyDto>();
+    const {
+        formState: { dirtyFields },
+        watch,
+        setValue,
+    } = useFormContext<EditUserCurrencyDto>();
+
+    const isDefaultCurrencyChanged = !dirtyFields.defaultCurrency;
 
     const isTransactionCategoriesCurrencyForceUpdate = watch(
         'isTransactionCategoriesCurrencyForceUpdate',
@@ -37,6 +43,7 @@ export default function UserCurrencyFormContent(): JSX.Element {
             <CurrencyField />
 
             <FormCheckboxField
+                disabled={isDefaultCurrencyChanged}
                 name={
                     USER_CURRENCY_FORM_FIELD_NAMES.isAccountsCurrencySoftUpdate
                 }
@@ -46,6 +53,7 @@ export default function UserCurrencyFormContent(): JSX.Element {
             />
 
             <FormCheckboxField
+                disabled={isDefaultCurrencyChanged}
                 name={
                     USER_CURRENCY_FORM_FIELD_NAMES.isTransactionCategoriesCurrencySoftUpdate
                 }
@@ -55,6 +63,7 @@ export default function UserCurrencyFormContent(): JSX.Element {
             />
 
             <FormCheckboxField
+                disabled={isDefaultCurrencyChanged}
                 name={
                     USER_CURRENCY_FORM_FIELD_NAMES.isTransactionCategoriesCurrencyForceUpdate
                 }

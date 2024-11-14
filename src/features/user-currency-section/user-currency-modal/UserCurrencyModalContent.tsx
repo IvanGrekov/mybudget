@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
@@ -10,6 +10,7 @@ import styles from 'features/user-currency-section/user-currency-modal/UserCurre
 import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-currency-section/user-currency-modal/constants/userCurrencyFormValidation';
 import { useEditUserCurrency } from 'features/user-currency-section/user-currency-modal/hooks/useEditUserCurrency';
 import { getDefaultCurrency } from 'features/user-currency-section/user-currency-modal/utils/getDefaultCurrency';
+import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import {
     EditUserCurrencyDto,
     UserDefaultCurrencyEnum,
@@ -18,13 +19,15 @@ import {
 interface IUserCurrencyModalContentProps {
     userId: number;
     userDefaultCurrency: UserDefaultCurrencyEnum;
-    onClose: VoidFunction;
+    hideModal: VoidFunction;
+    onCloseModal: VoidFunction;
 }
 
 export default function UserCurrencyModalContent({
     userId,
     userDefaultCurrency,
-    onClose,
+    hideModal,
+    onCloseModal,
 }: IUserCurrencyModalContentProps): JSX.Element {
     const [error, setError] = useState<string | null>(null);
 
@@ -40,27 +43,25 @@ export default function UserCurrencyModalContent({
 
     const { mutate, isLoading } = useEditUserCurrency({
         userId,
-        onCompleted: onClose,
+        onCompleted: hideModal,
         setError,
     });
 
-    const onSubmit: SubmitHandler<EditUserCurrencyDto> = (data) => {
-        mutate(data);
-    };
-
     const { formState, handleSubmit } = methods;
-    const { errors, dirtyFields } = formState;
+    const { errors, dirtyFields, isDirty } = formState;
+
+    useConfirmNavigation(isDirty);
 
     return (
         <div className={styles.container}>
             {error && <ErrorMessage message={error} />}
 
             <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(mutate)}>
                     <UserCurrencyFormContent />
 
                     <ModalActions>
-                        <CancelAction onCancel={onClose} />
+                        <CancelAction onCancel={onCloseModal} />
                         <Button
                             text="Change"
                             type="submit"

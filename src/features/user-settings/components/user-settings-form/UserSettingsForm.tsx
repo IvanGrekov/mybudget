@@ -13,6 +13,7 @@ import {
 } from 'features/user-settings/components/user-settings-form/constants/userSettingsForm.constants';
 import { useEditUser } from 'features/user-settings/components/user-settings-form/hooks/useEditUser';
 import { IUserSettingsFormData } from 'features/user-settings/components/user-settings-form/types/userSettingsFormData';
+import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import { getIsSubmitButtonDisabled } from 'utils/getIsSubmitButtonDisabled';
 
 interface IUserSettingsFormProps {
@@ -50,6 +51,8 @@ export default function UserSettingsForm({
     };
 
     const { isDirty, errors } = formState;
+
+    useConfirmNavigation(isDirty);
 
     return (
         <FormProvider {...methods}>
