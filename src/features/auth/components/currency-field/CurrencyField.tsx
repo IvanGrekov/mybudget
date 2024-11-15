@@ -17,7 +17,6 @@ export default function CurrencyField({
             name={name}
             label={label}
             options={OPTIONS}
-            shouldAddSearch={true}
             isClearable={false}
             required={true}
         />

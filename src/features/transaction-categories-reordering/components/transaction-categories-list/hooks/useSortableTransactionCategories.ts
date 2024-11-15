@@ -4,6 +4,7 @@ import { DragStartEvent, DragEndEvent } from '@dnd-kit/core';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { reorderTransactionCategories } from 'actions/reorderTransactionCategories';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
 import { getNewSortableItemsOnParentChanging } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentChanging';
 import { getNewSortableItemsOnRootReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnRootReordering';
@@ -20,6 +21,7 @@ import {
     TransactionCategoryTypeEnum,
 } from 'types/generated.types';
 import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
+import { getSuccessMessage } from 'utils/getSuccessMesage';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 
 type TReorderTransactionCategories = (
@@ -49,6 +51,12 @@ const useReorderTransactionCategories: TUseReorderTransactionCategories = ({
             return reorderTransactionCategories({ type, ...data });
         },
         onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage({
+                    message: DEFAULT_ERROR_MESSAGE,
+                });
+            }
+
             queryClient.setQueryData(
                 getTransactionCategoriesQueryKey({
                     type,
@@ -56,7 +64,10 @@ const useReorderTransactionCategories: TUseReorderTransactionCategories = ({
                 data,
             );
             addSuccessMessage({
-                message: 'Transaction Category order has been updated!',
+                message: getSuccessMessage({
+                    entityName: 'Transaction Category order',
+                    isEditing: true,
+                }),
             });
             onSuccess();
         },

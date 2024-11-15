@@ -4,9 +4,9 @@ import { useForm, FormProvider } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ErrorMessage from 'components/error-message/ErrorMessage';
+import DefaultModalContainer from 'components/modal/DefaultModalContainer';
 import ModalActions from 'components/modal/ModalActions';
 import UserCurrencyFormContent from 'features/user-currency-section/user-currency-form-content/UserCurrencyFormContent';
-import styles from 'features/user-currency-section/user-currency-modal/UserCurrencyModalContent.module.scss';
 import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-currency-section/user-currency-modal/constants/userCurrencyFormValidation';
 import { useEditUserCurrency } from 'features/user-currency-section/user-currency-modal/hooks/useEditUserCurrency';
 import { getDefaultCurrency } from 'features/user-currency-section/user-currency-modal/utils/getDefaultCurrency';
@@ -15,6 +15,7 @@ import {
     EditUserCurrencyDto,
     UserDefaultCurrencyEnum,
 } from 'types/generated.types';
+import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
 interface IUserCurrencyModalContentProps {
     userId: number;
@@ -40,20 +41,23 @@ export default function UserCurrencyModalContent({
         },
         resolver: USER_CURRENCY_FORM_VALIDATION,
     });
+    const { formState, handleSubmit } = methods;
+
+    const disableNavigationConfirmation = useConfirmNavigation(
+        formState.dirtyFields,
+    );
 
     const { mutate, isLoading } = useEditUserCurrency({
         userId,
-        onCompleted: hideModal,
+        onCompleted: () => {
+            disableNavigationConfirmation();
+            hideModal();
+        },
         setError,
     });
 
-    const { formState, handleSubmit } = methods;
-    const { errors, dirtyFields, isDirty } = formState;
-
-    useConfirmNavigation(isDirty);
-
     return (
-        <div className={styles.container}>
+        <DefaultModalContainer>
             {error && <ErrorMessage message={error} />}
 
             <FormProvider {...methods}>
@@ -66,14 +70,13 @@ export default function UserCurrencyModalContent({
                             text="Change"
                             type="submit"
                             isLoading={isLoading}
-                            isDisabled={
-                                !dirtyFields.defaultCurrency ||
-                                Object.keys(errors).length > 0
-                            }
+                            isDisabled={getIsFormSubmitButtonDisabled(
+                                formState,
+                            )}
                         />
                     </ModalActions>
                 </form>
             </FormProvider>
-        </div>
+        </DefaultModalContainer>
     );
 }

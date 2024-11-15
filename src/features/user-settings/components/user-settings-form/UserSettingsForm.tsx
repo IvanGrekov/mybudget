@@ -1,6 +1,6 @@
 'use client';
 
-import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 import Button from 'components/button/Button';
 import Fieldset from 'components/fieldset/Fieldset';
@@ -37,26 +37,21 @@ export default function UserSettingsForm({
 
     const { formState, handleSubmit, reset, getValues } = methods;
 
-    const onCompleted = (): void => {
-        reset(getValues());
-    };
+    const disableNavigationConfirmation = useConfirmNavigation(
+        formState.dirtyFields,
+    );
 
     const { mutate, isLoading } = useEditUser({
         userId,
-        onCompleted,
+        onCompleted: () => {
+            disableNavigationConfirmation();
+            reset(getValues());
+        },
     });
-
-    const onSubmit: SubmitHandler<IUserSettingsFormData> = (data) => {
-        mutate(data);
-    };
-
-    const { isDirty, errors } = formState;
-
-    useConfirmNavigation(isDirty);
 
     return (
         <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(mutate)}>
                 <Fieldset
                     title="User Settings"
                     actions={
@@ -64,10 +59,7 @@ export default function UserSettingsForm({
                             text="Save"
                             type="submit"
                             isLoading={isLoading}
-                            isDisabled={getIsSubmitButtonDisabled({
-                                isDirty,
-                                errors,
-                            })}
+                            isDisabled={getIsSubmitButtonDisabled(formState)}
                         />
                     }
                 >

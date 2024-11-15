@@ -33,7 +33,6 @@ export default function CurrencyField(): JSX.Element {
             name={USER_CURRENCY_FORM_FIELD_NAMES.defaultCurrency}
             label={USER_CURRENCY_FORM_FIELD_LABELS.defaultCurrency}
             options={OPTIONS}
-            shouldAddSearch={true}
             isClearable={false}
             required={true}
             getOptionLabel={(option) => {

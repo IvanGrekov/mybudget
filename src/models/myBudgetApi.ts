@@ -13,6 +13,8 @@ import {
     TransactionCategory,
     TransactionCategoryStatusEnum,
     Transaction,
+    CreateAccountDto,
+    CreateTransactionCategoryDto,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -265,6 +267,10 @@ export abstract class MyBudgetApi {
         });
     }
 
+    async createAccount(dto: CreateAccountDto): TAsyncApiClientResult<Account> {
+        return this.post('/accounts', dto);
+    }
+
     async reorderTransactionCategories({
         parentNodes,
     }: IReorderTransactionCategoriesArgs): TAsyncApiClientResult<
@@ -273,5 +279,11 @@ export abstract class MyBudgetApi {
         return this.patch('/transaction-categories/reorder', {
             parentNodes,
         });
+    }
+
+    async createTransactionCategory(
+        dto: CreateTransactionCategoryDto,
+    ): TAsyncApiClientResult<TransactionCategory> {
+        return this.post('/transaction-categories', dto);
     }
 }

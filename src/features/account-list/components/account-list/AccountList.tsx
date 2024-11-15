@@ -12,21 +12,18 @@ import { useGetAccounts } from 'hooks/useGetAccounts';
 import styles from 'styles/ItemList.module.scss';
 import { EAppRoutes } from 'types/appRoutes';
 
-interface IAccountListProps {
-    currentItemsLength: number;
-}
-
-export default function AccountList({
-    currentItemsLength,
-}: IAccountListProps): JSX.Element {
+export default function AccountList(): JSX.Element {
     const type = useAccountListCurrentTab();
-    const { accounts, isLoading } = useGetAccounts(type);
+    const { accounts, currentAllItemsLength, isLoading } = useGetAccounts(type);
 
     const isEmptyState = !accounts?.length;
 
     return (
         <div className={styles.container}>
-            <AccountListHeader currentItemsLength={currentItemsLength} />
+            <AccountListHeader
+                currentAllItemsLength={currentAllItemsLength}
+                type={type}
+            />
 
             <AccountListTabs />
 

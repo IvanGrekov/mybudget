@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editUser } from 'actions/editUser';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { IUserSettingsFormData } from 'features/user-settings/components/user-settings-form/types/userSettingsFormData';
 import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
 import { EFetchingTags } from 'types/fetchingTags';
@@ -20,6 +21,12 @@ export const useEditUser: TUseEditUser = ({ userId, onCompleted }) => {
             return editUser({ userId, ...data });
         },
         onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage({
+                    message: DEFAULT_ERROR_MESSAGE,
+                });
+            }
+
             queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
                 ...oldData,
                 ...data,

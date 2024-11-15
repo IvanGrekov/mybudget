@@ -26,10 +26,21 @@ export const useFormModalCloseConfirmation = (
     }, [shouldConfirmNavigation, setShouldShowCloseModalConfirmation, onClose]);
 };
 
-export const useConfirmNavigation = (shouldConfirm: boolean): void => {
+export const useConfirmNavigation = (
+    shouldConfirm: boolean | Record<string, unknown>,
+): VoidFunction => {
     const { setShouldConfirmNavigation } = useConfirmNavigationContext();
 
     useEffect(() => {
-        setShouldConfirmNavigation(shouldConfirm);
+        const value =
+            typeof shouldConfirm === 'boolean'
+                ? shouldConfirm
+                : Object.keys(shouldConfirm).length > 0;
+
+        setShouldConfirmNavigation(value);
     }, [shouldConfirm, setShouldConfirmNavigation]);
+
+    return (): void => {
+        setShouldConfirmNavigation(false);
+    };
 };

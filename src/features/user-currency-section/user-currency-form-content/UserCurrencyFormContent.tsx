@@ -3,11 +3,11 @@ import { useFormContext } from 'react-hook-form';
 
 import FormCheckboxField from 'components/form-fields/FormCheckboxField';
 import CurrencyField from 'features/user-currency-section/user-currency-form-content/CurrencyField';
-import styles from 'features/user-currency-section/user-currency-form-content/UserCurrencyFormContent.module.scss';
 import {
     USER_CURRENCY_FORM_FIELD_NAMES,
     USER_CURRENCY_FORM_FIELD_LABELS,
 } from 'features/user-settings/constants/userCurrencyForm.constants';
+import styles from 'styles/Form.module.scss';
 import { EditUserCurrencyDto } from 'types/generated.types';
 
 export default function UserCurrencyFormContent(): JSX.Element {

@@ -67,7 +67,7 @@ export default async function AccountsPage(): Promise<JSX.Element> {
         <Container>
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <ExchangeRates userCurrency={me.defaultCurrency} />
-                <AccountList currentItemsLength={activeAccounts.length} />
+                <AccountList />
             </HydrationBoundary>
         </Container>
     );

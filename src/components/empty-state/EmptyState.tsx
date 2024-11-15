@@ -4,6 +4,7 @@ import EmptyIcon from 'components/icons/EmptyIcon';
 import ErrorIcon from 'components/icons/ErrorIcon';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { getCapitalizedString } from 'utils/string.utils';
 
 interface IEmptyStateProps {
@@ -21,8 +22,8 @@ export default function EmptyState({
 }: IEmptyStateProps): JSX.Element {
     const colorClassName = isError ? 'red-color' : 'foreground-color';
     const defaultText = isError
-        ? 'Something went wrong, try to load data later'
-        : 'There is no any data yet';
+        ? DEFAULT_ERROR_MESSAGE
+        : 'There is no any data yet!';
 
     return (
         <section className={styles['empty-state']}>

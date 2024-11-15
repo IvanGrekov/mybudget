@@ -7,12 +7,20 @@ import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 interface IUseGetAccountsResult {
     accounts?: TApiClientResult<Account[]>;
+    currentAllItemsLength?: number;
     isLoading: boolean;
 }
 
 export const useGetAccounts = (
     type: AccountTypeEnum,
 ): IUseGetAccountsResult => {
+    const { isPending: isAllAccountsLoading, data: allAccountsData } = useQuery(
+        {
+            queryKey: getAccountsQueryKey(),
+            queryFn: () => CLIENT_MY_BUDGET_API.getAccounts(),
+        },
+    );
+
     const { isPending, data } = useQuery({
         queryKey: getAccountsQueryKey({
             type,
@@ -25,6 +33,7 @@ export const useGetAccounts = (
 
     return {
         accounts: data,
-        isLoading: isPending,
+        currentAllItemsLength: allAccountsData?.length,
+        isLoading: isPending || isAllAccountsLoading,
     };
 };

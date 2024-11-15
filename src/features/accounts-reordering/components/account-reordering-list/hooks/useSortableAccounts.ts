@@ -5,6 +5,7 @@ import { arrayMove } from '@dnd-kit/sortable';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { reorderAccount } from 'actions/reorderAccount';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
@@ -13,6 +14,7 @@ import { useGetAccounts } from 'hooks/useGetAccounts';
 import { useSortableItems } from 'hooks/useSortableItems';
 import { Account, AccountTypeEnum } from 'types/generated.types';
 import { IReorderAccountArgs } from 'types/muBudgetApi.types';
+import { getSuccessMessage } from 'utils/getSuccessMesage';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 type TEditAccountOrder = (args: IReorderAccountArgs) => void;
@@ -40,6 +42,12 @@ const useEditAccountOrder: TUseEditAccountOrder = ({
             return reorderAccount({ type, ...data });
         },
         onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage({
+                    message: DEFAULT_ERROR_MESSAGE,
+                });
+            }
+
             queryClient.setQueryData(
                 getAccountsQueryKey({
                     type,
@@ -47,7 +55,10 @@ const useEditAccountOrder: TUseEditAccountOrder = ({
                 data,
             );
             addSuccessMessage({
-                message: 'Account order has been updated!',
+                message: getSuccessMessage({
+                    entityName: 'Account order',
+                    isEditing: true,
+                }),
             });
             onSuccess();
         },
