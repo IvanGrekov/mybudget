@@ -14,6 +14,6 @@ export const ACCOUNT_FORM_FIELD_LABELS = {
     currency: 'Currency',
     balance: 'Balance',
     shouldHideFromOverallBalance: 'Hide from overall balance',
-    shouldShowAsIncome: 'Show as income',
-    shouldShowAsExpense: 'Show as expense',
+    shouldShowAsIncome: 'Consider as income',
+    shouldShowAsExpense: 'Consider as expense',
 };

@@ -6,13 +6,13 @@ import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
+import OverallBalance from 'components/overall-balance/OverallBalance';
 import { URL_HEADER } from 'constants/headers';
 import AccountList from 'features/account-list/components/account-list/AccountList';
 import { getAccountListCurrentTabFromUrl } from 'features/account-list-tabs/utils/accountListCurrentTab.utils';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
-import { Account } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
+import { getAllAccounts } from 'utils/getAllAccounts';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
@@ -38,12 +38,6 @@ export default async function AccountsPage(): Promise<JSX.Element> {
         headers().get(URL_HEADER) || '',
     );
 
-    const activeAccounts: TApiClientResult<Account[]> =
-        await queryClient.fetchQuery({
-            queryKey: getAccountsQueryKey(),
-            queryFn: () => SERVER_MY_BUDGET_API.getAccounts(),
-        });
-
     // NOTE: prefetch accounts by type
     await queryClient.prefetchQuery({
         queryKey: getAccountsQueryKey({
@@ -54,6 +48,8 @@ export default async function AccountsPage(): Promise<JSX.Element> {
                 type: accountsType,
             }),
     });
+
+    const activeAccounts = await getAllAccounts(queryClient);
 
     if (!activeAccounts?.length) {
         return (
@@ -66,6 +62,7 @@ export default async function AccountsPage(): Promise<JSX.Element> {
     return (
         <Container>
             <HydrationBoundary state={dehydrate(queryClient)}>
+                <OverallBalance userCurrency={me.defaultCurrency} />
                 <ExchangeRates userCurrency={me.defaultCurrency} />
                 <AccountList />
             </HydrationBoundary>

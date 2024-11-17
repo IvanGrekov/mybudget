@@ -24,6 +24,10 @@ export default function AccountFormContent({}: IAccountFormContentProps): JSX.El
     const isIOweType = type === CreateAccountDtoTypeEnum.I_OWE;
 
     useEffect(() => {
+        if (isOweMeType || isIOweType) {
+            setValue('shouldHideFromOverallBalance', false);
+        }
+
         if (!isOweMeType) {
             setValue('shouldShowAsIncome', false);
         }
@@ -51,10 +55,14 @@ export default function AccountFormContent({}: IAccountFormContentProps): JSX.El
                 type="number"
             />
 
-            <FormCheckboxField
-                name={ACCOUNT_FORM_FIELD_NAMES.shouldHideFromOverallBalance}
-                label={ACCOUNT_FORM_FIELD_LABELS.shouldHideFromOverallBalance}
-            />
+            <Show when={!isOweMeType && !isIOweType}>
+                <FormCheckboxField
+                    name={ACCOUNT_FORM_FIELD_NAMES.shouldHideFromOverallBalance}
+                    label={
+                        ACCOUNT_FORM_FIELD_LABELS.shouldHideFromOverallBalance
+                    }
+                />
+            </Show>
 
             <Show when={isOweMeType}>
                 <FormCheckboxField

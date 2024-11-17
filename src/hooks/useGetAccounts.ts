@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { Account, AccountTypeEnum } from 'types/generated.types';
@@ -14,12 +15,8 @@ interface IUseGetAccountsResult {
 export const useGetAccounts = (
     type: AccountTypeEnum,
 ): IUseGetAccountsResult => {
-    const { isPending: isAllAccountsLoading, data: allAccountsData } = useQuery(
-        {
-            queryKey: getAccountsQueryKey(),
-            queryFn: () => CLIENT_MY_BUDGET_API.getAccounts(),
-        },
-    );
+    const { accounts: allAccountsData, isLoading: isAllAccountsLoading } =
+        useGetAllAccounts();
 
     const { isPending, data } = useQuery({
         queryKey: getAccountsQueryKey({

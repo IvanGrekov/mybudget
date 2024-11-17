@@ -6,6 +6,7 @@ import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
 import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
+import OverallBalance from 'components/overall-balance/OverallBalance';
 import { URL_HEADER } from 'constants/headers';
 import TransactionCategoryList from 'features/transaction-category-list/components/transaction-category-list/TransactionCategoryList';
 import { getTransactionCategoryListCurrentTabFromUrl } from 'features/transaction-category-list-tabs/utils/transactionCategoryListCurrentTab.utils';
@@ -14,6 +15,7 @@ import { TApiClientResult } from 'types/apiClient.types';
 import { TransactionCategory } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { calculateActiveTransactionCategories } from 'utils/calculateActiveTransactionCategories';
+import { getAllAccounts } from 'utils/getAllAccounts';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
@@ -57,6 +59,8 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
             }),
     });
 
+    await getAllAccounts(queryClient);
+
     if (!activeTransactionCategories?.length) {
         return (
             <Container>
@@ -68,6 +72,8 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
     return (
         <Container>
             <HydrationBoundary state={dehydrate(queryClient)}>
+                <OverallBalance userCurrency={me.defaultCurrency} />
+
                 <ExchangeRates userCurrency={me.defaultCurrency} />
 
                 <TransactionCategoryList

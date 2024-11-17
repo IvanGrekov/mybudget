@@ -42,12 +42,18 @@ export const useCreateAccount: TUseCreateAccount = ({
                 getAccountsQueryKey({
                     type: data.type,
                 }),
-                (oldAccountList: Account[]) => [...oldAccountList, data],
+                (oldAccountList?: Account[]) => [
+                    ...(oldAccountList || []),
+                    data,
+                ],
             );
 
             queryClient.setQueryData(
                 getAccountsQueryKey(),
-                (oldAllAccountList: Account[]) => [...oldAllAccountList, data],
+                (oldAllAccountList?: Account[]) => [
+                    ...(oldAllAccountList || []),
+                    data,
+                ],
             );
             addSuccessMessage({
                 message: getSuccessMessage({
