@@ -7,10 +7,7 @@ import {
 } from 'hooks/notifications.hooks';
 import { Account, AccountTypeEnum } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
-import {
-    getAccountsQueryKey,
-    getTransactionsQueryKey,
-} from 'utils/queryKey.utils';
+import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 type TUseArchiveAccount = (args: { id: number; type: AccountTypeEnum }) => {
     archive: VoidFunction;
@@ -43,10 +40,6 @@ export const useArchiveAccount: TUseArchiveAccount = ({ id, type }) => {
                     oldAllAccountList?.filter((account) => account.id !== id) ||
                     [],
             );
-
-            queryClient.removeQueries({
-                queryKey: getTransactionsQueryKey(),
-            });
 
             addSuccessMessage({
                 message: getSuccessMessage({

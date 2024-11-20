@@ -13,7 +13,6 @@ export async function archiveAccount(
     const result = await SERVER_MY_BUDGET_API.archiveAccount(accountId);
 
     revalidateTag(`${EFetchingTags.ACCOUNTS}-${AccountStatusEnum.ACTIVE}`);
-    revalidateTag(EFetchingTags.TRANSACTIONS);
 
     return result;
 }
