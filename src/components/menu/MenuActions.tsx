@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, Ref, forwardRef } from 'react';
 
 import cx from 'classnames';
 
@@ -10,14 +10,13 @@ interface IMenuActionsProps extends PropsWithChildren {
     activeClassName?: string;
 }
 
-export default function MenuActions({
-    isOpen,
-    children,
-    className,
-    activeClassName = '',
-}: IMenuActionsProps): JSX.Element {
+function MenuActions(
+    { isOpen, children, className, activeClassName = '' }: IMenuActionsProps,
+    ref: Ref<HTMLDivElement>,
+): JSX.Element {
     return (
         <div
+            ref={ref}
             className={cx(
                 styles.actions,
                 {
@@ -31,3 +30,5 @@ export default function MenuActions({
         </div>
     );
 }
+
+export default forwardRef(MenuActions);

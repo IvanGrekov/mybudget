@@ -8,7 +8,7 @@ import {
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
 import { Account } from 'types/generated.types';
-import { getSuccessMessage } from 'utils/getSuccessMesage';
+import { getSuccessMessage } from 'utils/getSuccessMessage';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 type TUseCreateAccount = (args: {

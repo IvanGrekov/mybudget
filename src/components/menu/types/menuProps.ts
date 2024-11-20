@@ -7,7 +7,7 @@ import { TTooltipPosition } from 'components/tooltip/types/tooltipProps';
 
 export type TMenuActionItemProps = Pick<
     IButtonProps,
-    'text' | 'onClick' | 'Icon' | 'title'
+    'text' | 'onClick' | 'Icon' | 'title' | 'isDisabled'
 >;
 
 type TElement = ReactElement<

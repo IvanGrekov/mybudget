@@ -14,7 +14,7 @@ import { useGetAccounts } from 'hooks/useGetAccounts';
 import { useSortableItems } from 'hooks/useSortableItems';
 import { Account, AccountTypeEnum } from 'types/generated.types';
 import { IReorderAccountArgs } from 'types/muBudgetApi.types';
-import { getSuccessMessage } from 'utils/getSuccessMesage';
+import { getSuccessMessage } from 'utils/getSuccessMessage';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 type TEditAccountOrder = (args: IReorderAccountArgs) => void;

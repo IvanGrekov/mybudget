@@ -1,3 +1,4 @@
+import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
 import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
@@ -8,12 +9,14 @@ import {
 } from 'types/generated.types';
 
 interface IGetTransactionsQueryKeyArgs {
-    types: TTransactionTypesInput;
+    types?: TTransactionTypesInput;
 }
 
-export const getTransactionsQueryKey = ({
-    types,
-}: IGetTransactionsQueryKeyArgs): string[] => {
+export const getTransactionsQueryKey = (
+    args?: IGetTransactionsQueryKeyArgs,
+): string[] => {
+    const { types = DEFAULT_TRANSACTION_TYPES } = args || {};
+
     // TODO: Add offset and limit to keys
     return [EFetchingTags.TRANSACTIONS, ...types.join()];
 };

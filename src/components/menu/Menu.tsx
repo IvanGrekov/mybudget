@@ -1,3 +1,5 @@
+import { MouseEvent, useRef } from 'react';
+
 import FocusTrap from 'focus-trap-react';
 
 import IconButton from 'components/button/IconButton';
@@ -17,10 +19,23 @@ export default function Menu({
     actionsClassName,
     actionsActiveClassName,
 }: IMenuProps): JSX.Element {
+    const menuRef = useRef<HTMLDivElement>(null);
+    const menuActionsRef = useRef<HTMLDivElement>(null);
+
     const { isOpen, onDeactivate, onClick, OpenMenuElementWithOnClick } =
         useMenu(OpenMenuElement);
 
     useBodyScrollLock(isOpen);
+
+    const onWrapperClick = (event: MouseEvent<HTMLDivElement>): void => {
+        const target = event.target;
+
+        if (target === menuRef.current || target === menuActionsRef.current) {
+            return;
+        }
+
+        onDeactivate();
+    };
 
     return (
         <FocusTrap
@@ -30,7 +45,7 @@ export default function Menu({
                 onDeactivate,
             }}
         >
-            <div className={styles.menu} onClick={onDeactivate}>
+            <div ref={menuRef} className={styles.menu} onClick={onWrapperClick}>
                 <Tooltip
                     text="Open Menu"
                     open={!isOpen}
@@ -50,6 +65,7 @@ export default function Menu({
                 )}
 
                 <MenuActions
+                    ref={menuActionsRef}
                     isOpen={isOpen}
                     className={actionsClassName}
                     activeClassName={actionsActiveClassName}

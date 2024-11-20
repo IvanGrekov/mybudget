@@ -21,7 +21,7 @@ import {
     TransactionCategoryTypeEnum,
 } from 'types/generated.types';
 import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
-import { getSuccessMessage } from 'utils/getSuccessMesage';
+import { getSuccessMessage } from 'utils/getSuccessMessage';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 
 type TReorderTransactionCategories = (

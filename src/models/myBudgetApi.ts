@@ -15,6 +15,7 @@ import {
     Transaction,
     CreateAccountDto,
     CreateTransactionCategoryDto,
+    EditAccountDtoStatusEnum,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -88,14 +89,14 @@ export abstract class MyBudgetApi {
         }
     }
 
-    private async get<T>(
+    private get<T>(
         url: string,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
         return this.request<T>(url, { ...options, method: 'GET' });
     }
 
-    async post<T>(
+    post<T>(
         url: string,
         data: unknown,
         options?: RequestInit,
@@ -109,7 +110,7 @@ export abstract class MyBudgetApi {
         });
     }
 
-    async patch<T>(
+    patch<T>(
         url: string,
         data: unknown,
         options?: RequestInit,
@@ -123,27 +124,38 @@ export abstract class MyBudgetApi {
         });
     }
 
-    async getMe(): TAsyncApiClientResult<User> {
+    delete<T>(
+        url: string,
+        data?: unknown,
+        options?: RequestInit,
+    ): TAsyncApiClientResult<T> {
+        return this.request<T>(url, {
+            ...options,
+            method: 'DELETE',
+            // eslint-disable-next-line
+            // @ts-ignore
+            body: data,
+        });
+    }
+
+    getMe(): TAsyncApiClientResult<User> {
         return this.get('/users/me', {
             next: { tags: [EFetchingTags.ME] },
         });
     }
 
-    async editUser({
-        userId,
-        ...data
-    }: IEditUserArgs): TAsyncApiClientResult<User> {
+    editUser({ userId, ...data }: IEditUserArgs): TAsyncApiClientResult<User> {
         return this.patch(`/users/${userId}`, data);
     }
 
-    async editUserCurrency({
+    editUserCurrency({
         userId,
         ...dto
     }: IEditUserCurrencyArgs): TAsyncApiClientResult<User> {
         return this.patch(`/users/currency/${userId}`, dto);
     }
 
-    async initiateTfaEnabling(
+    initiateTfaEnabling(
         signal?: AbortSignal,
     ): TAsyncApiClientResult<InitiateTfaEnablingDtoResult> {
         return this.post('/authentication/initiate-tfa-enabling', null, {
@@ -193,9 +205,7 @@ export abstract class MyBudgetApi {
         }
     }
 
-    async getAccounts(
-        args?: IGetAccountsArgs,
-    ): TAsyncApiClientResult<Account[]> {
+    getAccounts(args?: IGetAccountsArgs): TAsyncApiClientResult<Account[]> {
         const { status = AccountStatusEnum.ACTIVE, type } = args || {};
 
         let url = `/accounts/my?status=${status}`;
@@ -214,7 +224,30 @@ export abstract class MyBudgetApi {
         });
     }
 
-    async getTransactionCategories(
+    reorderAccount({
+        id,
+        order,
+    }: IReorderAccountArgs): TAsyncApiClientResult<Account[]> {
+        return this.patch(`/accounts/reorder/${id}`, {
+            order,
+        });
+    }
+
+    createAccount(dto: CreateAccountDto): TAsyncApiClientResult<Account> {
+        return this.post('/accounts', dto);
+    }
+
+    archiveAccount(id: number): TAsyncApiClientResult<Account> {
+        return this.patch(`/accounts/${id}`, {
+            status: EditAccountDtoStatusEnum.ARCHIVED,
+        });
+    }
+
+    deleteAccount(id: number): TAsyncApiClientResult<Account> {
+        return this.delete(`/accounts/${id}`);
+    }
+
+    getTransactionCategories(
         args?: IGetTransactionCategoriesArgs,
     ): TAsyncApiClientResult<TransactionCategory[]> {
         const { status = TransactionCategoryStatusEnum.ACTIVE, type } =
@@ -237,7 +270,27 @@ export abstract class MyBudgetApi {
         });
     }
 
-    async getTransactions({
+    reorderTransactionCategories({
+        parentNodes,
+    }: IReorderTransactionCategoriesArgs): TAsyncApiClientResult<
+        TransactionCategory[]
+    > {
+        return this.patch('/transaction-categories/reorder', {
+            parentNodes,
+        });
+    }
+
+    createTransactionCategory(
+        dto: CreateTransactionCategoryDto,
+    ): TAsyncApiClientResult<TransactionCategory> {
+        return this.post('/transaction-categories', dto);
+    }
+
+    deleteTransactionCategory(id: string): TAsyncApiClientResult<Account> {
+        return this.delete(`/transaction-categories/${id}`);
+    }
+
+    getTransactions({
         types = DEFAULT_TRANSACTION_TYPES,
         limit = DEFAULT_LIMIT,
         offset = DEFAULT_OFFSET,
@@ -256,34 +309,5 @@ export abstract class MyBudgetApi {
         return this.get(url, {
             next: { tags },
         });
-    }
-
-    async reorderAccount({
-        id,
-        order,
-    }: IReorderAccountArgs): TAsyncApiClientResult<Account[]> {
-        return this.patch(`/accounts/reorder/${id}`, {
-            order,
-        });
-    }
-
-    async createAccount(dto: CreateAccountDto): TAsyncApiClientResult<Account> {
-        return this.post('/accounts', dto);
-    }
-
-    async reorderTransactionCategories({
-        parentNodes,
-    }: IReorderTransactionCategoriesArgs): TAsyncApiClientResult<
-        TransactionCategory[]
-    > {
-        return this.patch('/transaction-categories/reorder', {
-            parentNodes,
-        });
-    }
-
-    async createTransactionCategory(
-        dto: CreateTransactionCategoryDto,
-    ): TAsyncApiClientResult<TransactionCategory> {
-        return this.post('/transaction-categories', dto);
     }
 }

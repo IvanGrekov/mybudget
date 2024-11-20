@@ -5,7 +5,7 @@ import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { useAddSuccessMessageToNotifications } from 'hooks/notifications.hooks';
 import { EFetchingTags } from 'types/fetchingTags';
 import { EditUserCurrencyDto, User } from 'types/generated.types';
-import { getSuccessMessage } from 'utils/getSuccessMesage';
+import { getSuccessMessage } from 'utils/getSuccessMessage';
 
 type TUseEditUserCurrency = (args: {
     userId: number;

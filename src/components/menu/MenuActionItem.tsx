@@ -1,22 +1,28 @@
+import cx from 'classnames';
+
 import Button from 'components/button/Button';
 import styles from 'components/menu/Menu.module.scss';
 import { TMenuActionItemProps } from 'components/menu/types/menuProps';
 
 export default function MenuActionItem({
     text,
-    onClick,
     title,
+    isDisabled,
     Icon,
+    onClick,
 }: TMenuActionItemProps): JSX.Element {
     return (
         <Button
             text={text}
-            onClick={onClick}
             title={title}
             variant="ghost"
             size="small"
+            isDisabled={isDisabled}
             Icon={Icon}
-            className={styles['action-item']}
+            onClick={onClick}
+            className={cx(styles['action-item'], {
+                [styles['action-item--disabled']]: isDisabled,
+            })}
             style={
                 Icon
                     ? {

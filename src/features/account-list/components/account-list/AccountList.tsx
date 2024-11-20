@@ -38,8 +38,13 @@ export default function AccountList(): JSX.Element {
             {!isEmptyState && (
                 <>
                     <ul className={styles.list}>
-                        {accounts.map((account) => (
-                            <li key={account.id}>
+                        {accounts.map((account, i) => (
+                            <li
+                                key={account.id}
+                                style={{
+                                    zIndex: accounts.length - i,
+                                }}
+                            >
                                 <AccountCard account={account} />
                             </li>
                         ))}
