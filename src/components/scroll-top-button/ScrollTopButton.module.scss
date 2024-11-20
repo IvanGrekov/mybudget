@@ -4,15 +4,19 @@
 .wrapper {
     --position: 2.5rem;
 
+    @include hidden-animated-element();
+
     position: fixed;
     bottom: var(--position);
     right: var(--position);
-    z-index: $zindex-menu;
+    z-index: $zindex-scroll-to-top;
+
+    &--visible {
+        @include visible-animated-element();
+    }
 }
 
 .button {
-    @include hidden-animated-element();
-
     box-shadow: var(--box-shadow-sm);
 
     @media (max-width: $screen-md) {
@@ -21,7 +25,6 @@
 
     &--visible {
         background-color: var(--background) !important;
-        @include visible-animated-element();
     }
 }
 

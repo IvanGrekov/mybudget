@@ -18,7 +18,11 @@ export default function ScrollTopButton({
     const { isVisible, onClick } = useScrollTopButton();
 
     return (
-        <div className={styles.wrapper}>
+        <div
+            className={cx(styles.wrapper, {
+                [styles['wrapper--visible']]: isVisible,
+            })}
+        >
             <Tooltip
                 text="Scroll to top"
                 wrapperClassName={styles['tooltip-wrapper']}
@@ -26,13 +30,9 @@ export default function ScrollTopButton({
             >
                 <IconButton
                     Icon={TopArrowIcon}
-                    className={cx(
-                        styles.button,
-                        {
-                            [styles['button--visible']]: isVisible,
-                        },
-                        className,
-                    )}
+                    className={cx(styles.button, className, {
+                        [styles['button--visible']]: isVisible,
+                    })}
                     onClick={onClick}
                 />
             </Tooltip>
