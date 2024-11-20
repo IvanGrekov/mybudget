@@ -1,20 +1,21 @@
 import { useExchangeRatesContext } from 'contexts/ExchangeRatesContext';
-import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
+import { TApiClientResult } from 'types/apiClient.types';
 import {
+    Account,
     AccountTypeEnum,
     UserDefaultCurrencyEnum,
 } from 'types/generated.types';
 
-interface IUseCalculateOverallBalanceResult {
-    overallBalance: number;
-    isLoading: boolean;
+interface IUseCalculateOverallBalanceArgs {
+    accounts?: TApiClientResult<Account[]>;
+    userCurrency: UserDefaultCurrencyEnum;
 }
 
-export const useCalculateOverallBalance = (
-    userCurrency: UserDefaultCurrencyEnum,
-): IUseCalculateOverallBalanceResult => {
+export const useCalculateOverallBalance = ({
+    accounts,
+    userCurrency,
+}: IUseCalculateOverallBalanceArgs): number => {
     const baseExchangeRates = useExchangeRatesContext(userCurrency);
-    const { accounts, isLoading } = useGetAllAccounts();
 
     const balance = accounts?.reduce(
         (
@@ -49,8 +50,5 @@ export const useCalculateOverallBalance = (
         0,
     );
 
-    return {
-        overallBalance: balance || 0,
-        isLoading,
-    };
+    return balance || 0;
 };

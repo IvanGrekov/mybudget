@@ -9,5 +9,6 @@ export interface IChipProps extends PropsWithChildren {
     titleVariant?: TTypographyVariants;
     buttonTabIndex?: number;
     className?: string;
+    onClick?: VoidFunction;
     onDelete?: (e: MouseEvent<HTMLButtonElement>) => void;
 }

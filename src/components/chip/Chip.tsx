@@ -17,6 +17,7 @@ function Chip(
         buttonTabIndex = 0,
         className,
         children,
+        onClick,
         onDelete,
     }: IChipProps,
     ref: Ref<HTMLDivElement>,
@@ -30,6 +31,7 @@ function Chip(
                 styles[`chip--${size}`],
                 className,
             )}
+            onClick={onClick}
         >
             <Typography
                 element="span"

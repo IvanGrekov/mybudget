@@ -65,7 +65,7 @@ const ButtonBody = (
                         style={{
                             lineHeight: 1,
                             textTransform: 'uppercase',
-                            fontWeight: 600,
+                            fontWeight: 700,
                         }}
                     >
                         {text}

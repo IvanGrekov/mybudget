@@ -1,0 +1,16 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.balances-list {
+    margin-left: 1.75rem;
+    list-style: disc;
+}
