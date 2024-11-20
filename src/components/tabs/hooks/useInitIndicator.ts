@@ -12,23 +12,29 @@ export const useInitIndicator: TUseInitIndicator = ({
     >(null);
 
     useEffect(() => {
-        const resizeHandler = (): void => {
-            const indicatorElementRect =
-                indicatorElementRef.current?.getBoundingClientRect();
+        // const resizeHandler = (): void => {
+        //     const indicatorElementRect =
+        //         indicatorElementRef.current?.getBoundingClientRect();
 
-            if (indicatorElementRect) {
-                setIndicatorLeftPosition(indicatorElementRect.left);
-            }
-        };
+        //     if (indicatorElementRect) {
+        //         setIndicatorLeftPosition(indicatorElementRect.left);
+        //     }
+        // };
 
-        resizeHandler();
+        const indicatorElementRect =
+            indicatorElementRef.current?.getBoundingClientRect();
+        if (indicatorElementRect) {
+            setIndicatorLeftPosition(indicatorElementRect.left);
+        }
 
-        window.addEventListener('resize', resizeHandler);
+        // resizeHandler();
 
-        return () => {
-            window.removeEventListener('resize', resizeHandler);
-        };
-    }, [indicatorElementRef, setIndicatorLeftPosition]);
+        // window.addEventListener('resize', resizeHandler);
+
+        // return () => {
+        //     window.removeEventListener('resize', resizeHandler);
+        // };
+    }, [indicatorElementRef]);
 
     return indicatorLeftPosition;
 };
