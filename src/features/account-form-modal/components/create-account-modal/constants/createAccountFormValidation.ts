@@ -7,7 +7,12 @@ import {
     CreateAccountDtoTypeEnum,
     CreateAccountDtoCurrencyEnum,
 } from 'types/generated.types';
-import { getRequiredValidationWarning } from 'utils/formValidationWarning.utils';
+import {
+    getRequiredValidationWarning,
+    getNumberMinValidationWarning,
+} from 'utils/formValidationWarning.utils';
+
+const MIN_BALANCE = 0;
 
 export const CREATE_ACCOUNT_FORM_VALIDATION =
     yupResolver<CreateAccountFormValues>(
@@ -37,6 +42,13 @@ export const CREATE_ACCOUNT_FORM_VALIDATION =
                 ),
             balance: yup
                 .number()
+                .min(
+                    MIN_BALANCE,
+                    getNumberMinValidationWarning(
+                        ACCOUNT_FORM_FIELD_LABELS.balance,
+                        MIN_BALANCE,
+                    ),
+                )
                 .required(
                     getRequiredValidationWarning(
                         ACCOUNT_FORM_FIELD_LABELS.balance,

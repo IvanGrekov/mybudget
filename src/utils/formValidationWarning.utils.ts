@@ -27,6 +27,15 @@ export const getMaxLengthValidationWarning: TGetLengthValidationWarning = (
     return `${formattedFieldName} cannot exceed ${maxLength} characters`;
 };
 
+export const getNumberMinValidationWarning = (
+    fieldName: string,
+    min: number,
+): string => {
+    const formattedFieldName = getCapitalizedString(fieldName);
+
+    return `${formattedFieldName} must be at least ${min}`;
+};
+
 export const getRequiredValidationWarning = (fieldName: string): string => {
     const formattedFieldName = getCapitalizedString(fieldName);
 
