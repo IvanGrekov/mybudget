@@ -15,6 +15,7 @@ export default function Menu({
     children,
     OpenMenuElement,
     tooltipPosition,
+    iconSize,
     tooltipClassName,
     actionsClassName,
     actionsActiveClassName,
@@ -53,7 +54,11 @@ export default function Menu({
                     className={tooltipClassName}
                 >
                     {OpenMenuElementWithOnClick || (
-                        <IconButton Icon={MoreIcon} onClick={onClick} />
+                        <IconButton
+                            Icon={MoreIcon}
+                            onClick={onClick}
+                            iconSize={iconSize}
+                        />
                     )}
                 </Tooltip>
 

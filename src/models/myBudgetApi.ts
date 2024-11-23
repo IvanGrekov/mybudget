@@ -16,6 +16,7 @@ import {
     CreateAccountDto,
     CreateTransactionCategoryDto,
     EditAccountDtoStatusEnum,
+    EditTransactionCategoryDtoStatusEnum,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -286,8 +287,25 @@ export abstract class MyBudgetApi {
         return this.post('/transaction-categories', dto);
     }
 
-    deleteTransactionCategory(id: string): TAsyncApiClientResult<Account> {
-        return this.delete(`/transaction-categories/${id}`);
+    archiveTransactionCategory(
+        id: number,
+    ): TAsyncApiClientResult<TransactionCategory> {
+        return this.patch(`/transaction-categories/${id}`, {
+            status: EditTransactionCategoryDtoStatusEnum.ARCHIVED,
+        });
+    }
+
+    deleteTransactionCategory(
+        id: number,
+        shouldRemoveChildTransactionCategories = false,
+    ): TAsyncApiClientResult<TransactionCategory> {
+        let url = `/transaction-categories/${id}`;
+
+        if (shouldRemoveChildTransactionCategories) {
+            url += `?shouldRemoveChildTransactionCategories=${shouldRemoveChildTransactionCategories}`;
+        }
+
+        return this.delete(url);
     }
 
     getTransactions({

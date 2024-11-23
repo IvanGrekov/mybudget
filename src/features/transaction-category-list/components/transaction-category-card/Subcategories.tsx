@@ -1,6 +1,9 @@
-import Button from 'components/button/Button';
+import { useState } from 'react';
+
+import BaseEntityMenu from 'components/base-entity-menu/BaseEntityMenu';
 import Tooltip from 'components/tooltip/Tooltip';
 import Typography from 'components/typography/Typography';
+import DeleteTransactionCategoryModal from 'features/transaction-category-list/components/delete-transaction-category-modal/DeleteTransactionCategoryModal';
 import styles from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { useIsMobile } from 'hooks/screenSize.hooks';
 import { EAppRoutes } from 'types/appRoutes';
@@ -15,9 +18,11 @@ export default function Subcategories({
 }: ISubcategoriesProps): JSX.Element {
     const isMobile = useIsMobile();
 
+    const [isDeletingModalOpen, setIsDeletingModalOpen] = useState(false);
+
     return (
         <ul className={styles.subcategories}>
-            {subcategories.map(({ id, name }) => (
+            {subcategories.map(({ id, name, type }) => (
                 <li key={id} className={styles.subcategory}>
                     <Tooltip text={name}>
                         <Typography
@@ -30,9 +35,19 @@ export default function Subcategories({
                         </Typography>
                     </Tooltip>
 
-                    <Button
-                        text="Details"
-                        href={`${EAppRoutes.TransactionCategories}/${id}`}
+                    <BaseEntityMenu
+                        detailsPath={`${EAppRoutes.TransactionCategories}/${id}`}
+                        setIsDeletingModalOpen={setIsDeletingModalOpen}
+                    />
+
+                    <DeleteTransactionCategoryModal
+                        id={id}
+                        type={type}
+                        name={name}
+                        isOpen={isDeletingModalOpen}
+                        hasChildren={false}
+                        isSubcategory={true}
+                        onClose={() => setIsDeletingModalOpen(false)}
                     />
                 </li>
             ))}

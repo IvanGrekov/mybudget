@@ -37,7 +37,7 @@ export default function DeleteAccountModalContent({
             <div className={styles.container}>
                 <Typography>
                     Are you sure you want to delete the account &quot;{name}
-                    &quot;?
+                    &quot; ?
                 </Typography>
 
                 <Checkbox
