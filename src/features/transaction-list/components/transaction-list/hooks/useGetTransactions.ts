@@ -23,7 +23,7 @@ export const useGetTransactions = (
     });
 
     return {
-        transactions: data,
+        transactions: data?.items,
         isLoading: isPending,
     };
 };

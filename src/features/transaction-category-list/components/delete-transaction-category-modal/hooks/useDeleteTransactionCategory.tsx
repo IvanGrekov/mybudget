@@ -72,7 +72,7 @@ export const useDeleteTransactionCategory: TUseDeleteTransactionCategory = ({
                 );
             }
 
-            queryClient.removeQueries({
+            queryClient.invalidateQueries({
                 queryKey: getTransactionsQueryKey(),
             });
 

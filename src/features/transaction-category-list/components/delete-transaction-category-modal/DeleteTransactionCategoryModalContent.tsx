@@ -6,10 +6,10 @@ import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
-import styles from 'features/transaction-category-list/components/delete-transaction-category-modal/DeleteTransactionCategoryModalContent.module.scss';
 import { useArchiveTransactionCategory } from 'features/transaction-category-list/components/delete-transaction-category-modal/hooks/useArchiveTransactionCategory';
 import { useDeleteTransactionCategory } from 'features/transaction-category-list/components/delete-transaction-category-modal/hooks/useDeleteTransactionCategory';
 import { TDeleteTransactionCategoryModalDataProps } from 'features/transaction-category-list/components/delete-transaction-category-modal/types/deleteTransactionCategoryModalDataProps';
+import styles from 'styles/ModalContent.module.scss';
 
 interface IDeleteTransactionCategoryModalContentProps
     extends TDeleteTransactionCategoryModalDataProps {

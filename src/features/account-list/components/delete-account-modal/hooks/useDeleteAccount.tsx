@@ -44,7 +44,7 @@ export const useDeleteAccount: TUseDeleteAccount = ({ id, type }) => {
                     [],
             );
 
-            queryClient.removeQueries({
+            queryClient.invalidateQueries({
                 queryKey: getTransactionsQueryKey(),
             });
 

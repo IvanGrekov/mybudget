@@ -8,11 +8,15 @@ import MenuActionItem from 'components/menu/MenuActionItem';
 
 interface IBaseEntityMenuProps {
     detailsPath: string;
+    setIsEditModalOpen?: (value: boolean) => void;
+    setIsChangeCurrencyModalOpen?: (value: boolean) => void;
     setIsDeletingModalOpen: (value: boolean) => void;
 }
 
 export default function BaseEntityMenu({
     detailsPath,
+    setIsEditModalOpen,
+    setIsChangeCurrencyModalOpen,
     setIsDeletingModalOpen,
 }: IBaseEntityMenuProps): JSX.Element {
     const { push } = useRouter();
@@ -24,7 +28,23 @@ export default function BaseEntityMenu({
                 Icon={EyeIcon}
                 onClick={() => push(detailsPath)}
             />
-            <MenuActionItem text="Edit" isDisabled={true} Icon={EditIcon} />
+
+            {!!setIsEditModalOpen && (
+                <MenuActionItem
+                    text="Edit"
+                    Icon={EditIcon}
+                    onClick={() => setIsEditModalOpen(true)}
+                />
+            )}
+
+            {!!setIsChangeCurrencyModalOpen && (
+                <MenuActionItem
+                    text="Change Currency"
+                    Icon={EditIcon}
+                    onClick={() => setIsChangeCurrencyModalOpen(true)}
+                />
+            )}
+
             <MenuActionItem
                 text="Delete"
                 Icon={RemoveIcon}

@@ -5,10 +5,10 @@ import Checkbox from 'components/checkbox/Checkbox';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
 import Typography from 'components/typography/Typography';
-import styles from 'features/account-list/components/delete-account-modal/DeleteAccountModalContent.module.scss';
 import { useArchiveAccount } from 'features/account-list/components/delete-account-modal/hooks/useArchiveAccount';
 import { useDeleteAccount } from 'features/account-list/components/delete-account-modal/hooks/useDeleteAccount';
 import { TDeleteAccountModalDataProps } from 'features/account-list/components/delete-account-modal/types/deleteAccountModalDataProps';
+import styles from 'styles/ModalContent.module.scss';
 
 interface IDeleteAccountModalContentProps extends TDeleteAccountModalDataProps {
     onClose: VoidFunction;

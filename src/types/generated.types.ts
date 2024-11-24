@@ -459,14 +459,14 @@ export enum TransactionCategoriesControllerFindAllParamsStatusEnum {
     ARCHIVED = 'ARCHIVED',
 }
 
-export enum TransactionsControllerFindMyParamsTypeEnum {
+export enum TransactionsControllerFindMyParamsTypesEnum {
     INCOME = 'INCOME',
     EXPENSE = 'EXPENSE',
     TRANSFER = 'TRANSFER',
     BALANCE_CORRECTION = 'BALANCE_CORRECTION',
 }
 
-export enum TransactionsControllerFindAllParamsTypeEnum {
+export enum TransactionsControllerFindAllParamsTypesEnum {
     INCOME = 'INCOME',
     EXPENSE = 'EXPENSE',
     TRANSFER = 'TRANSFER',
@@ -773,7 +773,7 @@ export class Api<
             query?: {
                 /**
                  * @min 1
-                 * @default 10
+                 * @default 20
                  */
                 limit?: number;
                 /**
@@ -1183,10 +1183,10 @@ export class Api<
          * No description
          *
          * @tags transaction-categories
-         * @name TransactionCategoriesControllerReorderOne
+         * @name TransactionCategoriesControllerReorder
          * @request PATCH:/transaction-categories/reorder
          */
-        transactionCategoriesControllerReorderOne: (
+        transactionCategoriesControllerReorder: (
             data: ReorderTransactionCategoriesDto,
             params: RequestParams = {},
         ) =>
@@ -1232,7 +1232,7 @@ export class Api<
             query?: {
                 /**
                  * @min 1
-                 * @default 10
+                 * @default 20
                  */
                 limit?: number;
                 /**
@@ -1242,14 +1242,14 @@ export class Api<
                 offset?: number;
                 accountId?: number;
                 transactionCategoryId?: number;
-                type?: TransactionsControllerFindMyParamsTypeEnum;
+                types?: TransactionsControllerFindMyParamsTypesEnum[];
                 search?: string;
                 from?: string;
                 to?: string;
             },
             params: RequestParams = {},
         ) =>
-            this.request<Transaction[], any>({
+            this.request<any, any>({
                 path: `/transactions/my`,
                 method: 'GET',
                 query: query,
@@ -1268,7 +1268,7 @@ export class Api<
             query?: {
                 /**
                  * @min 1
-                 * @default 10
+                 * @default 20
                  */
                 limit?: number;
                 /**
@@ -1279,7 +1279,7 @@ export class Api<
                 userId?: number;
                 accountId?: number;
                 transactionCategoryId?: number;
-                type?: TransactionsControllerFindAllParamsTypeEnum;
+                types?: TransactionsControllerFindAllParamsTypesEnum[];
                 search?: string;
                 from?: string;
                 to?: string;

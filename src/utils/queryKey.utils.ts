@@ -1,4 +1,5 @@
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
+import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
 import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
@@ -10,15 +11,39 @@ import {
 
 interface IGetTransactionsQueryKeyArgs {
     types?: TTransactionTypesInput;
+    accountId?: number;
+    transactionCategoryId?: number;
+    limit?: number;
+    offset?: number;
 }
 
 export const getTransactionsQueryKey = (
     args?: IGetTransactionsQueryKeyArgs,
 ): string[] => {
-    const { types = DEFAULT_TRANSACTION_TYPES } = args || {};
+    const {
+        types = DEFAULT_TRANSACTION_TYPES,
+        accountId,
+        transactionCategoryId,
+        limit = DEFAULT_LIMIT,
+        offset = DEFAULT_OFFSET,
+    } = args || {};
 
-    // TODO: Add offset and limit to keys
-    return [EFetchingTags.TRANSACTIONS, ...types.join()];
+    const result: string[] = [
+        EFetchingTags.TRANSACTIONS,
+        ...types.join(),
+        limit.toString(),
+        offset.toString(),
+    ];
+
+    if (accountId) {
+        result.push(`account-${accountId}`);
+    }
+
+    if (transactionCategoryId) {
+        result.push(`category-${transactionCategoryId}`);
+    }
+
+    return result;
 };
 
 interface IGetTransactionCategoriesQueryKeyArgs {
@@ -56,3 +81,8 @@ export const getAccountsQueryKey = (
 
     return result;
 };
+
+export const getSingleAccountQueryKey = (accountId: number): string[] => [
+    EFetchingTags.ACCOUNT,
+    accountId.toString(),
+];

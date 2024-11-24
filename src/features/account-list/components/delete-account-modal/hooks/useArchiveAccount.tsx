@@ -5,9 +5,16 @@ import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
-import { Account, AccountTypeEnum } from 'types/generated.types';
+import {
+    Account,
+    AccountStatusEnum,
+    AccountTypeEnum,
+} from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
-import { getAccountsQueryKey } from 'utils/queryKey.utils';
+import {
+    getAccountsQueryKey,
+    getSingleAccountQueryKey,
+} from 'utils/queryKey.utils';
 
 type TUseArchiveAccount = (args: { id: number; type: AccountTypeEnum }) => {
     archive: VoidFunction;
@@ -39,6 +46,20 @@ export const useArchiveAccount: TUseArchiveAccount = ({ id, type }) => {
                 (oldAllAccountList?: Account[]) =>
                     oldAllAccountList?.filter((account) => account.id !== id) ||
                     [],
+            );
+
+            queryClient.setQueryData(
+                getSingleAccountQueryKey(id),
+                (oldAccount?: Account) => {
+                    if (oldAccount) {
+                        return {
+                            ...oldAccount,
+                            status: AccountStatusEnum.ARCHIVED,
+                        };
+                    }
+
+                    return oldAccount;
+                },
             );
 
             addSuccessMessage({

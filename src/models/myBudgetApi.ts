@@ -22,11 +22,13 @@ import {
     IEditUserArgs,
     IEditUserCurrencyArgs,
     IGetAccountsArgs,
+    IReorderAccountArgs,
+    IEditAccountCurrency,
     IGetTransactionCategoriesArgs,
     IGetTransactionsArgs,
-    IReorderAccountArgs,
     IReorderTransactionCategoriesArgs,
 } from 'types/muBudgetApi.types';
+import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
@@ -244,6 +246,13 @@ export abstract class MyBudgetApi {
         });
     }
 
+    editAccountCurrency({
+        id,
+        ...dto
+    }: IEditAccountCurrency): TAsyncApiClientResult<Account> {
+        return this.patch(`/accounts/currency/${id}`, dto);
+    }
+
     deleteAccount(id: number): TAsyncApiClientResult<Account> {
         return this.delete(`/accounts/${id}`);
     }
@@ -310,11 +319,15 @@ export abstract class MyBudgetApi {
 
     getTransactions({
         types = DEFAULT_TRANSACTION_TYPES,
+        accountId,
+        transactionCategoryId,
         limit = DEFAULT_LIMIT,
         offset = DEFAULT_OFFSET,
-    }: IGetTransactionsArgs): TAsyncApiClientResult<Transaction[]> {
+    }: IGetTransactionsArgs): TAsyncApiClientResult<
+        IPaginatedItemsResult<Transaction>
+    > {
         const joinedTypes = types.join(',');
-        const url = `/transactions/my?types=${joinedTypes}&limit=${limit}&offset=${offset}`;
+        let url = `/transactions/my?types=${joinedTypes}&limit=${limit}&offset=${offset}`;
         const tags: string[] = [EFetchingTags.TRANSACTIONS];
 
         types.forEach((type) => {
@@ -323,6 +336,18 @@ export abstract class MyBudgetApi {
 
         tags.push(`${EFetchingTags.TRANSACTIONS}-offset-${offset}`);
         tags.push(`${EFetchingTags.TRANSACTIONS}-limit-${limit}`);
+
+        if (accountId) {
+            url += `&accountId=${accountId}`;
+            tags.push(`${EFetchingTags.TRANSACTIONS}-account-${accountId}`);
+        }
+
+        if (transactionCategoryId) {
+            url += `&transactionCategoryId=${transactionCategoryId}`;
+            tags.push(
+                `${EFetchingTags.TRANSACTIONS}-transactionCategory-${transactionCategoryId}`,
+            );
+        }
 
         return this.get(url, {
             next: { tags },

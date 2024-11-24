@@ -18,7 +18,7 @@ type TElement = ReactElement<
 >;
 
 export interface IMenuProps {
-    children: TElement | Array<TElement>;
+    children: TElement | Array<TElement | boolean>;
     OpenMenuElement?: JSX.Element;
     tooltipPosition?: TTooltipPosition;
     iconSize?: IIconButtonProps['iconSize'];

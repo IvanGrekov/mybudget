@@ -8,6 +8,7 @@ import {
     TransactionCategoryStatusEnum,
     TransactionCategoryTypeEnum,
     ReorderParentTransactionCategoryDto,
+    EditAccountCurrencyDto,
 } from 'types/generated.types';
 
 export interface IEditUserArgs extends EditUserDto {
@@ -30,6 +31,8 @@ export interface IGetTransactionCategoriesArgs {
 
 export interface IGetTransactionsArgs {
     types?: TTransactionTypesInput;
+    accountId?: number;
+    transactionCategoryId?: number;
     limit?: number;
     offset?: number;
 }
@@ -41,4 +44,8 @@ export interface IReorderAccountArgs {
 
 export interface IReorderTransactionCategoriesArgs {
     parentNodes: ReorderParentTransactionCategoryDto[];
+}
+
+export interface IEditAccountCurrency extends EditAccountCurrencyDto {
+    id: number;
 }
