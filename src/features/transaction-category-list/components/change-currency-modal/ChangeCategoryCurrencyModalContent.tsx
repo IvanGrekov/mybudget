@@ -1,44 +1,46 @@
 import { useState } from 'react';
 
 import ChangeEntityCurrencyModalContent from 'components/change-entity-currency-modal-content/ChangeEntityCurrencyModalContent';
-import { useChangeCurrency } from 'features/account-list/components/change-currency-modal/hooks/useChangeCurrency';
-import { useGetAreRelatedTransactionsExist } from 'features/account-list/components/change-currency-modal/hooks/useGetAreRelatedTransactionsExist';
-import { TChangeAccountCurrencyModalDataProps } from 'features/account-list/components/change-currency-modal/types/changeAccountCurrencyModalDataProps';
-import { getDefaultCurrency } from 'features/account-list/components/change-currency-modal/utils/getDefaultCurrency';
-import { EditAccountCurrencyDtoCurrencyEnum } from 'types/generated.types';
+import { useChangeCurrency } from 'features/transaction-category-list/components/change-currency-modal/hooks/useChangeCurrency';
+import { useGetAreRelatedTransactionsExist } from 'features/transaction-category-list/components/change-currency-modal/hooks/useGetAreRelatedTransactionsExist';
+import { TChangeCategoryCurrencyModalDataProps } from 'features/transaction-category-list/components/change-currency-modal/types/changeCategoryCurrencyModalDataProps';
+import { getDefaultCurrency } from 'features/transaction-category-list/components/change-currency-modal/utils/getDefaultCurrency';
+import { EditTransactionCategoryCurrencyDtoCurrencyEnum } from 'types/generated.types';
 
-interface IChangeAccountCurrencyModalContentProps
-    extends TChangeAccountCurrencyModalDataProps {
+interface IChangeCategoryCurrencyModalContentProps
+    extends TChangeCategoryCurrencyModalDataProps {
     onClose: VoidFunction;
 }
 
-const OPTIONS = Object.values(EditAccountCurrencyDtoCurrencyEnum);
+const OPTIONS = Object.values(EditTransactionCategoryCurrencyDtoCurrencyEnum);
 
-export default function ChangeAccountCurrencyModalContent({
+export default function ChangeCategoryCurrencyModalContent({
     id,
     type,
     name,
     currency,
     onClose,
-}: IChangeAccountCurrencyModalContentProps): JSX.Element {
+}: IChangeCategoryCurrencyModalContentProps): JSX.Element {
     const initialCurrency = getDefaultCurrency(currency);
     const [newCurrency, setNewCurrency] =
-        useState<EditAccountCurrencyDtoCurrencyEnum>(initialCurrency);
+        useState<EditTransactionCategoryCurrencyDtoCurrencyEnum>(
+            initialCurrency,
+        );
 
     const {
         isLoading: isRelatedTransactionsLoading,
         areRelatedTransactionsExist,
     } = useGetAreRelatedTransactionsExist(id);
+
     const { isLoading, change } = useChangeCurrency({
         id,
         type,
-        initialCurrency,
         currency: newCurrency,
     });
 
     return (
         <ChangeEntityCurrencyModalContent
-            entityType="account"
+            entityType="category"
             entityName={name}
             isRelatedTransactionsLoading={isRelatedTransactionsLoading}
             areRelatedTransactionsExist={areRelatedTransactionsExist}

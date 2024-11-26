@@ -25,8 +25,9 @@ import {
     IReorderAccountArgs,
     IEditAccountCurrency,
     IGetTransactionCategoriesArgs,
-    IGetTransactionsArgs,
     IReorderTransactionCategoriesArgs,
+    IEditTransactionCategoryCurrency,
+    IGetTransactionsArgs,
 } from 'types/muBudgetApi.types';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
@@ -294,6 +295,13 @@ export abstract class MyBudgetApi {
         dto: CreateTransactionCategoryDto,
     ): TAsyncApiClientResult<TransactionCategory> {
         return this.post('/transaction-categories', dto);
+    }
+
+    editTransactionCategoryCurrency({
+        id,
+        ...dto
+    }: IEditTransactionCategoryCurrency): TAsyncApiClientResult<TransactionCategory> {
+        return this.patch(`/transaction-categories/currency/${id}`, dto);
     }
 
     archiveTransactionCategory(

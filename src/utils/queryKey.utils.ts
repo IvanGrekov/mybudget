@@ -64,6 +64,10 @@ export const getTransactionCategoriesQueryKey = (
     return result;
 };
 
+export const getSingleTransactionCategoryQueryKey = (
+    categoryId: number,
+): string[] => [EFetchingTags.TRANSACTION_CATEGORY, categoryId.toString()];
+
 interface IGetAccountsQueryKeyArgs {
     status?: AccountStatusEnum;
     type?: AccountTypeEnum;

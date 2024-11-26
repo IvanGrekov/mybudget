@@ -11,6 +11,7 @@ import CardTitle from 'components/card/CardTitle';
 import Divider from 'components/divider/Divider';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
+import ChangeCategoryCurrencyModal from 'features/transaction-category-list/components/change-currency-modal/ChangeCategoryCurrencyModal';
 import DeleteTransactionCategoryModal from 'features/transaction-category-list/components/delete-transaction-category-modal/DeleteTransactionCategoryModal';
 import Subcategories from 'features/transaction-category-list/components/transaction-category-card/Subcategories';
 import styles from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard.module.scss';
@@ -27,6 +28,8 @@ export default function TransactionCategoryCard({
 }: ITransactionCategoryCardProps): JSX.Element {
     const isMobile = useIsMobile();
 
+    const [isChangeCurrencyModalOpen, setIsChangeCurrencyModalOpen] =
+        useState(false);
     const [isChildrenVisible, setIsChildrenVisible] = useState(false);
     const [isDeletingModalOpen, setIsDeletingModalOpen] = useState(false);
 
@@ -50,6 +53,9 @@ export default function TransactionCategoryCard({
                     actions={
                         <BaseEntityMenu
                             detailsPath={`${EAppRoutes.TransactionCategories}/${id}`}
+                            setIsChangeCurrencyModalOpen={
+                                setIsChangeCurrencyModalOpen
+                            }
                             setIsDeletingModalOpen={setIsDeletingModalOpen}
                         />
                     }
@@ -89,6 +95,15 @@ export default function TransactionCategoryCard({
                     </Show>
                 </CardContent>
             </Card>
+
+            <ChangeCategoryCurrencyModal
+                id={id}
+                type={type}
+                name={name}
+                currency={currency}
+                isOpen={isChangeCurrencyModalOpen}
+                onClose={() => setIsChangeCurrencyModalOpen(false)}
+            />
 
             <DeleteTransactionCategoryModal
                 id={id}

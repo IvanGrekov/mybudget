@@ -9,6 +9,7 @@ import {
     TransactionCategoryTypeEnum,
     ReorderParentTransactionCategoryDto,
     EditAccountCurrencyDto,
+    EditTransactionCategoryCurrencyDto,
 } from 'types/generated.types';
 
 export interface IEditUserArgs extends EditUserDto {
@@ -47,5 +48,10 @@ export interface IReorderTransactionCategoriesArgs {
 }
 
 export interface IEditAccountCurrency extends EditAccountCurrencyDto {
+    id: number;
+}
+
+export interface IEditTransactionCategoryCurrency
+    extends EditTransactionCategoryCurrencyDto {
     id: number;
 }
