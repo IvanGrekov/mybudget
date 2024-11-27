@@ -18,7 +18,8 @@
     flex-direction: column;
     gap: 0.25rem;
     padding: 0.5rem;
-    width: 9.5rem;
+    max-width: 13rem;
+    width: fit-content;
 
     border-radius: $border-radius-md;
     background-color: var(--foreground);
@@ -50,11 +51,12 @@
 .action-item {
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     color: var(--background) !important;
 
     * {
         fill: var(--background);
+        text-wrap: nowrap;
     }
 
     &--disabled {

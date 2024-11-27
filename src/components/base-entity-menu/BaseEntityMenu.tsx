@@ -39,7 +39,7 @@ export default function BaseEntityMenu({
 
             {!!setIsChangeCurrencyModalOpen && (
                 <MenuActionItem
-                    text="Change Currency"
+                    text="Edit Currency"
                     Icon={EditIcon}
                     onClick={() => setIsChangeCurrencyModalOpen(true)}
                 />
