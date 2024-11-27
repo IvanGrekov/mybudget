@@ -1,6 +1,6 @@
 import ItemsLeftChip from 'components/items-left-chip/ItemsLeftChip';
 import { MAX_TRANSACTION_CATEGORIES_PER_USER } from 'constants/maxTransactionCategoriesPerUser';
-import CreateTransactionCategoryButton from 'features/create-transaction-category/components/create-transaction-category-button/CreateTransactionCategoryButton';
+import CreateTransactionCategoryButton from 'features/transaction-category-form-modal/components/create-transaction-category-button/CreateTransactionCategoryButton';
 import styles from 'styles/ItemList.module.scss';
 
 interface ITransactionCategoryListHeaderProps {

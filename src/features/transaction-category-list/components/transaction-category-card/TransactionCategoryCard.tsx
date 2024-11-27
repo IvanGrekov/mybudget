@@ -11,11 +11,13 @@ import CardTitle from 'components/card/CardTitle';
 import Divider from 'components/divider/Divider';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
+import EditTransactionCategoryModal from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/EditTransactionCategoryModal';
 import ChangeCategoryCurrencyModal from 'features/transaction-category-list/components/change-currency-modal/ChangeCategoryCurrencyModal';
 import DeleteTransactionCategoryModal from 'features/transaction-category-list/components/delete-transaction-category-modal/DeleteTransactionCategoryModal';
 import Subcategories from 'features/transaction-category-list/components/transaction-category-card/Subcategories';
 import styles from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { useIsMobile } from 'hooks/screenSize.hooks';
+import { useModal } from 'hooks/useModal';
 import { EAppRoutes } from 'types/appRoutes';
 import { TransactionCategory } from 'types/generated.types';
 
@@ -28,10 +30,23 @@ export default function TransactionCategoryCard({
 }: ITransactionCategoryCardProps): JSX.Element {
     const isMobile = useIsMobile();
 
-    const [isChangeCurrencyModalOpen, setIsChangeCurrencyModalOpen] =
-        useState(false);
     const [isChildrenVisible, setIsChildrenVisible] = useState(false);
-    const [isDeletingModalOpen, setIsDeletingModalOpen] = useState(false);
+
+    const {
+        isModalOpen: isEditAccountModalOpen,
+        openModal: openEditAccountModal,
+        closeModal: closeEditAccountModal,
+    } = useModal();
+    const {
+        isModalOpen: isChangeCurrencyModalOpen,
+        openModal: openChangeCurrencyModal,
+        closeModal: closeChangeCurrencyModal,
+    } = useModal();
+    const {
+        isModalOpen: isDeleteModalOpen,
+        openModal: openDeleteModal,
+        closeModal: closeDeleteModal,
+    } = useModal();
 
     const { id, name, currency, children, type } = transactionCategory;
 
@@ -53,10 +68,9 @@ export default function TransactionCategoryCard({
                     actions={
                         <BaseEntityMenu
                             detailsPath={`${EAppRoutes.TransactionCategories}/${id}`}
-                            setIsChangeCurrencyModalOpen={
-                                setIsChangeCurrencyModalOpen
-                            }
-                            setIsDeletingModalOpen={setIsDeletingModalOpen}
+                            openEditModal={openEditAccountModal}
+                            openChangeCurrencyModal={openChangeCurrencyModal}
+                            openDeleteModal={openDeleteModal}
                         />
                     }
                 />
@@ -96,23 +110,29 @@ export default function TransactionCategoryCard({
                 </CardContent>
             </Card>
 
+            <EditTransactionCategoryModal
+                transactionCategory={transactionCategory}
+                isOpen={isEditAccountModalOpen}
+                onClose={closeEditAccountModal}
+            />
+
             <ChangeCategoryCurrencyModal
                 id={id}
                 type={type}
                 name={name}
                 currency={currency}
                 isOpen={isChangeCurrencyModalOpen}
-                onClose={() => setIsChangeCurrencyModalOpen(false)}
+                onClose={closeChangeCurrencyModal}
             />
 
             <DeleteTransactionCategoryModal
                 id={id}
                 type={type}
                 name={name}
-                isOpen={isDeletingModalOpen}
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 hasChildren={!!children?.length}
-                onClose={() => setIsDeletingModalOpen(false)}
+                isOpen={isDeleteModalOpen}
+                onClose={closeDeleteModal}
             />
         </>
     );

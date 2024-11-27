@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 import Chip from 'components/chip/Chip';
 import CancelAction from 'components/confirmation-modal/CancelAction';
@@ -11,6 +11,7 @@ import styles from 'features/overall-balance/components/overall-balance/OverallB
 import { useCalculateOverallBalance } from 'features/overall-balance/components/overall-balance/hooks/useCalculateOverallBalance';
 import { useIsScreenSize } from 'hooks/screenSize.hooks';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
+import { useModal } from 'hooks/useModal';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
 import { EScreenSizeNames } from 'types/screenSizeNames';
 
@@ -28,7 +29,7 @@ interface IOverallBalanceProps {
 export default function OverallBalance({
     userCurrency,
 }: IOverallBalanceProps): JSX.Element | null {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     const isMobile = useIsScreenSize(EScreenSizeNames.XS);
 
@@ -46,10 +47,6 @@ export default function OverallBalance({
     const fullTitle = `Overall Balance: ${value}`;
     const title = isMobile ? value : fullTitle;
 
-    const closeModal = (): void => {
-        setIsModalOpen(false);
-    };
-
     return (
         <>
             <div className={styles.container}>
@@ -63,7 +60,7 @@ export default function OverallBalance({
                         size="big"
                         titleVariant="subtitle1"
                         className={styles.chip}
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={openModal}
                     />
                 </Tooltip>
             </div>
