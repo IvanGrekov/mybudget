@@ -14,23 +14,21 @@ const DeleteTransactionCategoryModalContentLazy = lazy(
 
 export default function DeleteTransactionCategoryModal({
     isOpen,
-    isSubcategory,
+    parentId,
     onClose,
     ...dataProps
 }: IModalBaseProps & TDeleteTransactionCategoryModalDataProps): JSX.Element {
     return (
         <Modal
             isOpen={isOpen}
-            title={`Confirm ${
-                isSubcategory ? 'Subcategory' : 'Category'
-            } Deleting`}
+            title={`Confirm ${parentId ? 'Subcategory' : 'Category'} Deleting`}
             size="small"
             onClose={onClose}
         >
             <Suspense fallback={<ModalCircularLoading />}>
                 <DeleteTransactionCategoryModalContentLazy
                     {...dataProps}
-                    isSubcategory={isSubcategory}
+                    parentId={parentId}
                     onClose={onClose}
                 />
             </Suspense>

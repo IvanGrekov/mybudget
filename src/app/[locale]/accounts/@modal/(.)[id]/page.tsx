@@ -1,6 +1,6 @@
 'use client';
 
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -21,16 +21,19 @@ const AccountDetailsLazy = lazy(
 export default function AccountDetailsModal({
     params: { id },
 }: IWithIdParamProps): JSX.Element {
+    const [isModalOpen, setIsModalOpen] = useState(true);
+
     const router = useRouter();
     const title = usePageHeaderTitle('AccountDetailsPage');
 
     const onClose = (): void => {
         router.back();
+        setIsModalOpen(false);
     };
 
     return (
         <Modal
-            isOpen={true}
+            isOpen={isModalOpen}
             title={title}
             size="large"
             actions={<Button text="Close" onClick={onClose} />}

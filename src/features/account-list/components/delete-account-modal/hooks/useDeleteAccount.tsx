@@ -1,14 +1,15 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { deleteAccount } from 'actions/deleteAccount';
+import { deleteAccount as deleteAccountService } from 'features/account-list/components/delete-account-modal/services/deleteAccount';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
-import { Account, AccountTypeEnum } from 'types/generated.types';
+import { AccountTypeEnum } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
-    getAccountsQueryKey,
+    getSingleAccountQueryKey,
     getTransactionsQueryKey,
 } from 'utils/queryKey.utils';
 
@@ -28,21 +29,15 @@ export const useDeleteAccount: TUseDeleteAccount = ({ id, type }) => {
             return deleteAccount(id);
         },
         onSuccess: () => {
-            queryClient.setQueryData(
-                getAccountsQueryKey({
-                    type,
-                }),
-                (oldAccountList?: Account[]) =>
-                    oldAccountList?.filter((account) => account.id !== id) ||
-                    [],
-            );
+            deleteAccountService({
+                queryClient,
+                id,
+                type,
+            });
 
-            queryClient.setQueryData(
-                getAccountsQueryKey(),
-                (oldAllAccountList?: Account[]) =>
-                    oldAllAccountList?.filter((account) => account.id !== id) ||
-                    [],
-            );
+            queryClient.invalidateQueries({
+                queryKey: getSingleAccountQueryKey(id),
+            });
 
             queryClient.invalidateQueries({
                 queryKey: getTransactionsQueryKey(),

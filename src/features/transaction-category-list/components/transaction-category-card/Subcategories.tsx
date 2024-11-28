@@ -11,10 +11,12 @@ import { EAppRoutes } from 'types/appRoutes';
 import { TransactionCategory } from 'types/generated.types';
 
 interface ISubcategoriesProps {
+    parentCategoryId: number;
     subcategories: TransactionCategory[];
 }
 
 export default function Subcategories({
+    parentCategoryId,
     subcategories,
 }: ISubcategoriesProps): JSX.Element {
     const isMobile = useIsMobile();
@@ -80,7 +82,7 @@ export default function Subcategories({
                             type={type}
                             name={name}
                             hasChildren={false}
-                            isSubcategory={true}
+                            parentId={parentCategoryId}
                             isOpen={isDeleteModalOpen}
                             onClose={closeDeleteModal}
                         />

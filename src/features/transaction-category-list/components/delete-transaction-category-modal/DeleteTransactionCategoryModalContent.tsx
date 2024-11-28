@@ -21,7 +21,7 @@ export default function DeleteTransactionCategoryModalContent({
     type,
     name,
     hasChildren,
-    isSubcategory,
+    parentId,
     onClose,
 }: IDeleteTransactionCategoryModalContentProps): JSX.Element {
     const [isSoftDeleting, setIsSoftDeleting] = useState(false);
@@ -34,6 +34,7 @@ export default function DeleteTransactionCategoryModalContent({
             type,
             shouldRemoveChildren,
             hasChildren,
+            parentId,
         },
     );
     const { isLoading: isArchiveLoading, archive } =
@@ -41,6 +42,7 @@ export default function DeleteTransactionCategoryModalContent({
             id,
             type,
             hasChildren,
+            parentId,
         });
 
     return (
@@ -48,7 +50,7 @@ export default function DeleteTransactionCategoryModalContent({
             <div className={styles.container}>
                 <Typography>
                     Are you sure you want to delete the{' '}
-                    {isSubcategory ? 'subcategory' : 'category'} &quot;{name}
+                    {parentId ? 'subcategory' : 'category'} &quot;{name}
                     &quot; ?
                 </Typography>
 

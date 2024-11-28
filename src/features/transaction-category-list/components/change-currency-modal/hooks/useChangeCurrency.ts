@@ -91,7 +91,7 @@ export const useChangeCurrency: TUseChangeCurrency = ({
 
             addSuccessMessage({
                 message: getSuccessMessage({
-                    entityName: 'Category currency',
+                    entityName: 'Transaction Category currency',
                     isEditing: true,
                 }),
             });

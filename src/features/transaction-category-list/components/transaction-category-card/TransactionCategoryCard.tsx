@@ -103,9 +103,12 @@ export default function TransactionCategoryCard({
                         </div>
                     </Show>
 
-                    <Show when={isChildrenVisible}>
+                    <Show when={isChildrenVisible && !!children.length}>
                         <Divider />
-                        <Subcategories subcategories={children} />
+                        <Subcategories
+                            parentCategoryId={id}
+                            subcategories={children}
+                        />
                     </Show>
                 </CardContent>
             </Card>

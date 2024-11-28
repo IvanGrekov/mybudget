@@ -12,6 +12,7 @@ export async function deleteAccount(
 ): TAsyncApiClientResult<Account> {
     const result = await SERVER_MY_BUDGET_API.deleteAccount(accountId);
 
+    revalidateTag(`${EFetchingTags.ACCOUNT}-${accountId}`);
     revalidateTag(`${EFetchingTags.ACCOUNTS}-${AccountStatusEnum.ACTIVE}`);
     revalidateTag(EFetchingTags.TRANSACTIONS);
 

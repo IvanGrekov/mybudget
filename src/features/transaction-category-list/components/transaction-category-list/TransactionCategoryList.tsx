@@ -29,6 +29,7 @@ export default function TransactionCategoryList({
         <div className={styles.container}>
             <TransactionCategoryListHeader
                 currentItemsLength={currentItemsLength}
+                type={type}
             />
 
             <TransactionCategoryListTabs />

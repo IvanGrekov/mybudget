@@ -12,14 +12,22 @@ import {
 
 export async function archiveTransactionCategory(
     transactionCategoryId: number,
+    parentId?: number,
 ): TAsyncApiClientResult<TransactionCategory> {
     const result = await SERVER_MY_BUDGET_API.archiveTransactionCategory(
         transactionCategoryId,
     );
 
     revalidateTag(
+        `${EFetchingTags.TRANSACTION_CATEGORY}-${transactionCategoryId}`,
+    );
+    revalidateTag(
         `${EFetchingTags.TRANSACTION_CATEGORIES}-${TransactionCategoryStatusEnum.ACTIVE}`,
     );
+
+    if (parentId) {
+        revalidateTag(`${EFetchingTags.TRANSACTION_CATEGORY}-${parentId}`);
+    }
 
     return result;
 }

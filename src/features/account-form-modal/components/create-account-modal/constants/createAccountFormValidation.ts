@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { ACCOUNT_FORM_FIELD_LABELS } from 'features/account-form-modal/constants/accountForm.constants';
-import { CreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
+import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
 import {
     CreateAccountDtoTypeEnum,
     CreateAccountDtoCurrencyEnum,
@@ -15,7 +15,7 @@ import {
 const MIN_BALANCE = 0;
 
 export const CREATE_ACCOUNT_FORM_VALIDATION =
-    yupResolver<CreateAccountFormValues>(
+    yupResolver<TCreateAccountFormValues>(
         yup.object().shape({
             name: yup
                 .string()

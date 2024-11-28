@@ -1,3 +1,3 @@
 import { CreateAccountDto } from 'types/generated.types';
 
-export type CreateAccountFormValues = Omit<CreateAccountDto, 'userId'>;
+export type TCreateAccountFormValues = Omit<CreateAccountDto, 'userId'>;

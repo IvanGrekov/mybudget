@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { archiveTransactionCategory } from 'actions/archiveTransactionCategory';
+import { deleteTransactionCategory } from 'features/transaction-category-list/components/delete-transaction-category-modal/services/deleteTransactionCategory';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
@@ -8,14 +9,16 @@ import {
 import {
     TransactionCategory,
     TransactionCategoryTypeEnum,
+    TransactionCategoryStatusEnum,
 } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
-import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
+import { getSingleTransactionCategoryQueryKey } from 'utils/queryKey.utils';
 
 type TUseArchiveTransactionCategory = (args: {
     id: number;
     type: TransactionCategoryTypeEnum;
     hasChildren: boolean;
+    parentId?: number;
 }) => {
     archive: VoidFunction;
     isLoading: boolean;
@@ -25,6 +28,7 @@ export const useArchiveTransactionCategory: TUseArchiveTransactionCategory = ({
     id,
     type,
     hasChildren,
+    parentId,
 }) => {
     const addSuccessMessage = useAddSuccessMessageToNotifications();
     const addErrorMessage = useAddErrorMessageToNotifications();
@@ -33,39 +37,30 @@ export const useArchiveTransactionCategory: TUseArchiveTransactionCategory = ({
 
     const { mutate, isPending } = useMutation({
         mutationFn: () => {
-            return archiveTransactionCategory(id);
+            return archiveTransactionCategory(id, parentId);
         },
         onSuccess: () => {
-            if (hasChildren) {
-                queryClient.refetchQueries({
-                    queryKey: getTransactionCategoriesQueryKey({
-                        type,
-                    }),
-                });
-                queryClient.refetchQueries({
-                    queryKey: getTransactionCategoriesQueryKey(),
-                });
-            } else {
-                queryClient.setQueryData(
-                    getTransactionCategoriesQueryKey({
-                        type,
-                    }),
-                    (oldTransactionCategoryList?: TransactionCategory[]) =>
-                        oldTransactionCategoryList?.filter(
-                            (transactionCategory) =>
-                                transactionCategory.id !== id,
-                        ) || [],
-                );
+            deleteTransactionCategory({
+                queryClient,
+                id,
+                type,
+                hasChildren,
+                parentId,
+            });
 
-                queryClient.setQueryData(
-                    getTransactionCategoriesQueryKey(),
-                    (oldAllTransactionCategoryList?: TransactionCategory[]) =>
-                        oldAllTransactionCategoryList?.filter(
-                            (transactionCategory) =>
-                                transactionCategory.id !== id,
-                        ) || [],
-                );
-            }
+            queryClient.setQueryData(
+                getSingleTransactionCategoryQueryKey(id),
+                (category?: TransactionCategory) => {
+                    if (category) {
+                        return {
+                            ...category,
+                            status: TransactionCategoryStatusEnum.ARCHIVED,
+                        };
+                    }
+
+                    return category;
+                },
+            );
 
             addSuccessMessage({
                 message: getSuccessMessage({

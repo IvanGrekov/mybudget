@@ -5,5 +5,5 @@ export type TDeleteTransactionCategoryModalDataProps = Pick<
     'id' | 'type' | 'name'
 > & {
     hasChildren: boolean;
-    isSubcategory?: boolean;
+    parentId?: number;
 };

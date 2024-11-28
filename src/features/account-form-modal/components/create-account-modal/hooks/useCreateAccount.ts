@@ -2,7 +2,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { createAccount } from 'actions/createAccount';
 import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
-import { CreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
+import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
@@ -15,7 +15,7 @@ type TUseCreateAccount = (args: {
     userId: number;
     onCompleted: VoidFunction;
 }) => {
-    mutate: (data: CreateAccountFormValues) => void;
+    mutate: (data: TCreateAccountFormValues) => void;
     isLoading: boolean;
 };
 
@@ -28,7 +28,7 @@ export const useCreateAccount: TUseCreateAccount = ({
 
     const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
-        mutationFn: (data: CreateAccountFormValues) => {
+        mutationFn: (data: TCreateAccountFormValues) => {
             return createAccount({ userId, ...data });
         },
         onSuccess: (data) => {

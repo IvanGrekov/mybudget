@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { archiveAccount } from 'actions/archiveAccount';
+import { deleteAccount as deleteAccountService } from 'features/account-list/components/delete-account-modal/services/deleteAccount';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
@@ -11,10 +12,7 @@ import {
     AccountTypeEnum,
 } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
-import {
-    getAccountsQueryKey,
-    getSingleAccountQueryKey,
-} from 'utils/queryKey.utils';
+import { getSingleAccountQueryKey } from 'utils/queryKey.utils';
 
 type TUseArchiveAccount = (args: { id: number; type: AccountTypeEnum }) => {
     archive: VoidFunction;
@@ -32,33 +30,23 @@ export const useArchiveAccount: TUseArchiveAccount = ({ id, type }) => {
             return archiveAccount(id);
         },
         onSuccess: () => {
-            queryClient.setQueryData(
-                getAccountsQueryKey({
-                    type,
-                }),
-                (oldAccountList?: Account[]) =>
-                    oldAccountList?.filter((account) => account.id !== id) ||
-                    [],
-            );
-
-            queryClient.setQueryData(
-                getAccountsQueryKey(),
-                (oldAllAccountList?: Account[]) =>
-                    oldAllAccountList?.filter((account) => account.id !== id) ||
-                    [],
-            );
+            deleteAccountService({
+                queryClient,
+                id,
+                type,
+            });
 
             queryClient.setQueryData(
                 getSingleAccountQueryKey(id),
-                (oldAccount?: Account) => {
-                    if (oldAccount) {
+                (account?: Account) => {
+                    if (account) {
                         return {
-                            ...oldAccount,
+                            ...account,
                             status: AccountStatusEnum.ARCHIVED,
                         };
                     }
 
-                    return oldAccount;
+                    return account;
                 },
             );
 

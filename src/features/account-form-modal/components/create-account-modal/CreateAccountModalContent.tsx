@@ -8,7 +8,7 @@ import { CREATE_ACCOUNT_FORM_VALIDATION } from 'features/account-form-modal/comp
 import { useCreateAccount } from 'features/account-form-modal/components/create-account-modal/hooks/useCreateAccount';
 import { getDefaultCurrency } from 'features/account-form-modal/components/create-account-modal/utils/getDefaultCurrency';
 import { getDefaultType } from 'features/account-form-modal/components/create-account-modal/utils/getDefaultType';
-import { CreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
+import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import { AccountTypeEnum, User } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
@@ -28,7 +28,7 @@ export default function CreateAccountModalContent({
 }: ICreateAccountModalContentProps): JSX.Element {
     const { id: userId, defaultCurrency: userDefaultCurrency } = user;
 
-    const methods = useForm<CreateAccountFormValues>({
+    const methods = useForm<TCreateAccountFormValues>({
         defaultValues: {
             type: getDefaultType(defaultAccountType),
             currency: getDefaultCurrency(userDefaultCurrency),

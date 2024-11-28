@@ -1,17 +1,15 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { deleteTransactionCategory } from 'actions/deleteTransactionCategory';
+import { deleteTransactionCategory as deleteTransactionCategoryService } from 'features/transaction-category-list/components/delete-transaction-category-modal/services/deleteTransactionCategory';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
-import {
-    TransactionCategory,
-    TransactionCategoryTypeEnum,
-} from 'types/generated.types';
+import { TransactionCategoryTypeEnum } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
-    getTransactionCategoriesQueryKey,
+    getSingleTransactionCategoryQueryKey,
     getTransactionsQueryKey,
 } from 'utils/queryKey.utils';
 
@@ -20,6 +18,7 @@ type TUseDeleteTransactionCategory = (args: {
     type: TransactionCategoryTypeEnum;
     shouldRemoveChildren: boolean;
     hasChildren: boolean;
+    parentId?: number;
 }) => {
     remove: VoidFunction;
     isLoading: boolean;
@@ -30,6 +29,7 @@ export const useDeleteTransactionCategory: TUseDeleteTransactionCategory = ({
     type,
     shouldRemoveChildren,
     hasChildren,
+    parentId,
 }) => {
     const addSuccessMessage = useAddSuccessMessageToNotifications();
     const addErrorMessage = useAddErrorMessageToNotifications();
@@ -38,39 +38,24 @@ export const useDeleteTransactionCategory: TUseDeleteTransactionCategory = ({
 
     const { mutate, isPending } = useMutation({
         mutationFn: () => {
-            return deleteTransactionCategory(id, shouldRemoveChildren);
+            return deleteTransactionCategory({
+                id,
+                shouldRemoveChildren,
+                parentId,
+            });
         },
         onSuccess: () => {
-            if (hasChildren) {
-                queryClient.refetchQueries({
-                    queryKey: getTransactionCategoriesQueryKey({
-                        type,
-                    }),
-                });
-                queryClient.refetchQueries({
-                    queryKey: getTransactionCategoriesQueryKey(),
-                });
-            } else {
-                queryClient.setQueryData(
-                    getTransactionCategoriesQueryKey({
-                        type,
-                    }),
-                    (oldTransactionCategoryList?: TransactionCategory[]) =>
-                        oldTransactionCategoryList?.filter(
-                            (transactionCategory) =>
-                                transactionCategory.id !== id,
-                        ) || [],
-                );
+            deleteTransactionCategoryService({
+                queryClient,
+                id,
+                type,
+                hasChildren,
+                parentId,
+            });
 
-                queryClient.setQueryData(
-                    getTransactionCategoriesQueryKey(),
-                    (oldAllTransactionCategoryList?: TransactionCategory[]) =>
-                        oldAllTransactionCategoryList?.filter(
-                            (transactionCategory) =>
-                                transactionCategory.id !== id,
-                        ) || [],
-                );
-            }
+            queryClient.invalidateQueries({
+                queryKey: getSingleTransactionCategoryQueryKey(id),
+            });
 
             queryClient.invalidateQueries({
                 queryKey: getTransactionsQueryKey(),

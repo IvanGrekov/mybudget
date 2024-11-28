@@ -10,14 +10,14 @@ import {
     ACCOUNT_FORM_FIELD_NAMES,
     ACCOUNT_FORM_FIELD_LABELS,
 } from 'features/account-form-modal/constants/accountForm.constants';
-import { CreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
+import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
 import styles from 'styles/Form.module.scss';
 import { CreateAccountDtoTypeEnum } from 'types/generated.types';
 
 interface IAccountFormContentProps {}
 
 export default function AccountFormContent({}: IAccountFormContentProps): JSX.Element {
-    const { watch, setValue } = useFormContext<CreateAccountFormValues>();
+    const { watch, setValue } = useFormContext<TCreateAccountFormValues>();
 
     const type = watch('type');
     const isOweMeType = type === CreateAccountDtoTypeEnum.OWE_ME;
