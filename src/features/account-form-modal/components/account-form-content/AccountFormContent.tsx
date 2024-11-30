@@ -5,6 +5,7 @@ import FormCheckboxField from 'components/form-fields/FormCheckboxField';
 import FormTextField from 'components/form-fields/FormTextField';
 import Show from 'components/show/Show';
 import CurrencyField from 'features/account-form-modal/components/account-form-content/CurrencyField';
+import StatusField from 'features/account-form-modal/components/account-form-content/StatusField';
 import TypeField from 'features/account-form-modal/components/account-form-content/TypeField';
 import {
     ACCOUNT_FORM_FIELD_NAMES,
@@ -14,9 +15,13 @@ import { TCreateAccountFormValues } from 'features/account-form-modal/types/crea
 import styles from 'styles/Form.module.scss';
 import { CreateAccountDtoTypeEnum } from 'types/generated.types';
 
-interface IAccountFormContentProps {}
+interface IAccountFormContentProps {
+    isEdit?: boolean;
+}
 
-export default function AccountFormContent({}: IAccountFormContentProps): JSX.Element {
+export default function AccountFormContent({
+    isEdit,
+}: IAccountFormContentProps): JSX.Element {
     const { watch, setValue } = useFormContext<TCreateAccountFormValues>();
 
     const type = watch('type');
@@ -39,7 +44,13 @@ export default function AccountFormContent({}: IAccountFormContentProps): JSX.El
 
     return (
         <div className={styles.container}>
-            <TypeField />
+            <Show when={!isEdit}>
+                <TypeField />
+            </Show>
+
+            <Show when={!!isEdit}>
+                <StatusField />
+            </Show>
 
             <FormTextField
                 name={ACCOUNT_FORM_FIELD_NAMES.name}
@@ -47,7 +58,9 @@ export default function AccountFormContent({}: IAccountFormContentProps): JSX.El
                 required={true}
             />
 
-            <CurrencyField />
+            <Show when={!isEdit}>
+                <CurrencyField />
+            </Show>
 
             <FormTextField
                 name={ACCOUNT_FORM_FIELD_NAMES.balance}

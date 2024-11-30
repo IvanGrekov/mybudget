@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { DEFAULT_MAX_LENGTH } from 'constants/formValidation.constants';
 import { PASSWORD_MIN_LENGTH } from 'features/auth/constants/passwordMinLength';
 import {
     SIGN_UP_FORM_FIELD_NAMES,
@@ -12,6 +13,7 @@ import {
     getRequiredValidationWarning,
     getMatchValidationWarning,
     getMinLengthValidationWarning,
+    getMaxLengthValidationWarning,
 } from 'utils/formValidationWarning.utils';
 
 export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
@@ -47,7 +49,15 @@ export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
                 [yup.ref(SIGN_UP_FORM_FIELD_NAMES.password)],
                 'Passwords must match',
             ),
-        nickname: yup.string().transform((value) => value || undefined),
+        nickname: yup
+            .string()
+            .transform((value) => value || undefined)
+            .max(
+                DEFAULT_MAX_LENGTH,
+                getMaxLengthValidationWarning(
+                    SIGN_UP_FORM_FIELD_LABELS.nickname,
+                ),
+            ),
         defaultCurrency: yup
             .string()
             .oneOf(Object.values(CreateUserDtoDefaultCurrencyEnum))

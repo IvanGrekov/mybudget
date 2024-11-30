@@ -1,8 +1,9 @@
 import { TransactionTypeEnum } from 'types/generated.types';
 
-export type TAvailableTransactionTypes =
+type TAvailableTransactionTypes =
     | TransactionTypeEnum.INCOME
     | TransactionTypeEnum.EXPENSE
-    | TransactionTypeEnum.TRANSFER;
+    | TransactionTypeEnum.TRANSFER
+    | TransactionTypeEnum.BALANCE_CORRECTION;
 
 export type TTransactionTypesInput = TAvailableTransactionTypes[];

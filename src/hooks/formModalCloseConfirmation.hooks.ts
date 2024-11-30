@@ -18,11 +18,9 @@ export const useFormModalCloseConfirmation = (
     return useCallback((): void => {
         if (shouldConfirmNavigation) {
             setShouldShowCloseModalConfirmation(true);
-
-            return;
+        } else {
+            onClose();
         }
-
-        onClose();
     }, [shouldConfirmNavigation, setShouldShowCloseModalConfirmation, onClose]);
 };
 

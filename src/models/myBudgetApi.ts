@@ -17,6 +17,7 @@ import {
     CreateTransactionCategoryDto,
     EditAccountDtoStatusEnum,
     EditTransactionCategoryDtoStatusEnum,
+    EditAccountDto,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -252,6 +253,13 @@ export abstract class MyBudgetApi {
         ...dto
     }: IEditAccountCurrency): TAsyncApiClientResult<Account> {
         return this.patch(`/accounts/currency/${id}`, dto);
+    }
+
+    editAccount(
+        id: number,
+        dto: EditAccountDto,
+    ): TAsyncApiClientResult<Account> {
+        return this.patch(`/accounts/${id}`, dto);
     }
 
     deleteAccount(id: number): TAsyncApiClientResult<Account> {

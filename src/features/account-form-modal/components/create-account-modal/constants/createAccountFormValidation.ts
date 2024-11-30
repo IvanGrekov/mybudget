@@ -1,29 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { ACCOUNT_FORM_FIELD_LABELS } from 'features/account-form-modal/constants/accountForm.constants';
+import {
+    ACCOUNT_FORM_FIELD_LABELS,
+    ACCOUNT_NAME_VALIDATION,
+    ACCOUNT_BALANCE_VALIDATION,
+} from 'features/account-form-modal/constants/accountForm.constants';
 import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
 import {
     CreateAccountDtoTypeEnum,
     CreateAccountDtoCurrencyEnum,
 } from 'types/generated.types';
-import {
-    getRequiredValidationWarning,
-    getNumberMinValidationWarning,
-} from 'utils/formValidationWarning.utils';
-
-const MIN_BALANCE = 0;
+import { getRequiredValidationWarning } from 'utils/formValidationWarning.utils';
 
 export const CREATE_ACCOUNT_FORM_VALIDATION =
     yupResolver<TCreateAccountFormValues>(
         yup.object().shape({
-            name: yup
-                .string()
-                .required(
-                    getRequiredValidationWarning(
-                        ACCOUNT_FORM_FIELD_LABELS.name,
-                    ),
-                ),
+            name: ACCOUNT_NAME_VALIDATION,
             type: yup
                 .mixed<CreateAccountDtoTypeEnum>()
                 .oneOf(Object.values(CreateAccountDtoTypeEnum))
@@ -40,20 +33,7 @@ export const CREATE_ACCOUNT_FORM_VALIDATION =
                         ACCOUNT_FORM_FIELD_LABELS.currency,
                     ),
                 ),
-            balance: yup
-                .number()
-                .min(
-                    MIN_BALANCE,
-                    getNumberMinValidationWarning(
-                        ACCOUNT_FORM_FIELD_LABELS.balance,
-                        MIN_BALANCE,
-                    ),
-                )
-                .required(
-                    getRequiredValidationWarning(
-                        ACCOUNT_FORM_FIELD_LABELS.balance,
-                    ),
-                ),
+            balance: ACCOUNT_BALANCE_VALIDATION,
             shouldHideFromOverallBalance: yup.boolean(),
             shouldShowAsIncome: yup.boolean(),
             shouldShowAsExpense: yup.boolean(),

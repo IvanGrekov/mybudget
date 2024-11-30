@@ -1,24 +1,38 @@
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { IEditAccountModalDataProps } from 'features/account-form-modal/components/edit-account-modal/types/editAccountModalDataProps';
+import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
+
+const EditAccountModalContentLazy = lazy(
+    () =>
+        import(
+            'features/account-form-modal/components/edit-account-modal/EditAccountModalContent'
+        ),
+);
 
 export default function EditAccountModal({
+    account,
     isOpen,
     onClose,
 }: IModalBaseProps & IEditAccountModalDataProps): JSX.Element {
+    const onCloseModal = useFormModalCloseConfirmation(onClose);
+
     return (
         <Modal
             isOpen={isOpen}
-            title="Edit Account"
+            title={`Edit "${account.name}" Account`}
             size="small"
-            onClose={onClose}
+            onClose={onCloseModal}
         >
             <Suspense fallback={<ModalCircularLoading />}>
-                <UnderDevelopmentMessage />
+                <EditAccountModalContentLazy
+                    account={account}
+                    hideModal={onClose}
+                    onCloseModal={onCloseModal}
+                />
             </Suspense>
         </Modal>
     );

@@ -1,19 +1,29 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { DEFAULT_MAX_LENGTH } from 'constants/formValidation.constants';
 import { TRANSACTION_CATEGORY_FORM_FIELD_LABELS } from 'features/transaction-category-form-modal/constants/transactionCategoryForm.constants';
 import { TCreateTransactionCategoryFormValues } from 'features/transaction-category-form-modal/types/createTransactionCategoryFormValues';
 import {
     CreateTransactionCategoryDtoTypeEnum,
     CreateTransactionCategoryDtoCurrencyEnum,
 } from 'types/generated.types';
-import { getRequiredValidationWarning } from 'utils/formValidationWarning.utils';
+import {
+    getMaxLengthValidationWarning,
+    getRequiredValidationWarning,
+} from 'utils/formValidationWarning.utils';
 
 export const CREATE_TRANSACTION_CATEGORY_FORM_VALIDATION =
     yupResolver<TCreateTransactionCategoryFormValues>(
         yup.object().shape({
             name: yup
                 .string()
+                .max(
+                    DEFAULT_MAX_LENGTH,
+                    getMaxLengthValidationWarning(
+                        TRANSACTION_CATEGORY_FORM_FIELD_LABELS.name,
+                    ),
+                )
                 .required(
                     getRequiredValidationWarning(
                         TRANSACTION_CATEGORY_FORM_FIELD_LABELS.name,

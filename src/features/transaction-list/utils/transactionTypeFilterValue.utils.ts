@@ -2,10 +2,7 @@ import { ALL_FILTER_VALUE } from 'constants/allFilterValue';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
 import { EXCLUDED_TRANSACTION_TYPE } from 'features/transaction-list/constants/excludedTransactionType';
 import { TRANSACTION_LIST_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListFilterParamName';
-import {
-    TTransactionTypesInput,
-    TAvailableTransactionTypes,
-} from 'types/availableTransactionTypes';
+import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { TransactionTypeEnum } from 'types/generated.types';
 
 export const getTransactionTypesByFilterValue = (
@@ -21,7 +18,7 @@ export const getTransactionTypesByFilterValue = (
         return DEFAULT_TRANSACTION_TYPES;
     }
 
-    const filterValue: TAvailableTransactionTypes[] = [];
+    const filterValue: TTransactionTypesInput = [];
     for (const type of Object.values(TransactionTypeEnum)) {
         if (type !== EXCLUDED_TRANSACTION_TYPE && value.includes(type)) {
             filterValue.push(type);

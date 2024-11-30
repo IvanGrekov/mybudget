@@ -28,7 +28,7 @@ export default function CreateAccountModal({
     isOpen,
     onClose,
 }: ICreateAccountModalProps): JSX.Element {
-    const { isPending, data } = useQuery({
+    const { isPending, data: user } = useQuery({
         queryKey: [EFetchingTags.ME],
         queryFn: () => CLIENT_MY_BUDGET_API.getMe(),
     });
@@ -46,14 +46,14 @@ export default function CreateAccountModal({
                 <ModalCircularLoading />
             </Show>
 
-            <Show when={!data && !isPending}>
+            <Show when={!user && !isPending}>
                 <EmptyState text="We couldn't find your profile" />
             </Show>
 
-            {data && (
+            {user && (
                 <Suspense fallback={<ModalCircularLoading />}>
                     <CreateAccountModalContentLazy
-                        user={data}
+                        user={user}
                         defaultAccountType={defaultAccountType}
                         hideModal={onClose}
                         onCloseModal={onCloseModal}

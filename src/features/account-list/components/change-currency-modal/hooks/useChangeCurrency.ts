@@ -2,6 +2,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editAccountCurrency } from 'actions/editAccountCurrency';
 import { useExchangeRatesContext } from 'contexts/ExchangeRatesContext';
+import { getUpdateAccountCurrency } from 'features/account-list/components/change-currency-modal/utils/getUpdateAccountCurrency';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
@@ -50,56 +51,29 @@ export const useChangeCurrency: TUseChangeCurrency = ({
             });
         },
         onSuccess: () => {
+            const updateAccountCurrency = getUpdateAccountCurrency({
+                id,
+                currency,
+                rate,
+            });
+
             queryClient.setQueryData(
                 getAccountsQueryKey({
                     type,
                 }),
                 (oldAccountList?: Account[]) =>
-                    oldAccountList?.map((account) => {
-                        if (account.id === id) {
-                            return {
-                                ...account,
-                                currency,
-                                balance: account.balance * rate,
-                                initBalance: account.initBalance * rate,
-                            };
-                        }
-
-                        return account;
-                    }) || [],
+                    oldAccountList?.map(updateAccountCurrency) || [],
             );
 
             queryClient.setQueryData(
                 getAccountsQueryKey(),
                 (oldAllAccountList?: Account[]) =>
-                    oldAllAccountList?.map((account) => {
-                        if (account.id === id) {
-                            return {
-                                ...account,
-                                currency,
-                                balance: account.balance * rate,
-                                initBalance: account.initBalance * rate,
-                            };
-                        }
-
-                        return account;
-                    }) || [],
+                    oldAllAccountList?.map(updateAccountCurrency) || [],
             );
 
             queryClient.setQueryData(
                 getSingleAccountQueryKey(id),
-                (account?: Account) => {
-                    if (account) {
-                        return {
-                            ...account,
-                            currency,
-                            balance: account.balance * rate,
-                            initBalance: account.initBalance * rate,
-                        };
-                    }
-
-                    return account;
-                },
+                updateAccountCurrency,
             );
 
             addSuccessMessage({

@@ -7,9 +7,10 @@ export const getBalanceItemsCollectionByAccountTypes = (
     const result: IBalanceItemsCollection = {};
 
     accounts.forEach((account) => {
-        const { type, balance, currency } = account;
+        const { type, balance, currency, shouldHideFromOverallBalance } =
+            account;
 
-        if (balance === 0) {
+        if (balance === 0 || shouldHideFromOverallBalance) {
             return;
         }
 
