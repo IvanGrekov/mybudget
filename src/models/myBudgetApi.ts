@@ -11,13 +11,14 @@ import {
     Account,
     AccountStatusEnum,
     TransactionCategory,
-    TransactionCategoryStatusEnum,
     Transaction,
     CreateAccountDto,
-    CreateTransactionCategoryDto,
     EditAccountDtoStatusEnum,
-    EditTransactionCategoryDtoStatusEnum,
     EditAccountDto,
+    CreateTransactionCategoryDto,
+    EditTransactionCategoryDtoStatusEnum,
+    TransactionCategoryStatusEnum,
+    EditTransactionCategoryDto,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -310,6 +311,13 @@ export abstract class MyBudgetApi {
         ...dto
     }: IEditTransactionCategoryCurrency): TAsyncApiClientResult<TransactionCategory> {
         return this.patch(`/transaction-categories/currency/${id}`, dto);
+    }
+
+    editTransactionCategory(
+        id: number,
+        dto: EditTransactionCategoryDto,
+    ): TAsyncApiClientResult<TransactionCategory> {
+        return this.patch(`/transaction-categories/${id}`, dto);
     }
 
     archiveTransactionCategory(

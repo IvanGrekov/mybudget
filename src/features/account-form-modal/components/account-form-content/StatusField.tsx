@@ -3,10 +3,10 @@ import {
     ACCOUNT_FORM_FIELD_NAMES,
     ACCOUNT_FORM_FIELD_LABELS,
 } from 'features/account-form-modal/constants/accountForm.constants';
-import { EditTransactionCategoryDtoStatusEnum } from 'types/generated.types';
+import { EditAccountDtoStatusEnum } from 'types/generated.types';
 import { getCapitalizedString } from 'utils/string.utils';
 
-const OPTIONS = Object.values(EditTransactionCategoryDtoStatusEnum);
+const OPTIONS = Object.values(EditAccountDtoStatusEnum);
 
 export default function StatusField(): JSX.Element {
     return (

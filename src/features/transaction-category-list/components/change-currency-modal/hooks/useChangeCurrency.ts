@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editTransactionCategoryCurrency } from 'actions/editTransactionCategoryCurrency';
+import { getUpdateTransactionCategoryCurrency } from 'features/transaction-category-list/components/change-currency-modal/utils/getUpdateTransactionCategoryCurrency';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
@@ -43,50 +44,32 @@ export const useChangeCurrency: TUseChangeCurrency = ({
             });
         },
         onSuccess: () => {
+            const updateTransactionCategoryCurrency =
+                getUpdateTransactionCategoryCurrency({
+                    id,
+                    currency,
+                });
+
             queryClient.setQueryData(
                 getTransactionCategoriesQueryKey({
                     type,
                 }),
                 (oldCategoryList?: TransactionCategory[]) =>
-                    oldCategoryList?.map((category) => {
-                        if (category.id === id) {
-                            return {
-                                ...category,
-                                currency,
-                            };
-                        }
-
-                        return category;
-                    }) || [],
+                    oldCategoryList?.map(updateTransactionCategoryCurrency) ||
+                    [],
             );
 
             queryClient.setQueryData(
                 getTransactionCategoriesQueryKey(),
                 (oldAllCategoryList?: TransactionCategory[]) =>
-                    oldAllCategoryList?.map((category) => {
-                        if (category.id === id) {
-                            return {
-                                ...category,
-                                currency,
-                            };
-                        }
-
-                        return category;
-                    }) || [],
+                    oldAllCategoryList?.map(
+                        updateTransactionCategoryCurrency,
+                    ) || [],
             );
 
             queryClient.setQueryData(
                 getSingleTransactionCategoryQueryKey(id),
-                (category?: TransactionCategory) => {
-                    if (category) {
-                        return {
-                            ...category,
-                            currency,
-                        };
-                    }
-
-                    return category;
-                },
+                updateTransactionCategoryCurrency,
             );
 
             addSuccessMessage({

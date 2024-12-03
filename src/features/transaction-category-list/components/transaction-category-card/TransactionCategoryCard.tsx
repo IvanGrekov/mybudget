@@ -115,6 +115,7 @@ export default function TransactionCategoryCard({
 
             <EditTransactionCategoryModal
                 transactionCategory={transactionCategory}
+                hasChildren={!!children}
                 isOpen={isEditAccountModalOpen}
                 onClose={closeEditAccountModal}
             />

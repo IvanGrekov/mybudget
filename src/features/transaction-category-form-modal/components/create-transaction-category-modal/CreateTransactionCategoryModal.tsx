@@ -28,7 +28,7 @@ export default function CreateTransactionCategoryModal({
     isOpen,
     onClose,
 }: ICreateTransactionCategoryModalProps): JSX.Element {
-    const { isPending, data } = useQuery({
+    const { isPending, data: user } = useQuery({
         queryKey: [EFetchingTags.ME],
         queryFn: () => CLIENT_MY_BUDGET_API.getMe(),
     });
@@ -46,14 +46,14 @@ export default function CreateTransactionCategoryModal({
                 <ModalCircularLoading />
             </Show>
 
-            <Show when={!data && !isPending}>
+            <Show when={!user && !isPending}>
                 <EmptyState text="We couldn't find your profile" />
             </Show>
 
-            {data && (
+            {user && (
                 <Suspense fallback={<ModalCircularLoading />}>
                     <CreateTransactionCategoryModalContentLazy
-                        user={data}
+                        user={user}
                         defaultTransactionCategoryType={
                             defaultTransactionCategoryType
                         }

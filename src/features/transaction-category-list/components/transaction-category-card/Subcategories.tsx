@@ -64,6 +64,7 @@ export default function Subcategories({
 
                         <EditTransactionCategoryModal
                             transactionCategory={transactionCategory}
+                            parentId={parentCategoryId}
                             isOpen={isEditAccountModalOpen}
                             onClose={closeEditAccountModal}
                         />
