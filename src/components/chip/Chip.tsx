@@ -15,6 +15,7 @@ function Chip(
         size = 'regular',
         titleVariant,
         buttonTabIndex = 0,
+        color,
         className,
         children,
         onClick,
@@ -29,6 +30,7 @@ function Chip(
                 styles.chip,
                 styles[`chip--${variant}`],
                 styles[`chip--${size}`],
+                styles[`chip--${color}`],
                 className,
             )}
             onClick={onClick}

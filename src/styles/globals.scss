@@ -12,20 +12,29 @@
     --gray: #aaaaaa;
     --gray-light: #e3e1e1;
     --red: #f45050;
+    --red-rgb: 244, 80, 80;
     --green: #47a992;
+    --green-rgb: 71, 169, 146;
     --blue: #3a98b9;
+    --blue-rgb: 58, 152, 185;
     --orange: #f9a825;
 
+    --base-opacity: 0.5;
+
     --middle-color: rgba(var(--middle));
-    --middle-opacity: rgba(var(--middle), 0.5);
+    --middle-opacity: rgba(var(--middle), var(--base-opacity));
     --hover: rgb(var(--middle));
     --disabled: var(--foreground-invisible);
     --disabled-text: var(--disabled);
     --border: var(--foreground-opacity);
     --error: var(--red);
+    --error-opacity: rgba(var(--red-rgb), var(--base-opacity));
     --success: var(--green);
+    --success-opacity: rgba(var(--green-rgb), var(--base-opacity));
     --info: var(--blue);
+    --info-opacity: rgba(var(--blue-rgb), var(--base-opacity));
     --warning: var(--orange);
+    --warning-opacity: rgba(var(--orange), var(--base-opacity));
 
     --box-shadow-color: 0, 0, 0;
     --box-shadow-xs: 0px 4px 2px -3px rgba(var(--box-shadow-color), 0.1),
@@ -44,10 +53,10 @@
 
 .light-theme-variables-extend {
     --background: rgb(var(--light));
-    --background-opacity: rgba(var(--light), 0.5);
+    --background-opacity: rgba(var(--light), var(--base-opacity));
     --background-invisible: rgba(var(--light), 0.15);
     --foreground: rgb(var(--dark));
-    --foreground-opacity: rgba(var(--dark), 0.5);
+    --foreground-opacity: rgba(var(--dark), var(--base-opacity));
     --foreground-invisible: rgba(var(--dark), 0.15);
 
     --backdrop: linear-gradient(
@@ -64,10 +73,10 @@
 
 .dark-theme-variables-extend {
     --background: rgb(var(--dark));
-    --background-opacity: rgba(var(--dark), 0.5);
+    --background-opacity: rgba(var(--dark), var(--base-opacity));
     --background-invisible: rgba(var(--dark), 0.15);
     --foreground: rgb(var(--light));
-    --foreground-opacity: rgba(var(--light), 0.5);
+    --foreground-opacity: rgba(var(--light), var(--base-opacity));
     --foreground-invisible: rgba(var(--light), 0.15);
 
     --backdrop: linear-gradient(

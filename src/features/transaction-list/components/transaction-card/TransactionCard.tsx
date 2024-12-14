@@ -1,10 +1,18 @@
 // import Button from 'components/button/Button';
 import Card from 'components/card/Card';
 import CardContent from 'components/card/CardContent';
+import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
+import Chip from 'components/chip/Chip';
 import Typography from 'components/typography/Typography';
-import { useIsMobile } from 'hooks/screenSize.hooks';
+import styles from 'features/transaction-list/components/transaction-card/TransactionCard.module.scss';
+import { getColorForTypeChip } from 'features/transaction-list/components/transaction-card/utils/getColorForTypeChip';
 import { Transaction } from 'types/generated.types';
+import { getTime } from 'utils/date.utils';
+import { getCapitalizedString } from 'utils/string.utils';
+
+const CHIP_TITLE_VARIANT = 'body2';
+const CHIP_SIZE = 'small';
 
 interface ITransactionCardProps {
     transaction: Transaction;
@@ -13,26 +21,68 @@ interface ITransactionCardProps {
 export default function TransactionCard({
     transaction,
 }: ITransactionCardProps): JSX.Element {
-    const isMobile = useIsMobile();
-    const { value, currency } = transaction;
+    const {
+        type,
+        createdAt,
+        value,
+        currency,
+        fee,
+        fromAccount,
+        fromCategory,
+        toAccount,
+        toCategory,
+    } = transaction;
+
+    fromAccount;
+    fromCategory;
+    toAccount;
+    toCategory;
 
     return (
         <Card>
-            <CardContent>
-                <div>
-                    <CardTitle
-                        title={String(value)}
-                        variant={isMobile ? 'body2' : 'body1'}
-                    />
-                    <Typography variant={isMobile ? 'caption' : 'body2'}>
-                        Currency: {currency}
-                    </Typography>
-                </div>
+            <CardHeader
+                title={
+                    <div className={styles['header-title-wrapper']}>
+                        <div className={styles['header-labels']}>
+                            <Chip
+                                title={getTime(createdAt)}
+                                size={CHIP_SIZE}
+                                titleVariant={CHIP_TITLE_VARIANT}
+                            />
 
-                {/* <Button
-                    text="Details"
-                    href={`${EAppRoutes.TransactionCategories}/${id}`}
-                /> */}
+                            <Chip
+                                title={getCapitalizedString(type, '_')}
+                                size={CHIP_SIZE}
+                                titleVariant={CHIP_TITLE_VARIANT}
+                                color={getColorForTypeChip(type)}
+                            />
+                        </div>
+
+                        <CardTitle title={`${value} ${currency}`} />
+
+                        {fee && (
+                            <Typography variant="body2" className={styles.fee}>
+                                Fee: {`${fee} ${currency}`}
+                            </Typography>
+                        )}
+                    </div>
+                }
+                // actions={
+                //     <BaseEntityMenu
+                //         detailsPath={`${EAppRoutes.TransactionCategories}/${id}`}
+                //         openEditModal={openEditAccountModal}
+                //         openChangeCurrencyModal={openChangeCurrencyModal}
+                //         openDeleteModal={openDeleteModal}
+                //     />
+                // }
+            />
+
+            <CardContent>
+                From: &quot;{fromAccount?.name || fromCategory?.name}&quot;{' '}
+                {fromAccount ? 'Account' : 'Category'}
+                <br />
+                To: &quot;{toAccount?.name || toCategory?.name}&quot;{' '}
+                {toAccount ? 'Account' : 'Category'}
             </CardContent>
         </Card>
     );

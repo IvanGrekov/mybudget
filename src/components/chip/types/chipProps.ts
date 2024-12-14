@@ -6,6 +6,7 @@ export interface IChipProps extends PropsWithChildren {
     title: string;
     variant?: 'contained' | 'outlined';
     size?: 'small' | 'regular' | 'big';
+    color?: 'success' | 'error' | 'info';
     titleVariant?: TTypographyVariants;
     buttonTabIndex?: number;
     className?: string;

@@ -30,6 +30,30 @@
         min-height: 3.25rem;
         padding: $spacing-2 $spacing-4;
     }
+
+    &--success {
+        background-color: var(--success-opacity);
+
+        &.chip--outlined {
+            border-color: var(--success);
+        }
+    }
+
+    &--error {
+        background-color: var(--error-opacity);
+
+        &.chip--outlined {
+            border-color: var(--error);
+        }
+    }
+
+    &--info {
+        background-color: var(--info-opacity);
+
+        &.chip--outlined {
+            border-color: var(--info);
+        }
+    }
 }
 
 .children-wrapper {
