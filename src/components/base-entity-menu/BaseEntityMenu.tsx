@@ -8,6 +8,7 @@ import MenuActionItem from 'components/menu/MenuActionItem';
 
 interface IBaseEntityMenuProps {
     detailsPath: string;
+    className?: string;
     openEditModal?: VoidFunction;
     openChangeCurrencyModal?: VoidFunction;
     openDeleteModal?: VoidFunction;
@@ -15,6 +16,7 @@ interface IBaseEntityMenuProps {
 
 export default function BaseEntityMenu({
     detailsPath,
+    className,
     openEditModal,
     openChangeCurrencyModal,
     openDeleteModal,
@@ -22,7 +24,7 @@ export default function BaseEntityMenu({
     const { push } = useRouter();
 
     return (
-        <Menu tooltipPosition="bottom-left">
+        <Menu tooltipPosition="bottom-left" className={className}>
             <MenuActionItem
                 text="Details"
                 Icon={EyeIcon}

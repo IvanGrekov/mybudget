@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function ArrowIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -14,6 +15,7 @@ export default function ArrowIcon({
                 height="284.929px"
                 viewBox="0 0 284.929 284.929"
                 className={className}
+                style={{ fill: color }}
             >
                 <g>
                     <path

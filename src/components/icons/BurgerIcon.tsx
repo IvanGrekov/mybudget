@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function BurgerIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -12,6 +13,7 @@ export default function BurgerIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 76 76"
                 className={className}
+                style={{ fill: color }}
             >
                 <g>
                     <path

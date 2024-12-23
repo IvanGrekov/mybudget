@@ -1,11 +1,11 @@
 // import Button from 'components/button/Button';
 import Card from 'components/card/Card';
-import CardContent from 'components/card/CardContent';
 import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
 import Chip from 'components/chip/Chip';
 import Typography from 'components/typography/Typography';
 import styles from 'features/transaction-list/components/transaction-card/TransactionCard.module.scss';
+import TransactionCardContent from 'features/transaction-list/components/transaction-card/TransactionCardContent';
 import { getColorForTypeChip } from 'features/transaction-list/components/transaction-card/utils/getColorForTypeChip';
 import { Transaction } from 'types/generated.types';
 import { getTime } from 'utils/date.utils';
@@ -21,22 +21,7 @@ interface ITransactionCardProps {
 export default function TransactionCard({
     transaction,
 }: ITransactionCardProps): JSX.Element {
-    const {
-        type,
-        createdAt,
-        value,
-        currency,
-        fee,
-        fromAccount,
-        fromCategory,
-        toAccount,
-        toCategory,
-    } = transaction;
-
-    fromAccount;
-    fromCategory;
-    toAccount;
-    toCategory;
+    const { type, createdAt, value, currency, fee } = transaction;
 
     return (
         <Card>
@@ -77,13 +62,7 @@ export default function TransactionCard({
                 // }
             />
 
-            <CardContent>
-                From: &quot;{fromAccount?.name || fromCategory?.name}&quot;{' '}
-                {fromAccount ? 'Account' : 'Category'}
-                <br />
-                To: &quot;{toAccount?.name || toCategory?.name}&quot;{' '}
-                {toAccount ? 'Account' : 'Category'}
-            </CardContent>
+            <TransactionCardContent transaction={transaction} />
         </Card>
     );
 }

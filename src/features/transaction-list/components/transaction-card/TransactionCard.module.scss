@@ -12,3 +12,9 @@
 .fee {
     color: var(--gray);
 }
+
+.from-to-details-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}

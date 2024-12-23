@@ -22,6 +22,7 @@ export interface IMenuProps {
     OpenMenuElement?: JSX.Element;
     tooltipPosition?: TTooltipPosition;
     iconSize?: IIconButtonProps['iconSize'];
+    className?: string;
     tooltipClassName?: string;
     actionsClassName?: string;
     actionsActiveClassName?: string;

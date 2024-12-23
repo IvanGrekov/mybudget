@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function EyeIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -14,6 +15,7 @@ export default function EyeIcon({
                 height="64"
                 viewBox="0 0 64 64"
                 className={className}
+                style={{ fill: color }}
             >
                 <rect
                     x="-896"

@@ -8,6 +8,7 @@ import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import DragDropContext from 'contexts/DragDropContext';
+import RootDroppableContainer from 'features/transaction-categories-reordering/components/transaction-categories-list/RootDroppableContainer';
 import TransactionCategoriesListHeader from 'features/transaction-categories-reordering/components/transaction-categories-list/TrancactionCategoriesListHeader';
 import { useSortableTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/hooks/useSortableTransactionCategories';
 import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-card/SubcategoryItem';
@@ -55,6 +56,7 @@ export default function TransactionCategoriesList(): JSX.Element {
                     handleDragStart={handleDragStart}
                     handleDragEnd={handleDragEnd}
                 >
+                    <RootDroppableContainer isTop={true} />
                     <ul
                         className={styles['grid-list']}
                         style={{
@@ -67,6 +69,10 @@ export default function TransactionCategoriesList(): JSX.Element {
                                 key={transactionCategory.id}
                                 id={transactionCategory.id}
                                 isLoading={isEditOrderLoading}
+                                hasChildren={
+                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                    !!transactionCategory.children?.length
+                                }
                             >
                                 <TransactionCategoryCard
                                     transactionCategory={transactionCategory}
@@ -75,6 +81,7 @@ export default function TransactionCategoriesList(): JSX.Element {
                             </DragDropListItem>
                         ))}
                     </ul>
+                    <RootDroppableContainer />
 
                     <DragOverlay>
                         {activeItem &&

@@ -12,7 +12,9 @@ import {
 } from 'types/generated.types';
 import { getRequiredValidationWarning } from 'utils/formValidationWarning.utils';
 
-export const EDIT_ACCOUNT_FORM_VALIDATION = yupResolver<EditAccountDto>(
+export const EDIT_ACCOUNT_FORM_VALIDATION = yupResolver<
+    Omit<EditAccountDto, 'iconName' | 'iconColor'>
+>(
     yup.object().shape({
         status: yup
             .mixed<EditAccountDtoStatusEnum>()

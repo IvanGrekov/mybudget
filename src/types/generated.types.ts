@@ -40,6 +40,8 @@ export interface TransactionCategory {
     status: TransactionCategoryStatusEnum;
     currency: TransactionCategoryCurrencyEnum;
     order: number;
+    iconName: string;
+    iconColor: string;
     /** @format date-time */
     createdAt: string;
 }
@@ -87,6 +89,8 @@ export interface Account {
     shouldShowAsIncome: boolean;
     shouldShowAsExpense: boolean;
     order: number;
+    iconName: string;
+    iconColor: string;
     /** @format date-time */
     createdAt: string;
 }
@@ -114,6 +118,8 @@ export interface EditUserRoleDto {
 
 export interface CreateAccountDto {
     userId: number;
+    iconName?: string;
+    iconColor?: string;
     name: string;
     type: CreateAccountDtoTypeEnum;
     currency: CreateAccountDtoCurrencyEnum;
@@ -130,6 +136,8 @@ export interface EditAccountDto {
     shouldHideFromOverallBalance?: boolean;
     shouldShowAsIncome?: boolean;
     shouldShowAsExpense?: boolean;
+    iconName?: string;
+    iconColor?: string;
 }
 
 export interface EditAccountCurrencyDto {
@@ -145,6 +153,8 @@ export interface ReorderAccountDto {
 export interface CreateTransactionCategoryDto {
     userId: number;
     parentId?: number;
+    iconName?: string;
+    iconColor?: string;
     name: string;
     type: CreateTransactionCategoryDtoTypeEnum;
     currency: CreateTransactionCategoryDtoCurrencyEnum;
@@ -168,6 +178,8 @@ export interface ReorderTransactionCategoriesDto {
 export interface EditTransactionCategoryDto {
     status?: EditTransactionCategoryDtoStatusEnum;
     name?: string;
+    iconName?: string;
+    iconColor?: string;
 }
 
 export interface EditTransactionCategoryCurrencyDto {
@@ -1249,7 +1261,7 @@ export class Api<
             },
             params: RequestParams = {},
         ) =>
-            this.request<any, any>({
+            this.request<Transaction[], any>({
                 path: `/transactions/my`,
                 method: 'GET',
                 query: query,

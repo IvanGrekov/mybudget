@@ -3,6 +3,7 @@ import Card from 'components/card/Card';
 import CardContent from 'components/card/CardContent';
 import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
+import EntityIcon from 'components/entity-icon/EntityIcon';
 import Typography from 'components/typography/Typography';
 import EditAccountModal from 'features/account-form-modal/components/edit-account-modal/EditAccountModal';
 import ChangeAccountCurrencyModal from 'features/account-list/components/change-currency-modal/ChangeAccountCurrencyModal';
@@ -35,13 +36,21 @@ export default function AccountCard({
         closeModal: closeDeleteModal,
     } = useModal();
 
-    const { id, type, name, balance, currency } = account;
+    const { id, type, name, balance, currency, iconName, iconColor } = account;
 
     return (
         <>
             <Card>
                 <CardHeader
-                    title={<CardTitle title={name} />}
+                    title={
+                        <>
+                            <EntityIcon
+                                iconName={iconName}
+                                iconColor={iconColor}
+                            />
+                            <CardTitle title={name} />
+                        </>
+                    }
                     actions={
                         <BaseEntityMenu
                             detailsPath={`${EAppRoutes.Accounts}/${id}`}

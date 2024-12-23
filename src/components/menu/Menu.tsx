@@ -1,5 +1,6 @@
 import { MouseEvent, useRef } from 'react';
 
+import cx from 'classnames';
 import FocusTrap from 'focus-trap-react';
 
 import IconButton from 'components/button/IconButton';
@@ -16,6 +17,7 @@ export default function Menu({
     OpenMenuElement,
     tooltipPosition,
     iconSize,
+    className,
     tooltipClassName,
     actionsClassName,
     actionsActiveClassName,
@@ -46,7 +48,11 @@ export default function Menu({
                 onDeactivate,
             }}
         >
-            <div ref={menuRef} className={styles.menu} onClick={onWrapperClick}>
+            <div
+                ref={menuRef}
+                className={cx(styles.menu, className)}
+                onClick={onWrapperClick}
+            >
                 <Tooltip
                     text="Open Menu"
                     open={!isOpen}

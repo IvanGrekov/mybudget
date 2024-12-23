@@ -1,3 +1,4 @@
+import EntityIcon from 'components/entity-icon/EntityIcon';
 import DragIcon from 'components/icons/DragIcon';
 import Tooltip from 'components/tooltip/Tooltip';
 import Typography from 'components/typography/Typography';
@@ -11,10 +12,16 @@ interface ISampleComponentProps {
 export default function SubcategoryItem({
     subcategory,
 }: ISampleComponentProps): JSX.Element {
-    const { name } = subcategory;
+    const { id, name, iconName, iconColor } = subcategory;
 
     return (
         <div className={styles.subcategory}>
+            <EntityIcon
+                iconName={iconName}
+                iconColor={iconColor}
+                isCategory={true}
+            />
+
             <Tooltip text={name}>
                 <Typography
                     variant="subtitle2"
@@ -22,11 +29,11 @@ export default function SubcategoryItem({
                     lineClamp={1}
                     className={styles.title}
                 >
-                    {name}
+                    {`${id}${name}`}
                 </Typography>
             </Tooltip>
 
-            <DragIcon size={30} />
+            <DragIcon size={30} wrapperClassName={styles['drag-icon']} />
         </div>
     );
 }

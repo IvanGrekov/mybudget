@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function MoreIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -13,6 +14,7 @@ export default function MoreIcon({
                 height="24"
                 viewBox="0 0 24 24"
                 className={className}
+                style={{ fill: color }}
             >
                 <circle cx="12" cy="12" r="2" />
                 <circle cx="12" cy="5" r="2" />

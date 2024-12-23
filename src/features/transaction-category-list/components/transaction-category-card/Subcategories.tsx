@@ -1,4 +1,5 @@
 import BaseEntityMenu from 'components/base-entity-menu/BaseEntityMenu';
+import EntityIcon from 'components/entity-icon/EntityIcon';
 import Tooltip from 'components/tooltip/Tooltip';
 import Typography from 'components/typography/Typography';
 import EditTransactionCategoryModal from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/EditTransactionCategoryModal';
@@ -40,10 +41,17 @@ export default function Subcategories({
     return (
         <ul className={styles.subcategories}>
             {subcategories.map((transactionCategory) => {
-                const { id, name, type, currency } = transactionCategory;
+                const { id, name, type, currency, iconName, iconColor } =
+                    transactionCategory;
 
                 return (
                     <li key={id} className={styles.subcategory}>
+                        <EntityIcon
+                            iconName={iconName}
+                            iconColor={iconColor}
+                            isCategory={true}
+                        />
+
                         <Tooltip text={name}>
                             <Typography
                                 variant={isMobile ? 'body1' : 'subtitle2'}
@@ -57,6 +65,7 @@ export default function Subcategories({
 
                         <BaseEntityMenu
                             detailsPath={`${EAppRoutes.TransactionCategories}/${id}`}
+                            className={styles['subcategory-menu']}
                             openEditModal={openEditAccountModal}
                             openChangeCurrencyModal={openChangeCurrencyModal}
                             openDeleteModal={openDeleteModal}

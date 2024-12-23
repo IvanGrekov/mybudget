@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function PictureIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -14,6 +15,7 @@ export default function PictureIcon({
                 height="24"
                 viewBox="0 0 24 24"
                 className={className}
+                style={{ fill: color }}
             >
                 <path
                     fillRule="evenodd"

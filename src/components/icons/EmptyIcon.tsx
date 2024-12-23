@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function EmptyIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -16,6 +17,7 @@ export default function EmptyIcon({
                 height="512"
                 viewBox="0 0 512 512"
                 className={className}
+                style={{ fill: color }}
             >
                 <g>
                     <path

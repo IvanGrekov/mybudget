@@ -4,6 +4,7 @@ import { EIconSizes } from 'components/icons/types/iconSizes';
 
 export default function UkFlagIcon({
     size = EIconSizes.extraSmall,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -13,6 +14,7 @@ export default function UkFlagIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 40 40"
                 className={className}
+                style={{ fill: color }}
             >
                 <defs>
                     <clipPath id="clip-path">

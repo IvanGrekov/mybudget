@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function UploadIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -14,6 +15,7 @@ export default function UploadIcon({
                 height="24"
                 viewBox="0 0 24 24"
                 className={className}
+                style={{ fill: color }}
             >
                 <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
             </svg>

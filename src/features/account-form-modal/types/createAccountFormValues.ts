@@ -1,3 +1,6 @@
 import { CreateAccountDto } from 'types/generated.types';
 
-export type TCreateAccountFormValues = Omit<CreateAccountDto, 'userId'>;
+export type TCreateAccountFormValues = Omit<
+    CreateAccountDto,
+    'userId' | 'iconName' | 'iconColor'
+>;

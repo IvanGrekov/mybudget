@@ -5,8 +5,12 @@ import {
 } from 'types/generated.types';
 
 const getReorderChildTransactionCategories = (
-    items: TransactionCategory[],
+    items?: TransactionCategory[],
 ): ReorderTransactionCategoryDto[] => {
+    if (!items) {
+        return [];
+    }
+
     return items.map(({ id }, index) => {
         return {
             id,

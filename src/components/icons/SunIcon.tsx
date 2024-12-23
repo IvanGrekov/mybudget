@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function SunIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -14,6 +15,7 @@ export default function SunIcon({
                 height="128px"
                 viewBox="0 0 128 128"
                 className={className}
+                style={{ fill: color }}
             >
                 <g>
                     <path

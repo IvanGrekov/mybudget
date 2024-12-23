@@ -36,7 +36,10 @@
 
 .subcategory {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 1rem;
+}
+
+.subcategory-menu {
+    margin-left: auto;
 }

@@ -4,6 +4,7 @@ import { EIconSizes } from 'components/icons/types/iconSizes';
 
 export default function DragIcon({
     size = EIconSizes.small,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -20,6 +21,7 @@ export default function DragIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 style={{
                     rotate: '90deg',
+                    fill: color,
                 }}
                 className={className}
             >

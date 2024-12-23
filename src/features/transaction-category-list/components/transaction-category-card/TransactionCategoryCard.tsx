@@ -9,6 +9,7 @@ import CardContent from 'components/card/CardContent';
 import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
 import Divider from 'components/divider/Divider';
+import EntityIcon from 'components/entity-icon/EntityIcon';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
 import EditTransactionCategoryModal from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/EditTransactionCategoryModal';
@@ -48,7 +49,8 @@ export default function TransactionCategoryCard({
         closeModal: closeDeleteModal,
     } = useModal();
 
-    const { id, name, currency, children, type } = transactionCategory;
+    const { id, name, currency, children, type, iconName, iconColor } =
+        transactionCategory;
 
     const toggleChildrenVisibility = (): void => {
         setIsChildrenVisible((prev) => !prev);
@@ -59,11 +61,18 @@ export default function TransactionCategoryCard({
             <Card>
                 <CardHeader
                     title={
-                        <CardTitle
-                            title={name}
-                            variant={isMobile ? 'body1' : 'subtitle2'}
-                            className={styles.title}
-                        />
+                        <>
+                            <EntityIcon
+                                iconName={iconName}
+                                iconColor={iconColor}
+                                isCategory={true}
+                            />
+                            <CardTitle
+                                title={name}
+                                titleVariant={isMobile ? 'body1' : 'subtitle2'}
+                                className={styles.title}
+                            />
+                        </>
                     }
                     actions={
                         <BaseEntityMenu

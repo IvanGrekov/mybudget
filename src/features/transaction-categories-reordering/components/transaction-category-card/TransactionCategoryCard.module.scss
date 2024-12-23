@@ -11,8 +11,11 @@
 
 .subcategory {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 1rem;
     font-weight: 700;
+}
+
+.drag-icon {
+    margin-left: auto;
 }

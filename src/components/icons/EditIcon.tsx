@@ -3,6 +3,7 @@ import { IIconProps } from 'components/icons/types/iconProps';
 
 export default function EditIcon({
     size,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -10,6 +11,7 @@ export default function EditIcon({
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 className={className}
+                style={{ fill: color }}
                 width="64"
                 height="64"
                 viewBox="0 0 64 64"

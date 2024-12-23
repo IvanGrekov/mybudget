@@ -6,7 +6,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { reorderTransactionCategories } from 'actions/reorderTransactionCategories';
 import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
+import { DROP_PLACEHOLDER_ID } from 'constants/dropPlaceholderId';
+import { getNewSortableItemsOnParentAssigning } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentAssigning';
 import { getNewSortableItemsOnParentChanging } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentChanging';
+import { getNewSortableItemsOnParentUnassigning } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentUnassigning';
 import { getNewSortableItemsOnRootReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnRootReordering';
 import { getNewSortableItemsOnSubcategoryReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnSubcategoryReordering';
 import { getReorderParentTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getReorderParentTransactionCategories';
@@ -133,40 +136,87 @@ export const useSortableTransactionCategories = (
             const sortableContainerId =
                 active.data.current.sortable.containerId;
             const isRootReordering = sortableContainerId === ROOT_CONTAINER_ID;
-            const overParentElement = isRootReordering
-                ? null
-                : sortableItems.find(({ id, children }) => {
-                      if (id === over.id) {
-                          return true;
-                      }
 
-                      return children.some((child) => child.id === over.id);
-                  });
+            const isPlaceholdersOver =
+                typeof over.id === 'string' &&
+                over.id.startsWith(DROP_PLACEHOLDER_ID);
+            const overParentId = isPlaceholdersOver
+                ? over.data.current?.parentId
+                : undefined;
+
+            let isSubcategoryOver: boolean = false;
+
+            const overParentElement = sortableItems.find(({ id, children }) => {
+                if (id === over.id || id === overParentId) {
+                    return true;
+                }
+
+                const isSubcategory = children.some(
+                    (child) =>
+                        child.id === over.id || child.id === overParentId,
+                );
+
+                if (isSubcategory) {
+                    isSubcategoryOver = true;
+                }
+
+                return isSubcategory;
+            });
+
+            const isParentUnassigning =
+                isPlaceholdersOver && !!currentActiveItem?.parent;
+
+            const isParentAssigning =
+                isRootReordering &&
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                (isPlaceholdersOver || isSubcategoryOver) &&
+                !currentActiveItem?.parent;
+
             const isParentChanging =
                 currentActiveItem?.parent &&
                 currentActiveItem.parent.id !== overParentElement?.id;
 
-            if (isParentChanging) {
-                newSortableItems = getNewSortableItemsOnParentChanging({
-                    overParentElement,
-                    currentActiveItem,
-                    sortableItems,
-                    active,
-                    over,
-                });
-            } else if (isRootReordering) {
-                newSortableItems = getNewSortableItemsOnRootReordering({
-                    sortableItems,
-                    active,
-                    over,
-                });
-            } else {
-                newSortableItems = getNewSortableItemsOnSubcategoryReordering({
-                    sortableItems,
-                    sortableContainerId,
-                    active,
-                    over,
-                });
+            switch (true) {
+                case isParentUnassigning:
+                    newSortableItems = getNewSortableItemsOnParentUnassigning({
+                        overPlaceholderId: over.id,
+                        currentActiveItem,
+                        sortableItems,
+                    });
+                    break;
+                case isParentAssigning && !!currentActiveItem?.children.length:
+                    return;
+                case currentActiveItem && isParentAssigning:
+                    newSortableItems = getNewSortableItemsOnParentAssigning({
+                        overParentId,
+                        currentActiveItem,
+                        sortableItems,
+                    });
+                    break;
+                case isParentChanging:
+                    newSortableItems = getNewSortableItemsOnParentChanging({
+                        overParentElement,
+                        currentActiveItem,
+                        sortableItems,
+                        active,
+                        over,
+                    });
+                    break;
+                case isRootReordering:
+                    newSortableItems = getNewSortableItemsOnRootReordering({
+                        sortableItems,
+                        active,
+                        over,
+                    });
+                    break;
+                default:
+                    newSortableItems =
+                        getNewSortableItemsOnSubcategoryReordering({
+                            sortableItems,
+                            sortableContainerId,
+                            active,
+                            over,
+                        });
             }
 
             if (!newSortableItems) {

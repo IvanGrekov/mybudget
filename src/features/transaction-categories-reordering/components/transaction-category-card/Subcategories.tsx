@@ -28,7 +28,12 @@ export default function Subcategories({
                 }
 
                 return (
-                    <DragDropListItem key={id} id={id} isLoading={isLoading}>
+                    <DragDropListItem
+                        key={id}
+                        id={id}
+                        isLoading={isLoading}
+                        isChild={true}
+                    >
                         <SubcategoryItem subcategory={subcategory} />
                     </DragDropListItem>
                 );

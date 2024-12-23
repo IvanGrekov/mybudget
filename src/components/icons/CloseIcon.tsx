@@ -4,6 +4,7 @@ import { EIconSizes } from 'components/icons/types/iconSizes';
 
 export default function CloseIcon({
     size = EIconSizes.small,
+    color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
@@ -20,6 +21,7 @@ export default function CloseIcon({
                 width={212.982}
                 height={212.982}
                 className={className}
+                style={{ fill: color }}
             >
                 <g>
                     <path
