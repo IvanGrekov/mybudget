@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { ENTITY_ICON_NAME_VALIDATION } from 'constants/entityIcons.constants';
 import {
     ACCOUNT_FORM_FIELD_LABELS,
     ACCOUNT_NAME_VALIDATION,
@@ -37,5 +38,7 @@ export const CREATE_ACCOUNT_FORM_VALIDATION =
             shouldHideFromOverallBalance: yup.boolean(),
             shouldShowAsIncome: yup.boolean(),
             shouldShowAsExpense: yup.boolean(),
+            iconName: ENTITY_ICON_NAME_VALIDATION,
+            iconColor: yup.string(),
         }),
     );

@@ -3,6 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
+import {
+    DEFAULT_ACCOUNT_ICON_NAME,
+    DEFAULT_ENTITY_ICON_COLOR,
+} from 'constants/entityIcons.constants';
 import AccountFormContent from 'features/account-form-modal/components/account-form-content/AccountFormContent';
 import { CREATE_ACCOUNT_FORM_VALIDATION } from 'features/account-form-modal/components/create-account-modal/constants/createAccountFormValidation';
 import { useCreateAccount } from 'features/account-form-modal/components/create-account-modal/hooks/useCreateAccount';
@@ -33,6 +37,8 @@ export default function CreateAccountModalContent({
             type: getDefaultType(defaultAccountType),
             currency: getDefaultCurrency(userDefaultCurrency),
             balance: 0,
+            iconName: DEFAULT_ACCOUNT_ICON_NAME,
+            iconColor: DEFAULT_ENTITY_ICON_COLOR,
         },
         resolver: CREATE_ACCOUNT_FORM_VALIDATION,
     });

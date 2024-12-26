@@ -5,6 +5,8 @@ import FormCheckboxField from 'components/form-fields/FormCheckboxField';
 import FormTextField from 'components/form-fields/FormTextField';
 import Show from 'components/show/Show';
 import CurrencyField from 'features/account-form-modal/components/account-form-content/CurrencyField';
+import IconColorField from 'features/account-form-modal/components/account-form-content/IconColorField';
+import IconNameField from 'features/account-form-modal/components/account-form-content/IconNameField';
 import StatusField from 'features/account-form-modal/components/account-form-content/StatusField';
 import TypeField from 'features/account-form-modal/components/account-form-content/TypeField';
 import {
@@ -90,6 +92,10 @@ export default function AccountFormContent({
                     label={ACCOUNT_FORM_FIELD_LABELS.shouldShowAsExpense}
                 />
             </Show>
+
+            <IconNameField />
+
+            <IconColorField />
         </div>
     );
 }

@@ -30,6 +30,8 @@ export default function EditAccountModalContent({
         shouldHideFromOverallBalance,
         shouldShowAsExpense,
         shouldShowAsIncome,
+        iconName,
+        iconColor,
     } = account;
 
     const methods = useForm<EditAccountDto>({
@@ -40,6 +42,8 @@ export default function EditAccountModalContent({
             shouldHideFromOverallBalance,
             shouldShowAsExpense,
             shouldShowAsIncome,
+            iconName,
+            iconColor,
         },
         resolver: EDIT_ACCOUNT_FORM_VALIDATION,
     });
