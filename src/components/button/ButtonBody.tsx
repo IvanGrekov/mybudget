@@ -15,6 +15,7 @@ const ButtonBody = (
         form,
         title,
         Icon,
+        iconColor,
         variant = 'outlined',
         size = 'regular',
         textVariant = size === 'big' ? 'button' : 'body2',
@@ -73,7 +74,7 @@ const ButtonBody = (
 
                     {Icon && (
                         <span className={styles.icon}>
-                            <Icon size={30} />
+                            <Icon size={30} color={iconColor} />
                         </span>
                     )}
                 </>

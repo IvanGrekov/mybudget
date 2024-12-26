@@ -14,6 +14,7 @@ function IconButtonBody(
         isActive,
         tabIndex,
         iconSize,
+        iconColor,
         variant,
         className,
         onClick,
@@ -38,7 +39,7 @@ function IconButtonBody(
                 className,
             )}
         >
-            <Icon size={iconSize} />
+            <Icon size={iconSize} color={iconColor} />
         </button>
     );
 }

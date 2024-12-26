@@ -1,4 +1,4 @@
-import { CSSProperties, MouseEventHandler } from 'react';
+import { CSSProperties, MouseEventHandler, FC } from 'react';
 
 import { IIconProps } from 'components/icons/types/iconProps';
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
@@ -21,7 +21,8 @@ export interface IButtonProps extends IBaseButtonProps {
     size?: 'small' | 'big' | 'regular';
     textVariant?: TTypographyVariants;
     isLoading?: boolean;
-    Icon?: (props: IIconProps) => JSX.Element;
+    Icon?: FC<IIconProps>;
+    iconColor?: IIconProps['color'];
     style?: CSSProperties;
     className?: string;
     linkClassName?: string;
@@ -29,7 +30,8 @@ export interface IButtonProps extends IBaseButtonProps {
 }
 
 export interface IIconButtonProps extends IBaseButtonProps {
-    Icon: (props: IIconProps) => JSX.Element;
+    Icon: FC<IIconProps>;
     variant?: 'primary' | 'overlayed';
     iconSize?: IIconProps['size'];
+    iconColor?: IIconProps['color'];
 }

@@ -26,7 +26,7 @@ export default function TransactionCategoryCard({
     isLoading,
     isDragging,
 }: ITransactionCategoryCardProps): JSX.Element {
-    const { name, id, iconName, iconColor, children } = transactionCategory;
+    const { id, name, iconName, iconColor, children } = transactionCategory;
 
     return (
         <Card>
@@ -38,7 +38,7 @@ export default function TransactionCategoryCard({
                             iconColor={iconColor}
                             isCategory={true}
                         />
-                        <CardTitle title={`${id}${name}`} />
+                        <CardTitle title={name} />
                     </>
                 }
                 actions={<DragIcon />}

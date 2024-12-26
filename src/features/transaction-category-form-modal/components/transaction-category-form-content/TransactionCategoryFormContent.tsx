@@ -1,7 +1,8 @@
 import FormTextField from 'components/form-fields/FormTextField';
 import Show from 'components/show/Show';
-import Spacing from 'components/spacing/Spacing';
 import CurrencyField from 'features/transaction-category-form-modal/components/transaction-category-form-content/CurrencyField';
+import IconColorField from 'features/transaction-category-form-modal/components/transaction-category-form-content/IconColorField';
+import IconNameField from 'features/transaction-category-form-modal/components/transaction-category-form-content/IconNameField';
 import ParentField from 'features/transaction-category-form-modal/components/transaction-category-form-content/ParentField';
 import StatusField from 'features/transaction-category-form-modal/components/transaction-category-form-content/StatusField';
 import TypeField from 'features/transaction-category-form-modal/components/transaction-category-form-content/TypeField';
@@ -42,7 +43,9 @@ export default function TransactionCategoryFormContent({
                 <ParentField />
             </Show>
 
-            <Spacing xs={60} />
+            <IconNameField />
+
+            <IconColorField />
         </div>
     );
 }

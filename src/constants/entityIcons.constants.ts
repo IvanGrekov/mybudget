@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 import AddIcon from 'components/icons/AddIcon';
 import ArrowIcon from 'components/icons/ArrowIcon';
 import BankingCardIcon from 'components/icons/BankingCardIcon';
@@ -14,7 +16,6 @@ import ClothesIcon from 'components/icons/ClothesIcon';
 import CryptoIcon from 'components/icons/CryptoIcon';
 import DebtIcon from 'components/icons/DebtIcon';
 import DonateIcon from 'components/icons/DonateIcon';
-import DragIcon from 'components/icons/DragIcon';
 import EditIcon from 'components/icons/EditIcon';
 import EducationIcon from 'components/icons/EducationIcon';
 import EmotionIcon from 'components/icons/EmotionIcon';
@@ -36,7 +37,6 @@ import OutlinedCircleIcon from 'components/icons/OutlinedCircleIcon';
 import OutlinedSquareIcon from 'components/icons/OutlinedSquareIcon';
 import PictureIcon from 'components/icons/PictureIcon';
 import RemoveIcon from 'components/icons/RemoveIcon';
-import SearchIcon from 'components/icons/SearchIcon';
 import SubscriptionIcon from 'components/icons/SubscriptionIcon';
 import SunIcon from 'components/icons/SunIcon';
 import TaxiIcon from 'components/icons/TaxiIcon';
@@ -67,7 +67,6 @@ export const ENTITY_ICONS = new Map<string, React.FC<IIconProps>>([
     ['crypto', CryptoIcon],
     ['debt', DebtIcon],
     ['donate', DonateIcon],
-    ['drag', DragIcon],
     ['edit', EditIcon],
     ['error', ErrorIcon],
     ['eye', EyeIcon],
@@ -79,7 +78,6 @@ export const ENTITY_ICONS = new Map<string, React.FC<IIconProps>>([
     ['outlined-square', OutlinedSquareIcon],
     ['picture', PictureIcon],
     ['remove', RemoveIcon],
-    ['search', SearchIcon],
     ['sun', SunIcon],
     ['top-arrow', TopArrowIcon],
     ['upload', UploadIcon],
@@ -99,3 +97,9 @@ export const ENTITY_ICONS = new Map<string, React.FC<IIconProps>>([
     ['gift', GiftIcon],
     ['education', EducationIcon],
 ]);
+
+export const DEFAULT_ENTITY_ICON_COLOR = '#000000';
+
+export const ENTITY_ICON_NAME_VALIDATION = yup
+    .string()
+    .oneOf([...ENTITY_ICONS.keys()]);

@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { ENTITY_ICON_NAME_VALIDATION } from 'constants/entityIcons.constants';
 import {
     TRANSACTION_CATEGORY_FORM_FIELD_LABELS,
     TRANSACTION_CATEGORY_NAME_VALIDATION,
@@ -32,6 +33,8 @@ export const CREATE_TRANSACTION_CATEGORY_FORM_VALIDATION =
                         TRANSACTION_CATEGORY_FORM_FIELD_LABELS.currency,
                     ),
                 ),
+            iconName: ENTITY_ICON_NAME_VALIDATION,
+            iconColor: yup.string(),
             parentId: yup.number().nullable(),
         }),
     );

@@ -12,6 +12,8 @@ export const TRANSACTION_CATEGORY_FORM_FIELD_NAMES = {
     currency: 'currency',
     parentId: 'parentId',
     status: 'status',
+    iconName: 'iconName',
+    iconColor: 'iconColor',
 };
 
 export const TRANSACTION_CATEGORY_FORM_FIELD_LABELS = {
@@ -20,6 +22,8 @@ export const TRANSACTION_CATEGORY_FORM_FIELD_LABELS = {
     currency: 'Currency',
     parentId: 'Parent',
     status: 'Status',
+    iconName: 'Icon Name',
+    iconColor: 'Icon Color',
 };
 
 export const TRANSACTION_CATEGORY_NAME_VALIDATION = yup

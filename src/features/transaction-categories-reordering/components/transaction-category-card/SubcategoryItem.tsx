@@ -12,7 +12,7 @@ interface ISampleComponentProps {
 export default function SubcategoryItem({
     subcategory,
 }: ISampleComponentProps): JSX.Element {
-    const { id, name, iconName, iconColor } = subcategory;
+    const { name, iconName, iconColor } = subcategory;
 
     return (
         <div className={styles.subcategory}>
@@ -29,7 +29,7 @@ export default function SubcategoryItem({
                     lineClamp={1}
                     className={styles.title}
                 >
-                    {`${id}${name}`}
+                    {name}
                 </Typography>
             </Tooltip>
 

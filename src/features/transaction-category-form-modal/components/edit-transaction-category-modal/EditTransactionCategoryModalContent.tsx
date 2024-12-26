@@ -26,12 +26,14 @@ export default function EditTransactionCategoryModalContent({
     hideModal,
     onCloseModal,
 }: IEditTransactionCategoryModalContentProps): JSX.Element {
-    const { name, status } = transactionCategory;
+    const { name, status, iconName, iconColor } = transactionCategory;
 
     const methods = useForm<EditTransactionCategoryDto>({
         defaultValues: {
             status: getDefaultStatus(status),
             name,
+            iconName,
+            iconColor,
         },
         resolver: EDIT_TRANSACTION_CATEGORY_FORM_VALIDATION,
     });

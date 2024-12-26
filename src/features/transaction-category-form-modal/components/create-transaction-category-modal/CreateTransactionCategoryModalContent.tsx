@@ -3,6 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
+import {
+    DEFAULT_CATEGORY_ICON_NAME,
+    DEFAULT_ENTITY_ICON_COLOR,
+} from 'constants/entityIcons.constants';
 import { CREATE_TRANSACTION_CATEGORY_FORM_VALIDATION } from 'features/transaction-category-form-modal/components/create-transaction-category-modal/constants/createTransactionCategoryFormValidation';
 import { useCreateTransactionCategory } from 'features/transaction-category-form-modal/components/create-transaction-category-modal/hooks/useCreateTransactionCategory';
 import { getDefaultCurrency } from 'features/transaction-category-form-modal/components/create-transaction-category-modal/utils/getDefaultCurrency';
@@ -32,6 +36,8 @@ export default function CreateTransactionCategoryModalContent({
         defaultValues: {
             type: getDefaultType(defaultTransactionCategoryType),
             currency: getDefaultCurrency(userDefaultCurrency),
+            iconName: DEFAULT_CATEGORY_ICON_NAME,
+            iconColor: DEFAULT_ENTITY_ICON_COLOR,
         },
         resolver: CREATE_TRANSACTION_CATEGORY_FORM_VALIDATION,
     });
