@@ -10,7 +10,7 @@ export const getAddSubcategory: TGetAddSubcategory = (newCategory) => {
     return (
         parentCategory?: TransactionCategory | null,
     ): TransactionCategory | null | undefined => {
-        if (parentCategory && parentCategory.id === newCategory.parent.id) {
+        if (parentCategory && parentCategory.id === newCategory.parent?.id) {
             return {
                 ...parentCategory,
                 children: [

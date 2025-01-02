@@ -151,7 +151,7 @@ export const useSortableTransactionCategories = (
                     return true;
                 }
 
-                const isSubcategory = children.some(
+                const isSubcategory = children?.some(
                     (child) =>
                         child.id === over.id || child.id === overParentId,
                 );
@@ -184,7 +184,7 @@ export const useSortableTransactionCategories = (
                         sortableItems,
                     });
                     break;
-                case isParentAssigning && !!currentActiveItem?.children.length:
+                case isParentAssigning && !!currentActiveItem?.children?.length:
                     return;
                 case currentActiveItem && isParentAssigning:
                     newSortableItems = getNewSortableItemsOnParentAssigning({
@@ -252,7 +252,7 @@ export const useSortableTransactionCategories = (
                 break;
             }
 
-            if (children.length) {
+            if (children?.length) {
                 for (const child of children) {
                     if (child.id === activeId) {
                         setActiveItem({

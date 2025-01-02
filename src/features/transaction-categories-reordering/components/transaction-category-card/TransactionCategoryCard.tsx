@@ -45,7 +45,6 @@ export default function TransactionCategoryCard({
                 shouldHideBorder={true}
             />
 
-            {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
             <Show when={!!children?.length}>
                 <CardContent className={styles.content}>
                     <Divider />
@@ -66,7 +65,6 @@ export default function TransactionCategoryCard({
                 </CardContent>
             </Show>
 
-            {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
             <Show when={!children?.length}>
                 <SortableContext items={[]} id={String(id)}>
                     <DroppableContainer parentId={id} />

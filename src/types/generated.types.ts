@@ -33,15 +33,15 @@ export interface TransactionCategory {
     user: User;
     outgoingTransactions: Transaction[];
     incomingTransactions: Transaction[];
-    children: TransactionCategory[];
-    parent: TransactionCategory;
+    children?: TransactionCategory[];
+    parent?: TransactionCategory;
     name: string;
     type: TransactionCategoryTypeEnum;
     status: TransactionCategoryStatusEnum;
     currency: TransactionCategoryCurrencyEnum;
     order: number;
-    iconName: string;
-    iconColor: string;
+    iconName?: string;
+    iconColor?: string;
     /** @format date-time */
     createdAt: string;
 }
@@ -58,11 +58,11 @@ export interface User {
     /** Default currency for users accounts and transactions */
     defaultCurrency: UserDefaultCurrencyEnum;
     id: number;
-    googleId: string;
+    googleId?: string;
     email: string;
-    password: string;
+    password?: string;
     isTfaEnabled: boolean;
-    tfaSecret: string;
+    tfaSecret?: string;
     role: UserRoleEnum;
     accounts: Account[];
     transactionCategories: TransactionCategory[];
@@ -89,8 +89,8 @@ export interface Account {
     shouldShowAsIncome: boolean;
     shouldShowAsExpense: boolean;
     order: number;
-    iconName: string;
-    iconColor: string;
+    iconName?: string;
+    iconColor?: string;
     /** @format date-time */
     createdAt: string;
 }
@@ -118,7 +118,6 @@ export interface EditUserRoleDto {
 
 export interface CreateAccountDto {
     userId: number;
-    iconName?: string;
     iconColor?: string;
     name: string;
     type: CreateAccountDtoTypeEnum;
@@ -127,6 +126,7 @@ export interface CreateAccountDto {
     shouldHideFromOverallBalance?: boolean;
     shouldShowAsIncome?: boolean;
     shouldShowAsExpense?: boolean;
+    iconName?: string;
 }
 
 export interface EditAccountDto {
@@ -153,11 +153,11 @@ export interface ReorderAccountDto {
 export interface CreateTransactionCategoryDto {
     userId: number;
     parentId?: number;
-    iconName?: string;
     iconColor?: string;
     name: string;
     type: CreateTransactionCategoryDtoTypeEnum;
     currency: CreateTransactionCategoryDtoCurrencyEnum;
+    iconName?: string;
 }
 
 export interface ReorderTransactionCategoryDto {

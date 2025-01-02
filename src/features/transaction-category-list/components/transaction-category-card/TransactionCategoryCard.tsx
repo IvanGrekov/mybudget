@@ -90,7 +90,7 @@ export default function TransactionCategoryCard({
                         <Typography element="span">{currency}</Typography>
                     </Typography>
 
-                    <Show when={!!children.length}>
+                    <Show when={!!children?.length}>
                         <div
                             className={cx(
                                 styles['subcategories-toggle-button'],
@@ -112,7 +112,7 @@ export default function TransactionCategoryCard({
                         </div>
                     </Show>
 
-                    <Show when={isChildrenVisible && !!children.length}>
+                    <Show when={isChildrenVisible && !!children?.length}>
                         <Divider />
                         <Subcategories
                             parentCategoryId={id}
@@ -142,7 +142,6 @@ export default function TransactionCategoryCard({
                 id={id}
                 type={type}
                 name={name}
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 hasChildren={!!children?.length}
                 isOpen={isDeleteModalOpen}
                 onClose={closeDeleteModal}

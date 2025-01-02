@@ -23,13 +23,13 @@ export const getNewSortableItemsOnParentChanging = ({
     }
 
     const isOverElementParent = overParentElement.id === over.id;
-    const prevParentElementId = currentActiveItem.parent.id;
+    const prevParentElementId = currentActiveItem.parent?.id;
 
     return sortableItems.map((item) => {
         if (item.id === prevParentElementId) {
             return {
                 ...item,
-                children: item.children.filter(
+                children: item.children?.filter(
                     (child) => child.id !== currentActiveItem.id,
                 ),
             };
@@ -39,7 +39,7 @@ export const getNewSortableItemsOnParentChanging = ({
             return {
                 ...item,
                 children: [
-                    ...item.children,
+                    ...(item.children || []),
                     {
                         ...currentActiveItem,
                         parent: item,
@@ -48,7 +48,11 @@ export const getNewSortableItemsOnParentChanging = ({
             };
         }
 
-        if (!isOverElementParent && item.id === overParentElement.id) {
+        if (
+            !isOverElementParent &&
+            item.id === overParentElement.id &&
+            item.children
+        ) {
             const { newIndex } = getIndexes({
                 items: item.children,
                 active,

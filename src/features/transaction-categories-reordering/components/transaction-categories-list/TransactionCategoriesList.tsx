@@ -70,7 +70,6 @@ export default function TransactionCategoriesList(): JSX.Element {
                                 id={transactionCategory.id}
                                 isLoading={isEditOrderLoading}
                                 hasChildren={
-                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                                     !!transactionCategory.children?.length
                                 }
                             >

@@ -13,13 +13,13 @@ import { TransactionCategory } from 'types/generated.types';
 
 interface ISubcategoriesProps {
     parentCategoryId: number;
-    subcategories: TransactionCategory[];
+    subcategories?: TransactionCategory[];
 }
 
 export default function Subcategories({
     parentCategoryId,
     subcategories,
-}: ISubcategoriesProps): JSX.Element {
+}: ISubcategoriesProps): JSX.Element | null {
     const isMobile = useIsMobile();
 
     const {
@@ -37,6 +37,10 @@ export default function Subcategories({
         openModal: openDeleteModal,
         closeModal: closeDeleteModal,
     } = useModal();
+
+    if (!subcategories) {
+        return null;
+    }
 
     return (
         <ul className={styles.subcategories}>

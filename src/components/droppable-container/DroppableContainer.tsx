@@ -30,6 +30,15 @@ export default function DroppableContainer({
         return null;
     }
 
+    const isActiveChild =
+        !!active.data.current &&
+        'isChild' in active.data.current &&
+        active.data.current.isChild;
+
+    if (isActiveChild) {
+        return null;
+    }
+
     return (
         <div
             ref={setNodeRef}

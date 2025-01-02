@@ -15,7 +15,6 @@ export const getNewSortableItemsOnParentAssigning = ({
         return null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (currentActiveItem.children?.length) {
         return null;
     }
@@ -29,7 +28,7 @@ export const getNewSortableItemsOnParentAssigning = ({
             return {
                 ...item,
                 children: [
-                    ...item.children,
+                    ...(item.children || []),
                     {
                         ...currentActiveItem,
                         parent: item,

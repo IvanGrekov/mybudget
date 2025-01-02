@@ -4,7 +4,7 @@ export const calculateActiveTransactionCategories = (
     activeTransactionCategories: TransactionCategory[],
 ): number => {
     return activeTransactionCategories.reduce(
-        (acc, { children }) => acc + children.length + 1,
+        (acc, { children }) => acc + (children?.length || 0) + 1,
         0,
     );
 };

@@ -34,7 +34,7 @@ export const getNewSortableItemsOnParentUnassigning = ({
         if (item.id === prevParent.id) {
             return {
                 ...item,
-                children: item.children.filter(
+                children: item.children?.filter(
                     (child) => child.id !== currentActiveItem.id,
                 ),
             };

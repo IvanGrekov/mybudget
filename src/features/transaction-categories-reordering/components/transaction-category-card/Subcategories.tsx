@@ -6,7 +6,7 @@ import styles from 'features/transaction-categories-reordering/components/transa
 import { TransactionCategory } from 'types/generated.types';
 
 interface ISubcategoriesProps {
-    subcategories: TransactionCategory[];
+    subcategories?: TransactionCategory[];
     isLoading?: boolean;
     isDragging?: boolean;
 }
@@ -15,7 +15,11 @@ export default function Subcategories({
     subcategories,
     isLoading,
     isDragging,
-}: ISubcategoriesProps): JSX.Element {
+}: ISubcategoriesProps): JSX.Element | null {
+    if (!subcategories) {
+        return null;
+    }
+
     return (
         <ul className={styles.subcategories}>
             {subcategories.map((subcategory) => {
@@ -51,7 +55,11 @@ export function SortableSubcategories({
     parentId,
     subcategories,
     ...rest
-}: ISortableSubcategoriesProps): JSX.Element {
+}: ISortableSubcategoriesProps): JSX.Element | null {
+    if (!subcategories) {
+        return null;
+    }
+
     return (
         <SortableContext items={subcategories} id={String(parentId)}>
             <Subcategories subcategories={subcategories} {...rest} />
