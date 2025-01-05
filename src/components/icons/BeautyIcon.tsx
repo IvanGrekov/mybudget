@@ -21,7 +21,7 @@ export default function BeautyIcon({
                 strokeLinejoin="round"
                 strokeMiterlimit="2"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g transform="matrix(1,0,0,1,-1686,-562)">
                     <g id="Icons">

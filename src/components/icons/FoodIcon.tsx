@@ -18,7 +18,7 @@ export default function FoodIcon({
                 viewBox="0 0 64 64.001"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <path
                     d="M33,17.001c-8.271,0-15,6.729-15,15s6.729,15,15,15s15-6.729,15-15S41.271,17.001,33,17.001z M33,45.001

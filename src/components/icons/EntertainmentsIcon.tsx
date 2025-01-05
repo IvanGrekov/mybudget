@@ -18,7 +18,7 @@ export default function EntertainmentsIcon({
                 viewBox="0 0 64 64"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <path
                     d="M14.292,33.707c0.286,0.285,0.716,0.372,1.09,0.217C15.756,33.77,16,33.404,16,33c0-2.054-2.534-6-6-6s-6,3.946-6,6

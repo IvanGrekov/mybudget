@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.caption {
+    color: var(--foreground-opacity);
+}

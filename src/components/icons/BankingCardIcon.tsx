@@ -19,7 +19,7 @@ export default function BankingCardIcon({
                 viewBox="0 0 168 168"
                 fill="none"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <path
                     fillRule="evenodd"

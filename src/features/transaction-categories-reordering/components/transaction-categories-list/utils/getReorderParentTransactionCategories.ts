@@ -3,9 +3,10 @@ import {
     ReorderParentTransactionCategoryDto,
     ReorderTransactionCategoryDto,
 } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 const getReorderChildTransactionCategories = (
-    items?: TransactionCategory[],
+    items?: Maybe<TransactionCategory[]>,
 ): ReorderTransactionCategoryDto[] => {
     if (!items) {
         return [];

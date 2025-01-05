@@ -15,6 +15,7 @@ type TCustomSelectProps<T> = Pick<
     | 'error'
     | 'disabled'
     | 'getOptionLabel'
+    | 'getOptionReactNode'
     | 'onChange'
     | 'isFullWidth'
     | 'className'

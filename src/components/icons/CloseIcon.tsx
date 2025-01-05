@@ -21,7 +21,7 @@ export default function CloseIcon({
                 width={212.982}
                 height={212.982}
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

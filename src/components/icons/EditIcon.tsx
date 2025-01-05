@@ -11,7 +11,7 @@ export default function EditIcon({
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
                 width="64"
                 height="64"
                 viewBox="0 0 64 64"

@@ -12,17 +12,17 @@
 export interface Transaction {
     id: number;
     user: User;
-    fromAccount?: Account;
+    fromAccount?: Account | null;
     fromAccountUpdatedBalance?: number;
-    toAccount?: Account;
-    toAccountUpdatedBalance?: number;
-    fromCategory?: TransactionCategory;
-    toCategory?: TransactionCategory;
+    toAccount?: Account | null;
+    toAccountUpdatedBalance?: number | null;
+    fromCategory?: TransactionCategory | null;
+    toCategory?: TransactionCategory | null;
     type: TransactionTypeEnum;
     value: number;
-    fee?: number;
+    fee?: number | null;
     currency: TransactionCurrencyEnum;
-    currencyRate?: number;
+    currencyRate?: number | null;
     description: string;
     /** @format date-time */
     createdAt: string;
@@ -33,15 +33,15 @@ export interface TransactionCategory {
     user: User;
     outgoingTransactions: Transaction[];
     incomingTransactions: Transaction[];
-    children?: TransactionCategory[];
-    parent?: TransactionCategory;
+    children?: TransactionCategory[] | null;
+    parent?: TransactionCategory | null;
     name: string;
     type: TransactionCategoryTypeEnum;
     status: TransactionCategoryStatusEnum;
     currency: TransactionCategoryCurrencyEnum;
     order: number;
-    iconName?: string;
-    iconColor?: string;
+    iconName?: string | null;
+    iconColor?: string | null;
     /** @format date-time */
     createdAt: string;
 }
@@ -58,11 +58,11 @@ export interface User {
     /** Default currency for users accounts and transactions */
     defaultCurrency: UserDefaultCurrencyEnum;
     id: number;
-    googleId?: string;
+    googleId?: string | null;
     email: string;
-    password?: string;
+    password?: string | null;
     isTfaEnabled: boolean;
-    tfaSecret?: string;
+    tfaSecret?: string | null;
     role: UserRoleEnum;
     accounts: Account[];
     transactionCategories: TransactionCategory[];
@@ -89,8 +89,8 @@ export interface Account {
     shouldShowAsIncome: boolean;
     shouldShowAsExpense: boolean;
     order: number;
-    iconName?: string;
-    iconColor?: string;
+    iconName?: string | null;
+    iconColor?: string | null;
     /** @format date-time */
     createdAt: string;
 }
@@ -118,7 +118,7 @@ export interface EditUserRoleDto {
 
 export interface CreateAccountDto {
     userId: number;
-    iconColor?: string;
+    iconColor?: string | null;
     name: string;
     type: CreateAccountDtoTypeEnum;
     currency: CreateAccountDtoCurrencyEnum;
@@ -126,7 +126,7 @@ export interface CreateAccountDto {
     shouldHideFromOverallBalance?: boolean;
     shouldShowAsIncome?: boolean;
     shouldShowAsExpense?: boolean;
-    iconName?: string;
+    iconName?: string | null;
 }
 
 export interface EditAccountDto {
@@ -136,8 +136,8 @@ export interface EditAccountDto {
     shouldHideFromOverallBalance?: boolean;
     shouldShowAsIncome?: boolean;
     shouldShowAsExpense?: boolean;
-    iconName?: string;
-    iconColor?: string;
+    iconName?: string | null;
+    iconColor?: string | null;
 }
 
 export interface EditAccountCurrencyDto {
@@ -153,11 +153,11 @@ export interface ReorderAccountDto {
 export interface CreateTransactionCategoryDto {
     userId: number;
     parentId?: number;
-    iconColor?: string;
+    iconColor?: string | null;
     name: string;
     type: CreateTransactionCategoryDtoTypeEnum;
     currency: CreateTransactionCategoryDtoCurrencyEnum;
-    iconName?: string;
+    iconName?: string | null;
 }
 
 export interface ReorderTransactionCategoryDto {
@@ -178,8 +178,8 @@ export interface ReorderTransactionCategoriesDto {
 export interface EditTransactionCategoryDto {
     status?: EditTransactionCategoryDtoStatusEnum;
     name?: string;
-    iconName?: string;
-    iconColor?: string;
+    iconName?: string | null;
+    iconColor?: string | null;
 }
 
 export interface EditTransactionCategoryCurrencyDto {

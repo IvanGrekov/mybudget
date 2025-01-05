@@ -8,6 +8,7 @@ type TFormTextFieldProps = Pick<
     'label' | 'type' | 'disabled' | 'required' | 'maxLength'
 > & {
     name: string;
+    formatValue?: (value: number) => number;
 };
 
 export default function FormTextField({
@@ -17,6 +18,7 @@ export default function FormTextField({
     disabled,
     required,
     maxLength,
+    formatValue,
 }: TFormTextFieldProps): JSX.Element {
     const { control } = useFormContext();
 
@@ -25,7 +27,7 @@ export default function FormTextField({
             name={name}
             control={control}
             render={({ field, fieldState }) => {
-                const { ref, ...fieldProps } = field;
+                const { ref, value, ...fieldProps } = field;
 
                 return (
                     <TextField
@@ -37,6 +39,7 @@ export default function FormTextField({
                         maxLength={maxLength}
                         nativeSelectRefCallback={ref}
                         error={fieldState.error?.message}
+                        value={formatValue ? formatValue(value) : value}
                         {...fieldProps}
                     />
                 );

@@ -17,7 +17,7 @@ export default function EmptyIcon({
                 height="512"
                 viewBox="0 0 512 512"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

@@ -17,7 +17,7 @@ export default function HandShakingIcon({
                 viewBox="0 0 611.964 611.964"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

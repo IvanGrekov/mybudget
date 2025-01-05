@@ -15,7 +15,7 @@ export default function EducationIcon({
                 xmlSpace="preserve"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path d="M40,1H2C1.448,1,1,1.448,1,2v60c0,0.552,0.448,1,1,1h38c0.552,0,1-0.448,1-1V2C41,1.448,40.552,1,40,1z M39,61H3V3h36V61z" />

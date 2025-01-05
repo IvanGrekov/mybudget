@@ -3,9 +3,10 @@ import {
     ENotificationType,
     ENotificationSize,
 } from 'types/notificationsContext.types';
+import { Maybe } from 'types/utility.types';
 
 interface IErrorMessageProps {
-    message?: string | null;
+    message?: Maybe<string>;
     className?: string;
 }
 

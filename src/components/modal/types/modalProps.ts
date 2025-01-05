@@ -15,6 +15,7 @@ export type TModalProps = IModalBaseProps &
     PropsWithChildren &
     ILoaderProps & {
         title: string;
+        isConfirmationModal?: boolean;
         actions?: JSX.Element;
         size?: TModalSize;
         style?: CSSProperties;

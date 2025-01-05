@@ -15,7 +15,7 @@ export default function HiddenEyeIcon({
                 height="64"
                 viewBox="0 0 64 64"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <rect
                     x="-960"

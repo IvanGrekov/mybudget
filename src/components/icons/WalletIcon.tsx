@@ -17,7 +17,7 @@ export default function WalletIcon({
                 viewBox="0 0 334.877 334.877"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

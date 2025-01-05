@@ -19,6 +19,10 @@
     transition: opacity $base-transition-duration linear 0s,
         height 0s linear $base-transition-duration;
 
+    &--confirmation {
+        z-index: $zindex-confirmation-modal;
+    }
+
     &--open {
         height: 100vh;
         opacity: 1;

@@ -18,6 +18,7 @@ export default function ConfirmationModal({
         <Modal
             {...rest}
             title={title}
+            isConfirmationModal={true}
             actions={
                 <>
                     <ConfirmAction

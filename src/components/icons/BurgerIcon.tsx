@@ -13,7 +13,7 @@ export default function BurgerIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 76 76"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

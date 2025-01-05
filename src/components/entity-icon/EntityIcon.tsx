@@ -5,10 +5,11 @@ import {
     DEFAULT_ACCOUNT_ICON_NAME,
     DEFAULT_CATEGORY_ICON_NAME,
 } from 'constants/entityIcons.constants';
+import { Maybe } from 'types/utility.types';
 
 interface IEntityIconProps {
-    iconName?: string;
-    iconColor?: string;
+    iconName?: Maybe<string>;
+    iconColor?: Maybe<string>;
     isCategory?: boolean;
     size?: EIconSizes;
 }

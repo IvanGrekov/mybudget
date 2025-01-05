@@ -6,7 +6,7 @@ import { getCapitalizedString } from 'utils/string.utils';
 
 export interface ITextFieldLabelTextProps extends PropsWithChildren {
     text: string;
-    variant?: 'body1' | 'body2';
+    variant?: 'body1' | 'body2' | 'caption';
 }
 
 export default function TextFieldLabelText({

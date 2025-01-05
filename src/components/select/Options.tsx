@@ -20,6 +20,7 @@ type TOptionsProps<T> = Pick<
     | 'shouldAddSearch'
     | 'isFullWidth'
     | 'getOptionLabel'
+    | 'getOptionReactNode'
     | 'getOptionValue'
     | 'getIsOptionDisabled'
     | 'getIsOptionHidden'
@@ -39,6 +40,7 @@ export default function Options<T>({
     shouldAddSearch,
     isFullWidth,
     getOptionLabel = defaultGetOptionLabel,
+    getOptionReactNode,
     ...props
 }: TOptionsProps<T>): JSX.Element {
     const { filteredOptions, search, setSearch } = useFilteredOptions<T>({
@@ -77,6 +79,7 @@ export default function Options<T>({
                     key={getOptionLabel(option)}
                     option={option}
                     getOptionLabel={getOptionLabel}
+                    getOptionReactNode={getOptionReactNode}
                     {...props}
                 />
             ))}

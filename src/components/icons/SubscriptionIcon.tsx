@@ -16,7 +16,7 @@ export default function SubscriptionIcon({
                 width="24"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <path
                     clipRule="evenodd"

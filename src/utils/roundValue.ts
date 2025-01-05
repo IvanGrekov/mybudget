@@ -1,7 +1,13 @@
-export const roundValue = (rate: number): string => {
-    if (rate === 0) {
-        return '0';
+import { Maybe } from 'types/utility.types';
+
+export const roundValue = (value?: Maybe<number>): number => {
+    if (typeof value !== 'number') {
+        return 0;
     }
 
-    return rate.toFixed(2);
+    if (value === 0) {
+        return value;
+    }
+
+    return +value.toFixed(2);
 };

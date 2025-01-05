@@ -20,7 +20,7 @@ export default function CarIcon({
                 viewBox="0 0 34.952 34.952"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <g>

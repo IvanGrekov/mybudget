@@ -10,10 +10,11 @@ import { useIsMobile } from 'hooks/screenSize.hooks';
 import { useModal } from 'hooks/useModal';
 import { EAppRoutes } from 'types/appRoutes';
 import { TransactionCategory } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 interface ISubcategoriesProps {
     parentCategoryId: number;
-    subcategories?: TransactionCategory[];
+    subcategories?: Maybe<TransactionCategory[]>;
 }
 
 export default function Subcategories({

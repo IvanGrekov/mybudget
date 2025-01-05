@@ -49,7 +49,7 @@ const TextFieldLabel = (
             )}
         >
             <>
-                <TextFieldLabelText text={label} variant="body2" />
+                <TextFieldLabelText text={label} variant="caption" />
 
                 <InputLabelRequiredMark
                     required={required}

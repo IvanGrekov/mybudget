@@ -16,7 +16,7 @@ export default function DebtIcon({
                 enableBackground="new 0 0 48 48"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g id="Layer_1" />
                 <g id="_x31_7_x5F_Loan">

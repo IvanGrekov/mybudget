@@ -30,6 +30,17 @@ export const getDefaultGetIsOptionSelected = <T>(
             return value.some((item) => item === optionValue);
         }
 
+        if (
+            typeof option === 'object' &&
+            option &&
+            'id' in option &&
+            typeof value === 'object' &&
+            value &&
+            'id' in value
+        ) {
+            return option.id === value.id;
+        }
+
         return optionValue === value;
     };
 };

@@ -43,6 +43,7 @@ export default function Select<T>({
     onBlur,
     onChange,
     getOptionLabel,
+    getOptionReactNode,
     getOptionValue,
     getIsOptionDisabled,
     getIsOptionHidden,
@@ -139,6 +140,7 @@ export default function Select<T>({
                                 isFullWidth={isFullWidth}
                                 className={className}
                                 getOptionLabel={getOptionLabel}
+                                getOptionReactNode={getOptionReactNode}
                                 onChange={onSelectChange}
                             />
 
@@ -205,6 +207,7 @@ export default function Select<T>({
                             isFullWidth={isFullWidth}
                             onChange={onSelectChange}
                             getOptionLabel={getOptionLabel}
+                            getOptionReactNode={getOptionReactNode}
                             getOptionValue={getOptionValue}
                             getIsOptionDisabled={getIsOptionDisabled}
                             getIsOptionHidden={getIsOptionHidden}

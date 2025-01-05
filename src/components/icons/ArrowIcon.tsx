@@ -15,7 +15,7 @@ export default function ArrowIcon({
                 height="284.929px"
                 viewBox="0 0 284.929 284.929"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

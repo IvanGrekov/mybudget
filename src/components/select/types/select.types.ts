@@ -4,6 +4,7 @@ import {
     ChangeEventHandler,
     MouseEventHandler,
     RefObject,
+    ReactNode,
 } from 'react';
 
 import { TTextFieldBaseProps } from 'types/textFieldBaseProps';
@@ -28,6 +29,8 @@ export type TOnSelectChange<T> = (value: T | null) => void;
 
 export type TGetOptionLabel<T> = (option: T) => string;
 
+export type TGetOptionReactNode<T> = (option: T) => ReactNode;
+
 export type TGetOptionValue<T> = (option: T) => string;
 
 export type TGetIsOptionSelected<T> = (args: {
@@ -47,6 +50,7 @@ export type TSelectProps<T> = TSelectBaseProps & {
     nativeSelectRefCallback?: (ref: HTMLSelectElement) => void;
     onChange: TOnSelectChange<T>;
     getOptionLabel?: TGetOptionLabel<T>;
+    getOptionReactNode?: TGetOptionReactNode<T>;
     getOptionValue?: TGetOptionValue<T>;
     getIsOptionSelected?: TGetIsOptionSelected<T>;
     getIsOptionDisabled?: TGetIsOptionDisabled<T>;

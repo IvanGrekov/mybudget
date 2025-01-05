@@ -15,7 +15,7 @@ export default function SunIcon({
                 height="128px"
                 viewBox="0 0 128 128"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path

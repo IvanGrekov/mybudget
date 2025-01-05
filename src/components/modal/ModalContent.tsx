@@ -13,6 +13,7 @@ export default function ModalContent({
     isOpen,
     title,
     children,
+    isConfirmationModal,
     actions,
     size = 'small',
     isLoading,
@@ -25,6 +26,7 @@ export default function ModalContent({
             <dialog
                 onClick={onClose}
                 className={cx(styles.modal, {
+                    [styles['modal--confirmation']]: isConfirmationModal,
                     [styles['modal--open']]: isOpen,
                 })}
             >

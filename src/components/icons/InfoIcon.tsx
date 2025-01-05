@@ -13,7 +13,7 @@ export default function InfoIcon({
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path d="M16,12a2,2,0,1,1,2-2A2,2,0,0,1,16,12Zm0-2Z" />

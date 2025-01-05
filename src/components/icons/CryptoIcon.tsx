@@ -18,7 +18,7 @@ export default function CryptoIcon({
                 viewBox="0 0 64 64"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <rect x="16" y="20" width="2" height="2" />
                 <rect x="44" y="20" width="2" height="2" />

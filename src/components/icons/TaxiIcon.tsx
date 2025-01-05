@@ -13,7 +13,7 @@ export default function TaxiIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <polygon points="112 304 112 208 152 208 152 176 40 176 40 208 80 208 80 304 112 304" />
                 <polygon points="333.483 304 356 269.358 378.517 304 416.683 304 375.083 240 416.683 176 378.517 176 356 210.642 333.483 176 295.317 176 336.917 240 295.317 304 333.483 304" />

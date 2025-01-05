@@ -18,7 +18,7 @@ export default function GymIcon({
                 viewBox="0 0 70.529 70.529"
                 xmlSpace="preserve"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <path
                     d="M66.421,29.17h-1.607v-4.652c0-2.343-1.907-4.25-4.25-4.25h-2.861v-1.557c0-2.343-1.907-4.25-4.25-4.25h-3.155

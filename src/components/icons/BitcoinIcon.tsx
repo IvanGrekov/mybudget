@@ -15,7 +15,7 @@ export default function BitcoinIcon({
                 height="48"
                 viewBox="0 0 48 48"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <path d="M24,0A24,24,0,1,0,48,24,24.028,24.028,0,0,0,24,0Zm0,46A22,22,0,1,1,46,24,22.025,22.025,0,0,1,24,46Z" />

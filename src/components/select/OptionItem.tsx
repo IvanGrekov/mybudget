@@ -17,6 +17,7 @@ type TOptionItemProps<T> = Pick<
     | 'onChange'
     | 'multiple'
     | 'getOptionLabel'
+    | 'getOptionReactNode'
     | 'getOptionValue'
     | 'getIsOptionDisabled'
     | 'getIsOptionHidden'
@@ -33,6 +34,7 @@ export default function OptionItem<T>({
     getIsOptionHidden,
     getIsOptionDisabled,
     getOptionLabel = defaultGetOptionLabel,
+    getOptionReactNode,
     getIsOptionSelected = getDefaultGetIsOptionSelected(),
 }: TOptionItemProps<T>): JSX.Element | null {
     const isHidden = getIsOptionHidden?.(option);
@@ -74,7 +76,11 @@ export default function OptionItem<T>({
                     wrapperClassName={cx(styles['option-item__multiple-icon'])}
                 />
             )}
-            <Typography>{getOptionLabel(option)}</Typography>
+            {getOptionReactNode ? (
+                getOptionReactNode(option)
+            ) : (
+                <Typography>{getOptionLabel(option)}</Typography>
+            )}
         </button>
     );
 }

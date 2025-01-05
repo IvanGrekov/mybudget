@@ -1,9 +1,9 @@
-import { MouseEvent, PropsWithChildren } from 'react';
+import { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
 
 export interface IChipProps extends PropsWithChildren {
-    title: string;
+    title: ReactNode;
     variant?: 'contained' | 'outlined';
     size?: 'small' | 'regular' | 'big';
     color?: 'success' | 'error' | 'info';

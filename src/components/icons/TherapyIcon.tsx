@@ -13,7 +13,7 @@ export default function TherapyIcon({
                 viewBox="0 0 20.727 22.434"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <g>
                     <g>

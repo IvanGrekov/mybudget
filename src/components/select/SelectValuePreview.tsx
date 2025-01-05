@@ -9,13 +9,14 @@ import Typography from 'components/typography/Typography';
 
 type TSelectValuePreview<T> = Pick<
     TSelectProps<T>,
-    'options' | 'value' | 'getOptionLabel' | 'onChange'
+    'options' | 'value' | 'getOptionLabel' | 'getOptionReactNode' | 'onChange'
 >;
 
 export default function SelectValuePreview<T>({
     options,
     value,
     getOptionLabel = defaultGetOptionLabel,
+    getOptionReactNode,
     onChange,
 }: TSelectValuePreview<T>): JSX.Element | null {
     if (!value) {
@@ -55,6 +56,10 @@ export default function SelectValuePreview<T>({
                 })}
             </>
         );
+    }
+
+    if (getOptionReactNode) {
+        return <>{getOptionReactNode(value)}</>;
     }
 
     return (

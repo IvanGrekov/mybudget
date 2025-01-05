@@ -14,7 +14,7 @@ export default function DropIcon({
                 viewBox="0 0 24 24"
                 className={className}
                 style={{
-                    fill: color,
+                    fill: color ? color : undefined,
                 }}
             >
                 <g>

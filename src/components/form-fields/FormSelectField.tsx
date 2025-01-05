@@ -11,6 +11,7 @@ type TFormSelectFieldProps<T> = Pick<
     | 'isClearable'
     | 'required'
     | 'getOptionLabel'
+    | 'getOptionReactNode'
     | 'getIsOptionSelected'
 > & {
     name: string;
@@ -24,6 +25,7 @@ export default function FormSelectField<T>({
     isClearable,
     required,
     getOptionLabel,
+    getOptionReactNode,
     getIsOptionSelected,
 }: TFormSelectFieldProps<T>): JSX.Element {
     const { control } = useFormContext();
@@ -44,6 +46,7 @@ export default function FormSelectField<T>({
                         required={required}
                         isFullWidth={true}
                         getOptionLabel={getOptionLabel}
+                        getOptionReactNode={getOptionReactNode}
                         getIsOptionSelected={getIsOptionSelected}
                         nativeSelectRefCallback={ref}
                         error={fieldState.error?.message}

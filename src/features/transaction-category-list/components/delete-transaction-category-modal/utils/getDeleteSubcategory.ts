@@ -1,8 +1,9 @@
 import { TransactionCategory } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 type TDeleteSubcategory = (
-    category?: TransactionCategory | null,
-) => TransactionCategory | null | undefined;
+    category?: Maybe<TransactionCategory>,
+) => Maybe<TransactionCategory>;
 
 type TGetDeleteSubcategory = (
     id: number,
@@ -11,8 +12,8 @@ type TGetDeleteSubcategory = (
 
 export const getDeleteSubcategory: TGetDeleteSubcategory = (id, parentId) => {
     return (
-        parentCategory?: TransactionCategory | null,
-    ): TransactionCategory | null | undefined => {
+        parentCategory?: Maybe<TransactionCategory>,
+    ): Maybe<TransactionCategory> => {
         if (parentCategory && parentCategory.id === parentId) {
             return {
                 ...parentCategory,

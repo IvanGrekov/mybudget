@@ -4,9 +4,10 @@ import DragDropListItem from 'components/drag-drop-list-item/DragDropListItem';
 import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-card/SubcategoryItem';
 import styles from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { TransactionCategory } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 interface ISubcategoriesProps {
-    subcategories?: TransactionCategory[];
+    subcategories?: Maybe<TransactionCategory[]>;
     isLoading?: boolean;
     isDragging?: boolean;
 }

@@ -1,7 +1,8 @@
 import { TransactionCategory } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 interface IGetNewParentChildrenArgs {
-    currentChildren?: TransactionCategory[];
+    currentChildren?: Maybe<TransactionCategory[]>;
     transactionCategory: TransactionCategory;
     isArchiving: boolean;
     isActivating: boolean;

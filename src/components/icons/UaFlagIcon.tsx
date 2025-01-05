@@ -14,7 +14,7 @@ export default function UaFlagIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 40 40"
                 className={className}
-                style={{ fill: color }}
+                style={{ fill: color ? color : undefined }}
             >
                 <defs>
                     <clipPath id="clip-path">
