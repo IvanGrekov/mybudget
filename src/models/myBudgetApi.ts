@@ -1,7 +1,8 @@
 import { redirect } from 'next/navigation';
 
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
+// TODO: Implement caching by limit and offset (IG)
+// import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
@@ -19,6 +20,7 @@ import {
     EditTransactionCategoryDtoStatusEnum,
     TransactionCategoryStatusEnum,
     EditTransactionCategoryDto,
+    CreateTransactionDto,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -32,6 +34,13 @@ import {
     IGetTransactionsArgs,
 } from 'types/muBudgetApi.types';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
+import {
+    getAccountsFetchingTags,
+    getSingleAccountFetchingTag,
+    getTransactionCategoriesFetchingTags,
+    getSingleTransactionCategoryFetchingTag,
+    getTransactionsFetchingTags,
+} from 'utils/fetchingTags.utils';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
@@ -215,18 +224,29 @@ export abstract class MyBudgetApi {
         const { status = AccountStatusEnum.ACTIVE, type } = args || {};
 
         let url = `/accounts/my?status=${status}`;
-        const tags: string[] = [
-            EFetchingTags.ACCOUNTS,
-            `${EFetchingTags.ACCOUNTS}-${status}`,
-        ];
 
         if (type) {
             url += `&type=${type}`;
-            tags.push(`${EFetchingTags.ACCOUNTS}-${type}`);
         }
 
         return this.get(url, {
-            next: { tags },
+            next: {
+                tags: [
+                    EFetchingTags.ACCOUNTS,
+                    ...getAccountsFetchingTags({
+                        status,
+                        type,
+                    }),
+                ],
+            },
+        });
+    }
+
+    getAccount(id: number): TAsyncApiClientResult<Account> {
+        return this.get(`/accounts/${id}`, {
+            next: {
+                tags: [EFetchingTags.ACCOUNT, getSingleAccountFetchingTag(id)],
+            },
         });
     }
 
@@ -275,18 +295,33 @@ export abstract class MyBudgetApi {
 
         let url = `/transaction-categories/my?status=${status}`;
 
-        const tags: string[] = [
-            EFetchingTags.TRANSACTION_CATEGORIES,
-            `${EFetchingTags.TRANSACTION_CATEGORIES}-${status}`,
-        ];
-
         if (type) {
             url += `&type=${type}`;
-            tags.push(`${EFetchingTags.TRANSACTION_CATEGORIES}-${type}`);
         }
 
         return this.get(url, {
-            next: { tags },
+            next: {
+                tags: [
+                    EFetchingTags.TRANSACTION_CATEGORIES,
+                    ...getTransactionCategoriesFetchingTags({
+                        status,
+                        type,
+                    }),
+                ],
+            },
+        });
+    }
+
+    getTransactionCategory(
+        id: number,
+    ): TAsyncApiClientResult<TransactionCategory> {
+        return this.get(`/transaction-categories/${id}`, {
+            next: {
+                tags: [
+                    EFetchingTags.TRANSACTION_CATEGORY,
+                    getSingleTransactionCategoryFetchingTag(id),
+                ],
+            },
         });
     }
 
@@ -345,36 +380,36 @@ export abstract class MyBudgetApi {
         types = DEFAULT_TRANSACTION_TYPES,
         accountId,
         transactionCategoryId,
-        limit = DEFAULT_LIMIT,
-        offset = DEFAULT_OFFSET,
+        limit = 100,
+        offset = 0,
     }: IGetTransactionsArgs): TAsyncApiClientResult<
         IPaginatedItemsResult<Transaction>
     > {
         const joinedTypes = types.join(',');
         let url = `/transactions/my?types=${joinedTypes}&limit=${limit}&offset=${offset}`;
-        const tags: string[] = [EFetchingTags.TRANSACTIONS];
-
-        types.forEach((type) => {
-            tags.push(`${EFetchingTags.TRANSACTIONS}-${type}`);
-        });
-
-        tags.push(`${EFetchingTags.TRANSACTIONS}-offset-${offset}`);
-        tags.push(`${EFetchingTags.TRANSACTIONS}-limit-${limit}`);
 
         if (accountId) {
             url += `&accountId=${accountId}`;
-            tags.push(`${EFetchingTags.TRANSACTIONS}-account-${accountId}`);
         }
 
         if (transactionCategoryId) {
             url += `&transactionCategoryId=${transactionCategoryId}`;
-            tags.push(
-                `${EFetchingTags.TRANSACTIONS}-transactionCategory-${transactionCategoryId}`,
-            );
         }
 
         return this.get(url, {
-            next: { tags },
+            next: {
+                tags: getTransactionsFetchingTags({
+                    joinedTypes,
+                    accountId,
+                    transactionCategoryId,
+                }),
+            },
         });
+    }
+
+    createTransaction(
+        dto: CreateTransactionDto,
+    ): TAsyncApiClientResult<Transaction> {
+        return this.post('/transactions', dto);
     }
 }

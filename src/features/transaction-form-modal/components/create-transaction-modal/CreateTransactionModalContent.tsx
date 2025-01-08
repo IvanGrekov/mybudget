@@ -6,10 +6,12 @@ import ModalActions from 'components/modal/ModalActions';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import CreateTransactionFormContent from 'features/transaction-form-modal/components/create-transaction-form-content/CreateTransactionFormContent';
 import { CREATE_TRANSACTION_FORM_VALIDATION } from 'features/transaction-form-modal/components/create-transaction-modal/constants/createTransactionFormValidation';
+import { useCreateTransaction } from 'features/transaction-form-modal/components/create-transaction-modal/hooks/useCreateTransaction';
 import { validateFormValuesOnSubmit } from 'features/transaction-form-modal/components/create-transaction-modal/utils/validateFormValuesOnSubmit';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
+import { CreateTransactionDtoTypeEnum } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
 interface ICreateTransactionModalContentProps {
@@ -39,15 +41,42 @@ export default function CreateTransactionModalContent({
         formState.dirtyFields,
     );
 
+    const { mutate, isLoading } = useCreateTransaction({
+        userId,
+        onCompleted: () => {
+            disableNavigationConfirmation();
+            hideModal();
+        },
+    });
+
     const onSubmit = (values: TCreateTransactionFormValues): void => {
         const { isError, errorMessage } = validateFormValuesOnSubmit(values);
 
         if (!isError) {
-            userId;
-            hideModal;
-            disableNavigationConfirmation;
+            const {
+                type,
+                value,
+                fee,
+                currencyRate,
+                description,
+                fromAccount,
+                toAccount,
+                fromCategory,
+                toCategory,
+            } = values;
 
-            return;
+            return mutate({
+                type: type as CreateTransactionDtoTypeEnum,
+                value,
+                fee: typeof fee === 'number' ? fee : undefined,
+                currencyRate:
+                    typeof currencyRate === 'number' ? currencyRate : undefined,
+                description: description || undefined,
+                fromAccountId: fromAccount?.id,
+                toAccountId: toAccount?.id,
+                fromCategoryId: fromCategory?.id,
+                toCategoryId: toCategory?.id,
+            });
         }
 
         if (errorMessage) {
@@ -69,8 +98,7 @@ export default function CreateTransactionModalContent({
                     <Button
                         text="Create"
                         type="submit"
-                        // TODO: Pass the correct isLoading state
-                        isLoading={false}
+                        isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}
                     />
                 </ModalActions>

@@ -4,12 +4,12 @@ import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
-import {
-    TransactionCategory,
-    TransactionCategoryStatusEnum,
-} from 'types/generated.types';
+import { TransactionCategory } from 'types/generated.types';
 import { IEditTransactionCategoryCurrency } from 'types/muBudgetApi.types';
+import {
+    getTransactionCategoriesFetchingTags,
+    getSingleTransactionCategoryFetchingTag,
+} from 'utils/fetchingTags.utils';
 
 export async function editTransactionCategoryCurrency(
     dto: IEditTransactionCategoryCurrency,
@@ -18,10 +18,9 @@ export async function editTransactionCategoryCurrency(
         dto,
     );
 
-    revalidateTag(
-        `${EFetchingTags.TRANSACTION_CATEGORIES}-${TransactionCategoryStatusEnum.ACTIVE}`,
-    );
-    revalidateTag(`${EFetchingTags.TRANSACTION_CATEGORY}-${dto.id}`);
+    getTransactionCategoriesFetchingTags().forEach(revalidateTag);
+
+    revalidateTag(getSingleTransactionCategoryFetchingTag(dto.id));
 
     return result;
 }

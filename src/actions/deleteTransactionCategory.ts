@@ -4,11 +4,12 @@ import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
+import { TransactionCategory } from 'types/generated.types';
 import {
-    TransactionCategory,
-    TransactionCategoryStatusEnum,
-} from 'types/generated.types';
+    getTransactionCategoriesFetchingTags,
+    getSingleTransactionCategoryFetchingTag,
+    getTransactionsFetchingTags,
+} from 'utils/fetchingTags.utils';
 
 interface IDeleteTransactionCategoryArgs {
     id: number;
@@ -26,14 +27,16 @@ export async function deleteTransactionCategory({
         shouldRemoveChildren,
     );
 
-    revalidateTag(`${EFetchingTags.TRANSACTION_CATEGORY}-${id}`);
-    revalidateTag(
-        `${EFetchingTags.TRANSACTION_CATEGORIES}-${TransactionCategoryStatusEnum.ACTIVE}`,
-    );
-    revalidateTag(EFetchingTags.TRANSACTIONS);
+    revalidateTag(getSingleTransactionCategoryFetchingTag(id));
+
+    getTransactionCategoriesFetchingTags().forEach(revalidateTag);
+
+    getTransactionsFetchingTags({
+        transactionCategoryId: id,
+    }).forEach(revalidateTag);
 
     if (parentId) {
-        revalidateTag(`${EFetchingTags.TRANSACTION_CATEGORY}-${parentId}`);
+        revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
     }
 
     return result;

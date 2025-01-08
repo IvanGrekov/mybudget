@@ -10,6 +10,7 @@ import {
     TransactionCategoryTypeEnum,
 } from 'types/generated.types';
 import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
+import { getTransactionCategoriesFetchingTagByType } from 'utils/fetchingTags.utils';
 
 interface IReorderTransactionCategoriesActionArgs
     extends IReorderTransactionCategoriesArgs {
@@ -26,7 +27,7 @@ export async function reorderTransactionCategories({
         parentNodes,
     });
 
-    revalidateTag(`${EFetchingTags.TRANSACTION_CATEGORIES}-${type}`);
+    revalidateTag(getTransactionCategoriesFetchingTagByType(type));
     revalidateTag(EFetchingTags.TRANSACTION_CATEGORY);
 
     return result;

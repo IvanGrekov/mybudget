@@ -4,25 +4,25 @@ import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
 import {
     CreateTransactionCategoryDto,
     TransactionCategory,
-    TransactionCategoryStatusEnum,
 } from 'types/generated.types';
+import {
+    getSingleTransactionCategoryFetchingTag,
+    getTransactionCategoriesFetchingTags,
+} from 'utils/fetchingTags.utils';
 
 export async function createTransactionCategory(
     dto: CreateTransactionCategoryDto,
 ): TAsyncApiClientResult<TransactionCategory> {
     const result = await SERVER_MY_BUDGET_API.createTransactionCategory(dto);
 
-    revalidateTag(
-        `${EFetchingTags.TRANSACTION_CATEGORIES}-${TransactionCategoryStatusEnum.ACTIVE}`,
-    );
+    getTransactionCategoriesFetchingTags().forEach(revalidateTag);
 
     const parentId = dto.parentId;
     if (parentId) {
-        revalidateTag(`${EFetchingTags.TRANSACTION_CATEGORY}-${parentId}`);
+        revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
     }
 
     return result;
