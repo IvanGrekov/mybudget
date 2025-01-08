@@ -6,12 +6,10 @@ import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
+import { EFetchingTags } from 'types/fetchingTags';
 import { TransactionCategoryTypeEnum } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
-import {
-    getSingleTransactionCategoryQueryKey,
-    getTransactionsQueryKey,
-} from 'utils/queryKey.utils';
+import { getSingleTransactionCategoryQueryKey } from 'utils/queryKey.utils';
 
 type TUseDeleteTransactionCategory = (args: {
     id: number;
@@ -58,7 +56,7 @@ export const useDeleteTransactionCategory: TUseDeleteTransactionCategory = ({
             });
 
             queryClient.invalidateQueries({
-                queryKey: getTransactionsQueryKey(),
+                queryKey: [EFetchingTags.TRANSACTIONS],
             });
 
             addSuccessMessage({

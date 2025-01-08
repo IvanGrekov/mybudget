@@ -6,12 +6,10 @@ import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
+import { EFetchingTags } from 'types/fetchingTags';
 import { AccountTypeEnum } from 'types/generated.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
-import {
-    getSingleAccountQueryKey,
-    getTransactionsQueryKey,
-} from 'utils/queryKey.utils';
+import { getSingleAccountQueryKey } from 'utils/queryKey.utils';
 
 type TUseDeleteAccount = (args: { id: number; type: AccountTypeEnum }) => {
     remove: VoidFunction;
@@ -40,7 +38,7 @@ export const useDeleteAccount: TUseDeleteAccount = ({ id, type }) => {
             });
 
             queryClient.invalidateQueries({
-                queryKey: getTransactionsQueryKey(),
+                queryKey: [EFetchingTags.TRANSACTIONS],
             });
 
             addSuccessMessage({

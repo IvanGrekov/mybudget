@@ -41,6 +41,7 @@ export default async function HomePage(): Promise<JSX.Element> {
     );
 
     // NOTE: prefetch transactions by type
+    // TODO: implement pagination
     await queryClient.prefetchQuery({
         queryKey: getTransactionsQueryKey({ types: transactionTypes }),
         queryFn: () =>

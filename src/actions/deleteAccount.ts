@@ -20,9 +20,7 @@ export async function deleteAccount(
 
     getAccountsFetchingTags().forEach(revalidateTag);
 
-    getTransactionsFetchingTags({
-        accountId,
-    }).forEach(revalidateTag);
+    getTransactionsFetchingTags().forEach(revalidateTag);
 
     return result;
 }

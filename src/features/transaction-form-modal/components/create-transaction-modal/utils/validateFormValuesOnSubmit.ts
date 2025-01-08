@@ -10,14 +10,13 @@ export const validateFormValuesOnSubmit = ({
     type,
     fromAccount,
     toAccount,
-    toCategory,
     fromCategory,
     value,
     fee,
     currencyRate,
 }: TCreateTransactionFormValues): IValidateFormValuesOnSubmitResult => {
     const prevCurrency = fromAccount?.currency || fromCategory?.currency;
-    const newCurrency = toAccount?.currency || toCategory?.currency;
+    const newCurrency = toAccount?.currency;
 
     if (
         prevCurrency &&

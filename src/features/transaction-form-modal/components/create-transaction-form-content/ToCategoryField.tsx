@@ -1,6 +1,7 @@
 import EntityOptionItem from 'components/entity-option-item/EntityOptionItem';
 import FormSelectField from 'components/form-fields/FormSelectField';
 import LinearProgress from 'components/linear-progress/LinearProgress';
+import { getTransactionCategoryOptions } from 'features/transaction-form-modal/components/create-transaction-form-content/utils/getTransactionCategoryOptions';
 import {
     CREATE_TRANSACTION_FORM_FIELD_NAMES,
     CREATE_TRANSACTION_FORM_FIELD_LABELS,
@@ -21,11 +22,13 @@ export default function ToCategoryField(): JSX.Element | null {
         return null;
     }
 
+    const options = getTransactionCategoryOptions(transactionCategories);
+
     return (
         <FormSelectField
             name={CREATE_TRANSACTION_FORM_FIELD_NAMES.toCategory}
             label={CREATE_TRANSACTION_FORM_FIELD_LABELS.toCategory}
-            options={transactionCategories}
+            options={options}
             isClearable={true}
             shouldAddSearch={true}
             getOptionLabel={(option) => option.name}

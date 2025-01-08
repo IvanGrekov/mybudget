@@ -27,9 +27,8 @@ export default function CreateTransactionFormContent(): JSX.Element {
     const fromAccount = watch('fromAccount');
     const toAccount = watch('toAccount');
     const fromCategory = watch('fromCategory');
-    const toCategory = watch('toCategory');
 
-    const toCurrency = toAccount?.currency || toCategory?.currency;
+    const toCurrency = toAccount?.currency;
     const baseExchangeRates = useExchangeRatesContext(toCurrency);
 
     useEffect(() => {
@@ -72,9 +71,8 @@ export default function CreateTransactionFormContent(): JSX.Element {
                 fromAccount,
                 toAccount,
                 fromCategory,
-                toCategory,
             }),
-        [fromAccount, toAccount, fromCategory, toCategory],
+        [fromAccount, toAccount, fromCategory],
     );
 
     const isExpense = type === CreateTransactionDtoTypeEnum.EXPENSE;

@@ -1,10 +1,32 @@
 import { QueryClient } from '@tanstack/react-query';
 
+import { EFetchingTags } from 'types/fetchingTags';
 import { Account, Transaction } from 'types/generated.types';
 import {
-    getTransactionsQueryKey,
     getSingleAccountQueryKey,
+    getAccountsQueryKey,
 } from 'utils/queryKey.utils';
+
+type TGetUpdateAccountBalanceInCache = (args: {
+    accountId: number;
+    newBalance: number;
+}) => (account?: Account) => Account | undefined;
+
+const getUpdateAccountBalanceInCache: TGetUpdateAccountBalanceInCache = ({
+    accountId,
+    newBalance,
+}) => {
+    return (account) => {
+        if (account?.id === accountId) {
+            return {
+                ...account,
+                balance: newBalance,
+            };
+        }
+
+        return account;
+    };
+};
 
 interface IUpdateCacheOnTransactionCreateArgs {
     data: Transaction;
@@ -16,97 +38,59 @@ export const updateCacheOnTransactionCreate = ({
     queryClient,
 }: IUpdateCacheOnTransactionCreateArgs): void => {
     const {
-        type,
         fromAccount,
         toAccount,
-        fromCategory,
-        toCategory,
         fromAccountUpdatedBalance,
         toAccountUpdatedBalance,
     } = data;
 
-    queryClient.setQueryData(
-        getTransactionsQueryKey({
-            types: [type],
-            transactionCategoryId: fromCategory?.id || toCategory?.id,
-        }),
-        (oldTransactionList?: Transaction[]) => [
-            data,
-            ...(oldTransactionList || []),
-        ],
-    );
-
-    if (fromAccount) {
-        queryClient.setQueryData(
-            getTransactionsQueryKey({
-                accountId: fromAccount.id,
-            }),
-            (oldTransactionList?: Transaction[]) => [
-                data,
-                ...(oldTransactionList || []),
-            ],
-        );
-
-        queryClient.setQueryData(
-            getTransactionsQueryKey({
-                types: [type],
-                accountId: fromAccount.id,
-            }),
-            (oldTransactionList?: Transaction[]) => [
-                data,
-                ...(oldTransactionList || []),
-            ],
-        );
-    }
-
-    if (toAccount) {
-        queryClient.setQueryData(
-            getTransactionsQueryKey({
-                accountId: toAccount.id,
-            }),
-            (oldTransactionList?: Transaction[]) => [
-                data,
-                ...(oldTransactionList || []),
-            ],
-        );
-
-        queryClient.setQueryData(
-            getTransactionsQueryKey({
-                types: [type],
-                accountId: toAccount.id,
-            }),
-            (oldTransactionList?: Transaction[]) => [
-                data,
-                ...(oldTransactionList || []),
-            ],
-        );
-    }
+    queryClient.invalidateQueries({
+        queryKey: [EFetchingTags.TRANSACTIONS],
+    });
 
     if (typeof fromAccountUpdatedBalance === 'number' && fromAccount) {
+        const { id: accountId, type } = fromAccount;
+        const updateFromAccountBalanceInCache = getUpdateAccountBalanceInCache({
+            accountId,
+            newBalance: fromAccountUpdatedBalance,
+        });
+
         queryClient.setQueryData(
-            getSingleAccountQueryKey(fromAccount.id),
-            (account: Account) => ({
-                ...account,
-                balance: fromAccountUpdatedBalance,
-            }),
+            getSingleAccountQueryKey(accountId),
+            updateFromAccountBalanceInCache,
+        );
+        queryClient.setQueryData(
+            getAccountsQueryKey(),
+            (allAccounts?: Account[]) =>
+                (allAccounts || []).map(updateFromAccountBalanceInCache),
+        );
+        queryClient.setQueryData(
+            getAccountsQueryKey({ type }),
+            (accountsByType?: Account[]) =>
+                (accountsByType || []).map(updateFromAccountBalanceInCache),
         );
     }
 
     if (typeof toAccountUpdatedBalance === 'number' && toAccount) {
+        const { id: accountId, type } = toAccount;
+        const updateToAccountBalanceInCache = getUpdateAccountBalanceInCache({
+            accountId,
+            newBalance: toAccountUpdatedBalance,
+        });
+
         queryClient.setQueryData(
-            getSingleAccountQueryKey(toAccount.id),
-            (account: Account) => ({
-                ...account,
-                balance: toAccountUpdatedBalance,
-            }),
+            getSingleAccountQueryKey(accountId),
+            updateToAccountBalanceInCache,
+        );
+        queryClient.setQueryData(
+            getAccountsQueryKey(),
+            (allAccounts?: Account[]) =>
+                (allAccounts || []).map(updateToAccountBalanceInCache),
+        );
+        queryClient.setQueryData(
+            getAccountsQueryKey({ type }),
+            (accountsByType?: Account[]) =>
+                (accountsByType || []).map(updateToAccountBalanceInCache),
         );
     }
-
-    queryClient.setQueryData(
-        getTransactionsQueryKey(),
-        (oldAllTransactionList?: Transaction[]) => [
-            data,
-            ...(oldAllTransactionList || []),
-        ],
-    );
 };

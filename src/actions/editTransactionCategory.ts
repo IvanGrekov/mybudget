@@ -12,6 +12,7 @@ import {
 import {
     getSingleTransactionCategoryFetchingTag,
     getTransactionCategoriesFetchingTags,
+    getTransactionsFetchingTags,
 } from 'utils/fetchingTags.utils';
 
 interface IEditTransactionCategoryArgs {
@@ -37,6 +38,8 @@ export async function editTransactionCategory({
     ) {
         revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
     }
+
+    getTransactionsFetchingTags().forEach(revalidateTag);
 
     return result;
 }

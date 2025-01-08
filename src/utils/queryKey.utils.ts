@@ -20,30 +20,23 @@ interface IGetTransactionsQueryKeyArgs {
 
 export const getTransactionsQueryKey = (
     args?: IGetTransactionsQueryKeyArgs,
-): string[] => {
+): unknown[] => {
     const {
         types = DEFAULT_TRANSACTION_TYPES,
         accountId,
         transactionCategoryId,
         // TODO: Implement caching by limit and offset (IG)
+        // TODO: Implement caching by date range (IG)
         // limit = DEFAULT_LIMIT,
         // offset = DEFAULT_OFFSET,
     } = args || {};
 
-    const result: string[] = [
+    const result: unknown[] = [
         EFetchingTags.TRANSACTIONS,
-        ...types.join(),
+        { types, accountId, transactionCategoryId },
         // limit.toString(),
         // offset.toString(),
     ];
-
-    if (accountId) {
-        result.push(`account-${accountId}`);
-    }
-
-    if (transactionCategoryId) {
-        result.push(`category-${transactionCategoryId}`);
-    }
 
     return result;
 };

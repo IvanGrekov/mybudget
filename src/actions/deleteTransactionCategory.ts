@@ -31,9 +31,7 @@ export async function deleteTransactionCategory({
 
     getTransactionCategoriesFetchingTags().forEach(revalidateTag);
 
-    getTransactionsFetchingTags({
-        transactionCategoryId: id,
-    }).forEach(revalidateTag);
+    getTransactionsFetchingTags().forEach(revalidateTag);
 
     if (parentId) {
         revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));

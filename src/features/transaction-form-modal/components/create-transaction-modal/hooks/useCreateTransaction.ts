@@ -42,6 +42,8 @@ export const useCreateTransaction: TUseCreateTransaction = ({
                 });
             }
 
+            // TODO: Set pagination to 1st page
+
             updateCacheOnTransactionCreate({
                 data,
                 queryClient,

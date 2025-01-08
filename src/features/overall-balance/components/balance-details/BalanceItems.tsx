@@ -2,6 +2,7 @@ import Typography from 'components/typography/Typography';
 import styles from 'features/overall-balance/components/balance-details/BalanceDetails.module.scss';
 import { TBalanceItems } from 'features/overall-balance/components/balance-details/types/balanceItems';
 import { getBalancesByCurrency } from 'features/overall-balance/components/balance-details/types/getBalancesByCurrency';
+import { roundValue } from 'utils/roundValue';
 import { getCapitalizedString } from 'utils/string.utils';
 
 interface ISampleComponentProps {
@@ -25,7 +26,7 @@ export default function BalanceItems({
                 {Object.entries(balances).map(([currency, balance]) => (
                     <li key={currency}>
                         <Typography>
-                            {balance} {currency}
+                            {roundValue(balance)} {currency}
                         </Typography>
                     </li>
                 ))}

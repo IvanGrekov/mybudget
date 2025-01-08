@@ -381,7 +381,7 @@ export abstract class MyBudgetApi {
         accountId,
         transactionCategoryId,
         limit = 100,
-        offset = 0,
+        offset = 1,
     }: IGetTransactionsArgs): TAsyncApiClientResult<
         IPaginatedItemsResult<Transaction>
     > {

@@ -21,9 +21,7 @@ export async function editAccount(
 
     getAccountsFetchingTags().forEach(revalidateTag);
 
-    getTransactionsFetchingTags({
-        accountId: id,
-    }).forEach(revalidateTag);
+    getTransactionsFetchingTags().forEach(revalidateTag);
 
     return result;
 }

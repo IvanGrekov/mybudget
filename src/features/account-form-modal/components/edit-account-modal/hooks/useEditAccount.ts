@@ -8,6 +8,7 @@ import {
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
 import { TApiClientResult } from 'types/apiClient.types';
+import { EFetchingTags } from 'types/fetchingTags';
 import {
     Account,
     EditAccountDto,
@@ -17,7 +18,6 @@ import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
     getSingleAccountQueryKey,
     getAccountsQueryKey,
-    getTransactionsQueryKey,
 } from 'utils/queryKey.utils';
 
 type TUseEditAccount = (args: {
@@ -92,7 +92,7 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
 
             if (isBalanceChanging) {
                 queryClient.invalidateQueries({
-                    queryKey: getTransactionsQueryKey(),
+                    queryKey: [EFetchingTags.TRANSACTIONS],
                 });
             }
 
