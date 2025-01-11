@@ -15,11 +15,14 @@ const CreateTransactionModalContentLazy = lazy(
         ),
 );
 
-interface ICreateTransactionModalProps extends IModalBaseProps {}
+interface ICreateTransactionModalProps extends IModalBaseProps {
+    refetchTransactionList: VoidFunction;
+}
 
 export default function CreateTransactionModal({
     isOpen,
     onClose,
+    refetchTransactionList,
 }: ICreateTransactionModalProps): JSX.Element {
     const { me, isLoading } = useGetMe();
 
@@ -44,6 +47,7 @@ export default function CreateTransactionModal({
                 <Suspense fallback={<ModalCircularLoading />}>
                     <CreateTransactionModalContentLazy
                         userId={me.id}
+                        refetchTransactionList={refetchTransactionList}
                         hideModal={onClose}
                         onCloseModal={onCloseModal}
                     />

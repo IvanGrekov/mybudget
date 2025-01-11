@@ -1,3 +1,4 @@
+import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
     AccountStatusEnum,
@@ -68,16 +69,24 @@ export const getSingleTransactionCategoryFetchingTag = (
     return `${EFetchingTags.TRANSACTION_CATEGORY}-${transactionCategoryId}`;
 };
 
-interface IGetSingleTransactionCategoryFetchingTagsArgs {
+interface IGetTransactionsFetchingTagsArgs {
     joinedTypes?: string;
     accountId?: number;
     transactionCategoryId?: number;
+    limit?: number;
+    offset?: number;
 }
 
 export const getTransactionsFetchingTags = (
-    args?: IGetSingleTransactionCategoryFetchingTagsArgs,
+    args?: IGetTransactionsFetchingTagsArgs,
 ): TFetchingTags => {
-    const { joinedTypes, accountId, transactionCategoryId } = args || {};
+    const {
+        joinedTypes,
+        accountId,
+        transactionCategoryId,
+        limit = DEFAULT_LIMIT,
+        offset = DEFAULT_OFFSET,
+    } = args || {};
 
     const result: string[] = [EFetchingTags.TRANSACTIONS];
 
@@ -85,9 +94,8 @@ export const getTransactionsFetchingTags = (
         result.push(`${EFetchingTags.TRANSACTIONS}-${joinedTypes}`);
     }
 
-    // TODO: Implement caching by limit and offset (IG)
-    // tags.push(`${EFetchingTags.TRANSACTIONS}-offset-${offset}`);
-    // tags.push(`${EFetchingTags.TRANSACTIONS}-limit-${limit}`);
+    result.push(`${EFetchingTags.TRANSACTIONS}-offset-${offset}`);
+    result.push(`${EFetchingTags.TRANSACTIONS}-limit-${limit}`);
 
     // TODO: Implement caching by date range (IG)
 

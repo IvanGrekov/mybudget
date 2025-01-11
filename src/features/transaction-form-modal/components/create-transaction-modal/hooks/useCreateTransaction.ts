@@ -14,6 +14,7 @@ type TMutationData = Omit<CreateTransactionDto, 'userId'>;
 
 type TUseCreateTransaction = (args: {
     userId: number;
+    refetchTransactionList: VoidFunction;
     onCompleted: VoidFunction;
 }) => {
     mutate: (data: TMutationData) => void;
@@ -22,6 +23,7 @@ type TUseCreateTransaction = (args: {
 
 export const useCreateTransaction: TUseCreateTransaction = ({
     userId,
+    refetchTransactionList,
     onCompleted,
 }) => {
     const addSuccessMessage = useAddSuccessMessageToNotifications();
@@ -42,8 +44,7 @@ export const useCreateTransaction: TUseCreateTransaction = ({
                 });
             }
 
-            // TODO: Set pagination to 1st page
-
+            refetchTransactionList();
             updateCacheOnTransactionCreate({
                 data,
                 queryClient,

@@ -15,12 +15,14 @@ import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabl
 
 interface ICreateTransactionModalContentProps {
     userId: number;
+    refetchTransactionList: VoidFunction;
     hideModal: VoidFunction;
     onCloseModal: VoidFunction;
 }
 
 export default function CreateTransactionModalContent({
     userId,
+    refetchTransactionList,
     hideModal,
     onCloseModal,
 }: ICreateTransactionModalContentProps): JSX.Element {
@@ -42,6 +44,7 @@ export default function CreateTransactionModalContent({
 
     const { mutate, isLoading } = useCreateTransaction({
         userId,
+        refetchTransactionList,
         onCompleted: () => {
             disableNavigationConfirmation();
             hideModal();

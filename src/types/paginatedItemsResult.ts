@@ -3,4 +3,5 @@ export interface IPaginatedItemsResult<T> {
     page: number;
     itemsPerPage: number;
     total: number;
+    hasMore: boolean;
 }

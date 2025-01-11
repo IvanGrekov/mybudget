@@ -15,6 +15,7 @@
 
 .list,
 .grid-list {
+    padding: 5px 5px 10px 5px;
     gap: 1.5rem;
 }
 
@@ -34,4 +35,8 @@
 
 .action {
     width: auto;
+}
+
+.end-message {
+    text-align: center;
 }

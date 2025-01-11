@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-// TODO: Implement caching by limit and offset (IG)
-// import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
+import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { EFetchingTags } from 'types/fetchingTags';
@@ -380,8 +379,8 @@ export abstract class MyBudgetApi {
         types = DEFAULT_TRANSACTION_TYPES,
         accountId,
         transactionCategoryId,
-        limit = 100,
-        offset = 1,
+        limit = DEFAULT_LIMIT,
+        offset = DEFAULT_OFFSET,
     }: IGetTransactionsArgs): TAsyncApiClientResult<
         IPaginatedItemsResult<Transaction>
     > {
@@ -402,6 +401,8 @@ export abstract class MyBudgetApi {
                     joinedTypes,
                     accountId,
                     transactionCategoryId,
+                    limit,
+                    offset,
                 }),
             },
         });

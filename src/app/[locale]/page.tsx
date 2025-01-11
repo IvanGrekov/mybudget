@@ -8,12 +8,16 @@ import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import Spacing from 'components/spacing/Spacing';
 import { URL_HEADER } from 'constants/headers';
+import { DEFAULT_OFFSET } from 'constants/pagination';
 import OverallBalance from 'features/overall-balance/components/overall-balance/OverallBalance';
 import TransactionList from 'features/transaction-list/components/transaction-list/TransactionList';
 import { getTransactionTypesFromUrl } from 'features/transaction-list/utils/transactionTypeFilterValue.utils';
 import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
+import { TApiClientResult } from 'types/apiClient.types';
+import { Transaction } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
+import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import { getAllAccounts } from 'utils/getAllAccounts';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
@@ -41,13 +45,22 @@ export default async function HomePage(): Promise<JSX.Element> {
     );
 
     // NOTE: prefetch transactions by type
-    // TODO: implement pagination
-    await queryClient.prefetchQuery({
+    await queryClient.prefetchInfiniteQuery({
         queryKey: getTransactionsQueryKey({ types: transactionTypes }),
+        initialPageParam: DEFAULT_OFFSET,
         queryFn: () =>
             SERVER_MY_BUDGET_API.getTransactions({
                 types: transactionTypes,
             }),
+        getNextPageParam: (
+            lastPage: TApiClientResult<IPaginatedItemsResult<Transaction>>,
+        ) => {
+            if (!lastPage?.hasMore) {
+                return;
+            }
+
+            return lastPage.page + 1;
+        },
     });
 
     await getAllAccounts(queryClient);

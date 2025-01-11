@@ -1,6 +1,5 @@
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-// TODO: Implement caching by limit and offset (IG)
-// import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
+import { DEFAULT_LIMIT, DEFAULT_OFFSET } from 'constants/pagination';
 import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
@@ -25,17 +24,13 @@ export const getTransactionsQueryKey = (
         types = DEFAULT_TRANSACTION_TYPES,
         accountId,
         transactionCategoryId,
-        // TODO: Implement caching by limit and offset (IG)
-        // TODO: Implement caching by date range (IG)
-        // limit = DEFAULT_LIMIT,
-        // offset = DEFAULT_OFFSET,
+        limit = DEFAULT_LIMIT,
+        offset = DEFAULT_OFFSET,
     } = args || {};
 
     const result: unknown[] = [
         EFetchingTags.TRANSACTIONS,
-        { types, accountId, transactionCategoryId },
-        // limit.toString(),
-        // offset.toString(),
+        { types, accountId, transactionCategoryId, limit, offset },
     ];
 
     return result;
