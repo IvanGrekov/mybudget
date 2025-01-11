@@ -3,7 +3,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import CreateTransactionFormContent from 'features/transaction-form-modal/components/create-transaction-form-content/CreateTransactionFormContent';
 import { CREATE_TRANSACTION_FORM_VALIDATION } from 'features/transaction-form-modal/components/create-transaction-modal/constants/createTransactionFormValidation';
 import { useCreateTransaction } from 'features/transaction-form-modal/components/create-transaction-modal/hooks/useCreateTransaction';
@@ -89,8 +88,6 @@ export default function CreateTransactionModalContent({
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <UnderDevelopmentMessage />
-
                 <CreateTransactionFormContent />
 
                 <ModalActions>

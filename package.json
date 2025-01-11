@@ -20,6 +20,7 @@
         "@vvo/tzdb": "^6.142.0",
         "classnames": "^2.3.2",
         "date-fns": "^4.1.0",
+        "date-fns-tz": "^3.2.0",
         "focus-trap-react": "^10.0.2",
         "next": "14.2.5",
         "next-intl": "^3.17.2",

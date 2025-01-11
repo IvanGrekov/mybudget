@@ -1,15 +1,12 @@
 import { lazy, Suspense } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
-
 import EmptyState from 'components/empty-state/EmptyState';
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import Show from 'components/show/Show';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
-import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
-import { EFetchingTags } from 'types/fetchingTags';
+import { useGetMe } from 'hooks/me.hooks';
 import { TransactionCategoryTypeEnum } from 'types/generated.types';
 
 const CreateTransactionCategoryModalContentLazy = lazy(
@@ -28,10 +25,7 @@ export default function CreateTransactionCategoryModal({
     isOpen,
     onClose,
 }: ICreateTransactionCategoryModalProps): JSX.Element {
-    const { isPending, data: user } = useQuery({
-        queryKey: [EFetchingTags.ME],
-        queryFn: () => CLIENT_MY_BUDGET_API.getMe(),
-    });
+    const { me, isLoading } = useGetMe();
 
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
@@ -42,18 +36,18 @@ export default function CreateTransactionCategoryModal({
             size="medium"
             onClose={onCloseModal}
         >
-            <Show when={isPending}>
+            <Show when={isLoading}>
                 <ModalCircularLoading />
             </Show>
 
-            <Show when={!user && !isPending}>
+            <Show when={!me && !isLoading}>
                 <EmptyState text="We couldn't find your profile" />
             </Show>
 
-            {user && (
+            {me && (
                 <Suspense fallback={<ModalCircularLoading />}>
                     <CreateTransactionCategoryModalContentLazy
-                        user={user}
+                        user={me}
                         defaultTransactionCategoryType={
                             defaultTransactionCategoryType
                         }
