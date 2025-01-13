@@ -20,3 +20,11 @@ export const useIsScreenSize = (
 export const useIsMobile = (): boolean => {
     return useIsScreenSize([EScreenSizeNames.XS, EScreenSizeNames.SM]);
 };
+
+export const useIsTablet = (): boolean => {
+    return useIsScreenSize([
+        EScreenSizeNames.XS,
+        EScreenSizeNames.SM,
+        EScreenSizeNames.MD,
+    ]);
+};

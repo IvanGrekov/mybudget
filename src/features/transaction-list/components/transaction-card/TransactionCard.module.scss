@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .header-title-wrapper {
     display: flex;
     flex-direction: column;
@@ -15,6 +17,16 @@
 
 .from-to-details-wrapper {
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.from-to-item-details-wrapper {
+    display: flex;
+    gap: 0.75rem;
     align-items: center;
+}
+
+.arrow-icon-wrapper {
+    align-self: center;
 }
