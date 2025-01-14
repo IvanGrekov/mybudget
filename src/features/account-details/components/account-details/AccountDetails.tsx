@@ -1,3 +1,5 @@
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
+
 interface IAccountDetailsProps {
     accountId: string;
 }
@@ -5,5 +7,10 @@ interface IAccountDetailsProps {
 export default function AccountDetails({
     accountId,
 }: IAccountDetailsProps): JSX.Element {
-    return <div>AccountDetails - {accountId}</div>;
+    return (
+        <>
+            <UnderDevelopmentMessage />
+            <div>AccountDetails - {accountId}</div>
+        </>
+    );
 }

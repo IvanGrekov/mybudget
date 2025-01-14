@@ -1,3 +1,5 @@
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
+
 interface ITransactionCategoryDetailsProps {
     transactionCategoryId: string;
 }
@@ -5,5 +7,10 @@ interface ITransactionCategoryDetailsProps {
 export default function TransactionCategoryDetails({
     transactionCategoryId,
 }: ITransactionCategoryDetailsProps): JSX.Element {
-    return <div>TransactionCategoryDetails - {transactionCategoryId}</div>;
+    return (
+        <>
+            <UnderDevelopmentMessage />
+            <div>TransactionCategoryDetails - {transactionCategoryId}</div>
+        </>
+    );
 }

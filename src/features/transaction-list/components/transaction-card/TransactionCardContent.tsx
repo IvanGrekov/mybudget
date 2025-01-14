@@ -2,8 +2,10 @@ import CardContent from 'components/card/CardContent';
 import EntityIcon from 'components/entity-icon/EntityIcon';
 import ArrowIcon from 'components/icons/ArrowIcon';
 import { EIconSizes } from 'components/icons/types/iconSizes';
+import Link from 'components/link/Link';
 import Typography from 'components/typography/Typography';
 import styles from 'features/transaction-list/components/transaction-card/TransactionCard.module.scss';
+import { getFromToItemHref } from 'features/transaction-list/components/transaction-card/utils/getFromToItemHref';
 import { Transaction } from 'types/generated.types';
 
 interface ITransactionCardContentProps {
@@ -27,7 +29,14 @@ export default function TransactionCardContent({
     return (
         <CardContent>
             <div className={styles['from-to-details-wrapper']}>
-                <div className={styles['from-to-item-details-wrapper']}>
+                <Link
+                    href={getFromToItemHref({
+                        id: fromAccount?.id || fromCategory?.id,
+                        isCategory: !!fromCategory,
+                    })}
+                    target="_blank"
+                    className={styles['from-to-item-details-wrapper']}
+                >
                     <EntityIcon
                         iconName={fromEntityIconName}
                         iconColor={fromEntityIconColor}
@@ -37,11 +46,17 @@ export default function TransactionCardContent({
                     <Typography variant="subtitle2">
                         {fromEntityName}
                     </Typography>
-                </div>
+                </Link>
 
                 <ArrowIcon wrapperClassName={styles['arrow-icon-wrapper']} />
 
-                <div className={styles['from-to-item-details-wrapper']}>
+                <Link
+                    href={getFromToItemHref({
+                        id: toAccount?.id || toCategory?.id,
+                        isCategory: !!toCategory,
+                    })}
+                    className={styles['from-to-item-details-wrapper']}
+                >
                     <EntityIcon
                         iconName={toEntityIconName}
                         iconColor={toEntityIconColor}
@@ -49,7 +64,7 @@ export default function TransactionCardContent({
                         size={EIconSizes.medium}
                     />
                     <Typography variant="subtitle2">{toEntityName}</Typography>
-                </div>
+                </Link>
             </div>
         </CardContent>
     );

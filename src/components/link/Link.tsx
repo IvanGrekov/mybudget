@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { HTMLAttributeAnchorTarget, PropsWithChildren } from 'react';
 
 import cx from 'classnames';
 import NextLink from 'next/link';
@@ -16,6 +16,8 @@ interface ILinkProps extends PropsWithChildren {
     iconSize?: IIconProps['size'];
     shallow?: boolean;
     isActive?: boolean;
+    target?: HTMLAttributeAnchorTarget;
+    rel?: string;
     className?: string;
     textClassName?: string;
     onClick?: VoidFunction;
@@ -29,6 +31,8 @@ export default function Link({
     textVariant = 'body1',
     iconSize = 35,
     shallow,
+    target,
+    rel,
     isActive,
     className,
     textClassName,
@@ -47,6 +51,8 @@ export default function Link({
                 },
                 className,
             )}
+            target={target}
+            rel={rel}
             onClick={onClick}
         >
             {Icon && <Icon size={iconSize} className={styles.icon} />}

@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import Button from 'components/button/Button';
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { usePageHeaderTitle } from 'hooks/usePageHeaderTitle';
 import { IWithIdParamProps } from 'types/pageProps';
 
@@ -38,7 +37,6 @@ export default function TransactionCategoryDetailsModal({
             actions={<Button text="Close" onClick={onClose} />}
             onClose={onClose}
         >
-            <UnderDevelopmentMessage />
             <Suspense fallback={<ModalCircularLoading />}>
                 <TransactionCategoryDetailsLazy transactionCategoryId={id} />
             </Suspense>

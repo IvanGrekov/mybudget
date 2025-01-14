@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import TransactionCard from 'features/transaction-list/components/transaction-card/TransactionCard';
 import transactionListStyles from 'features/transaction-list/components/transaction-list/TransactionList.module.scss';
 import TransactionListEmptyState from 'features/transaction-list/components/transaction-list/TransactionListEmptyState';
@@ -27,6 +28,7 @@ export default function TransactionList(): JSX.Element {
             <TransactionListHeader refetchTransactionList={refetch} />
 
             {/* TODO: Implement filter */}
+            <UnderDevelopmentMessage />
 
             <Show when={isLoading}>
                 <LinearProgress />
