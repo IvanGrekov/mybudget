@@ -7,8 +7,9 @@ import Menu from 'components/menu/Menu';
 import MenuActionItem from 'components/menu/MenuActionItem';
 
 interface IBaseEntityMenuProps {
-    detailsPath: string;
+    detailsPath?: string;
     className?: string;
+    openDetailsModal?: VoidFunction;
     openEditModal?: VoidFunction;
     openChangeCurrencyModal?: VoidFunction;
     openDeleteModal?: VoidFunction;
@@ -17,6 +18,7 @@ interface IBaseEntityMenuProps {
 export default function BaseEntityMenu({
     detailsPath,
     className,
+    openDetailsModal,
     openEditModal,
     openChangeCurrencyModal,
     openDeleteModal,
@@ -25,11 +27,17 @@ export default function BaseEntityMenu({
 
     return (
         <Menu tooltipPosition="bottom-left" className={className}>
-            <MenuActionItem
-                text="Details"
-                Icon={EyeIcon}
-                onClick={() => push(detailsPath)}
-            />
+            {(!!detailsPath || !!openDetailsModal) && (
+                <MenuActionItem
+                    text="Details"
+                    Icon={EyeIcon}
+                    onClick={
+                        detailsPath
+                            ? (): void => push(detailsPath)
+                            : openDetailsModal
+                    }
+                />
+            )}
 
             {!!openEditModal && (
                 <MenuActionItem
@@ -47,11 +55,13 @@ export default function BaseEntityMenu({
                 />
             )}
 
-            <MenuActionItem
-                text="Delete"
-                Icon={RemoveIcon}
-                onClick={openDeleteModal}
-            />
+            {!!openDeleteModal && (
+                <MenuActionItem
+                    text="Delete"
+                    Icon={RemoveIcon}
+                    onClick={openDeleteModal}
+                />
+            )}
         </Menu>
     );
 }
