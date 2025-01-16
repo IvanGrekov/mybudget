@@ -1,8 +1,8 @@
 import FormSelectField from 'components/form-fields/FormSelectField';
 import {
-    CREATE_TRANSACTION_FORM_FIELD_NAMES,
-    CREATE_TRANSACTION_FORM_FIELD_LABELS,
-} from 'features/transaction-form-modal/constants/createTransactionForm.constants';
+    TRANSACTION_FORM_FIELD_NAMES,
+    TRANSACTION_FORM_FIELD_LABELS,
+} from 'features/transaction-form-modal/constants/transactionForm.constants';
 import { CreateTransactionDtoTypeEnum } from 'types/generated.types';
 import { getCapitalizedString } from 'utils/string.utils';
 
@@ -13,8 +13,8 @@ const OPTIONS = Object.values(CreateTransactionDtoTypeEnum).filter(
 export default function TypeField(): JSX.Element {
     return (
         <FormSelectField
-            name={CREATE_TRANSACTION_FORM_FIELD_NAMES.type}
-            label={CREATE_TRANSACTION_FORM_FIELD_LABELS.type}
+            name={TRANSACTION_FORM_FIELD_NAMES.type}
+            label={TRANSACTION_FORM_FIELD_LABELS.type}
             options={OPTIONS}
             isClearable={false}
             required={true}

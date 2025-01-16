@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
 
 interface IUseGetAreRelatedTransactionsExistResult {
-    isLoading: boolean;
     areRelatedTransactionsExist: boolean;
+    isLoading: boolean;
 }
 
 const LIMIT = 1;
@@ -20,13 +21,15 @@ export const useGetAreRelatedTransactionsExist = (
         offset: OFFSET,
     };
 
-    const { isPending, data } = useQuery({
+    const { data, isPending, error } = useQuery({
         queryKey: getTransactionsQueryKey(queryArgs),
         queryFn: () => CLIENT_MY_BUDGET_API.getTransactions(queryArgs),
     });
 
+    useRequestErrorHandler(error);
+
     return {
-        isLoading: isPending,
         areRelatedTransactionsExist: !!data?.items.length,
+        isLoading: isPending,
     };
 };

@@ -80,3 +80,7 @@ export const getSingleAccountQueryKey = (accountId: number): string[] => [
     EFetchingTags.ACCOUNT,
     accountId.toString(),
 ];
+
+export const getSingleTransactionQueryKey = (
+    transactionId: number,
+): string[] => [EFetchingTags.TRANSACTION, transactionId.toString()];

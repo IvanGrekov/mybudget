@@ -1,8 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { DEFAULT_DESCRIPTION_MAX_LENGTH } from 'constants/formValidation.constants';
-import { CREATE_TRANSACTION_FORM_FIELD_LABELS } from 'features/transaction-form-modal/constants/createTransactionForm.constants';
+import {
+    TRANSACTION_DESCRIPTION_VALIDATION,
+    TRANSACTION_FORM_FIELD_LABELS,
+} from 'features/transaction-form-modal/constants/transactionForm.constants';
 import {
     TCreateTransactionFormValues,
     ICreateTransactionAccount,
@@ -14,7 +16,6 @@ import {
     TransactionCategoryCurrencyEnum,
 } from 'types/generated.types';
 import {
-    getMaxLengthValidationWarning,
     getRequiredValidationWarning,
     getNumberMinValidationWarning,
     getMatchValidationWarning,
@@ -58,7 +59,7 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                 .oneOf(Object.values(CreateTransactionDtoTypeEnum))
                 .required(
                     getRequiredValidationWarning(
-                        CREATE_TRANSACTION_FORM_FIELD_LABELS.type,
+                        TRANSACTION_FORM_FIELD_LABELS.type,
                     ),
                 ),
             fromAccount: CREATE_TRANSACTION_ACCOUNT_SCHEMA.when(
@@ -74,7 +75,7 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                             .object()
                             .required(
                                 getRequiredValidationWarning(
-                                    CREATE_TRANSACTION_FORM_FIELD_LABELS.fromAccount,
+                                    TRANSACTION_FORM_FIELD_LABELS.fromAccount,
                                 ),
                             );
                     }
@@ -95,7 +96,7 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                             .object()
                             .required(
                                 getRequiredValidationWarning(
-                                    CREATE_TRANSACTION_FORM_FIELD_LABELS.toAccount,
+                                    TRANSACTION_FORM_FIELD_LABELS.toAccount,
                                 ),
                             );
                     }
@@ -111,7 +112,7 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                             .object()
                             .required(
                                 getRequiredValidationWarning(
-                                    CREATE_TRANSACTION_FORM_FIELD_LABELS.fromCategory,
+                                    TRANSACTION_FORM_FIELD_LABELS.fromCategory,
                                 ),
                             );
                     }
@@ -127,7 +128,7 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                             .object()
                             .required(
                                 getRequiredValidationWarning(
-                                    CREATE_TRANSACTION_FORM_FIELD_LABELS.toCategory,
+                                    TRANSACTION_FORM_FIELD_LABELS.toCategory,
                                 ),
                             );
                     }
@@ -139,19 +140,19 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                 .number()
                 .typeError(
                     getMatchValidationWarning(
-                        CREATE_TRANSACTION_FORM_FIELD_LABELS.value,
+                        TRANSACTION_FORM_FIELD_LABELS.value,
                     ),
                 )
                 .min(
                     MIN_VALUE,
                     getNumberMinValidationWarning(
-                        CREATE_TRANSACTION_FORM_FIELD_LABELS.value,
+                        TRANSACTION_FORM_FIELD_LABELS.value,
                         MIN_VALUE,
                     ),
                 )
                 .required(
                     getRequiredValidationWarning(
-                        CREATE_TRANSACTION_FORM_FIELD_LABELS.value,
+                        TRANSACTION_FORM_FIELD_LABELS.value,
                     ),
                 ),
             fee: yup
@@ -160,20 +161,12 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                 .min(
                     MIN_FEE,
                     getNumberMinValidationWarning(
-                        CREATE_TRANSACTION_FORM_FIELD_LABELS.fee,
+                        TRANSACTION_FORM_FIELD_LABELS.fee,
                         MIN_FEE,
                     ),
                 )
                 .nullable(),
             currencyRate: yup.number().nullable(),
-            description: yup
-                .string()
-                .max(
-                    DEFAULT_DESCRIPTION_MAX_LENGTH,
-                    getMaxLengthValidationWarning(
-                        CREATE_TRANSACTION_FORM_FIELD_LABELS.description,
-                    ),
-                )
-                .nullable(),
+            description: TRANSACTION_DESCRIPTION_VALIDATION.nullable(),
         }),
     );

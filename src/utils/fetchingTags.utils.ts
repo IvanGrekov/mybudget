@@ -125,3 +125,9 @@ export const getTransactionsFetchingTags = (
 
     return result;
 };
+
+export const getSingleTransactionFetchingTag = (
+    transactionId: number,
+): string => {
+    return `${EFetchingTags.TRANSACTION}-${transactionId}`;
+};

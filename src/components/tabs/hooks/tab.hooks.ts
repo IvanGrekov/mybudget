@@ -51,11 +51,13 @@ export const useTabIndicatorConnection: TUseTabIndicatorConnection = ({
                 initialIndicatorLeftPosition +
                 (tabsElement?.scrollLeft || 0);
 
-            !isConnected.current &&
+            if (!isConnected.current) {
                 tabsElement?.scrollTo({
                     left: newLeftPosition,
                     behavior: 'smooth',
                 });
+            }
+
             indicatorElement.style.left = `${newLeftPosition}px`;
         }
 

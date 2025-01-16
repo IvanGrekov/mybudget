@@ -10,9 +10,11 @@ export const getFailedResponseMessage = (
         message = String(messageFromResponse);
     }
 
-    if (message) {
-        message = message.slice(0, 1).toUpperCase() + message.slice(1);
+    if (!message) {
+        return 'An error occurred';
     }
 
-    return message || 'An error occurred';
+    message = message.slice(0, 1).toUpperCase() + message.slice(1);
+
+    return message;
 };

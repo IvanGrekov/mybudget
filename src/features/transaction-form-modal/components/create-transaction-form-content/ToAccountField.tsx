@@ -7,9 +7,9 @@ import LinearProgress from 'components/linear-progress/LinearProgress';
 import BalanceAfterTransaction from 'features/transaction-form-modal/components/create-transaction-form-content/BalanceAfterTransaction';
 import { getToAccountBalanceAfterTransaction } from 'features/transaction-form-modal/components/create-transaction-form-content/utils/getToAccountBalanceAfterTransaction';
 import {
-    CREATE_TRANSACTION_FORM_FIELD_NAMES,
-    CREATE_TRANSACTION_FORM_FIELD_LABELS,
-} from 'features/transaction-form-modal/constants/createTransactionForm.constants';
+    TRANSACTION_FORM_FIELD_NAMES,
+    TRANSACTION_FORM_FIELD_LABELS,
+} from 'features/transaction-form-modal/constants/transactionForm.constants';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 
@@ -42,8 +42,8 @@ export default function ToAccountField(): JSX.Element | null {
     return (
         <>
             <FormSelectField
-                name={CREATE_TRANSACTION_FORM_FIELD_NAMES.toAccount}
-                label={CREATE_TRANSACTION_FORM_FIELD_LABELS.toAccount}
+                name={TRANSACTION_FORM_FIELD_NAMES.toAccount}
+                label={TRANSACTION_FORM_FIELD_LABELS.toAccount}
                 options={filteredAccounts}
                 isClearable={true}
                 shouldAddSearch={true}

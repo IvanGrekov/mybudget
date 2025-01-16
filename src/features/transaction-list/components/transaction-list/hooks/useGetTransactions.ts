@@ -2,6 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { DEFAULT_OFFSET } from 'constants/pagination';
 import { useTransactionListCurrentFilterValue } from 'features/transaction-list/hooks/useTransactionListCurrentFilterValue';
+import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { Transaction } from 'types/generated.types';
@@ -21,6 +22,7 @@ export const useGetTransactions = (): IUseGetTransactionsResult => {
 
     const {
         data,
+        error,
         isFetching,
         isLoading,
         hasNextPage: hasMore,
@@ -44,7 +46,7 @@ export const useGetTransactions = (): IUseGetTransactionsResult => {
         },
     });
 
-    data;
+    useRequestErrorHandler(error);
 
     return {
         transactions: data?.pages.flatMap((page) => page?.items || []),

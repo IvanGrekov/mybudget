@@ -20,6 +20,7 @@ import {
     TransactionCategoryStatusEnum,
     EditTransactionCategoryDto,
     CreateTransactionDto,
+    EditTransactionDto,
 } from 'types/generated.types';
 import {
     IEditUserArgs,
@@ -94,12 +95,16 @@ export abstract class MyBudgetApi {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(getFailedResponseMessage(data));
+                throw new Error(getFailedResponseMessage(data), {
+                    cause: data.statusCode,
+                });
             }
 
             return data;
         } catch (error) {
-            throw new Error(getFailedResponseMessage(error));
+            throw new Error(getFailedResponseMessage(error), {
+                cause: typeof error === 'object' ? error?.cause : undefined,
+            });
         }
     }
 
@@ -412,5 +417,12 @@ export abstract class MyBudgetApi {
         dto: CreateTransactionDto,
     ): TAsyncApiClientResult<Transaction> {
         return this.post('/transactions', dto);
+    }
+
+    editTransaction(
+        id: number,
+        dto: EditTransactionDto,
+    ): TAsyncApiClientResult<Transaction> {
+        return this.patch(`/transactions/${id}`, dto);
     }
 }

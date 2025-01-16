@@ -1,15 +1,15 @@
 import FormTextField from 'components/form-fields/FormTextField';
 import {
-    CREATE_TRANSACTION_FORM_FIELD_NAMES,
-    CREATE_TRANSACTION_FORM_FIELD_LABELS,
-} from 'features/transaction-form-modal/constants/createTransactionForm.constants';
+    TRANSACTION_FORM_FIELD_NAMES,
+    TRANSACTION_FORM_FIELD_LABELS,
+} from 'features/transaction-form-modal/constants/transactionForm.constants';
 import { roundValue } from 'utils/roundValue';
 
 export default function CurrencyRateField(): JSX.Element {
     return (
         <FormTextField
-            name={CREATE_TRANSACTION_FORM_FIELD_NAMES.currencyRate}
-            label={CREATE_TRANSACTION_FORM_FIELD_LABELS.currencyRate}
+            name={TRANSACTION_FORM_FIELD_NAMES.currencyRate}
+            label={TRANSACTION_FORM_FIELD_LABELS.currencyRate}
             type="number"
             disabled={true}
             formatValue={roundValue}

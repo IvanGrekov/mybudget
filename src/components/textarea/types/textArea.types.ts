@@ -11,6 +11,7 @@ import { TTextFieldBaseProps } from 'types/textFieldBaseProps';
 export type TTextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> &
     TTextFieldBaseProps & {
         disableResize?: boolean;
+        nativeSelectRefCallback?: (ref: HTMLTextAreaElement) => void;
     };
 
 export interface ITextareaHandlers {

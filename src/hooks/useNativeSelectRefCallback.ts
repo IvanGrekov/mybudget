@@ -1,14 +1,14 @@
 import { useEffect, RefObject } from 'react';
 
-interface IUseNativeSelectRefCallbackArgs {
-    inputRef: RefObject<HTMLInputElement>;
-    nativeSelectRefCallback?: (ref: HTMLInputElement) => void;
+interface IUseNativeSelectRefCallbackArgs<T> {
+    inputRef: RefObject<T>;
+    nativeSelectRefCallback?: (ref: T) => void;
 }
 
-export const useNativeSelectRefCallback = ({
+export const useNativeSelectRefCallback = <T>({
     inputRef,
     nativeSelectRefCallback,
-}: IUseNativeSelectRefCallbackArgs): void => {
+}: IUseNativeSelectRefCallbackArgs<T>): void => {
     useEffect(() => {
         if (nativeSelectRefCallback && inputRef.current) {
             nativeSelectRefCallback(inputRef.current);

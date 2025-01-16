@@ -38,7 +38,6 @@ export default async function middleware(
     }
 
     const refreshTokensResponse = await refreshTokens(request, response);
-
     if (refreshTokensResponse) {
         return refreshTokensResponse;
     }

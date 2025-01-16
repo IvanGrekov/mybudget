@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import {
@@ -16,7 +17,7 @@ interface IUseGetTransactionCategoriesResult {
 export const useGetTransactionCategories = (
     type: TransactionCategoryTypeEnum,
 ): IUseGetTransactionCategoriesResult => {
-    const { isPending, data } = useQuery({
+    const { data, isPending, error } = useQuery({
         queryKey: getTransactionCategoriesQueryKey({
             type,
         }),
@@ -25,6 +26,8 @@ export const useGetTransactionCategories = (
                 type,
             }),
     });
+
+    useRequestErrorHandler(error);
 
     return {
         transactionCategories: data,

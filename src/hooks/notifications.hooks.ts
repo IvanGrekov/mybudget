@@ -14,16 +14,11 @@ import {
     INotification,
     ENotificationPriority,
     ENotificationType,
+    TAddMessageToNotifications,
 } from 'types/notificationsContext.types';
 
-type TUseAddMessageToNotifications = () => (args: {
-    id?: INotification['id'];
-    message: INotification['message'];
-    priority?: ENotificationPriority;
-}) => void;
-
-export const useAddErrorMessageToNotifications: TUseAddMessageToNotifications =
-    () => {
+export const useAddErrorMessageToNotifications =
+    (): TAddMessageToNotifications => {
         const context = useNotificationsContext();
 
         const { addNotification } = context;
@@ -37,8 +32,8 @@ export const useAddErrorMessageToNotifications: TUseAddMessageToNotifications =
         };
     };
 
-export const useAddInfoMessageToNotifications: TUseAddMessageToNotifications =
-    () => {
+export const useAddInfoMessageToNotifications =
+    (): TAddMessageToNotifications => {
         const context = useNotificationsContext();
 
         const { addNotification } = context;
@@ -52,8 +47,8 @@ export const useAddInfoMessageToNotifications: TUseAddMessageToNotifications =
         };
     };
 
-export const useAddSuccessMessageToNotifications: TUseAddMessageToNotifications =
-    () => {
+export const useAddSuccessMessageToNotifications =
+    (): TAddMessageToNotifications => {
         const context = useNotificationsContext();
 
         const { addNotification } = context;

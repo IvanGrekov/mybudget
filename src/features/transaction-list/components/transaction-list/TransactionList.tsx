@@ -40,7 +40,7 @@ export default function TransactionList(): JSX.Element {
 
             {!isEmptyState && (
                 <InfiniteScroll
-                    dataLength={transactions.length} //This is important field to render the next data
+                    dataLength={transactions.length}
                     next={next}
                     hasMore={hasMore}
                     loader={<LinearProgress />}

@@ -24,6 +24,7 @@ export default function Textarea({
     errorClassName,
     textFieldWrapperClassName,
     className,
+    nativeSelectRefCallback,
     onFocus,
     onBlur,
     onChange,
@@ -40,6 +41,7 @@ export default function Textarea({
         onTextareaClick,
         onTextareaChange,
     } = useTextarea({
+        nativeSelectRefCallback,
         onFocus,
         onBlur,
         onClick,
@@ -50,11 +52,13 @@ export default function Textarea({
         <InputContainer
             error={error}
             disabled={disabled}
+            isFullWidth={isFullWidth}
             className={containerClassName}
             errorClassName={errorClassName}
         >
             <TextFieldWrapper
                 disabled={disabled}
+                isFullWidth={isFullWidth}
                 className={textFieldWrapperClassName}
             >
                 <textarea
@@ -86,6 +90,7 @@ export default function Textarea({
                     label={label}
                     required={required}
                     disabled={disabled}
+                    isFullWidth={isFullWidth}
                     isFocused={isFocused}
                     error={error}
                     className={cx(
@@ -104,6 +109,7 @@ export default function Textarea({
                         required={required}
                         disabled={disabled}
                         isFieldFilled={isTextareaFilled}
+                        isFullWidth={isFullWidth}
                         error={error}
                         className={cx(styles.placeholder, placeholderClassName)}
                     />

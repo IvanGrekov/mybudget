@@ -4,6 +4,7 @@ import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
 import Chip from 'components/chip/Chip';
 import Typography from 'components/typography/Typography';
+import EditTransactionModal from 'features/transaction-form-modal/components/edit-transaction-modal/EditTransactionModal';
 import styles from 'features/transaction-list/components/transaction-card/TransactionCard.module.scss';
 import TransactionCardContent from 'features/transaction-list/components/transaction-card/TransactionCardContent';
 import { getColorForTypeChip } from 'features/transaction-list/components/transaction-card/utils/getColorForTypeChip';
@@ -28,6 +29,12 @@ export default function TransactionCard({
         isModalOpen: isDetailsModalOpen,
         openModal: openDetailsModal,
         closeModal: closeDetailsModal,
+    } = useModal();
+
+    const {
+        isModalOpen: isEditModalOpen,
+        openModal: openEditModal,
+        closeModal: closeEditModal,
     } = useModal();
 
     const { timeZone } = useGetMyTimeZone();
@@ -68,7 +75,10 @@ export default function TransactionCard({
                         </div>
                     }
                     actions={
-                        <BaseEntityMenu openDetailsModal={openDetailsModal} />
+                        <BaseEntityMenu
+                            openDetailsModal={openDetailsModal}
+                            openEditModal={openEditModal}
+                        />
                     }
                 />
 
@@ -79,6 +89,12 @@ export default function TransactionCard({
                 transaction={transaction}
                 isOpen={isDetailsModalOpen}
                 onClose={closeDetailsModal}
+            />
+
+            <EditTransactionModal
+                transaction={transaction}
+                isOpen={isEditModalOpen}
+                onClose={closeEditModal}
             />
         </>
     );
