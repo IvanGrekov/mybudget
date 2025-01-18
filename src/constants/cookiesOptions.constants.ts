@@ -1,3 +1,5 @@
+import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+
 // NOTE: One year
 export const DEFAULT_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 // NOTE: One hour
@@ -14,3 +16,16 @@ export const REFRESH_TOKEN_MAX_AGE = parseInt(
 export const DEFAULT_COOKIE_SAME_SITE = 'lax';
 
 export const DEFAULT_COOKIE_PATH = '/';
+
+export const ACCESS_TOKEN_OPTIONS: Partial<ResponseCookie> = {
+    maxAge: SESSION_COOKIE_MAX_AGE,
+    sameSite: DEFAULT_COOKIE_SAME_SITE,
+    path: DEFAULT_COOKIE_PATH,
+};
+
+export const REFRESH_TOKEN_OPTIONS: Partial<ResponseCookie> = {
+    maxAge: REFRESH_TOKEN_MAX_AGE,
+    httpOnly: true,
+    sameSite: DEFAULT_COOKIE_SAME_SITE,
+    path: DEFAULT_COOKIE_PATH,
+};

@@ -8,10 +8,8 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
 import {
-    SESSION_COOKIE_MAX_AGE,
-    REFRESH_TOKEN_MAX_AGE,
-    DEFAULT_COOKIE_SAME_SITE,
-    DEFAULT_COOKIE_PATH,
+    ACCESS_TOKEN_OPTIONS,
+    REFRESH_TOKEN_OPTIONS,
 } from 'constants/cookiesOptions.constants';
 import { URL_HEADER } from 'constants/headers';
 import {
@@ -21,7 +19,7 @@ import {
 import { EAppRoutes } from 'types/appRoutes';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
 import { getIsAuthenticated } from 'utils/getIsAuthenticated';
-import { makeApiFetch } from 'utils/makeApiFetch';
+import { getRefreshedTokens } from 'utils/getRefreshedTokens';
 
 export default async function middleware(
     request: NextRequest,
@@ -103,13 +101,7 @@ async function refreshTokens(
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
 
-    const tokensResponse = await makeApiFetch({
-        url: '/authentication/refresh-token',
-        method: 'POST',
-        body: {
-            refreshToken,
-        },
-    }).catch((e) => {
+    const tokensResponse = await getRefreshedTokens(refreshToken).catch((e) => {
         // eslint-disable-next-line no-console
         console.error('Token refreshing failed:', e);
 
@@ -125,23 +117,25 @@ async function refreshTokens(
 
     const newTokensData = await tokensResponse.json();
 
-    response.cookies.set(SESSION_COOKIE_NAME, newTokensData.accessToken, {
-        maxAge: SESSION_COOKIE_MAX_AGE,
-        sameSite: DEFAULT_COOKIE_SAME_SITE,
-        path: DEFAULT_COOKIE_PATH,
-    });
+    response.cookies.set(
+        SESSION_COOKIE_NAME,
+        newTokensData.accessToken,
+        ACCESS_TOKEN_OPTIONS,
+    );
     response.cookies.set(
         REFRESH_TOKEN_COOKIE_NAME,
         newTokensData.refreshToken,
-        {
-            maxAge: REFRESH_TOKEN_MAX_AGE,
-            httpOnly: true,
-            sameSite: DEFAULT_COOKIE_SAME_SITE,
-            path: DEFAULT_COOKIE_PATH,
-        },
+        REFRESH_TOKEN_OPTIONS,
     );
+
+    // eslint-disable-next-line no-console
+    console.log('refreshing in middleware', newTokensData.refreshToken);
 }
 
 export const config = {
-    matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/', '/([a-z]+)/:path*'],
+    matcher: [
+        '/((?!api|_next|_vercel|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)',
+        '/',
+        '/([a-z]+)/:path*',
+    ],
 };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { SESSION_COOKIE_NAME } from 'constants/cookiesKeys.constants';
 import { EAppRoutes } from 'types/appRoutes';
@@ -9,7 +9,6 @@ import { getIsAuthPage } from 'utils/getIsAuthPage';
 
 export const useRedirectToHomeForActiveSession = (): { isLoading: boolean } => {
     const [isLoading, setIsLoading] = useState(true);
-    const router = useRouter();
     const pathname = usePathname();
 
     useEffect(() => {
@@ -18,7 +17,7 @@ export const useRedirectToHomeForActiveSession = (): { isLoading: boolean } => {
         }
 
         window.location.href = EAppRoutes.Root;
-    }, [pathname, router]);
+    }, [pathname]);
 
     return { isLoading };
 };

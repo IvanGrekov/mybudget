@@ -45,14 +45,18 @@ import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
 export abstract class MyBudgetApi {
-    constructor(private getAccessToken: () => string, private apiUrl?: string) {
+    constructor(
+        private getAccessToken: () => Promise<string>,
+        private apiUrl?: string,
+        private isClient?: boolean,
+    ) {
         if (!apiUrl) {
             throw new Error('Api URL is required');
         }
     }
 
-    private getBaseHeaders(): Record<string, string> | null {
-        const token = this.getAccessToken();
+    private async getBaseHeaders(): Promise<Record<string, string> | null> {
+        const token = await this.getAccessToken().catch(() => null);
 
         if (!token) {
             return null;
@@ -67,10 +71,16 @@ export abstract class MyBudgetApi {
         url: string,
         options?: RequestInit,
     ): TAsyncApiClientResult<T> {
-        const baseHeaders = this.getBaseHeaders();
+        const baseHeaders = await this.getBaseHeaders();
 
         if (!baseHeaders) {
-            return redirect(EAppRoutes.Auth);
+            if (this.isClient) {
+                window.location.href = EAppRoutes.Auth;
+
+                return;
+            } else {
+                return redirect(EAppRoutes.Auth);
+            }
         }
 
         try {
@@ -183,7 +193,7 @@ export abstract class MyBudgetApi {
     }
 
     async enableTfa(tfaToken: string): TAsyncApiClientResult<void> {
-        const baseHeaders = this.getBaseHeaders();
+        const baseHeaders = await this.getBaseHeaders();
 
         if (!baseHeaders) {
             throw new Error('Forbidden');
@@ -204,7 +214,7 @@ export abstract class MyBudgetApi {
     }
 
     async disableTfa(tfaToken: string): TAsyncApiClientResult<void> {
-        const baseHeaders = this.getBaseHeaders();
+        const baseHeaders = await this.getBaseHeaders();
 
         if (!baseHeaders) {
             throw new Error('Forbidden');
