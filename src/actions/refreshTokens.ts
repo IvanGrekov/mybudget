@@ -11,6 +11,7 @@ import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { extractSessionCookieValueFromSetCookieHeader } from 'utils/extractSessionCookieValueFromSetCookieHeader';
 import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { getRefreshedTokens } from 'utils/getRefreshedTokens';
+import log from 'utils/log';
 
 type TRefreshTokensResponse = { error?: string; accessToken?: string };
 
@@ -20,8 +21,7 @@ export async function refreshTokens(): TAsyncApiClientResult<TRefreshTokensRespo
     try {
         const accessToken = cookies().get(SESSION_COOKIE_NAME)?.value;
         if (accessToken) {
-            // eslint-disable-next-line no-console
-            console.log('refreshTokens: access token found');
+            log('refreshTokens: access token found');
 
             return { accessToken };
         }
@@ -30,8 +30,7 @@ export async function refreshTokens(): TAsyncApiClientResult<TRefreshTokensRespo
             headers().get('set-cookie'),
         );
         if (sessionCookieValue) {
-            // eslint-disable-next-line no-console
-            console.log('refreshTokens: session cookie value found');
+            log('refreshTokens: session cookie value found');
 
             return { accessToken: sessionCookieValue };
         }
@@ -39,37 +38,29 @@ export async function refreshTokens(): TAsyncApiClientResult<TRefreshTokensRespo
         const refreshToken = cookies().get(REFRESH_TOKEN_COOKIE_NAME)?.value;
 
         if (!refreshToken) {
-            // eslint-disable-next-line no-console
-            console.warn('No refresh token found');
+            log('No refresh token found');
 
             return null;
         }
 
-        // eslint-disable-next-line no-console
-        console.log('refreshing in action', refreshToken);
+        log('refreshing in action', refreshToken);
 
         const tokensResponse = await getRefreshedTokens(refreshToken).catch(
             (e) => {
-                // eslint-disable-next-line no-console
-                console.error(`catch: ${ERROR_MESSAGE}:`, e);
+                log(`catch: ${ERROR_MESSAGE}:`, e);
 
                 return null;
             },
         );
 
         if (!tokensResponse) {
-            // eslint-disable-next-line no-console
-            console.error(ERROR_MESSAGE, 'no tokens response');
+            log(ERROR_MESSAGE, 'no tokens response');
 
             return null;
         }
 
         if (!tokensResponse.ok) {
-            // eslint-disable-next-line no-console
-            console.error(
-                `not ok, ${ERROR_MESSAGE}:`,
-                tokensResponse.statusText,
-            );
+            log(`not ok, ${ERROR_MESSAGE}:`, tokensResponse.statusText);
 
             return null;
         }

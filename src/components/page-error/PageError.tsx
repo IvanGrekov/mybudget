@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import EmptyState from 'components/empty-state/EmptyState';
 import Spacing from 'components/spacing/Spacing';
 import { IPageErrorProps } from 'types/pageErrorProps';
+import log from 'utils/log';
 
 export default function PageError({ error }: IPageErrorProps): JSX.Element {
     useEffect(() => {
@@ -12,7 +13,7 @@ export default function PageError({ error }: IPageErrorProps): JSX.Element {
             return;
         }
 
-        console.error(error);
+        log('Error on page:', error);
     }, [error]);
 
     return (

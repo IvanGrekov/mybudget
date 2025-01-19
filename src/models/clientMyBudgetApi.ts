@@ -4,29 +4,21 @@ import { MyBudgetApi } from 'models/myBudgetApi';
 import { getCookie } from 'utils/getCookie';
 
 export class ClientMyBudgetApi extends MyBudgetApi {
-    private async getNewAccessToken(): Promise<string> {
+    private async getNewAccessToken(): Promise<string | null> {
         const result = await refreshTokens().catch(() => null);
 
-        if (!result?.accessToken) {
-            return '';
-        }
-
-        return result.accessToken;
+        return result?.accessToken || null;
     }
 
     constructor() {
-        const getAccessToken = async (): Promise<string> => {
+        const getAccessToken = async (): Promise<string | null> => {
             let token = getCookie(SESSION_COOKIE_NAME);
 
             if (!token) {
-                token = await this.getNewAccessToken().catch((error) => {
-                    console.error(error);
-
-                    return null;
-                });
+                token = await this.getNewAccessToken().catch(() => null);
             }
 
-            return token || '';
+            return token;
         };
 
         super(getAccessToken, process.env.NEXT_PUBLIC_API_CLIENT_URL, true);

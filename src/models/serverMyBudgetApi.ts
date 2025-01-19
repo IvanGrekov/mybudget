@@ -9,7 +9,7 @@ import { extractSessionCookieValueFromSetCookieHeader } from 'utils/extractSessi
 
 export class ServerMyBudgetApi extends MyBudgetApi {
     constructor() {
-        const getAccessToken = (): Promise<string> => {
+        const getAccessToken = (): Promise<string | null> => {
             let token: Maybe<string> =
                 cookies().get(SESSION_COOKIE_NAME)?.value;
 
@@ -19,7 +19,7 @@ export class ServerMyBudgetApi extends MyBudgetApi {
                 );
             }
 
-            return Promise.resolve(token || '');
+            return Promise.resolve(token);
         };
 
         super(getAccessToken, process.env.NEXT_PUBLIC_API_URL);

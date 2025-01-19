@@ -31,6 +31,7 @@ import { ETheme } from 'types/theme';
 import { getAppPageMetadata } from 'utils/getAppPageMetadata';
 import { getExchangeRates } from 'utils/getExchangeRates';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
+import log from 'utils/log';
 import { getIsDarkUserThemeFromCookie } from 'utils/userThemeFromCookie.utils';
 
 const INTER = Inter({ subsets: ['latin'] });
@@ -54,8 +55,7 @@ export default async function RootLocaleLayout({
     const isAuthPage = getIsAuthPage(headers().get(URL_HEADER));
 
     const exchangeRates = await getExchangeRates().catch(() => {
-        // eslint-disable-next-line no-console
-        console.error('Failed to fetch exchange rates');
+        log('Failed to fetch exchange rates');
     });
 
     if (!exchangeRates) {

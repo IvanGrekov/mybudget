@@ -46,7 +46,7 @@ import { makeApiFetch } from 'utils/makeApiFetch';
 
 export abstract class MyBudgetApi {
     constructor(
-        private getAccessToken: () => Promise<string>,
+        private getAccessToken: () => Promise<string | null>,
         private apiUrl?: string,
         private isClient?: boolean,
     ) {

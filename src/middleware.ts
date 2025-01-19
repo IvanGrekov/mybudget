@@ -20,6 +20,7 @@ import { EAppRoutes } from 'types/appRoutes';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
 import { getIsAuthenticated } from 'utils/getIsAuthenticated';
 import { getRefreshedTokens } from 'utils/getRefreshedTokens';
+import log from 'utils/log';
 
 export default async function middleware(
     request: NextRequest,
@@ -102,15 +103,13 @@ async function refreshTokens(
     }
 
     const tokensResponse = await getRefreshedTokens(refreshToken).catch((e) => {
-        // eslint-disable-next-line no-console
-        console.error('Token refreshing failed:', e);
+        log('Token refreshing failed:', e);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     });
 
     if (!tokensResponse.ok) {
-        // eslint-disable-next-line no-console
-        console.error('Token refreshing failed:', tokensResponse.statusText);
+        log('Token refreshing failed:', tokensResponse.statusText);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
@@ -128,8 +127,7 @@ async function refreshTokens(
         REFRESH_TOKEN_OPTIONS,
     );
 
-    // eslint-disable-next-line no-console
-    console.log('refreshing in middleware', newTokensData.refreshToken);
+    log('refreshing in middleware', newTokensData.refreshToken);
 }
 
 export const config = {

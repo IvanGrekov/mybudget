@@ -1,3 +1,5 @@
+import log from 'utils/log';
+
 interface IGetLocalStorageValueArgs<T> {
     key: string;
     initialValue?: T | null;
@@ -12,7 +14,7 @@ export const getLocalStorageValue = <T>({
 
         return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-        console.error(`Error reading key [${key}] from localStorage:`, error);
+        log(`Error reading key [${key}] from localStorage:`, error);
 
         return initialValue;
     }
@@ -30,6 +32,6 @@ export const setLocalStorageValue = <T>({
     try {
         window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-        console.error(`Error setting key [${key}] in localStorage:`, error);
+        log(`Error setting key [${key}] in localStorage:`, error);
     }
 };
