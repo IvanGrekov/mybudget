@@ -7,6 +7,7 @@ import Typography from 'components/typography/Typography';
 import EditTransactionModal from 'features/transaction-form-modal/components/edit-transaction-modal/EditTransactionModal';
 import styles from 'features/transaction-list/components/transaction-card/TransactionCard.module.scss';
 import TransactionCardContent from 'features/transaction-list/components/transaction-card/TransactionCardContent';
+import TransactionCardFooter from 'features/transaction-list/components/transaction-card/TransactionCardFooter';
 import { getColorForTypeChip } from 'features/transaction-list/components/transaction-card/utils/getColorForTypeChip';
 import TransactionDetailsModal from 'features/transaction-list/components/transaction-details-modal/TransactionDetailsModal';
 import { useGetMyTimeZone } from 'hooks/me.hooks';
@@ -83,6 +84,8 @@ export default function TransactionCard({
                 />
 
                 <TransactionCardContent transaction={transaction} />
+
+                <TransactionCardFooter description={transaction.description} />
             </Card>
 
             <TransactionDetailsModal

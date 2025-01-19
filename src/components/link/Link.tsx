@@ -18,6 +18,7 @@ interface ILinkProps extends PropsWithChildren {
     isActive?: boolean;
     target?: HTMLAttributeAnchorTarget;
     rel?: string;
+    tabIndex?: number;
     className?: string;
     textClassName?: string;
     onClick?: VoidFunction;
@@ -33,6 +34,7 @@ export default function Link({
     shallow,
     target,
     rel,
+    tabIndex,
     isActive,
     className,
     textClassName,
@@ -42,7 +44,7 @@ export default function Link({
         <NextLink
             href={href}
             shallow={shallow}
-            tabIndex={1}
+            tabIndex={tabIndex}
             className={cx(
                 styles.link,
                 {

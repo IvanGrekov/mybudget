@@ -17,7 +17,7 @@ export interface IBaseButtonProps {
 export interface IButtonProps extends IBaseButtonProps {
     text: string;
     form?: string;
-    variant?: 'outlined' | 'contained' | 'ghost';
+    variant?: 'outlined' | 'contained' | 'ghost' | 'text';
     size?: 'small' | 'big' | 'regular';
     textVariant?: TTypographyVariants;
     isLoading?: boolean;

@@ -22,6 +22,19 @@
     }
 }
 
+.card-footer {
+    padding: $spacing-4;
+    border-top: $border-width solid var(--border);
+
+    &--hide-border {
+        border-top: none;
+    }
+
+    @media (max-width: $screen-md) {
+        padding: $spacing-3;
+    }
+}
+
 .card-header-actions {
     display: flex;
     flex-shrink: 0;

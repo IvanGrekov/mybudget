@@ -18,7 +18,7 @@ const ButtonBody = (
         iconColor,
         variant = 'outlined',
         size = 'regular',
-        textVariant = size === 'big' ? 'button' : 'body2',
+        textVariant = size === 'big' || variant === 'text' ? 'button' : 'body2',
         isDisabled,
         isLoading,
         isActive,

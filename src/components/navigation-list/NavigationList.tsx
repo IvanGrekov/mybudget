@@ -35,6 +35,7 @@ export default function NavigationList(): JSX.Element {
                             locale,
                             itemHref: href,
                         })}
+                        tabIndex={1}
                         textVariant={isMobile ? 'h6' : 'subtitle2'}
                         onClick={onClick}
                     />

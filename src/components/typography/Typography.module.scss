@@ -2,6 +2,7 @@
 
 .typography {
     color: inherit;
+    text-wrap: pretty;
 
     &--line-clamp {
         overflow: hidden;

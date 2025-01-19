@@ -129,6 +129,39 @@
         }
     }
 
+    &--text {
+        padding: 0.15rem 0.3rem;
+        color: var(--foreground);
+        border-color: transparent;
+
+        &.button--red {
+            color: var(--red);
+        }
+
+        &.button--green {
+            color: var(--green);
+        }
+
+        &:hover,
+        &:focus-visible,
+        &.button--active {
+            color: var(--hover);
+            border-color: transparent;
+
+            &.button--red {
+                color: var(--red);
+            }
+
+            &.button--green {
+                color: var(--green);
+            }
+        }
+
+        @media (max-width: $screen-md) {
+            padding: 0.15rem 0.3rem;
+        }
+    }
+
     &--big {
         padding: 1.125rem 1.5rem;
         border-radius: $border-radius;
@@ -144,6 +177,10 @@
 
     &:focus-visible {
         border-color: var(--hover);
+    }
+
+    &:focus-visible.button--text {
+        border-color: transparent;
     }
 
     &--disabled,
@@ -162,6 +199,13 @@
     &--disabled.button--ghost.button--active {
         border-color: transparent;
         background-color: rgba(var(--dark), 0.1);
+    }
+
+    &--disabled.button--text,
+    &--disabled.button--text:hover,
+    &--disabled.button--text.button--active {
+        border-color: transparent;
+        background-color: transparent;
     }
 
     &--loading,
