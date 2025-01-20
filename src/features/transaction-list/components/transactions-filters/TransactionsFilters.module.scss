@@ -1,0 +1,12 @@
+@import 'styles/variables.scss';
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+
+    @media (max-width: $screen-md) {
+        gap: 1rem;
+    }
+}

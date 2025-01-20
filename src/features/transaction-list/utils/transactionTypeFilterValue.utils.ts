@@ -1,9 +1,9 @@
 import { ALL_FILTER_VALUE } from 'constants/allFilterValue';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-import { EXCLUDED_TRANSACTION_TYPE } from 'features/transaction-list/constants/excludedTransactionType';
-import { TRANSACTION_LIST_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListFilterParamName';
+import { TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListTypesFilterParamName';
 import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { TransactionTypeEnum } from 'types/generated.types';
+import { splitMultipleValuesSearchParam } from 'utils/searchParams.utils';
 
 export const getTransactionTypesByFilterValue = (
     currentFilterValue?: string,
@@ -12,7 +12,7 @@ export const getTransactionTypesByFilterValue = (
         return DEFAULT_TRANSACTION_TYPES;
     }
 
-    const value = currentFilterValue.split(',');
+    const value = splitMultipleValuesSearchParam(currentFilterValue);
 
     if (!value.length) {
         return DEFAULT_TRANSACTION_TYPES;
@@ -20,7 +20,7 @@ export const getTransactionTypesByFilterValue = (
 
     const filterValue: TTransactionTypesInput = [];
     for (const type of Object.values(TransactionTypeEnum)) {
-        if (type !== EXCLUDED_TRANSACTION_TYPE && value.includes(type)) {
+        if (value.includes(type)) {
             filterValue.push(type);
         }
     }
@@ -34,7 +34,7 @@ export const getTransactionTypesFromUrl = (
     const urlSearchParams = new URL(url).searchParams;
 
     const currentFilterValue =
-        urlSearchParams.get(TRANSACTION_LIST_FILTER_PARAM_NAME) || '';
+        urlSearchParams.get(TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME) || '';
 
     return getTransactionTypesByFilterValue(currentFilterValue);
 };

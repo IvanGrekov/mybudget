@@ -1,11 +1,9 @@
 import { useEffect, MutableRefObject, useRef } from 'react';
 
-import { useRouter, usePathname } from 'next/navigation';
-
 import { ITabProps } from 'components/tabs/types/tabProps';
 import { TAB_PARAM_NAME } from 'constants/tabParamName';
 import { useTabsContext } from 'contexts/TabsContext';
-import { useGetStringifiedSearchParams } from 'hooks/searchParams.hooks';
+import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 
 type TTabElementRef = MutableRefObject<HTMLDivElement | null>;
 
@@ -72,15 +70,10 @@ export const useTabIndicatorConnection: TUseTabIndicatorConnection = ({
     ]);
 };
 
-type TUseTabClickListener = (path: ITabProps['value']) => VoidFunction;
+type TUseTabClickListener = (value: ITabProps['value']) => VoidFunction;
 
-export const useTabClickListener: TUseTabClickListener = (path) => {
-    const router = useRouter();
-    const pathname = usePathname();
-    const getStringifiedSearchParams = useGetStringifiedSearchParams();
+export const useTabClickListener: TUseTabClickListener = (value) => {
+    const setSearchParamsValue = useGetSetSearchParamsValue();
 
-    return () => {
-        const params = getStringifiedSearchParams(TAB_PARAM_NAME, path);
-        router.push(`${pathname}${params}`);
-    };
+    return () => setSearchParamsValue(TAB_PARAM_NAME, value);
 };

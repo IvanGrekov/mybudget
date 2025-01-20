@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 export const useGetSearchParams = (): URLSearchParams => {
     const routerSearchParams = useSearchParams();
@@ -40,3 +40,22 @@ export const useGetStringifiedSearchParams: TUseGetStringifiedSearchParams =
             [searchParams],
         );
     };
+
+export const useGetSearchParamsValue = (key: string): string | null => {
+    const searchParams = useSearchParams();
+
+    return searchParams.get(key);
+};
+
+type TSetSearchParamsValue = (key: string, value: string) => void;
+
+export const useGetSetSearchParamsValue = (): TSetSearchParamsValue => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const getStringifiedSearchParams = useGetStringifiedSearchParams();
+
+    return (key, value) => {
+        const params = getStringifiedSearchParams(key, value);
+        router.push(`${pathname}${params}`);
+    };
+};

@@ -6,12 +6,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import TransactionCard from 'features/transaction-list/components/transaction-card/TransactionCard';
 import transactionListStyles from 'features/transaction-list/components/transaction-list/TransactionList.module.scss';
 import TransactionListEmptyState from 'features/transaction-list/components/transaction-list/TransactionListEmptyState';
 import TransactionListHeader from 'features/transaction-list/components/transaction-list/TransactionListHeader';
 import { useGetTransactions } from 'features/transaction-list/components/transaction-list/hooks/useGetTransactions';
+import TransactionsFilters from 'features/transaction-list/components/transactions-filters/TransactionsFilters';
 import { useGetMyTimeZone } from 'hooks/me.hooks';
 import styles from 'styles/ItemList.module.scss';
 import { getDate } from 'utils/date.utils';
@@ -27,8 +27,7 @@ export default function TransactionList(): JSX.Element {
         <div className={styles.container}>
             <TransactionListHeader refetchTransactionList={refetch} />
 
-            {/* TODO: Implement filter */}
-            <UnderDevelopmentMessage />
+            <TransactionsFilters />
 
             <Show when={isLoading}>
                 <LinearProgress />

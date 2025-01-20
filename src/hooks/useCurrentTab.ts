@@ -1,10 +1,8 @@
-import { useSearchParams } from 'next/navigation';
-
 import { TAB_PARAM_NAME } from 'constants/tabParamName';
+import { useGetSearchParamsValue } from 'hooks/searchParams.hooks';
 
 export const useCurrentTab = (): string => {
-    const searchParams = useSearchParams();
-    const currentTab = searchParams.get(TAB_PARAM_NAME) || '';
+    const currentTab = useGetSearchParamsValue(TAB_PARAM_NAME);
 
-    return currentTab;
+    return currentTab || '';
 };

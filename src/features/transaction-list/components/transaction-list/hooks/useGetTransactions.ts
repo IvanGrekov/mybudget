@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { DEFAULT_OFFSET } from 'constants/pagination';
-import { useTransactionListCurrentFilterValue } from 'features/transaction-list/hooks/useTransactionListCurrentFilterValue';
+import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/useTransactionListCurrentTypesFilterValue';
 import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
@@ -18,7 +18,7 @@ interface IUseGetTransactionsResult {
 }
 
 export const useGetTransactions = (): IUseGetTransactionsResult => {
-    const types = useTransactionListCurrentFilterValue();
+    const types = useTransactionListCurrentTypesFilterValue();
 
     const {
         data,
