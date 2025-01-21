@@ -1,7 +1,7 @@
 import Select from 'components/select/Select';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-import { TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListTypesFilterParamName';
-import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/useTransactionListCurrentTypesFilterValue';
+import { TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListFilterParams.constants';
+import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/transactionListFilters.hooks';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { TransactionTypeEnum } from 'types/generated.types';
 import { combineMultipleValuesSearchParam } from 'utils/searchParams.utils';

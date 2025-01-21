@@ -1,6 +1,6 @@
 import { ALL_FILTER_VALUE } from 'constants/allFilterValue';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-import { TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListTypesFilterParamName';
+import { TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListFilterParams.constants';
 import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { TransactionTypeEnum } from 'types/generated.types';
 import { splitMultipleValuesSearchParam } from 'utils/searchParams.utils';
