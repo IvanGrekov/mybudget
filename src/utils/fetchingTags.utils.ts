@@ -72,7 +72,7 @@ export const getSingleTransactionCategoryFetchingTag = (
 interface IGetTransactionsFetchingTagsArgs {
     joinedTypes?: string;
     accountId?: number;
-    transactionCategoryId?: number;
+    categoryId?: number;
     limit?: number;
     offset?: number;
 }
@@ -83,7 +83,7 @@ export const getTransactionsFetchingTags = (
     const {
         joinedTypes,
         accountId,
-        transactionCategoryId,
+        categoryId,
         limit = DEFAULT_LIMIT,
         offset = DEFAULT_OFFSET,
     } = args || {};
@@ -111,14 +111,14 @@ export const getTransactionsFetchingTags = (
         }
     }
 
-    if (transactionCategoryId) {
+    if (categoryId) {
         result.push(
-            `${EFetchingTags.TRANSACTIONS}-${EFetchingTags.TRANSACTION_CATEGORY}_${transactionCategoryId}`,
+            `${EFetchingTags.TRANSACTIONS}-${EFetchingTags.TRANSACTION_CATEGORY}_${categoryId}`,
         );
 
         if (joinedTypes) {
             result.push(
-                `${EFetchingTags.TRANSACTIONS}-${EFetchingTags.TRANSACTION_CATEGORY}_${transactionCategoryId}-${joinedTypes}`,
+                `${EFetchingTags.TRANSACTIONS}-${EFetchingTags.TRANSACTION_CATEGORY}_${categoryId}-${joinedTypes}`,
             );
         }
     }

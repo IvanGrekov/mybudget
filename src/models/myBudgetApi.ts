@@ -393,7 +393,7 @@ export abstract class MyBudgetApi {
     getTransactions({
         types = DEFAULT_TRANSACTION_TYPES,
         accountId,
-        transactionCategoryId,
+        categoryId,
         limit = DEFAULT_LIMIT,
         offset = DEFAULT_OFFSET,
     }: IGetTransactionsArgs): TAsyncApiClientResult<
@@ -406,19 +406,22 @@ export abstract class MyBudgetApi {
             url += `&accountId=${accountId}`;
         }
 
-        if (transactionCategoryId) {
-            url += `&transactionCategoryId=${transactionCategoryId}`;
+        if (categoryId) {
+            url += `&transactionCategoryId=${categoryId}`;
         }
+
+        getTransactionsFetchingTags;
 
         return this.get(url, {
             next: {
-                tags: getTransactionsFetchingTags({
-                    joinedTypes,
-                    accountId,
-                    transactionCategoryId,
-                    limit,
-                    offset,
-                }),
+                revalidate: 0,
+                // tags: getTransactionsFetchingTags({
+                //     joinedTypes,
+                //     accountId,
+                //     categoryId,
+                //     limit,
+                //     offset,
+                // }),
             },
         });
     }

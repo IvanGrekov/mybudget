@@ -15,3 +15,12 @@ export const getAllAccounts = (
         queryFn: () => SERVER_MY_BUDGET_API.getAccounts(),
     });
 };
+
+export const prefetchAllAccounts = (
+    queryClient: QueryClient,
+): Promise<void> => {
+    return queryClient.prefetchQuery({
+        queryKey: getAccountsQueryKey(),
+        queryFn: () => SERVER_MY_BUDGET_API.getAccounts(),
+    });
+};

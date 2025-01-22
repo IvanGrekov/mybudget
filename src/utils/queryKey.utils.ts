@@ -12,28 +12,28 @@ import {
 interface IGetTransactionsQueryKeyArgs {
     types?: TTransactionTypesInput;
     accountId?: number;
-    transactionCategoryId?: number;
+    categoryId?: number;
     limit?: number;
     offset?: number;
 }
 
-export const getTransactionsQueryKey = (
-    args?: IGetTransactionsQueryKeyArgs,
-): unknown[] => {
-    const {
-        types = DEFAULT_TRANSACTION_TYPES,
-        accountId,
-        transactionCategoryId,
-        limit = DEFAULT_LIMIT,
-        offset = DEFAULT_OFFSET,
-    } = args || {};
-
-    const result: unknown[] = [
+export const getTransactionsQueryKey = ({
+    types = DEFAULT_TRANSACTION_TYPES,
+    accountId,
+    categoryId,
+    limit = DEFAULT_LIMIT,
+    offset = DEFAULT_OFFSET,
+}: IGetTransactionsQueryKeyArgs): unknown[] => {
+    return [
         EFetchingTags.TRANSACTIONS,
-        { types, accountId, transactionCategoryId, limit, offset },
+        {
+            types,
+            accountId,
+            categoryId,
+            limit,
+            offset,
+        },
     ];
-
-    return result;
 };
 
 interface IGetTransactionCategoriesQueryKeyArgs {
@@ -43,15 +43,10 @@ interface IGetTransactionCategoriesQueryKeyArgs {
 
 export const getTransactionCategoriesQueryKey = (
     args?: IGetTransactionCategoriesQueryKeyArgs,
-): string[] => {
+): unknown[] => {
     const { status = TransactionCategoryStatusEnum.ACTIVE, type } = args || {};
-    const result: string[] = [EFetchingTags.TRANSACTION_CATEGORIES, status];
 
-    if (type) {
-        result.push(type);
-    }
-
-    return result;
+    return [EFetchingTags.TRANSACTION_CATEGORIES, { status, type }];
 };
 
 export const getSingleTransactionCategoryQueryKey = (
@@ -65,22 +60,18 @@ interface IGetAccountsQueryKeyArgs {
 
 export const getAccountsQueryKey = (
     args?: IGetAccountsQueryKeyArgs,
-): string[] => {
+): unknown[] => {
     const { status = AccountStatusEnum.ACTIVE, type } = args || {};
-    const result: string[] = [EFetchingTags.ACCOUNTS, status];
 
-    if (type) {
-        result.push(type);
-    }
-
-    return result;
+    return [EFetchingTags.ACCOUNTS, { status, type }];
 };
 
-export const getSingleAccountQueryKey = (accountId: number): string[] => [
-    EFetchingTags.ACCOUNT,
-    accountId.toString(),
-];
+export const getSingleAccountQueryKey = (accountId: number): string[] => {
+    return [EFetchingTags.ACCOUNT, accountId.toString()];
+};
 
 export const getSingleTransactionQueryKey = (
     transactionId: number,
-): string[] => [EFetchingTags.TRANSACTION, transactionId.toString()];
+): string[] => {
+    return [EFetchingTags.TRANSACTION, transactionId.toString()];
+};

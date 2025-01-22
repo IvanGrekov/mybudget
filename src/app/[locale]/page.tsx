@@ -11,17 +11,18 @@ import { URL_HEADER } from 'constants/headers';
 import { DEFAULT_OFFSET } from 'constants/pagination';
 import OverallBalance from 'features/overall-balance/components/overall-balance/OverallBalance';
 import TransactionList from 'features/transaction-list/components/transaction-list/TransactionList';
-import { getTransactionTypesFromUrl } from 'features/transaction-list/utils/transactionTypeFilterValue.utils';
+import { getTransactionListFiltersFromUrl } from 'features/transaction-list/utils/transactionListFilters.utils';
 import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { Transaction } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
-import { getAllAccounts } from 'utils/getAllAccounts';
+import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
+import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCategories';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
 
 const pageName = 'HomePage';
@@ -40,18 +41,26 @@ export default async function HomePage(): Promise<JSX.Element> {
         return <MeEmptyState />;
     }
 
-    const transactionTypes = getTransactionTypesFromUrl(
+    const { types, accountId, categoryId } = getTransactionListFiltersFromUrl(
         headers().get(URL_HEADER) || '',
     );
 
-    // NOTE: prefetch transactions by type
+    // NOTE: prefetch transactions by filter values
+    // TODO: extend by date range filter
+
     await queryClient.prefetchInfiniteQuery({
-        queryKey: getTransactionsQueryKey({ types: transactionTypes }),
-        initialPageParam: DEFAULT_OFFSET,
+        queryKey: getTransactionsQueryKey({
+            types,
+            accountId,
+            categoryId,
+        }),
         queryFn: () =>
             SERVER_MY_BUDGET_API.getTransactions({
-                types: transactionTypes,
+                types,
+                accountId,
+                categoryId,
             }),
+        initialPageParam: DEFAULT_OFFSET,
         getNextPageParam: (
             lastPage: TApiClientResult<IPaginatedItemsResult<Transaction>>,
         ) => {
@@ -63,7 +72,8 @@ export default async function HomePage(): Promise<JSX.Element> {
         },
     });
 
-    await getAllAccounts(queryClient);
+    await prefetchAllAccounts(queryClient);
+    await prefetchAllTransactionCategories(queryClient);
 
     const { id, defaultCurrency } = me;
 

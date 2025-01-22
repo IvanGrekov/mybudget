@@ -33,7 +33,7 @@ export interface IGetTransactionCategoriesArgs {
 export interface IGetTransactionsArgs {
     types?: TTransactionTypesInput;
     accountId?: number;
-    transactionCategoryId?: number;
+    categoryId?: number;
     limit?: number;
     offset?: number;
 }

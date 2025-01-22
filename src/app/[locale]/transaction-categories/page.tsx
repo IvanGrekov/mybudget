@@ -15,7 +15,7 @@ import { TApiClientResult } from 'types/apiClient.types';
 import { TransactionCategory } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { calculateActiveTransactionCategories } from 'utils/calculateActiveTransactionCategories';
-import { getAllAccounts } from 'utils/getAllAccounts';
+import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
@@ -59,7 +59,7 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
             }),
     });
 
-    await getAllAccounts(queryClient);
+    await prefetchAllAccounts(queryClient);
 
     if (!activeTransactionCategories?.length) {
         return (

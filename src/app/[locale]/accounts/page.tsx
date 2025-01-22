@@ -12,7 +12,7 @@ import { getAccountListCurrentTabFromUrl } from 'features/account-list-tabs/util
 import OverallBalance from 'features/overall-balance/components/overall-balance/OverallBalance';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { IWithLocaleParamProps } from 'types/pageProps';
-import { getAllAccounts } from 'utils/getAllAccounts';
+import { getAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
