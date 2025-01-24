@@ -17,6 +17,7 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
     useEffect(() => {
         const clickHandler = (e: MouseEvent): void => {
             if (e.target instanceof HTMLInputElement) {
+                // eslint-disable-next-line no-console
                 console.log('e.target', e.target);
             }
         };
@@ -27,11 +28,6 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
             document.removeEventListener('click', clickHandler);
         };
     }, [dateRange]);
-
-    const isEndDateToday =
-        dateRange.endDate?.toDateString() === new Date().toDateString();
-
-    console.log('isEndDateToday', isEndDateToday);
 
     return (
         <>
