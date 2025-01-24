@@ -1,6 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
-import { DateRange, Range } from 'react-date-range';
+import {
+    DateRange,
+    DateRangePicker,
+    Range,
+    RangeKeyDict,
+} from 'react-date-range';
 
+import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import styles from 'features/transaction-list/components/transactions-filters/TransactionsFilters.module.scss';
 
 const KEY = 'selection';
@@ -12,7 +18,7 @@ const DEFAULT_DATE_RANGE: Range = {
 
 export default function TransactionsDateRangeFilter(): JSX.Element {
     const dateRangeRef = useRef(null);
-    const [dateRange] = useState(DEFAULT_DATE_RANGE);
+    const [dateRange, setDateRange] = useState(DEFAULT_DATE_RANGE);
 
     useEffect(() => {
         const clickHandler = (e: MouseEvent): void => {
@@ -29,8 +35,28 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
         };
     }, [dateRange]);
 
+    const handleSelect = (input: RangeKeyDict): void => {
+        const newDateRange = input[KEY] as Range | undefined;
+
+        if (!newDateRange) {
+            return setDateRange(DEFAULT_DATE_RANGE);
+        }
+
+        setDateRange(newDateRange);
+    };
+
+    const isEndDateToday =
+        dateRange.endDate?.toDateString() === new Date().toDateString();
+
+    // eslint-disable-next-line no-console
+    console.log('isEndDateToday', isEndDateToday);
+
+    // TODO: Implement the date range filter
+
     return (
         <>
+            <UnderDevelopmentMessage />
+
             <DateRange
                 ranges={[dateRange]}
                 showPreview={false}
@@ -45,6 +71,12 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
                         styles['month-year-wrapper-date-range-preview'],
                     months: styles['months-date-range-preview'],
                 }}
+            />
+            <DateRangePicker
+                ranges={[dateRange]}
+                maxDate={new Date()}
+                inputRanges={[]}
+                onChange={handleSelect}
             />
         </>
     );

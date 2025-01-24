@@ -13,6 +13,7 @@ export default function Modal({
 }: TModalProps): JSX.Element | null {
     const createPortal = useCreatePortal({
         selector: '#modal-root',
+        shouldHide: !isOpen,
         content: <ModalContent {...rest} isOpen={isOpen} onClose={onClose} />,
     });
 

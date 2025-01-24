@@ -3,10 +3,15 @@ import { createPortal } from 'react-dom';
 
 type TUseCreatePortal = (args: {
     selector: string;
+    shouldHide?: boolean;
     content: JSX.Element;
 }) => () => JSX.Element | null;
 
-export const useCreatePortal: TUseCreatePortal = ({ selector, content }) => {
+export const useCreatePortal: TUseCreatePortal = ({
+    selector,
+    shouldHide,
+    content,
+}) => {
     const ref = useRef<HTMLElement | null>(null);
     const [mounted, setMounted] = useState(false);
 
@@ -20,8 +25,10 @@ export const useCreatePortal: TUseCreatePortal = ({ selector, content }) => {
     }, [selector]);
 
     return () => {
-        return mounted && ref.current
-            ? createPortal(content, ref.current)
-            : null;
+        if (shouldHide || !mounted || !ref.current) {
+            return null;
+        }
+
+        return createPortal(content, ref.current);
     };
 };

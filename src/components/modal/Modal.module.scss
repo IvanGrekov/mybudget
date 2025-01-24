@@ -8,28 +8,16 @@
     z-index: $zindex-modal;
     display: flex;
     width: 100vw;
-    height: 0;
+    height: 100vh;
     justify-content: center;
     align-items: center;
-    padding: 0;
     border: none;
 
     background: var(--backdrop);
-    opacity: 0;
     overflow: hidden;
-    transition: opacity $base-transition-duration linear 0s,
-        height 0s linear $base-transition-duration;
 
     &--confirmation {
         z-index: $zindex-confirmation-modal;
-    }
-
-    &--open {
-        height: 100vh;
-        opacity: 1;
-        transition: opacity $base-transition-duration linear
-                $base-transition-duration,
-            height 0s linear 0s;
     }
 }
 
@@ -71,19 +59,11 @@
     }
 }
 
-.content {
-    @include hidden-animated-element();
-
-    &--open {
-        @include visible-animated-element();
-    }
-}
-
 .placeholder-loader {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-block: 2rem;
+    padding-block: 10rem;
 }
 
 .title-container {

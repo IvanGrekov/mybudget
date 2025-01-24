@@ -1,9 +1,9 @@
+import { useTransition, animated } from '@react-spring/web';
 import cx from 'classnames';
 import { FocusTrap } from 'focus-trap-react';
 
 import styles from 'components/modal/Modal.module.scss';
 import ModalActions from 'components/modal/ModalActions';
-import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import ModalLoader from 'components/modal/ModalLoader';
 import ModalTitle from 'components/modal/ModalTitle';
 import { TModalProps } from 'components/modal/types/modalProps';
@@ -21,47 +21,58 @@ export default function ModalContent({
     className,
     onClose,
 }: TModalProps): JSX.Element {
-    return (
-        <FocusTrap active={isOpen}>
-            <dialog
-                onClick={onClose}
-                className={cx(styles.modal, {
-                    [styles['modal--confirmation']]: isConfirmationModal,
-                    [styles['modal--open']]: isOpen,
-                })}
-            >
-                <div
-                    className={cx(
-                        styles['content-wrapper'],
-                        styles[`content-wrapper--${size}`],
-                        className,
-                    )}
-                    onClick={(event): void => {
-                        event.stopPropagation();
-                    }}
-                    style={style}
+    const transitions = useTransition(isOpen, {
+        from: { opacity: 0, scale: 0.5 },
+        enter: { opacity: 1, scale: 1 },
+        leave: { opacity: 0, scale: 0.5 },
+    });
+
+    return transitions((transitionsStyles, item) => (
+        <Show when={item}>
+            <FocusTrap active={isOpen}>
+                <dialog
+                    onClick={onClose}
+                    className={cx(styles.modal, {
+                        [styles['modal--confirmation']]: isConfirmationModal,
+                        [styles['modal--open']]: isOpen,
+                    })}
                 >
-                    <ModalTitle
-                        isOpen={isOpen}
-                        text={title}
-                        onClose={onClose}
-                    />
-
-                    <div
-                        className={cx(styles.content, {
-                            [styles['content--open']]: isOpen,
-                        })}
+                    <animated.div
+                        className={cx(
+                            styles['content-wrapper'],
+                            styles[`content-wrapper--${size}`],
+                            className,
+                        )}
+                        onClick={(event): void => {
+                            event.stopPropagation();
+                        }}
+                        style={{
+                            ...transitionsStyles,
+                            ...style,
+                        }}
                     >
-                        {isOpen ? <>{children}</> : <ModalCircularLoading />}
+                        <ModalTitle
+                            isOpen={isOpen}
+                            text={title}
+                            onClose={onClose}
+                        />
 
-                        <Show when={!!actions}>
-                            <ModalActions>{actions}</ModalActions>
-                        </Show>
+                        <div
+                            className={cx(styles.content, {
+                                [styles['content--open']]: isOpen,
+                            })}
+                        >
+                            {children}
 
-                        <ModalLoader isLoading={isLoading} />
-                    </div>
-                </div>
-            </dialog>
-        </FocusTrap>
-    );
+                            <Show when={!!actions}>
+                                <ModalActions>{actions}</ModalActions>
+                            </Show>
+
+                            <ModalLoader isLoading={isLoading} />
+                        </div>
+                    </animated.div>
+                </dialog>
+            </FocusTrap>
+        </Show>
+    ));
 }
