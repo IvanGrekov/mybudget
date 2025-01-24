@@ -1,4 +1,5 @@
 @import 'styles/variables.scss';
+@import 'styles/extends.scss';
 
 .filters {
     display: flex;
@@ -9,4 +10,41 @@
     @media (max-width: $screen-md) {
         gap: 1rem;
     }
+}
+
+.date-range-preview-wrapper {
+    background-color: var(--background);
+}
+
+.date-range-preview-date {
+    margin: 1px;
+    color: var(--foreground) !important;
+}
+
+.date-range-preview-item {
+    background-color: var(--background);
+    box-shadow: none;
+    border: none;
+
+    input {
+        @extend .text-field-border-extend;
+        height: fit-content;
+        padding: $input-block-spacing $input-inline-spacing;
+        font-size: 1rem;
+        line-height: normal;
+        transition: border-color $input-transition-duration
+            $input-transition-function;
+
+        &:hover,
+        &:focus,
+        &:active {
+            outline: none;
+            border-color: var(--hover) !important;
+        }
+    }
+}
+
+.month-year-wrapper-date-range-preview,
+.months-date-range-preview {
+    display: none;
 }

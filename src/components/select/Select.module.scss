@@ -7,8 +7,6 @@ $arrow-button-gutter: $spacing-6;
 .native-select {
     @extend .hidden-native-input-extend;
 
-    visibility: visible;
-
     &:hover,
     &:focus,
     &:focus-visible {

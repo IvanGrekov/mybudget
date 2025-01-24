@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import FocusTrap from 'focus-trap-react';
+import { FocusTrap } from 'focus-trap-react';
 
 import Button from 'components/button/Button';
 import styles from 'components/drawer/Drawer.module.scss';
@@ -40,10 +40,13 @@ export default function DrawerContent({
                     }}
                     style={style}
                 >
-                    {header && <DrawerHeader>{header}</DrawerHeader>}
+                    {header && (
+                        <DrawerHeader isOpen={isOpen}>{header}</DrawerHeader>
+                    )}
 
                     <div
                         className={cx(styles.content, {
+                            [styles['content--open']]: isOpen,
                             [styles['content--compressed']]:
                                 shouldAddCloseButton && header,
                         })}
@@ -52,7 +55,11 @@ export default function DrawerContent({
                     </div>
 
                     {shouldAddCloseButton && (
-                        <div className={styles['close-button-wrapper']}>
+                        <div
+                            className={cx(styles['close-button-wrapper'], {
+                                [styles['close-button-wrapper--open']]: isOpen,
+                            })}
+                        >
                             <Button
                                 text="Close"
                                 variant="ghost"

@@ -4,11 +4,13 @@ import styles from 'components/modal/Modal.module.scss';
 import Typography from 'components/typography/Typography';
 
 interface IModalTitleProps {
+    isOpen: boolean;
     text: string;
     onClose: VoidFunction;
 }
 
 export default function ModalTitle({
+    isOpen,
     text,
     onClose,
 }: IModalTitleProps): JSX.Element {
@@ -18,7 +20,12 @@ export default function ModalTitle({
                 {text}
             </Typography>
 
-            <IconButton iconSize={25} Icon={CloseIcon} onClick={onClose} />
+            <IconButton
+                iconSize={25}
+                tabIndex={isOpen ? 1 : -1}
+                Icon={CloseIcon}
+                onClick={onClose}
+            />
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import FocusTrap from 'focus-trap-react';
+import { FocusTrap } from 'focus-trap-react';
 
 import styles from 'components/modal/Modal.module.scss';
 import ModalActions from 'components/modal/ModalActions';
@@ -32,8 +32,8 @@ export default function ModalContent({
             >
                 <div
                     className={cx(
-                        styles.content,
-                        styles[`content--${size}`],
+                        styles['content-wrapper'],
+                        styles[`content-wrapper--${size}`],
                         className,
                     )}
                     onClick={(event): void => {
@@ -41,15 +41,25 @@ export default function ModalContent({
                     }}
                     style={style}
                 >
-                    <ModalTitle text={title} onClose={onClose} />
+                    <ModalTitle
+                        isOpen={isOpen}
+                        text={title}
+                        onClose={onClose}
+                    />
 
-                    {isOpen ? <>{children}</> : <ModalCircularLoading />}
+                    <div
+                        className={cx(styles.content, {
+                            [styles['content--open']]: isOpen,
+                        })}
+                    >
+                        {isOpen ? <>{children}</> : <ModalCircularLoading />}
 
-                    <Show when={!!actions}>
-                        <ModalActions>{actions}</ModalActions>
-                    </Show>
+                        <Show when={!!actions}>
+                            <ModalActions>{actions}</ModalActions>
+                        </Show>
 
-                    <ModalLoader isLoading={isLoading} />
+                        <ModalLoader isLoading={isLoading} />
+                    </div>
                 </div>
             </dialog>
         </FocusTrap>

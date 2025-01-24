@@ -1,7 +1,7 @@
 import { MouseEvent, useRef } from 'react';
 
 import cx from 'classnames';
-import FocusTrap from 'focus-trap-react';
+import { FocusTrap } from 'focus-trap-react';
 
 import IconButton from 'components/button/IconButton';
 import MoreIcon from 'components/icons/MoreIcon';

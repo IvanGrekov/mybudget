@@ -1,5 +1,6 @@
 @import 'styles/variables.scss';
 @import 'styles/extends.scss';
+@import 'styles/mixins.scss';
 
 .drawer {
     position: fixed;
@@ -76,8 +77,14 @@
 }
 
 .content {
+    @include hidden-animated-element();
+
     flex-grow: 1;
     overflow-y: auto;
+
+    &--open {
+        @include visible-animated-element();
+    }
 
     &--compressed {
         flex-grow: 0;
@@ -86,6 +93,7 @@
 }
 
 .header {
+    @include hidden-animated-element();
     @extend .header-size-extend;
 
     display: flex;
@@ -93,16 +101,26 @@
     align-items: center;
     border-bottom: $border-width solid var(--foreground-invisible);
 
+    &--open {
+        @include visible-animated-element();
+    }
+
     &--compressed {
         @extend .header-compressed-size-extend;
     }
 }
 
 .close-button-wrapper {
+    @include hidden-animated-element();
+
     display: flex;
     justify-content: center;
     width: 100%;
     position: absolute;
     bottom: $spacing-7;
     align-self: center;
+
+    &--open {
+        @include visible-animated-element();
+    }
 }
