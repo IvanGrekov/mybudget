@@ -57,19 +57,13 @@ export default function ModalContent({
                             onClose={onClose}
                         />
 
-                        <div
-                            className={cx(styles.content, {
-                                [styles['content--open']]: isOpen,
-                            })}
-                        >
-                            {children}
+                        {children}
 
-                            <Show when={!!actions}>
-                                <ModalActions>{actions}</ModalActions>
-                            </Show>
+                        <Show when={!!actions}>
+                            <ModalActions>{actions}</ModalActions>
+                        </Show>
 
-                            <ModalLoader isLoading={isLoading} />
-                        </div>
+                        <ModalLoader isLoading={isLoading} />
                     </animated.div>
                 </dialog>
             </FocusTrap>

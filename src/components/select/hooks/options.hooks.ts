@@ -60,6 +60,16 @@ export const useFixedSelectOptions: TUseFixedSelectOptions = ({
         }
     }, [isOpen, customSelectRef, selectOptionsRef]);
 
+    useEffect(() => {
+        if (!isOpen || !customSelectRef.current) {
+            return;
+        }
+
+        customSelectRef.current.scrollIntoView({
+            behavior: 'smooth',
+        });
+    }, [isOpen, customSelectRef]);
+
     return { isOptionsFixed };
 };
 
