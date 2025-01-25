@@ -93,16 +93,15 @@
 }
 
 .header {
-    @include hidden-animated-element();
     @extend .header-size-extend;
+    @include hidden-animated-element();
 
-    display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: $border-width solid var(--foreground-invisible);
 
     &--open {
-        @include visible-animated-element();
+        @include visible-animated-element(flex);
     }
 
     &--compressed {
@@ -113,7 +112,6 @@
 .close-button-wrapper {
     @include hidden-animated-element();
 
-    display: flex;
     justify-content: center;
     width: 100%;
     position: absolute;
@@ -121,6 +119,6 @@
     align-self: center;
 
     &--open {
-        @include visible-animated-element();
+        @include visible-animated-element(flex);
     }
 }

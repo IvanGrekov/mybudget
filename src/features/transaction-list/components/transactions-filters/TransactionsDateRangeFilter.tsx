@@ -1,13 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
-import {
-    DateRange,
-    DateRangePicker,
-    Range,
-    RangeKeyDict,
-} from 'react-date-range';
+import { DateRange, Range, RangeKeyDict } from 'react-date-range';
 
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
+import TransactionsDateRangePickerModal from 'features/transaction-list/components/transactions-date-range-picker-modal/TransactionsDateRangePickerModal';
 import styles from 'features/transaction-list/components/transactions-filters/TransactionsFilters.module.scss';
+import { useModal } from 'hooks/useModal';
 
 const KEY = 'selection';
 const DEFAULT_DATE_RANGE: Range = {
@@ -20,11 +16,12 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
     const dateRangeRef = useRef(null);
     const [dateRange, setDateRange] = useState(DEFAULT_DATE_RANGE);
 
+    const { isModalOpen, openModal, closeModal } = useModal();
+
     useEffect(() => {
         const clickHandler = (e: MouseEvent): void => {
             if (e.target instanceof HTMLInputElement) {
-                // eslint-disable-next-line no-console
-                console.log('e.target', e.target);
+                openModal();
             }
         };
 
@@ -33,9 +30,9 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
         return () => {
             document.removeEventListener('click', clickHandler);
         };
-    }, [dateRange]);
+    }, [openModal]);
 
-    const handleSelect = (input: RangeKeyDict): void => {
+    const handleDateRangeSelect = (input: RangeKeyDict): void => {
         const newDateRange = input[KEY] as Range | undefined;
 
         if (!newDateRange) {
@@ -55,8 +52,6 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
 
     return (
         <>
-            <UnderDevelopmentMessage />
-
             <DateRange
                 ranges={[dateRange]}
                 showPreview={false}
@@ -72,11 +67,12 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
                     months: styles['months-date-range-preview'],
                 }}
             />
-            <DateRangePicker
-                ranges={[dateRange]}
-                maxDate={new Date()}
-                inputRanges={[]}
-                onChange={handleSelect}
+
+            <TransactionsDateRangePickerModal
+                isOpen={isModalOpen}
+                dateRange={dateRange}
+                onChange={handleDateRangeSelect}
+                onClose={closeModal}
             />
         </>
     );

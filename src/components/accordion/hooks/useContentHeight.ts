@@ -10,15 +10,15 @@ export const useContentHeight: TUseContentHeight = (isOpen) => {
     const [contentHeight, setContentHeight] = useState(0);
 
     useLayoutEffect(() => {
-        const childrenWrapper = childrenWrapperRef.current;
-        if (childrenWrapper === null) {
+        if (!childrenWrapperRef.current) {
             return;
         }
 
         if (!isOpen) {
             setContentHeight(0);
         } else {
-            const { height } = childrenWrapper.getBoundingClientRect();
+            const { height } =
+                childrenWrapperRef.current.getBoundingClientRect();
             setContentHeight(height);
         }
     }, [isOpen]);

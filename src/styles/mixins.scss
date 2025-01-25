@@ -1,6 +1,23 @@
 @import 'styles/variables.scss';
 
 @mixin hidden-animated-element(
+    $duration: $base-transition-duration,
+    $transition-function: ease
+) {
+    display: none;
+    opacity: 0;
+    transition: opacity $duration, display $duration;
+    transition-timing-function: $transition-function;
+
+    transition-behavior: allow-discrete;
+}
+
+@mixin visible-animated-element($display: block) {
+    display: $display;
+    opacity: 1;
+}
+
+@mixin hidden-animated-pseudo-element(
     $delay: $base-transition-duration,
     $transition-function: ease
 ) {
@@ -10,7 +27,7 @@
     transition-timing-function: $transition-function;
 }
 
-@mixin visible-animated-element() {
+@mixin visible-animated-pseudo-element {
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;

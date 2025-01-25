@@ -31,7 +31,7 @@ $arrow-button-gutter: $spacing-6;
         }
 
         ~ .clear-value-button {
-            @include visible-animated-element();
+            @include visible-animated-element(flex);
         }
     }
 }
@@ -165,7 +165,7 @@ $arrow-button-gutter: $spacing-6;
         }
 
         ~ .clear-value-button {
-            @include visible-animated-element();
+            @include visible-animated-element(flex);
         }
     }
 }
@@ -180,7 +180,7 @@ $arrow-button-gutter: $spacing-6;
     background-color: var(--background);
 
     &:hover {
-        @include visible-animated-element();
+        @include visible-animated-element(flex);
     }
 }
 
@@ -194,7 +194,6 @@ $arrow-button-gutter: $spacing-6;
     position: absolute;
     z-index: 1;
     top: calc(100% - #{$border-width});
-    display: flex;
     flex-direction: column;
     gap: $spacing-1;
     width: 100%;
@@ -212,7 +211,7 @@ $arrow-button-gutter: $spacing-6;
     }
 
     &--open {
-        @include visible-animated-element();
+        @include visible-animated-element(flex);
 
         border-color: var(--hover) !important;
     }
