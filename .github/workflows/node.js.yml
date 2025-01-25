@@ -35,9 +35,13 @@ jobs:
         echo NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE=${{ secrets.NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE }} >> .env
         echo EXCHANGE_RATE_ACCESS_KEY=${{ secrets.EXCHANGE_RATE_ACCESS_KEY }} >> .env
         echo PORT=${{ secrets.PORT }} >> .env
+        echo SHA=${{ github.sha }} >> .env
   
     - name: Build and deploy
       run: docker-compose up -d --build
 
     - name: Docker network connect app
       run: docker network connect --ip 172.18.0.2 multi-host-network mybudget_app_1
+
+    - name: Remove all other "mybudget_app" images except this one
+      run: docker rmi $(docker images --filter=reference='mybudget_app' --filter "before=mybudget_app:${{ github.sha }}" -q)
