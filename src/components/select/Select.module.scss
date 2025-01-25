@@ -253,7 +253,7 @@ $arrow-button-gutter: $spacing-6;
     }
 
     &--selected {
-        background-color: var(--middle-opacity);
+        background-color: var(--middle-rgb-opacity);
 
         &:hover,
         &:focus-visible {

@@ -16,7 +16,7 @@ export default function Divider({
                 styles.divider,
                 {
                     [styles['divider--minorColor']]: isMinorColor,
-                    [styles['divider--middleColor']]: isMiddleColor,
+                    [styles['divider--middle-rgbColor']]: isMiddleColor,
                     [styles['divider--vertical']]: isVertical,
                 },
                 className,

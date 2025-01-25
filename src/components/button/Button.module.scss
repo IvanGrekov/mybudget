@@ -198,7 +198,7 @@
     &--disabled.button--ghost:hover,
     &--disabled.button--ghost.button--active {
         border-color: transparent;
-        background-color: rgba(var(--dark), 0.1);
+        background-color: rgba(var(--dark-rgb), 0.1);
     }
 
     &--disabled.button--text,

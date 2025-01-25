@@ -5,9 +5,9 @@
         'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
         'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-    --light: 239, 236, 234;
-    --dark: 51, 72, 84;
-    --middle: 0, 127, 115;
+    --light-rgb: 239, 236, 234;
+    --dark-rgb: 51, 72, 84;
+    --middle-rgb: 0, 127, 115;
 
     --gray: #aaaaaa;
     --gray-light: #e3e1e1;
@@ -21,9 +21,9 @@
 
     --base-opacity: 0.5;
 
-    --middle-color: rgba(var(--middle));
-    --middle-opacity: rgba(var(--middle), var(--base-opacity));
-    --hover: rgb(var(--middle));
+    --middle-rgb-color: rgba(var(--middle-rgb));
+    --middle-rgb-opacity: rgba(var(--middle-rgb), var(--base-opacity));
+    --hover: rgb(var(--middle-rgb));
     --disabled: var(--foreground-invisible);
     --disabled-text: var(--disabled);
     --border: var(--foreground-opacity);
@@ -52,12 +52,12 @@
 }
 
 .light-theme-variables-extend {
-    --background: rgb(var(--light));
-    --background-opacity: rgba(var(--light), var(--base-opacity));
-    --background-invisible: rgba(var(--light), 0.15);
-    --foreground: rgb(var(--dark));
-    --foreground-opacity: rgba(var(--dark), var(--base-opacity));
-    --foreground-invisible: rgba(var(--dark), 0.15);
+    --background: rgb(var(--light-rgb));
+    --background-opacity: rgba(var(--light-rgb), var(--base-opacity));
+    --background-invisible: rgba(var(--light-rgb), 0.15);
+    --foreground: rgb(var(--dark-rgb));
+    --foreground-opacity: rgba(var(--dark-rgb), var(--base-opacity));
+    --foreground-invisible: rgba(var(--dark-rgb), 0.15);
 
     --backdrop: linear-gradient(
         255deg,
@@ -72,12 +72,12 @@
 }
 
 .dark-theme-variables-extend {
-    --background: rgb(var(--dark));
-    --background-opacity: rgba(var(--dark), var(--base-opacity));
-    --background-invisible: rgba(var(--dark), 0.15);
-    --foreground: rgb(var(--light));
-    --foreground-opacity: rgba(var(--light), var(--base-opacity));
-    --foreground-invisible: rgba(var(--light), 0.15);
+    --background: rgb(var(--dark-rgb));
+    --background-opacity: rgba(var(--dark-rgb), var(--base-opacity));
+    --background-invisible: rgba(var(--dark-rgb), 0.15);
+    --foreground: rgb(var(--light-rgb));
+    --foreground-opacity: rgba(var(--light-rgb), var(--base-opacity));
+    --foreground-invisible: rgba(var(--light-rgb), 0.15);
 
     --backdrop: linear-gradient(
         255deg,
@@ -193,12 +193,12 @@ svg {
 }
 
 .middle-color {
-    color: var(--middle) !important;
-    fill: var(--middle) !important;
+    color: var(--middle-rgb) !important;
+    fill: var(--middle-rgb) !important;
 }
 
 .middle-background {
-    background: var(--middle) !important;
+    background: var(--middle-rgb) !important;
 }
 
 .red-color {

@@ -1,7 +1,7 @@
 @import 'styles/variables.scss';
 
 .skeleton {
-    --skeleton-color: rgb(var(--middle));
+    --skeleton-color: rgb(var(--middle-rgb));
     --loader-width: 60%;
 
     position: relative;
