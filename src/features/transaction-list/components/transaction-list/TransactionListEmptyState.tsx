@@ -3,7 +3,7 @@ import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
 import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/transactionListFilters.hooks';
 
 export default function TransactionListEmptyState(): JSX.Element {
-    const types = useTransactionListCurrentTypesFilterValue();
+    const { value: types } = useTransactionListCurrentTypesFilterValue();
 
     if (types.length === DEFAULT_TRANSACTION_TYPES.length) {
         return <EmptyState text="No transactions found" />;

@@ -26,7 +26,7 @@ export default function TransactionsCategoryFilter(): JSX.Element | null {
 
     const onChange = (option: TransactionCategory | null): void => {
         const value = option ? String(option.id) : '';
-        setCategoryId(TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME, value);
+        setCategoryId({ [TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME]: value });
     };
 
     return (

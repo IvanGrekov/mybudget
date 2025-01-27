@@ -41,24 +41,25 @@ export default async function HomePage(): Promise<JSX.Element> {
         return <MeEmptyState />;
     }
 
-    const { types, accountId, categoryId } = getTransactionListFiltersFromUrl(
-        headers().get(URL_HEADER) || '',
-    );
+    const { types, accountId, categoryId, from, to } =
+        getTransactionListFiltersFromUrl(headers().get(URL_HEADER) || '');
 
     // NOTE: prefetch transactions by filter values
-    // TODO: extend by date range filter
-
     await queryClient.prefetchInfiniteQuery({
         queryKey: getTransactionsQueryKey({
             types,
             accountId,
             categoryId,
+            from,
+            to,
         }),
         queryFn: () =>
             SERVER_MY_BUDGET_API.getTransactions({
                 types,
                 accountId,
                 categoryId,
+                from,
+                to,
             }),
         initialPageParam: DEFAULT_OFFSET,
         getNextPageParam: (

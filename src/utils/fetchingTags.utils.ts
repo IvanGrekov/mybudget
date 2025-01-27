@@ -73,6 +73,8 @@ interface IGetTransactionsFetchingTagsArgs {
     joinedTypes?: string;
     accountId?: number;
     categoryId?: number;
+    from?: string;
+    to?: string;
     limit?: number;
     offset?: number;
 }
@@ -84,6 +86,8 @@ export const getTransactionsFetchingTags = (
         joinedTypes,
         accountId,
         categoryId,
+        from,
+        to,
         limit = DEFAULT_LIMIT,
         offset = DEFAULT_OFFSET,
     } = args || {};
@@ -96,8 +100,6 @@ export const getTransactionsFetchingTags = (
 
     result.push(`${EFetchingTags.TRANSACTIONS}-offset-${offset}`);
     result.push(`${EFetchingTags.TRANSACTIONS}-limit-${limit}`);
-
-    // TODO: Implement caching by date range (IG)
 
     if (accountId) {
         result.push(
@@ -121,6 +123,14 @@ export const getTransactionsFetchingTags = (
                 `${EFetchingTags.TRANSACTIONS}-${EFetchingTags.TRANSACTION_CATEGORY}_${categoryId}-${joinedTypes}`,
             );
         }
+    }
+
+    if (from) {
+        result.push(`${EFetchingTags.TRANSACTIONS}-from-${from}`);
+    }
+
+    if (to) {
+        result.push(`${EFetchingTags.TRANSACTIONS}-to-${to}`);
     }
 
     return result;

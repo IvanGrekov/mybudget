@@ -9,37 +9,39 @@ export const useGetSearchParams = (): URLSearchParams => {
 };
 
 type TUseGetStringifiedSearchParams = () => (
-    newKey?: string,
-    newValue?: string,
+    record: Record<string, string>,
 ) => string;
 
-export const useGetStringifiedSearchParams: TUseGetStringifiedSearchParams =
-    () => {
-        const searchParams = useSearchParams();
+const useGetStringifiedSearchParams: TUseGetStringifiedSearchParams = () => {
+    const searchParams = useSearchParams();
 
-        return useCallback(
-            (newKey, newValue) => {
-                const params = [];
+    return useCallback(
+        (record) => {
+            const params = [];
 
-                if (newKey && newValue) {
-                    params.push(`${newKey}=${newValue}`);
+            for (const [key, value] of Object.entries(record)) {
+                if (value) {
+                    params.push(`${key}=${value}`);
+                }
+            }
+
+            const recordKeys = Object.keys(record);
+
+            for (const [key, value] of searchParams.entries()) {
+                if (recordKeys.includes(key)) {
+                    continue;
                 }
 
-                for (const [key, value] of searchParams.entries()) {
-                    if (key === newKey) {
-                        continue;
-                    }
-
-                    if (value) {
-                        params.push(`${key}=${value}`);
-                    }
+                if (value) {
+                    params.push(`${key}=${value}`);
                 }
+            }
 
-                return params.length ? `?${params.join('&')}` : '';
-            },
-            [searchParams],
-        );
-    };
+            return params.length ? `?${params.join('&')}` : '';
+        },
+        [searchParams],
+    );
+};
 
 export const useGetSearchParamsValue = (key: string): string | null => {
     const searchParams = useSearchParams();
@@ -47,15 +49,15 @@ export const useGetSearchParamsValue = (key: string): string | null => {
     return searchParams.get(key);
 };
 
-type TSetSearchParamsValue = (key: string, value: string) => void;
+type TSetSearchParamsValue = (record: Record<string, string>) => void;
 
 export const useGetSetSearchParamsValue = (): TSetSearchParamsValue => {
     const router = useRouter();
     const pathname = usePathname();
     const getStringifiedSearchParams = useGetStringifiedSearchParams();
 
-    return (key, value) => {
-        const params = getStringifiedSearchParams(key, value);
+    return (record) => {
+        const params = getStringifiedSearchParams(record);
         router.push(`${pathname}${params}`);
     };
 };

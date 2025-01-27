@@ -14,13 +14,34 @@ export const useContentHeight: TUseContentHeight = (isOpen) => {
             return;
         }
 
-        if (!isOpen) {
-            setContentHeight(0);
-        } else {
-            const { height } =
-                childrenWrapperRef.current.getBoundingClientRect();
-            setContentHeight(height);
-        }
+        const callback = (): void => {
+            if (!childrenWrapperRef.current) {
+                return;
+            }
+
+            if (!isOpen) {
+                setContentHeight(0);
+            } else {
+                const { height } =
+                    childrenWrapperRef.current.getBoundingClientRect();
+                setContentHeight(height);
+            }
+        };
+
+        callback();
+
+        window.addEventListener('resize', callback);
+
+        const observer = new MutationObserver(callback);
+        observer.observe(childrenWrapperRef.current, {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => {
+            window.removeEventListener('resize', callback);
+            observer.disconnect();
+        };
     }, [isOpen]);
 
     return { childrenWrapperRef, contentHeight };

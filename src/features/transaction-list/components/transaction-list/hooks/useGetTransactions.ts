@@ -18,7 +18,8 @@ interface IUseGetTransactionsResult {
 }
 
 export const useGetTransactions = (): IUseGetTransactionsResult => {
-    const { types, accountId, categoryId } = useTransactionListFilterValues();
+    const { types, accountId, categoryId, from, to } =
+        useTransactionListFilterValues();
 
     const {
         data,
@@ -33,12 +34,16 @@ export const useGetTransactions = (): IUseGetTransactionsResult => {
             types,
             accountId,
             categoryId,
+            from,
+            to,
         }),
         queryFn: ({ pageParam }) => {
             return CLIENT_MY_BUDGET_API.getTransactions({
                 types,
                 accountId,
                 categoryId,
+                from,
+                to,
                 offset: pageParam || DEFAULT_OFFSET,
             });
         },

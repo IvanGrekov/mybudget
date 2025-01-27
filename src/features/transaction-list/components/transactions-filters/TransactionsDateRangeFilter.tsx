@@ -1,54 +1,17 @@
-import { useRef, useState, useEffect } from 'react';
-import { DateRange, Range, RangeKeyDict } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 
 import TransactionsDateRangePickerModal from 'features/transaction-list/components/transactions-date-range-picker-modal/TransactionsDateRangePickerModal';
 import styles from 'features/transaction-list/components/transactions-filters/TransactionsFilters.module.scss';
-import { useModal } from 'hooks/useModal';
-
-const KEY = 'selection';
-const DEFAULT_DATE_RANGE: Range = {
-    startDate: undefined,
-    endDate: new Date(),
-    key: KEY,
-};
+import { useDateRangeFilter } from 'features/transaction-list/components/transactions-filters/hooks/useDateRangeFilter';
 
 export default function TransactionsDateRangeFilter(): JSX.Element {
-    const dateRangeRef = useRef(null);
-    const [dateRange, setDateRange] = useState(DEFAULT_DATE_RANGE);
-
-    const { isModalOpen, openModal, closeModal } = useModal();
-
-    useEffect(() => {
-        const clickHandler = (e: MouseEvent): void => {
-            if (e.target instanceof HTMLInputElement) {
-                openModal();
-            }
-        };
-
-        document.addEventListener('click', clickHandler);
-
-        return () => {
-            document.removeEventListener('click', clickHandler);
-        };
-    }, [openModal]);
-
-    const handleDateRangeSelect = (input: RangeKeyDict): void => {
-        const newDateRange = input[KEY] as Range | undefined;
-
-        if (!newDateRange) {
-            return setDateRange(DEFAULT_DATE_RANGE);
-        }
-
-        setDateRange(newDateRange);
-    };
-
-    const isEndDateToday =
-        dateRange.endDate?.toDateString() === new Date().toDateString();
-
-    // eslint-disable-next-line no-console
-    console.log('isEndDateToday', isEndDateToday);
-
-    // TODO: Implement the date range filter
+    const {
+        dateRange,
+        dateRangeRef,
+        isDateRangePickerModalOpen,
+        onChange,
+        closeDateRangePickerModal,
+    } = useDateRangeFilter();
 
     return (
         <>
@@ -69,10 +32,10 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
             />
 
             <TransactionsDateRangePickerModal
-                isOpen={isModalOpen}
+                isOpen={isDateRangePickerModalOpen}
                 dateRange={dateRange}
-                onChange={handleDateRangeSelect}
-                onClose={closeModal}
+                onChange={onChange}
+                onClose={closeDateRangePickerModal}
             />
         </>
     );

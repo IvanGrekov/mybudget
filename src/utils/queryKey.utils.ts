@@ -13,6 +13,8 @@ interface IGetTransactionsQueryKeyArgs {
     types?: TTransactionTypesInput;
     accountId?: number;
     categoryId?: number;
+    from?: string;
+    to?: string;
     limit?: number;
     offset?: number;
 }
@@ -21,6 +23,8 @@ export const getTransactionsQueryKey = ({
     types = DEFAULT_TRANSACTION_TYPES,
     accountId,
     categoryId,
+    from,
+    to,
     limit = DEFAULT_LIMIT,
     offset = DEFAULT_OFFSET,
 }: IGetTransactionsQueryKeyArgs): unknown[] => {
@@ -30,6 +34,8 @@ export const getTransactionsQueryKey = ({
             types,
             accountId,
             categoryId,
+            from,
+            to,
             limit,
             offset,
         },

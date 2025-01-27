@@ -34,6 +34,8 @@ export interface IGetTransactionsArgs {
     types?: TTransactionTypesInput;
     accountId?: number;
     categoryId?: number;
+    from?: string;
+    to?: string;
     limit?: number;
     offset?: number;
 }

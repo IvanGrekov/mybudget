@@ -9,7 +9,7 @@ import { combineMultipleValuesSearchParam } from 'utils/searchParams.utils';
 const OPTIONS = Object.values(TransactionTypeEnum);
 
 export default function TransactionsTypesFilter(): JSX.Element {
-    const types = useTransactionListCurrentTypesFilterValue();
+    const { value: types } = useTransactionListCurrentTypesFilterValue();
     const setTypes = useGetSetSearchParamsValue();
 
     const onChange = (option: TransactionTypeEnum | null): void => {
@@ -30,7 +30,7 @@ export default function TransactionsTypesFilter(): JSX.Element {
                 ? ''
                 : combineMultipleValuesSearchParam(newTypes);
 
-        setTypes(TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME, value);
+        setTypes({ [TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME]: value });
     };
 
     return (

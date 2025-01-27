@@ -23,7 +23,7 @@ export default function TransactionsAccountFilter(): JSX.Element | null {
 
     const onChange = (option: Account | null): void => {
         const value = option ? String(option.id) : '';
-        setAccountId(TRANSACTION_LIST_ACCOUNT_FILTER_PARAM_NAME, value);
+        setAccountId({ [TRANSACTION_LIST_ACCOUNT_FILTER_PARAM_NAME]: value });
     };
 
     return (

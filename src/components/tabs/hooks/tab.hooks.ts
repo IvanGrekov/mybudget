@@ -75,5 +75,5 @@ type TUseTabClickListener = (value: ITabProps['value']) => VoidFunction;
 export const useTabClickListener: TUseTabClickListener = (value) => {
     const setSearchParamsValue = useGetSetSearchParamsValue();
 
-    return () => setSearchParamsValue(TAB_PARAM_NAME, value);
+    return () => setSearchParamsValue({ [TAB_PARAM_NAME]: value });
 };
