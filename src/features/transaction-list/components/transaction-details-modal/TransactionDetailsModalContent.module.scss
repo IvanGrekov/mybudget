@@ -1,0 +1,13 @@
+.description-divider {
+    margin-block: 1.5rem;
+}
+
+.value-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fee {
+    color: var(--gray);
+}
