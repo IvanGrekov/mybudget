@@ -11,7 +11,6 @@ export default function CreateTransactionButton({
 }: ICreateTransactionButtonProps): JSX.Element {
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    // TODO: Get selected filter value
     return (
         <>
             <CreateItemButton onClick={openModal} />

@@ -5,6 +5,7 @@ import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import Show from 'components/show/Show';
+import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/transactionListFilters.hooks';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useGetMe } from 'hooks/me.hooks';
 
@@ -25,6 +26,7 @@ export default function CreateTransactionModal({
     refetchTransactionList,
 }: ICreateTransactionModalProps): JSX.Element {
     const { me, isLoading } = useGetMe();
+    const { value } = useTransactionListCurrentTypesFilterValue();
 
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
@@ -47,6 +49,7 @@ export default function CreateTransactionModal({
                 <Suspense fallback={<ModalCircularLoading />}>
                     <CreateTransactionModalContentLazy
                         userId={me.id}
+                        defaultType={value.length === 1 ? value[0] : undefined}
                         refetchTransactionList={refetchTransactionList}
                         hideModal={onClose}
                         onCloseModal={onCloseModal}

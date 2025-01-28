@@ -13,7 +13,6 @@ export default function TransactionListHeader({
         <div className={styles.header}>
             <HeaderChip title="Transactions" />
 
-            {/* TODO: Pass selected filter value */}
             <CreateTransactionButton
                 refetchTransactionList={refetchTransactionList}
             />

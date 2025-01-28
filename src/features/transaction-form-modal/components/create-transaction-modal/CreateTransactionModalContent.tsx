@@ -6,15 +6,20 @@ import ModalActions from 'components/modal/ModalActions';
 import CreateTransactionFormContent from 'features/transaction-form-modal/components/create-transaction-form-content/CreateTransactionFormContent';
 import { CREATE_TRANSACTION_FORM_VALIDATION } from 'features/transaction-form-modal/components/create-transaction-modal/constants/createTransactionFormValidation';
 import { useCreateTransaction } from 'features/transaction-form-modal/components/create-transaction-modal/hooks/useCreateTransaction';
+import { getDefaultType } from 'features/transaction-form-modal/components/create-transaction-modal/utils/getDefaultType';
 import { validateFormValuesOnSubmit } from 'features/transaction-form-modal/components/create-transaction-modal/utils/validateFormValuesOnSubmit';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
-import { CreateTransactionDtoTypeEnum } from 'types/generated.types';
+import {
+    CreateTransactionDtoTypeEnum,
+    TransactionTypeEnum,
+} from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
 interface ICreateTransactionModalContentProps {
     userId: number;
+    defaultType?: TransactionTypeEnum;
     refetchTransactionList: VoidFunction;
     hideModal: VoidFunction;
     onCloseModal: VoidFunction;
@@ -22,6 +27,7 @@ interface ICreateTransactionModalContentProps {
 
 export default function CreateTransactionModalContent({
     userId,
+    defaultType,
     refetchTransactionList,
     hideModal,
     onCloseModal,
@@ -31,6 +37,7 @@ export default function CreateTransactionModalContent({
     const methods = useForm<TCreateTransactionFormValues>({
         resolver: CREATE_TRANSACTION_FORM_VALIDATION,
         defaultValues: {
+            type: getDefaultType(defaultType),
             value: 0,
             fee: 0,
             description: '',
