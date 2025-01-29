@@ -21,6 +21,9 @@
     "AccountsPage": {
         "title": "Accounts"
     },
+    "Accounts": {
+        "title": "Accounts"
+    },
     "ReorderAccountsPage": {
         "title": "Accounts Reordering"
     },
@@ -30,11 +33,17 @@
     "TransactionCategoriesPage": {
         "title": "Transaction Categories"
     },
+    "Categories": {
+        "title": "Categories"
+    },
     "ReorderTransactionCategoriesPage": {
         "title": "Transaction Categories Reordering"
     },
     "TransactionCategoryDetailsPage": {
         "title": "Transaction Category Details"
+    },
+    "Details": {
+        "title": "Details"
     },
     "SettingsPage": {
         "title": "Settings"

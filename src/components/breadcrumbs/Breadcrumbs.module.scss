@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.dot {
+    --size: 5px;
+
+    flex-shrink: 0;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--foreground-opacity);
+}
+
+.item {
+    flex: 1;
+    max-width: fit-content;
+}
+
+.item-text {
+    color: var(--foreground-opacity) !important;
+}

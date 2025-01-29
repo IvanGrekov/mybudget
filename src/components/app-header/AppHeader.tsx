@@ -6,6 +6,7 @@ import Typography from 'components/typography/Typography';
 
 interface IAppHeaderProps {
     title?: string;
+    titleEl?: JSX.Element;
     subtitle?: string;
     actions?: JSX.Element;
     className?: string;
@@ -13,17 +14,24 @@ interface IAppHeaderProps {
 
 export default function AppHeader({
     title,
+    titleEl,
     subtitle,
     actions,
     className,
 }: IAppHeaderProps): JSX.Element {
     return (
         <div className={cx(styles.header, className)}>
-            <Show when={!!title}>
-                <div className={styles['title-wrapper']}>
-                    <Typography element="h2" variant="h4">
-                        {title}
-                    </Typography>
+            <Show when={!!title || !!titleEl}>
+                <div className={styles['main-row']}>
+                    <div className={styles['title-wrapper']}>
+                        {titleEl}
+
+                        <Show when={!!title}>
+                            <Typography element="h2" variant="h4">
+                                {title}
+                            </Typography>
+                        </Show>
+                    </div>
 
                     <Show when={!!actions}>{actions}</Show>
                 </div>

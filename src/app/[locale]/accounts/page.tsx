@@ -18,12 +18,10 @@ import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
-const pageName = 'AccountsPage';
-
 export async function generateMetadata({
     params: { locale },
 }: IWithLocaleParamProps): Promise<Metadata> {
-    return getAppPageTitle({ locale, pageName });
+    return getAppPageTitle({ locale, pageName: 'AccountsPage' });
 }
 
 export default async function AccountsPage(): Promise<JSX.Element> {

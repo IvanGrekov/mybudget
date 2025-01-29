@@ -21,6 +21,9 @@
     "AccountsPage": {
         "title": "Рахунки"
     },
+    "Accounts": {
+        "title": "Рахунки"
+    },
     "ReorderAccountsPage": {
         "title": "Порядок Рахунків"
     },
@@ -30,11 +33,17 @@
     "TransactionCategoriesPage": {
         "title": "Категорії Транзакцій"
     },
+    "Categories": {
+        "title": "Категорії"
+    },
     "ReorderTransactionCategoriesPage": {
         "title": "Порядок Категорій Транзакцій"
     },
     "TransactionCategoryDetailsPage": {
         "title": "Деталі Категорії Транзакцій"
+    },
+    "Details": {
+        "title": "Деталі"
     },
     "SettingsPage": {
         "title": "Налаштування"
