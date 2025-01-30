@@ -12,6 +12,7 @@ import TransactionCardFooter from 'features/transaction-list/components/transact
 import TransactionDetailsModal from 'features/transaction-list/components/transaction-details-modal/TransactionDetailsModal';
 import { useModal } from 'hooks/useModal';
 import { Transaction } from 'types/generated.types';
+import { roundValue } from 'utils/roundValue';
 
 interface ITransactionCardProps {
     transaction: Transaction;
@@ -42,14 +43,16 @@ export default function TransactionCard({
                         <div className={styles['header-title-wrapper']}>
                             <HeaderChips createdAt={createdAt} type={type} />
 
-                            <CardTitle title={`${value} ${currency}`} />
+                            <CardTitle
+                                title={`${roundValue(value)} ${currency}`}
+                            />
 
                             {fee && (
                                 <Typography
                                     variant="body2"
                                     className={styles.fee}
                                 >
-                                    Fee: {`${fee} ${currency}`}
+                                    Fee: {`${roundValue(fee)} ${currency}`}
                                 </Typography>
                             )}
                         </div>

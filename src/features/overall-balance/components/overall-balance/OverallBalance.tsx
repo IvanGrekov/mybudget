@@ -14,6 +14,7 @@ import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { useModal } from 'hooks/useModal';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
 import { EScreenSizeNames } from 'types/screenSizeNames';
+import { roundValue } from 'utils/roundValue';
 
 const BalanceDetailsLazy = lazy(
     () =>
@@ -43,7 +44,7 @@ export default function OverallBalance({
         return null;
     }
 
-    const value = `${overallBalance} ${userCurrency}`;
+    const value = `${roundValue(overallBalance)} ${userCurrency}`;
     const fullTitle = `Overall Balance: ${value}`;
     const title = isMobile ? value : fullTitle;
 

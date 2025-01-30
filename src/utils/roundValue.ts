@@ -1,13 +1,12 @@
 import { Maybe } from 'types/utility.types';
 
-export const roundValue = (value?: Maybe<number>): number => {
-    if (typeof value !== 'number') {
-        return 0;
+export const roundValue = (value?: Maybe<number>): string => {
+    if (typeof value !== 'number' || value === 0) {
+        return '0';
     }
 
-    if (value === 0) {
-        return value;
-    }
-
-    return +value.toFixed(2);
+    return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(value);
 };

@@ -5,7 +5,6 @@ import {
     AccountTypeEnum,
     UserDefaultCurrencyEnum,
 } from 'types/generated.types';
-import { roundValue } from 'utils/roundValue';
 
 interface IUseCalculateOverallBalanceArgs {
     accounts?: TApiClientResult<Account[]>;
@@ -51,5 +50,5 @@ export const useCalculateOverallBalance = ({
         0,
     );
 
-    return roundValue(balance) || 0;
+    return balance || 0;
 };
