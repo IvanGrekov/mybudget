@@ -8,7 +8,7 @@ type TFormTextFieldProps = Pick<
     'label' | 'type' | 'disabled' | 'required' | 'maxLength'
 > & {
     name: string;
-    formatValue?: (value: number) => number;
+    formatValue?: (value: number) => string;
 };
 
 export default function FormTextField({
