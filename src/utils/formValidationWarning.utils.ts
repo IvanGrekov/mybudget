@@ -36,6 +36,15 @@ export const getNumberMinValidationWarning = (
     return `${formattedFieldName} must be at least ${min}`;
 };
 
+export const getNumberMaxValidationWarning = (
+    fieldName: string,
+    max: number,
+): string => {
+    const formattedFieldName = getCapitalizedString(fieldName);
+
+    return `${formattedFieldName} cannot be greater than ${max}`;
+};
+
 export const getRequiredValidationWarning = (fieldName: string): string => {
     const formattedFieldName = getCapitalizedString(fieldName);
 

@@ -19,11 +19,14 @@ import {
 import {
     getRequiredValidationWarning,
     getNumberMinValidationWarning,
+    getNumberMaxValidationWarning,
     getMatchValidationWarning,
 } from 'utils/formValidationWarning.utils';
 
 const MIN_VALUE = 0.00001;
+const MAX_VALUE = 1_000_000_000;
 const MIN_FEE = 0;
+const MAX_FEE = 1_000_000;
 
 const CREATE_TRANSACTION_ACCOUNT_SCHEMA = yup
     .object<ICreateTransactionAccount>()
@@ -155,6 +158,13 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                         MIN_VALUE,
                     ),
                 )
+                .max(
+                    MAX_VALUE,
+                    getNumberMaxValidationWarning(
+                        TRANSACTION_FORM_FIELD_LABELS.value,
+                        MAX_VALUE,
+                    ),
+                )
                 .required(
                     getRequiredValidationWarning(
                         TRANSACTION_FORM_FIELD_LABELS.value,
@@ -168,6 +178,13 @@ export const CREATE_TRANSACTION_FORM_VALIDATION =
                     getNumberMinValidationWarning(
                         TRANSACTION_FORM_FIELD_LABELS.fee,
                         MIN_FEE,
+                    ),
+                )
+                .max(
+                    MAX_FEE,
+                    getNumberMaxValidationWarning(
+                        TRANSACTION_FORM_FIELD_LABELS.fee,
+                        MAX_FEE,
                     ),
                 )
                 .nullable(),
