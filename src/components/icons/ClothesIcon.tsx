@@ -10,7 +10,7 @@ export default function ClothesIcon({
     return (
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
-                viewBox="0 0 24 24"
+                viewBox="0 0 26 26"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
                 style={{ fill: color ? color : undefined }}

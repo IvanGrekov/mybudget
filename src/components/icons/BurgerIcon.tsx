@@ -11,7 +11,7 @@ export default function BurgerIcon({
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 76 76"
+                viewBox="0 0 82 82"
                 className={className}
                 style={{ fill: color ? color : undefined }}
             >

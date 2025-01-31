@@ -15,7 +15,7 @@ export default function CryptoIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
-                viewBox="0 0 64 64"
+                viewBox="0 0 70 70"
                 xmlSpace="preserve"
                 className={className}
                 style={{ fill: color ? color : undefined }}

@@ -1,21 +1,17 @@
 import IconWrapper from 'components/icons/IconWrapper';
 import { IIconProps } from 'components/icons/types/iconProps';
-import { EIconSizes } from 'components/icons/types/iconSizes';
 
 export default function RemoveIcon({
-    size = EIconSizes.small,
+    size,
     color,
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
-    const formattedSize =
-        (typeof size === 'number' ? size : EIconSizes[size]) * 0.8;
-
     return (
-        <IconWrapper size={formattedSize} wrapperClassName={wrapperClassName}>
+        <IconWrapper size={size} wrapperClassName={wrapperClassName}>
             <svg
                 enableBackground="new 0 0 40 40"
-                viewBox="0 0 40 40"
+                viewBox="0 0 48 48"
                 xmlSpace="preserve"
                 className={className}
                 style={{ fill: color ? color : undefined }}

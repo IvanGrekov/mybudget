@@ -13,7 +13,7 @@ export default function BitcoinIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
                 height="48"
-                viewBox="0 0 48 48"
+                viewBox="0 0 52 52"
                 className={className}
                 style={{ fill: color ? color : undefined }}
             >

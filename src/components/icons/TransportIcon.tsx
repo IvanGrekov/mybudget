@@ -16,7 +16,7 @@ export default function TransportIcon({
                 y="0px"
                 width="792px"
                 height="792px"
-                viewBox="0 0 792 792"
+                viewBox="0 0 900 900"
                 xmlSpace="preserve"
                 className={className}
                 style={{ fill: color ? color : undefined }}

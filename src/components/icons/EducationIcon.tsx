@@ -11,13 +11,13 @@ export default function EducationIcon({
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 version="1.1"
-                viewBox="0 0 64 64"
+                viewBox="0 0 75 75"
                 xmlSpace="preserve"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
                 style={{ fill: color ? color : undefined }}
             >
-                <g>
+                <g transform="translate(12, 0)">
                     <path d="M40,1H2C1.448,1,1,1.448,1,2v60c0,0.552,0.448,1,1,1h38c0.552,0,1-0.448,1-1V2C41,1.448,40.552,1,40,1z M39,61H3V3h36V61z" />
                     <path d="M8,19h4c0.552,0,1-0.448,1-1v-4c0-0.552-0.448-1-1-1H8c-0.552,0-1,0.448-1,1v4C7,18.552,7.448,19,8,19z M9,15h2v2H9V15z" />
                     <path d="M8,27h4c0.552,0,1-0.448,1-1v-4c0-0.552-0.448-1-1-1H8c-0.552,0-1,0.448-1,1v4C7,26.552,7.448,27,8,27z M9,23h2v2H9V23z" />

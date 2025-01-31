@@ -13,11 +13,11 @@ export default function SunIcon({
                 xmlns="http://www.w3.org/2000/svg"
                 width="128px"
                 height="128px"
-                viewBox="0 0 128 128"
+                viewBox="0 0 145 145"
                 className={className}
                 style={{ fill: color ? color : undefined }}
             >
-                <g>
+                <g transform="translate(8, 8)">
                     <path
                         d="M64,20c2.211,0,4-1.789,4-4V8c0-2.211-1.789-4-4-4s-4,1.789-4,4v8C60,18.211,61.789,20,64,20z M64,108
 			c-2.211,0-4,1.789-4,4v8c0,2.211,1.789,4,4,4s4-1.789,4-4v-8C68,109.789,66.211,108,64,108z M120,60h-8c-2.211,0-4,1.789-4,4

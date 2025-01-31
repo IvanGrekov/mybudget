@@ -11,7 +11,7 @@ export default function TopArrowIcon({
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
+                viewBox="0 0 550 550"
                 className={className}
                 style={{ fill: color ? color : undefined }}
             >

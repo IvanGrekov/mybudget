@@ -12,7 +12,7 @@ export default function WalletIcon({
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 612 612"
+                viewBox="0 0 650 650"
                 className={className}
                 style={{ fill: color ? color : undefined }}
             >

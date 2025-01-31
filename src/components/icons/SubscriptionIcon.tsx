@@ -11,9 +11,9 @@ export default function SubscriptionIcon({
         <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 fill="none"
-                height="24"
-                viewBox="0 0 24 24"
                 width="24"
+                height="24"
+                viewBox="0 0 26 26"
                 xmlns="http://www.w3.org/2000/svg"
                 className={className}
                 style={{ fill: color ? color : undefined }}
