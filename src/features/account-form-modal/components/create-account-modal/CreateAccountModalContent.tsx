@@ -42,7 +42,8 @@ export default function CreateAccountModalContent({
         },
         resolver: CREATE_ACCOUNT_FORM_VALIDATION,
     });
-    const { formState, handleSubmit } = methods;
+    const { formState, watch, handleSubmit } = methods;
+    const type = watch('type');
 
     const disableNavigationConfirmation = useConfirmNavigation(
         formState.dirtyFields,
@@ -59,7 +60,7 @@ export default function CreateAccountModalContent({
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(mutate)}>
-                <AccountFormContent />
+                <AccountFormContent type={type} />
 
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />

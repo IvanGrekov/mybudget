@@ -50,7 +50,7 @@ const useEditAccountOrder: TUseEditAccountOrder = ({
 
             queryClient.setQueryData(
                 getAccountsQueryKey({
-                    type,
+                    types: [type],
                 }),
                 data,
             );

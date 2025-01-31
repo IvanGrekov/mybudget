@@ -18,29 +18,39 @@ import styles from 'styles/Form.module.scss';
 import { CreateAccountDtoTypeEnum } from 'types/generated.types';
 
 interface IAccountFormContentProps {
+    type: string;
     isEdit?: boolean;
 }
 
 export default function AccountFormContent({
+    type,
     isEdit,
 }: IAccountFormContentProps): JSX.Element {
-    const { watch, setValue } = useFormContext<TCreateAccountFormValues>();
+    const { setValue } = useFormContext<TCreateAccountFormValues>();
 
-    const type = watch('type');
     const isOweMeType = type === CreateAccountDtoTypeEnum.OWE_ME;
     const isIOweType = type === CreateAccountDtoTypeEnum.I_OWE;
 
     useEffect(() => {
         if (isOweMeType || isIOweType) {
-            setValue('shouldHideFromOverallBalance', false);
+            setValue('shouldHideFromOverallBalance', false, {
+                shouldDirty: true,
+                shouldTouch: true,
+            });
         }
 
         if (!isOweMeType) {
-            setValue('shouldShowAsIncome', false);
+            setValue('shouldShowAsIncome', false, {
+                shouldDirty: true,
+                shouldTouch: true,
+            });
         }
 
         if (!isIOweType) {
-            setValue('shouldShowAsExpense', false);
+            setValue('shouldShowAsExpense', false, {
+                shouldDirty: true,
+                shouldTouch: true,
+            });
         }
     }, [isOweMeType, isIOweType, setValue]);
 

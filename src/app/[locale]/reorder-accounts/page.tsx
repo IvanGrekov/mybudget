@@ -30,11 +30,11 @@ export default async function ReorderAccountsPage(): Promise<JSX.Element> {
     // NOTE: prefetch accounts by type
     await queryClient.prefetchQuery({
         queryKey: getAccountsQueryKey({
-            type: accountsType,
+            types: [accountsType],
         }),
         queryFn: () =>
             SERVER_MY_BUDGET_API.getAccounts({
-                type: accountsType,
+                types: [accountsType],
             }),
     });
 

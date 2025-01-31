@@ -48,7 +48,10 @@ export default function ResetPassword(): JSX.Element {
                         const data = await response.json();
                         setError(getFailedResponseMessage(data));
                     } else {
-                        setValue('isVerificationCodeSent', true);
+                        setValue('isVerificationCodeSent', true, {
+                            shouldDirty: true,
+                            shouldTouch: true,
+                        });
                     }
                 });
             } else if (newPassword && verificationCode) {

@@ -11,9 +11,10 @@ import {
     ICreateTransactionCategory,
 } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import {
-    CreateTransactionDtoTypeEnum,
+    AccountTypeEnum,
     AccountCurrencyEnum,
     TransactionCategoryCurrencyEnum,
+    CreateTransactionDtoTypeEnum,
 } from 'types/generated.types';
 import {
     getRequiredValidationWarning,
@@ -28,6 +29,10 @@ const CREATE_TRANSACTION_ACCOUNT_SCHEMA = yup
     .object<ICreateTransactionAccount>()
     .shape({
         id: yup.number().required(),
+        type: yup
+            .mixed<AccountTypeEnum>()
+            .oneOf(Object.values(AccountTypeEnum))
+            .required(),
         name: yup.string().required(),
         balance: yup.number().required(),
         currency: yup

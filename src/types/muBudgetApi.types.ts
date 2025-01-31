@@ -22,7 +22,7 @@ export interface IEditUserCurrencyArgs extends EditUserCurrencyDto {
 
 export interface IGetAccountsArgs {
     status?: AccountStatusEnum;
-    type?: AccountTypeEnum;
+    types?: AccountTypeEnum[];
 }
 
 export interface IGetTransactionCategoriesArgs {

@@ -8,7 +8,7 @@ import { Maybe } from 'types/utility.types';
 
 export type ICreateTransactionAccount = Pick<
     Account,
-    'id' | 'name' | 'iconName' | 'iconColor' | 'balance' | 'currency'
+    'id' | 'type' | 'name' | 'iconName' | 'iconColor' | 'balance' | 'currency'
 >;
 
 export type ICreateTransactionCategory = Pick<

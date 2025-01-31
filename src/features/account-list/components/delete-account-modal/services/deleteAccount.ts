@@ -16,7 +16,7 @@ export const deleteAccount = ({
 }: IDeleteAccountArgs): void => {
     queryClient.setQueryData(
         getAccountsQueryKey({
-            type,
+            types: [type],
         }),
         (oldAccountList?: Account[]) =>
             oldAccountList?.filter((account) => account.id !== id) || [],

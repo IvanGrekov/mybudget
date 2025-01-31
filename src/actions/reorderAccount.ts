@@ -22,7 +22,7 @@ export async function reorderAccount({
 }: IReorderAccountActionArgs): TAsyncApiClientResult<Account[]> {
     const result = await SERVER_MY_BUDGET_API.reorderAccount({ id, order });
 
-    revalidateTag(getAccountsFetchingTagByType(type));
+    revalidateTag(getAccountsFetchingTagByType([type]));
     revalidateTag(getSingleAccountFetchingTag(id));
 
     return result;

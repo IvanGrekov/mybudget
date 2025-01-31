@@ -9,24 +9,26 @@ import {
 
 type TFetchingTags = string[];
 
-export const getAccountsFetchingTagByType = (type: AccountTypeEnum): string => {
-    return `${EFetchingTags.ACCOUNTS}-${type}`;
+export const getAccountsFetchingTagByType = (
+    types: AccountTypeEnum[],
+): string => {
+    return `${EFetchingTags.ACCOUNTS}-${types.join('-')}`;
 };
 
 interface IGetAccountsFetchingTagsArgs {
     status?: AccountStatusEnum;
-    type?: AccountTypeEnum;
+    types?: AccountTypeEnum[];
 }
 
 export const getAccountsFetchingTags = (
     args?: IGetAccountsFetchingTagsArgs,
 ): TFetchingTags => {
-    const { status = AccountStatusEnum.ACTIVE, type } = args || {};
+    const { status = AccountStatusEnum.ACTIVE, types } = args || {};
 
     const result: TFetchingTags = [`${EFetchingTags.ACCOUNTS}-${status}`];
 
-    if (type) {
-        result.push(getAccountsFetchingTagByType(type));
+    if (types) {
+        result.push(getAccountsFetchingTagByType(types));
     }
 
     return result;

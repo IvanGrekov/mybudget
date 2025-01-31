@@ -21,11 +21,11 @@ export const useGetAccounts = (
 
     const { data, isPending, error } = useQuery({
         queryKey: getAccountsQueryKey({
-            type,
+            types: [type],
         }),
         queryFn: () =>
             CLIENT_MY_BUDGET_API.getAccounts({
-                type,
+                types: [type],
             }),
     });
 

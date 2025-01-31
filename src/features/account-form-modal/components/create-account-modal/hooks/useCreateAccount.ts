@@ -40,7 +40,7 @@ export const useCreateAccount: TUseCreateAccount = ({
 
             queryClient.setQueryData(
                 getAccountsQueryKey({
-                    type: data.type,
+                    types: [data.type],
                 }),
                 (oldAccountList?: Account[]) => [
                     ...(oldAccountList || []),

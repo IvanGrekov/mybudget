@@ -25,7 +25,12 @@ export default function IconNameField(): JSX.Element | null {
             Icon={Icon}
             iconColor={iconColor}
             selectedIconName={iconName}
-            changeIconName={(iconName) => setValue('iconName', iconName)}
+            changeIconName={(iconName) =>
+                setValue('iconName', iconName, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                })
+            }
         />
     );
 }

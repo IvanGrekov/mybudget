@@ -23,7 +23,7 @@ export default function CreateTransactionFormContent(): JSX.Element {
     const { watch, setValue, clearErrors } =
         useFormContext<TCreateTransactionFormValues>();
 
-    const type = watch('type');
+    const transactionType = watch('type');
     const fromAccount = watch('fromAccount');
     const toAccount = watch('toAccount');
     const fromCategory = watch('fromCategory');
@@ -32,7 +32,7 @@ export default function CreateTransactionFormContent(): JSX.Element {
     const baseExchangeRates = useExchangeRatesContext(toCurrency);
 
     useEffect(() => {
-        switch (type) {
+        switch (transactionType) {
             case CreateTransactionDtoTypeEnum.EXPENSE:
                 setValue('toAccount', null);
                 setValue('fromCategory', null);
@@ -49,7 +49,7 @@ export default function CreateTransactionFormContent(): JSX.Element {
                 clearErrors(['fromCategory', 'toCategory']);
                 break;
         }
-    }, [type, setValue, clearErrors]);
+    }, [transactionType, setValue, clearErrors]);
 
     useEffect(() => {
         const fromCurrency = fromAccount?.currency || fromCategory?.currency;
@@ -62,6 +62,8 @@ export default function CreateTransactionFormContent(): JSX.Element {
             });
 
             setValue('currencyRate', exchangeRates[toCurrency]);
+        } else {
+            setValue('currencyRate', null);
         }
     }, [fromAccount, fromCategory, toCurrency, baseExchangeRates, setValue]);
 
@@ -75,9 +77,10 @@ export default function CreateTransactionFormContent(): JSX.Element {
         [fromAccount, toAccount, fromCategory],
     );
 
-    const isExpense = type === CreateTransactionDtoTypeEnum.EXPENSE;
-    const isIncome = type === CreateTransactionDtoTypeEnum.INCOME;
-    const isTransfer = type === CreateTransactionDtoTypeEnum.TRANSFER;
+    const isExpense = transactionType === CreateTransactionDtoTypeEnum.EXPENSE;
+    const isIncome = transactionType === CreateTransactionDtoTypeEnum.INCOME;
+    const isTransfer =
+        transactionType === CreateTransactionDtoTypeEnum.TRANSFER;
 
     return (
         <div className={styles.container}>

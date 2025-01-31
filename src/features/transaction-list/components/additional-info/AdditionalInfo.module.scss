@@ -1,0 +1,9 @@
+.additional-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.additional-info-value {
+    color: var(--gray) !important;
+}

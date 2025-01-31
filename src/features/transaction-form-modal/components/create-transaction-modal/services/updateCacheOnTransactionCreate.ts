@@ -65,7 +65,7 @@ export const updateCacheOnTransactionCreate = ({
                 (allAccounts || []).map(updateFromAccountBalanceInCache),
         );
         queryClient.setQueryData(
-            getAccountsQueryKey({ type }),
+            getAccountsQueryKey({ types: [type] }),
             (accountsByType?: Account[]) =>
                 (accountsByType || []).map(updateFromAccountBalanceInCache),
         );
@@ -88,7 +88,7 @@ export const updateCacheOnTransactionCreate = ({
                 (allAccounts || []).map(updateToAccountBalanceInCache),
         );
         queryClient.setQueryData(
-            getAccountsQueryKey({ type }),
+            getAccountsQueryKey({ types: [type] }),
             (accountsByType?: Account[]) =>
                 (accountsByType || []).map(updateToAccountBalanceInCache),
         );

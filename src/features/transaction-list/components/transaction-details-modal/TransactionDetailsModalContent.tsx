@@ -1,6 +1,7 @@
 import Divider from 'components/divider/Divider';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
+import AdditionalInfo from 'features/transaction-list/components/additional-info/AdditionalInfo';
 import FromToTransactionDetails from 'features/transaction-list/components/from-to-transaction-details/FromToTransactionDetails';
 import HeaderChips from 'features/transaction-list/components/header-chips/HeaderChips';
 import styles from 'features/transaction-list/components/transaction-details-modal/TransactionDetailsModalContent.module.scss';
@@ -10,7 +11,7 @@ import { roundValue } from 'utils/roundValue';
 export default function TransactionDetailsModalContent({
     transaction,
 }: ITransactionDetailsModalDataProps): JSX.Element {
-    const { createdAt, type, value, currency, fee, description } = transaction;
+    const { createdAt, type, value, currency, description } = transaction;
 
     return (
         <>
@@ -23,11 +24,7 @@ export default function TransactionDetailsModalContent({
                     {`${roundValue(value)} ${currency}`}
                 </Typography>
 
-                {fee && (
-                    <Typography variant="body2" className={styles.fee}>
-                        Fee: {`${roundValue(fee)} ${currency}`}
-                    </Typography>
-                )}
+                <AdditionalInfo transaction={transaction} textVariant="body1" />
             </div>
 
             <Divider className={styles['description-divider']} />

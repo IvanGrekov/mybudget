@@ -25,7 +25,10 @@ export default function CurrencyField(): JSX.Element {
     const exchangeRates = useExchangeRatesContext(currentUserCurrency);
 
     useEffect(() => {
-        setValue('rate', exchangeRates[selectedCurrency]);
+        setValue('rate', exchangeRates[selectedCurrency], {
+            shouldDirty: true,
+            shouldTouch: true,
+        });
     }, [exchangeRates, selectedCurrency, setValue]);
 
     return (

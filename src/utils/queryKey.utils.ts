@@ -61,15 +61,15 @@ export const getSingleTransactionCategoryQueryKey = (
 
 interface IGetAccountsQueryKeyArgs {
     status?: AccountStatusEnum;
-    type?: AccountTypeEnum;
+    types?: AccountTypeEnum[];
 }
 
 export const getAccountsQueryKey = (
     args?: IGetAccountsQueryKeyArgs,
 ): unknown[] => {
-    const { status = AccountStatusEnum.ACTIVE, type } = args || {};
+    const { status = AccountStatusEnum.ACTIVE, types } = args || {};
 
-    return [EFetchingTags.ACCOUNTS, { status, type }];
+    return [EFetchingTags.ACCOUNTS, { status, types }];
 };
 
 export const getSingleAccountQueryKey = (accountId: number): string[] => {

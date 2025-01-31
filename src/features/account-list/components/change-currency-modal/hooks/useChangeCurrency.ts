@@ -59,7 +59,7 @@ export const useChangeCurrency: TUseChangeCurrency = ({
 
             queryClient.setQueryData(
                 getAccountsQueryKey({
-                    type,
+                    types: [type],
                 }),
                 (oldAccountList?: Account[]) =>
                     oldAccountList?.map(updateAccountCurrency) || [],

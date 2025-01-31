@@ -5,13 +5,14 @@ import ErrorMessage from 'components/error-message/ErrorMessage';
 import FormSelectField from 'components/form-fields/FormSelectField';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import BalanceAfterTransaction from 'features/transaction-form-modal/components/create-transaction-form-content/BalanceAfterTransaction';
-import { getToAccountBalanceAfterTransaction } from 'features/transaction-form-modal/components/create-transaction-form-content/utils/getToAccountBalanceAfterTransaction';
 import {
     TRANSACTION_FORM_FIELD_NAMES,
     TRANSACTION_FORM_FIELD_LABELS,
 } from 'features/transaction-form-modal/constants/transactionForm.constants';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
+import { getToAccountBalanceAfterTransaction } from 'features/transaction-form-modal/utils/getToAccountBalanceAfterTransaction';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
+import { AccountTypeEnum } from 'types/generated.types';
 
 export default function ToAccountField(): JSX.Element | null {
     const { watch } = useFormContext<TCreateTransactionFormValues>();
@@ -31,9 +32,18 @@ export default function ToAccountField(): JSX.Element | null {
     const currencyRate = watch('currencyRate');
     const fromAccount = watch('fromAccount');
     const toAccount = watch('toAccount');
-    const filteredAccounts = accounts.filter(
-        (account) => account.id !== fromAccount?.id,
-    );
+
+    const filteredAccounts = accounts.filter(({ id, type, balance }) => {
+        if (id === fromAccount?.id) {
+            return false;
+        }
+
+        if (type === AccountTypeEnum.I_OWE && balance <= 0) {
+            return false;
+        }
+
+        return true;
+    });
 
     if (!filteredAccounts.length) {
         return <ErrorMessage message="No accounts found" />;

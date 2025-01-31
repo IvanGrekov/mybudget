@@ -25,6 +25,7 @@ export default function EditAccountModalContent({
 }: IEditAccountModalContentProps): JSX.Element {
     const {
         status,
+        type,
         name,
         balance,
         shouldHideFromOverallBalance,
@@ -74,7 +75,7 @@ export default function EditAccountModalContent({
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submit)}>
-                <AccountFormContent isEdit={true} />
+                <AccountFormContent type={type} isEdit={true} />
 
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />

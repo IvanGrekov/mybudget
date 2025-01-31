@@ -4,7 +4,13 @@
     gap: 1rem;
 }
 
-.from-to-item-details-wrapper {
+.from-to-item-link-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.from-to-item-link {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;

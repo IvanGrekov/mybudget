@@ -235,12 +235,12 @@ export abstract class MyBudgetApi {
     }
 
     getAccounts(args?: IGetAccountsArgs): TAsyncApiClientResult<Account[]> {
-        const { status = AccountStatusEnum.ACTIVE, type } = args || {};
+        const { status = AccountStatusEnum.ACTIVE, types } = args || {};
 
         let url = `/accounts/my?status=${status}`;
 
-        if (type) {
-            url += `&type=${type}`;
+        if (types) {
+            url += `&types=${types.join(',')}`;
         }
 
         return this.get(url, {
@@ -249,7 +249,7 @@ export abstract class MyBudgetApi {
                     EFetchingTags.ACCOUNTS,
                     ...getAccountsFetchingTags({
                         status,
-                        type,
+                        types,
                     }),
                 ],
             },

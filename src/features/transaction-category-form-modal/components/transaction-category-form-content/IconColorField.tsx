@@ -13,7 +13,12 @@ export default function IconColorField(): JSX.Element | null {
     return (
         <EntityIconColorField
             selectedIconColor={iconColor}
-            changeIconColor={(color) => setValue('iconColor', color)}
+            changeIconColor={(color) =>
+                setValue('iconColor', color, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                })
+            }
         />
     );
 }

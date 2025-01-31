@@ -38,7 +38,10 @@ export default function SignIn(): JSX.Element {
         );
 
         if (result?.shouldPassTfa) {
-            setValue('isVerificationRequired', true);
+            setValue('isVerificationRequired', true, {
+                shouldDirty: true,
+                shouldTouch: true,
+            });
         }
 
         if (result?.error) {

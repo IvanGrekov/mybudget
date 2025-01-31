@@ -1,5 +1,9 @@
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
-import { CreateTransactionDtoTypeEnum } from 'types/generated.types';
+import { getToAccountBalanceAfterTransaction } from 'features/transaction-form-modal/utils/getToAccountBalanceAfterTransaction';
+import {
+    AccountTypeEnum,
+    CreateTransactionDtoTypeEnum,
+} from 'types/generated.types';
 
 interface IValidateFormValuesOnSubmitResult {
     isError: boolean;
@@ -38,13 +42,35 @@ export const validateFormValuesOnSubmit = ({
         };
     }
 
-    const fromAccountBalance = fromAccount?.balance || 0;
+    const isIOweAccount = toAccount?.type === AccountTypeEnum.I_OWE;
 
-    if (CreateTransactionDtoTypeEnum.INCOME === type) {
+    if (isIOweAccount) {
+        const newToAccountBalance = getToAccountBalanceAfterTransaction({
+            transactionValue: value,
+            transactionType: type,
+            toAccount,
+            transactionFee: fee,
+            currencyRate,
+        });
+
+        if (
+            typeof newToAccountBalance === 'number' &&
+            newToAccountBalance < 0
+        ) {
+            return {
+                isError: true,
+                errorMessage: 'You cannot make over deposit to `I_OWE` account',
+            };
+        }
+    }
+
+    if (CreateTransactionDtoTypeEnum.INCOME === type || isIOweAccount) {
         return {
             isError: false,
         };
     }
+
+    const fromAccountBalance = fromAccount?.balance || 0;
 
     if (!fromAccountBalance) {
         return {

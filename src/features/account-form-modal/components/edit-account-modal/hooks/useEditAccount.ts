@@ -65,7 +65,7 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
             if (isArchiving) {
                 queryClient.setQueryData(
                     getAccountsQueryKey({
-                        type,
+                        types: [type],
                     }),
                     (oldAccountList?: Account[]) =>
                         oldAccountList?.filter((account) => account.id !== id),
@@ -81,7 +81,7 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
             if (isActivating) {
                 queryClient.refetchQueries({
                     queryKey: getAccountsQueryKey({
-                        type,
+                        types: [type],
                     }),
                 });
 
@@ -99,7 +99,7 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
             if (!isActivating) {
                 queryClient.setQueryData(
                     getAccountsQueryKey({
-                        type,
+                        types: [type],
                     }),
                     (oldAccountList?: Account[]) =>
                         oldAccountList?.map(updateAccount) || [],

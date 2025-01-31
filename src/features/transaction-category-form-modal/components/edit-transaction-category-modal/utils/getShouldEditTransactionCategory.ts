@@ -9,12 +9,20 @@ type TGetShouldEditAccount = (args: {
 }) => boolean;
 
 export const getShouldEditTransactionCategory: TGetShouldEditAccount = ({
-    transactionCategory: { status, name },
-    data: { status: newStatus, name: newName },
+    transactionCategory: { status, name, iconName, iconColor },
+    data: {
+        status: newStatus,
+        name: newName,
+        iconName: newIconName,
+        iconColor: newIconColor,
+    },
 }) => {
     return (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        status !== newStatus || name !== newName
+        status !== newStatus ||
+        name !== newName ||
+        iconName !== newIconName ||
+        iconColor !== newIconColor
     );
 };

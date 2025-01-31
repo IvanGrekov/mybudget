@@ -13,6 +13,8 @@ export const getShouldEditAccount: TGetShouldEditAccount = ({
         shouldHideFromOverallBalance,
         shouldShowAsExpense,
         shouldShowAsIncome,
+        iconName,
+        iconColor,
     },
     data: {
         status: newStatus,
@@ -21,6 +23,8 @@ export const getShouldEditAccount: TGetShouldEditAccount = ({
         shouldHideFromOverallBalance: newShouldHideFromOverallBalance,
         shouldShowAsExpense: newShouldShowAsExpense,
         shouldShowAsIncome: newShouldShowAsIncome,
+        iconName: newIconName,
+        iconColor: newIconColor,
     },
 }) => {
     return (
@@ -31,6 +35,8 @@ export const getShouldEditAccount: TGetShouldEditAccount = ({
         balance !== newBalance ||
         shouldHideFromOverallBalance !== newShouldHideFromOverallBalance ||
         shouldShowAsExpense !== newShouldShowAsExpense ||
-        shouldShowAsIncome !== newShouldShowAsIncome
+        shouldShowAsIncome !== newShouldShowAsIncome ||
+        iconName !== newIconName ||
+        iconColor !== newIconColor
     );
 };
