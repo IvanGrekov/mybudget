@@ -4,16 +4,16 @@ import { Metadata } from 'next';
 import AppHeader from 'components/app-header/AppHeader';
 import Breadcrumbs from 'components/breadcrumbs/Breadcrumbs';
 import Container from 'components/container/Container';
-import EmptyState from 'components/empty-state/EmptyState';
 import EntityIcon from 'components/entity-icon/EntityIcon';
 import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import { EIconSizes } from 'components/icons/types/iconSizes';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
+import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
-import { TransactionCategory } from 'types/generated.types';
+import { TransactionCategory, User } from 'types/generated.types';
 import { IWithIdParamProps, IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
@@ -50,16 +50,15 @@ export default async function TransactionCategoryDetailsPage({
     });
 
     const queryClient = getQueryClient();
-    const me = await getMeOnServerSide(queryClient);
 
-    if (!me) {
-        return <MeEmptyState />;
-    }
+    let me: TApiClientResult<User> = null;
+    let category: TApiClientResult<TransactionCategory> = null;
 
     const categoryId = Number(id);
-    let category: null | TApiClientResult<TransactionCategory> = null;
 
     try {
+        me = await getMeOnServerSide(queryClient);
+
         category = await queryClient.fetchQuery({
             queryKey: getSingleTransactionCategoryQueryKey(categoryId),
             queryFn: () =>
@@ -67,6 +66,10 @@ export default async function TransactionCategoryDetailsPage({
         });
     } catch (error) {
         log(error);
+    }
+
+    if (!me) {
+        return <MeEmptyState />;
     }
 
     const {
@@ -111,7 +114,10 @@ export default async function TransactionCategoryDetailsPage({
                         transactionCategory={category}
                     />
                 ) : (
-                    <EmptyState text="Transaction Category not found" />
+                    <TransactionCategoriesEmptyState
+                        isSingleCategory={true}
+                        notWrappedByContainer={true}
+                    />
                 )}
             </HydrationBoundary>
         </Container>

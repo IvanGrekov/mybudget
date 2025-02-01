@@ -3,13 +3,16 @@ import { Metadata } from 'next';
 
 import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
-import EmptyState from 'components/empty-state/EmptyState';
+import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import UserSettings from 'features/user-settings/components/user-settings/UserSettings';
+import { TApiClientResult } from 'types/apiClient.types';
+import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
+import log from 'utils/log';
 
 const pageName = 'SettingsPage';
 
@@ -28,14 +31,17 @@ export default async function SettingsPage({
     });
 
     const queryClient = getQueryClient();
-    const me = await getMeOnServerSide(queryClient);
+
+    let me: TApiClientResult<User> = null;
+
+    try {
+        me = await getMeOnServerSide(queryClient);
+    } catch (error) {
+        log('error', error);
+    }
 
     if (!me) {
-        return (
-            <Container>
-                <EmptyState text="User not found" />
-            </Container>
-        );
+        return <MeEmptyState />;
     }
 
     return (

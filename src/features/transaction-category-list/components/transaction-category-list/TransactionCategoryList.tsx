@@ -1,9 +1,9 @@
 'use client';
 
 import Button from 'components/button/Button';
-import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
+import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
 import TransactionCategoryCard from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard';
 import TransactionCategoryListHeader from 'features/transaction-category-list/components/transaction-category-list/TransactionCategoryListHeader';
 import TransactionCategoryListTabs from 'features/transaction-category-list-tabs/components/transaction-category-list-tabs/TransactionCategoryListTabs';
@@ -39,8 +39,9 @@ export default function TransactionCategoryList({
             </Show>
 
             <Show when={isEmptyState && !isLoading}>
-                <EmptyState
-                    text={`No '${type}' transaction categories found`}
+                <TransactionCategoriesEmptyState
+                    categoriesType={type}
+                    notWrappedByContainer={true}
                 />
             </Show>
 

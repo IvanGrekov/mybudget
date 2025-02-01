@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 
-import EmptyState from 'components/empty-state/EmptyState';
+import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
@@ -41,7 +41,7 @@ export default function CreateTransactionCategoryModal({
             </Show>
 
             <Show when={!me && !isLoading}>
-                <EmptyState text="We couldn't find your profile" />
+                <MeEmptyState notWrappedByContainer={true} />
             </Show>
 
             {me && (

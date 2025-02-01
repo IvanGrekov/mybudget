@@ -4,9 +4,9 @@ import { DragOverlay } from '@dnd-kit/core';
 
 import Card from 'components/card/Card';
 import DragDropListItem from 'components/drag-drop-list-item/DragDropListItem';
-import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
+import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
 import DragDropContext from 'contexts/DragDropContext';
 import RootDroppableContainer from 'features/transaction-categories-reordering/components/transaction-categories-list/RootDroppableContainer';
 import TransactionCategoriesListHeader from 'features/transaction-categories-reordering/components/transaction-categories-list/TrancactionCategoriesListHeader';
@@ -45,8 +45,9 @@ export default function TransactionCategoriesList(): JSX.Element {
             </Show>
 
             <Show when={isEmptyState && !isGetTransactionCategoriesLoading}>
-                <EmptyState
-                    text={`No '${type}' transaction categories found`}
+                <TransactionCategoriesEmptyState
+                    categoriesType={type}
+                    notWrappedByContainer={true}
                 />
             </Show>
 

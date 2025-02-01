@@ -1,10 +1,10 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
+import AccountsEmptyState from 'components/accounts-empty-state/AccountsEmptyState';
 import AppHeader from 'components/app-header/AppHeader';
 import Breadcrumbs from 'components/breadcrumbs/Breadcrumbs';
 import Container from 'components/container/Container';
-import EmptyState from 'components/empty-state/EmptyState';
 import EntityIcon from 'components/entity-icon/EntityIcon';
 import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import { EIconSizes } from 'components/icons/types/iconSizes';
@@ -13,7 +13,7 @@ import AccountDetails from 'features/account-details/components/account-details/
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
-import { Account } from 'types/generated.types';
+import { User, Account } from 'types/generated.types';
 import { IWithIdParamProps, IWithLocaleParamProps } from 'types/pageProps';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
@@ -50,22 +50,24 @@ export default async function AccountDetailsPage({
     });
 
     const queryClient = getQueryClient();
-    const me = await getMeOnServerSide(queryClient);
 
-    if (!me) {
-        return <MeEmptyState />;
-    }
+    let me: TApiClientResult<User> = null;
+    let account: TApiClientResult<Account> = null;
 
     const accountId = Number(id);
-    let account: null | TApiClientResult<Account> = null;
 
     try {
+        me = await getMeOnServerSide(queryClient);
         account = await queryClient.fetchQuery({
             queryKey: getSingleAccountQueryKey(accountId),
             queryFn: () => SERVER_MY_BUDGET_API.getAccount(accountId),
         });
     } catch (error) {
         log(error);
+    }
+
+    if (!me) {
+        return <MeEmptyState />;
     }
 
     const {
@@ -107,7 +109,10 @@ export default async function AccountDetailsPage({
                 {account ? (
                     <AccountDetails account={account} />
                 ) : (
-                    <EmptyState text="Account not found" />
+                    <AccountsEmptyState
+                        isSingleAccount={true}
+                        notWrappedByContainer={true}
+                    />
                 )}
             </HydrationBoundary>
         </Container>

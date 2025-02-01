@@ -1,7 +1,7 @@
 'use client';
 
+import AccountsEmptyState from 'components/accounts-empty-state/AccountsEmptyState';
 import Button from 'components/button/Button';
-import EmptyState from 'components/empty-state/EmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import AccountCard from 'features/account-list/components/account-card/AccountCard';
@@ -32,7 +32,10 @@ export default function AccountList(): JSX.Element {
             </Show>
 
             <Show when={isEmptyState && !isLoading}>
-                <EmptyState text={`No '${type}' accounts found`} />
+                <AccountsEmptyState
+                    accountsType={type}
+                    notWrappedByContainer={true}
+                />
             </Show>
 
             {!isEmptyState && (

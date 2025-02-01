@@ -15,13 +15,14 @@ import { getTransactionListFiltersFromUrl } from 'features/transaction-list/util
 import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TApiClientResult } from 'types/apiClient.types';
-import { Transaction } from 'types/generated.types';
+import { User, Transaction } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
+import log from 'utils/log';
 import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCategories';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
 
@@ -35,46 +36,53 @@ export async function generateMetadata({
 
 export default async function HomePage(): Promise<JSX.Element> {
     const queryClient = getQueryClient();
-    const me = await getMeOnServerSide(queryClient);
 
-    if (!me) {
-        return <MeEmptyState />;
-    }
+    let me: TApiClientResult<User> = null;
 
     const { types, accountId, categoryId, from, to } =
         getTransactionListFiltersFromUrl(headers().get(URL_HEADER) || '');
 
-    // NOTE: prefetch transactions by filter values
-    await queryClient.prefetchInfiniteQuery({
-        queryKey: getTransactionsQueryKey({
-            types,
-            accountId,
-            categoryId,
-            from,
-            to,
-        }),
-        queryFn: () =>
-            SERVER_MY_BUDGET_API.getTransactions({
+    try {
+        me = await getMeOnServerSide(queryClient);
+
+        // NOTE: prefetch transactions by filter values
+        await queryClient.prefetchInfiniteQuery({
+            queryKey: getTransactionsQueryKey({
                 types,
                 accountId,
                 categoryId,
                 from,
                 to,
             }),
-        initialPageParam: DEFAULT_OFFSET,
-        getNextPageParam: (
-            lastPage: TApiClientResult<IPaginatedItemsResult<Transaction>>,
-        ) => {
-            if (!lastPage?.hasMore) {
-                return;
-            }
+            queryFn: () =>
+                SERVER_MY_BUDGET_API.getTransactions({
+                    types,
+                    accountId,
+                    categoryId,
+                    from,
+                    to,
+                }),
+            initialPageParam: DEFAULT_OFFSET,
+            getNextPageParam: (
+                lastPage: TApiClientResult<IPaginatedItemsResult<Transaction>>,
+            ) => {
+                if (!lastPage?.hasMore) {
+                    return;
+                }
 
-            return lastPage.page + 1;
-        },
-    });
+                return lastPage.page + 1;
+            },
+        });
 
-    await prefetchAllAccounts(queryClient);
-    await prefetchAllTransactionCategories(queryClient);
+        await prefetchAllAccounts(queryClient);
+        await prefetchAllTransactionCategories(queryClient);
+    } catch (error) {
+        log('error', error);
+    }
+
+    if (!me) {
+        return <MeEmptyState />;
+    }
 
     const { id, defaultCurrency } = me;
 

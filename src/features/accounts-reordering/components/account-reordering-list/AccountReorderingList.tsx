@@ -1,6 +1,6 @@
 'use client';
 
-import EmptyState from 'components/empty-state/EmptyState';
+import AccountsEmptyState from 'components/accounts-empty-state/AccountsEmptyState';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import DragDropContext from 'contexts/DragDropContext';
@@ -34,7 +34,10 @@ export default function AccountReorderingList(): JSX.Element {
             </Show>
 
             <Show when={isEmptyState && !isGetAccountsLoading}>
-                <EmptyState text={`No '${type}' accounts found`} />
+                <AccountsEmptyState
+                    accountsType={type}
+                    notWrappedByContainer={true}
+                />
             </Show>
 
             {!isEmptyState && (
