@@ -5,13 +5,17 @@ import {
 } from 'components/text-field/types/textField.types';
 
 type TTGetInputHandlersArgs = IInputHandlersArgs & {
+    type: TTextFieldProps['type'];
     setIsFocused: (value: boolean) => void;
     setIsInputFilled: (value: boolean) => void;
 };
 
 type TGetInputHandlers = (args: TTGetInputHandlersArgs) => IInputHandlers;
 
+const SKIPPING_CHARS_FOR_TYPE_NUMBER = ['.', 'e', '+', '-'];
+
 export const getInputHandlers: TGetInputHandlers = ({
+    type,
     setIsFocused,
     setIsInputFilled,
     onFocus,
@@ -32,6 +36,17 @@ export const getInputHandlers: TGetInputHandlers = ({
         onClick?.(event);
     };
     const onInputChange: IInputHandlers['onInputChange'] = (event) => {
+        if (type === 'number' && 'data' in event.nativeEvent) {
+            const { data } = event.nativeEvent;
+
+            if (
+                typeof data === 'string' &&
+                SKIPPING_CHARS_FOR_TYPE_NUMBER.includes(data)
+            ) {
+                return event.preventDefault();
+            }
+        }
+
         setIsInputFilled(!!event.target.value);
         onChange?.(event);
     };

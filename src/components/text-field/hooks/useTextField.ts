@@ -39,6 +39,7 @@ export const useTextField: TUseTextField = ({
 
     const inputType = type === 'password' && isValueVisible ? 'text' : type;
     const inputHandlers = getInputHandlers({
+        type,
         setIsFocused,
         setIsInputFilled,
         ...rest,

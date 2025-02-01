@@ -81,7 +81,6 @@ export default function TextField({
                     type={inputType}
                     disabled={disabled}
                     autoComplete="off"
-                    pattern={type === 'number' ? '[0-9]*' : undefined}
                     inputMode={getInputMode({ type, inputMode })}
                     className={cx(
                         styles.input,
@@ -95,6 +94,7 @@ export default function TextField({
                         },
                         className,
                     )}
+                    step={0.1}
                     {...rest}
                     onFocus={onInputFocus}
                     onBlur={onInputBlur}
