@@ -7,17 +7,17 @@ import {
     SESSION_COOKIE_NAME,
     REFRESH_TOKEN_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { GoogleIdTokenDto } from 'types/generated.types';
-import { getFailedResponseMessage } from 'utils/failedResponse.utils';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
-type TGoogleSignInResponse = null | { error?: string };
+const ERROR_LOG_DESCRIPTION = 'failed to sign in with google';
 
 export async function googleSignIn(
     dto: GoogleIdTokenDto,
-): TAsyncApiClientResult<TGoogleSignInResponse> {
+): TServerActionResponse {
     try {
         const result = await makeApiFetch({
             url: '/authentication/google',
@@ -27,7 +27,7 @@ export async function googleSignIn(
         const data = await result.json();
 
         if (!result.ok) {
-            return { error: getFailedResponseMessage(data) };
+            return getFailedResponse(data, ERROR_LOG_DESCRIPTION);
         }
 
         await Promise.all([
@@ -42,7 +42,7 @@ export async function googleSignIn(
             }),
         ]);
     } catch (error) {
-        return { error: getFailedResponseMessage(error) };
+        return getFailedResponse(error, ERROR_LOG_DESCRIPTION);
     }
 
     return redirect(EAppRoutes.Root);

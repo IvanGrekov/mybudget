@@ -63,7 +63,7 @@ export default async function AccountDetailsPage({
             queryFn: () => SERVER_MY_BUDGET_API.getAccount(accountId),
         });
     } catch (error) {
-        log(error);
+        log('single account page error', error);
     }
 
     if (!me) {

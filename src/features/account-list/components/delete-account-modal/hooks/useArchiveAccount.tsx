@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { archiveAccount } from 'actions/archiveAccount';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { deleteAccount as deleteAccountService } from 'features/account-list/components/delete-account-modal/services/deleteAccount';
 import {
     useAddSuccessMessageToNotifications,
@@ -29,7 +30,15 @@ export const useArchiveAccount: TUseArchiveAccount = ({ id, type }) => {
         mutationFn: () => {
             return archiveAccount(id);
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
+            }
+
             deleteAccountService({
                 queryClient,
                 id,
@@ -50,17 +59,15 @@ export const useArchiveAccount: TUseArchiveAccount = ({ id, type }) => {
                 },
             );
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Account',
                     isArchiving: true,
                 }),
-            });
+            );
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

@@ -39,9 +39,11 @@ export const useCreateTransaction: TUseCreateTransaction = ({
         },
         onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             refetchTransactionList();
@@ -49,17 +51,15 @@ export const useCreateTransaction: TUseCreateTransaction = ({
                 data,
                 queryClient,
             });
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Transaction',
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

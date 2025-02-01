@@ -45,7 +45,7 @@ export const useImagePreview: TUseImagePreview = ({ inputRef, onChange }) => {
 
 export const useDropZone: TUseDropZone = ({ setImagePreview, onChange }) => {
     const [isDragActive, setIsDragActive] = useState(false);
-    const addErrorMessageToNotifications = useAddErrorMessageToNotifications();
+    const addErrorMessage = useAddErrorMessageToNotifications();
 
     const onDragEnter: TDragHandler = (event) => {
         event.preventDefault();
@@ -76,9 +76,7 @@ export const useDropZone: TUseDropZone = ({ setImagePreview, onChange }) => {
         if (isAllowedFileType) {
             setFile({ file, setImagePreview, onChange });
         } else {
-            addErrorMessageToNotifications({
-                message: `File type '${file.type}' not allowed`,
-            });
+            addErrorMessage(`File type '${file.type}' not allowed`);
         }
     };
 

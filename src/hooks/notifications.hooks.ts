@@ -23,7 +23,10 @@ export const useAddErrorMessageToNotifications =
 
         const { addNotification } = context;
 
-        return (notificationArgs) => {
+        return (input) => {
+            const notificationArgs =
+                typeof input === 'string' ? { message: input } : input;
+
             addNotification({
                 id: uuidv4(),
                 type: ENotificationType.ERROR,
@@ -38,7 +41,10 @@ export const useAddInfoMessageToNotifications =
 
         const { addNotification } = context;
 
-        return (notificationArgs) => {
+        return (input) => {
+            const notificationArgs =
+                typeof input === 'string' ? { message: input } : input;
+
             addNotification({
                 id: uuidv4(),
                 type: ENotificationType.INFO,
@@ -53,7 +59,10 @@ export const useAddSuccessMessageToNotifications =
 
         const { addNotification } = context;
 
-        return (notificationArgs) => {
+        return (input) => {
+            const notificationArgs =
+                typeof input === 'string' ? { message: input } : input;
+
             addNotification({
                 id: uuidv4(),
                 type: ENotificationType.SUCCESS,
@@ -65,16 +74,16 @@ export const useAddSuccessMessageToNotifications =
 type TUseHandleNetworkError = (error: Error | null) => void;
 
 export const useHandleNetworkError: TUseHandleNetworkError = (error) => {
-    const addErrorMessageToNotifications = useAddErrorMessageToNotifications();
+    const addErrorMessage = useAddErrorMessageToNotifications();
 
     useEffect(() => {
         if (error) {
-            addErrorMessageToNotifications({
+            addErrorMessage({
                 message: `Network error: ${error.message}`,
                 priority: ENotificationPriority.HIGH,
             });
         }
-    }, [error, addErrorMessageToNotifications]);
+    }, [error, addErrorMessage]);
 };
 
 type TUseAutoRemoveNotification = (
@@ -120,11 +129,9 @@ type TUseAddNetworkStatusToNotifications = () => (
 
 export const useAddNetworkStatusToNotifications: TUseAddNetworkStatusToNotifications =
     () => {
-        const addErrorMessageToNotifications =
-            useAddErrorMessageToNotifications();
-        const addSuccessMessageToNotifications =
-            useAddSuccessMessageToNotifications();
-        const removeNotification = useGetRemoveNotification(
+        const addErrorMessage = useAddErrorMessageToNotifications();
+        const addSuccessMessage = useAddSuccessMessageToNotifications();
+        const removeCurrentOfflineNotification = useGetRemoveNotification(
             OFFLINE_NOTIFICATION_ID,
         );
 
@@ -133,23 +140,23 @@ export const useAddNetworkStatusToNotifications: TUseAddNetworkStatusToNotificat
                 const isOffline = networkStatus === ENetworkStatus.OFFLINE;
 
                 if (isOffline) {
-                    addErrorMessageToNotifications({
+                    addErrorMessage({
                         id: OFFLINE_NOTIFICATION_ID,
                         message: 'You are currently offline',
                         priority: NOTIFICATION_OFFLINE_NETWORK_STATUS_PRIORITY,
                     });
                 } else {
-                    removeNotification();
-                    addSuccessMessageToNotifications({
+                    removeCurrentOfflineNotification();
+                    addSuccessMessage({
                         message: 'Connected',
                         priority: NOTIFICATION_ONLINE_NETWORK_STATUS_PRIORITY,
                     });
                 }
             },
             [
-                addErrorMessageToNotifications,
-                addSuccessMessageToNotifications,
-                removeNotification,
+                addErrorMessage,
+                addSuccessMessage,
+                removeCurrentOfflineNotification,
             ],
         );
     };

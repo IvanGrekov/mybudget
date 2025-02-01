@@ -43,9 +43,11 @@ const useEditAccountOrder: TUseEditAccountOrder = ({
         },
         onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             queryClient.setQueryData(
@@ -54,18 +56,16 @@ const useEditAccountOrder: TUseEditAccountOrder = ({
                 }),
                 data,
             );
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Account order',
                     isEditing: true,
                 }),
-            });
+            );
             onSuccess();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
             onError();
         },
     });

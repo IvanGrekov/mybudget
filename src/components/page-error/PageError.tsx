@@ -13,7 +13,7 @@ export default function PageError({ error }: IPageErrorProps): JSX.Element {
             return;
         }
 
-        log('Error on page:', error);
+        log('unhandled page error', error);
     }, [error]);
 
     return (

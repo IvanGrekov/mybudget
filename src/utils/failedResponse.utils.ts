@@ -1,9 +1,15 @@
 import { IFailedResponse } from 'types/apiClient.types';
+import log from 'utils/log';
 
 export const getFailedResponseMessage = (
-    responseData: Record<string, unknown>,
+    responseData: string | Record<string, unknown>,
 ): string => {
-    const messageFromResponse = responseData.message;
+    if (typeof responseData === 'string') {
+        return responseData;
+    }
+
+    const messageFromResponse =
+        responseData.message || responseData.error || responseData.statusText;
     let message: string | null = null;
 
     if (Array.isArray(messageFromResponse)) {
@@ -22,7 +28,33 @@ export const getFailedResponseMessage = (
 };
 
 export const getFailedResponseCause = (
-    responseData: Record<string, unknown>,
+    responseData: string | Record<string, unknown>,
 ): IFailedResponse['cause'] => {
-    return String(responseData.statusCode || responseData.cause) || undefined;
+    if (typeof responseData === 'string') {
+        return undefined;
+    }
+
+    return (
+        String(
+            responseData.cause ||
+                responseData.statusText ||
+                responseData.statusCode,
+        ) || undefined
+    );
+};
+
+export const getFailedResponse = (
+    responseData: string | Record<string, unknown>,
+    logMessage?: string,
+): IFailedResponse => {
+    const result = {
+        error: getFailedResponseMessage(responseData),
+        cause: getFailedResponseCause(responseData),
+    };
+
+    if (logMessage) {
+        log(logMessage, result);
+    }
+
+    return result;
 };

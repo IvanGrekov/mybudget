@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editAccountCurrency } from 'actions/editAccountCurrency';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { useExchangeRatesContext } from 'contexts/ExchangeRatesContext';
 import { getUpdateAccountCurrency } from 'features/account-list/components/change-currency-modal/utils/getUpdateAccountCurrency';
 import {
@@ -50,7 +51,15 @@ export const useChangeCurrency: TUseChangeCurrency = ({
                 rate,
             });
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
+            }
+
             const updateAccountCurrency = getUpdateAccountCurrency({
                 id,
                 currency,
@@ -76,17 +85,15 @@ export const useChangeCurrency: TUseChangeCurrency = ({
                 updateAccountCurrency,
             );
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Account currency',
                     isEditing: true,
                 }),
-            });
+            );
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

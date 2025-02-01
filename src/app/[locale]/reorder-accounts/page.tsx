@@ -39,7 +39,7 @@ export default async function ReorderAccountsPage(): Promise<JSX.Element> {
                 }),
         });
     } catch (error) {
-        log(error);
+        log('reorder accounts page error', error);
 
         return <AccountsEmptyState accountsType={accountsType} />;
     }

@@ -7,62 +7,55 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { extractSessionCookieValueFromSetCookieHeader } from 'utils/extractSessionCookieValueFromSetCookieHeader';
-import { getFailedResponseMessage } from 'utils/failedResponse.utils';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { getRefreshedTokens } from 'utils/getRefreshedTokens';
 import log from 'utils/log';
 
-type TRefreshTokensResponse = { error?: string; accessToken?: string };
+type TRefreshTokensResponse = TServerActionResponse<{
+    accessToken?: string;
+}>;
 
-const ERROR_MESSAGE = 'Token refreshing failed';
+const ERROR_MESSAGE = 'token refreshing failed';
 
-export async function refreshTokens(): TAsyncApiClientResult<TRefreshTokensResponse> {
+export async function refreshTokens(): TRefreshTokensResponse {
     try {
         const accessToken = cookies().get(SESSION_COOKIE_NAME)?.value;
         if (accessToken) {
-            log('refreshTokens: access token found');
-
             return { accessToken };
         }
 
-        const sessionCookieValue = extractSessionCookieValueFromSetCookieHeader(
-            headers().get('set-cookie'),
-        );
-        if (sessionCookieValue) {
-            log('refreshTokens: session cookie value found');
-
-            return { accessToken: sessionCookieValue };
+        const accessTokenBySessionCookieValue =
+            extractSessionCookieValueFromSetCookieHeader(
+                headers().get('set-cookie'),
+            );
+        if (accessTokenBySessionCookieValue) {
+            return { accessToken: accessTokenBySessionCookieValue };
         }
 
         const refreshToken = cookies().get(REFRESH_TOKEN_COOKIE_NAME)?.value;
 
         if (!refreshToken) {
-            log('No refresh token found');
+            log(ERROR_MESSAGE, ': no refresh token found');
 
-            return null;
+            return { error: 'No refresh token found' };
         }
-
-        log('refreshing in action', refreshToken);
 
         const tokensResponse = await getRefreshedTokens(refreshToken).catch(
             (e) => {
-                log(`catch: ${ERROR_MESSAGE}:`, e);
-
-                return null;
+                return getFailedResponse(e);
             },
         );
 
-        if (!tokensResponse) {
-            log(ERROR_MESSAGE, 'no tokens response');
+        if ('error' in tokensResponse) {
+            log(ERROR_MESSAGE, tokensResponse);
 
-            return null;
+            return tokensResponse;
         }
 
         if (!tokensResponse.ok) {
-            log(`not ok, ${ERROR_MESSAGE}:`, tokensResponse.statusText);
-
-            return null;
+            return getFailedResponse({ ...tokensResponse }, ERROR_MESSAGE);
         }
 
         const newTokensData = await tokensResponse.json();
@@ -82,6 +75,6 @@ export async function refreshTokens(): TAsyncApiClientResult<TRefreshTokensRespo
 
         return { accessToken: newAccessToken };
     } catch (error) {
-        return { error: getFailedResponseMessage(error) };
+        return getFailedResponse(error, ERROR_MESSAGE);
     }
 }

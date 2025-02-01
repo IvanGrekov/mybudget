@@ -33,9 +33,11 @@ export const useCreateAccount: TUseCreateAccount = ({
         },
         onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             queryClient.setQueryData(
@@ -55,17 +57,15 @@ export const useCreateAccount: TUseCreateAccount = ({
                     data,
                 ],
             );
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Account',
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

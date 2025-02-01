@@ -3,8 +3,9 @@
 import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { TransactionCategory } from 'types/generated.types';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import {
     getTransactionCategoriesFetchingTags,
     getSingleTransactionCategoryFetchingTag,
@@ -21,21 +22,25 @@ export async function deleteTransactionCategory({
     id,
     shouldRemoveChildren,
     parentId,
-}: IDeleteTransactionCategoryArgs): TAsyncApiClientResult<TransactionCategory> {
-    const result = await SERVER_MY_BUDGET_API.deleteTransactionCategory(
-        id,
-        shouldRemoveChildren,
-    );
+}: IDeleteTransactionCategoryArgs): TServerActionResponse<TransactionCategory> {
+    try {
+        const result = await SERVER_MY_BUDGET_API.deleteTransactionCategory(
+            id,
+            shouldRemoveChildren,
+        );
 
-    revalidateTag(getSingleTransactionCategoryFetchingTag(id));
+        revalidateTag(getSingleTransactionCategoryFetchingTag(id));
 
-    getTransactionCategoriesFetchingTags().forEach(revalidateTag);
+        getTransactionCategoriesFetchingTags().forEach(revalidateTag);
 
-    getTransactionsFetchingTags().forEach(revalidateTag);
+        getTransactionsFetchingTags().forEach(revalidateTag);
 
-    if (parentId) {
-        revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
+        if (parentId) {
+            revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
+        }
+
+        return result;
+    } catch (error) {
+        return getFailedResponse(error, 'failed to delete category');
     }
-
-    return result;
 }

@@ -7,17 +7,19 @@ import {
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { SignInDto } from 'types/generated.types';
-import { getFailedResponseMessage } from 'utils/failedResponse.utils';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
-type TSignInResponse = null | { shouldPassTfa?: boolean; error?: string };
+type TSignInResponse = TServerActionResponse<{
+    shouldPassTfa?: boolean;
+}>;
 
-export async function signIn(
-    signInDto: SignInDto,
-): TAsyncApiClientResult<TSignInResponse> {
+const ERROR_LOG_DESCRIPTION = 'failed to sign in';
+
+export async function signIn(signInDto: SignInDto): TSignInResponse {
     try {
         const result = await makeApiFetch({
             url: '/authentication/sign-in',
@@ -37,7 +39,7 @@ export async function signIn(
                 return { shouldPassTfa: true };
             }
 
-            return { error: getFailedResponseMessage(data) };
+            return getFailedResponse(data, ERROR_LOG_DESCRIPTION);
         }
 
         await Promise.all([
@@ -52,7 +54,7 @@ export async function signIn(
             }),
         ]);
     } catch (error) {
-        return { error: getFailedResponseMessage(error) };
+        return getFailedResponse(error, ERROR_LOG_DESCRIPTION);
     }
 
     return redirect(EAppRoutes.Root);

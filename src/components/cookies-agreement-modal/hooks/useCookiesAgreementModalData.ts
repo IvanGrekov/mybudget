@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import { setCookie } from 'actions/setCookie';
 import { COOKIES_ACCEPTED_STORAGE_KEY } from 'constants/cookiesKeys.constants';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { getCookie } from 'utils/getCookie';
 
 interface IUseCookiesAgreementModalDataResult {
@@ -21,19 +22,27 @@ export const useCookiesAgreementModalData =
         }, []);
 
         const acceptCookies = useCallback(() => {
-            setCookie({
-                key: COOKIES_ACCEPTED_STORAGE_KEY,
-                value: 'true',
-            });
+            try {
+                setCookie({
+                    key: COOKIES_ACCEPTED_STORAGE_KEY,
+                    value: 'true',
+                });
+            } catch (error) {
+                getFailedResponse(error, 'accept cookie error');
+            }
         }, []);
 
         const declineCookies = useCallback(() => {
-            setCookie({
-                key: COOKIES_ACCEPTED_STORAGE_KEY,
-                value: 'false',
-                // NOTE: 1 week
-                maxAge: 60 * 60 * 24 * 7,
-            });
+            try {
+                setCookie({
+                    key: COOKIES_ACCEPTED_STORAGE_KEY,
+                    value: 'false',
+                    // NOTE: 1 week
+                    maxAge: 60 * 60 * 24 * 7,
+                });
+            } catch (error) {
+                getFailedResponse(error, 'decline cookie error');
+            }
         }, []);
 
         return {

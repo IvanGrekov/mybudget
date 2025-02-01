@@ -7,4 +7,6 @@ export interface IFailedResponse {
     cause?: string;
 }
 
-export type TServerActionResponse<T> = Promise<Maybe<T> | IFailedResponse>;
+export type TServerActionResponse<T = void> = Promise<
+    Maybe<T> | IFailedResponse
+>;

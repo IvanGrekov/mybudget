@@ -13,7 +13,6 @@ import {
     EditAccountDto,
     AccountStatusEnum,
 } from 'types/generated.types';
-import { Maybe } from 'types/utility.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
     getSingleAccountQueryKey,
@@ -39,11 +38,13 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
         mutationFn: (data: EditAccountDto) => {
             return editAccount(id, data);
         },
-        onSuccess: (data: Maybe<Account>) => {
+        onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             const updateAccount = getUpdateAccount(data);
@@ -112,18 +113,16 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
                 );
             }
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Account',
                     isEditing: true,
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

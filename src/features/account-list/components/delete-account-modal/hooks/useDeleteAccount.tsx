@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { deleteAccount } from 'actions/deleteAccount';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { deleteAccount as deleteAccountService } from 'features/account-list/components/delete-account-modal/services/deleteAccount';
 import {
     useAddSuccessMessageToNotifications,
@@ -26,7 +27,15 @@ export const useDeleteAccount: TUseDeleteAccount = ({ id, type }) => {
         mutationFn: () => {
             return deleteAccount(id);
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
+            }
+
             deleteAccountService({
                 queryClient,
                 id,
@@ -41,17 +50,15 @@ export const useDeleteAccount: TUseDeleteAccount = ({ id, type }) => {
                 queryKey: [EFetchingTags.TRANSACTIONS],
             });
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Account',
                     isRemoving: true,
                 }),
-            });
+            );
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

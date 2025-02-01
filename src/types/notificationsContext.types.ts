@@ -43,8 +43,12 @@ export type TNotificationsContextValue = {
     setNotifications: Dispatch<SetStateAction<TNotifications>>;
 };
 
-export type TAddMessageToNotifications = (args: {
-    id?: string;
-    message: INotification['message'];
-    priority?: ENotificationPriority;
-}) => void;
+export type TAddMessageToNotifications = (
+    args:
+        | string
+        | {
+              id?: string;
+              message: INotification['message'];
+              priority?: ENotificationPriority;
+          },
+) => void;

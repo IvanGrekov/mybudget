@@ -3,8 +3,9 @@
 import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { TransactionCategory } from 'types/generated.types';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import {
     getSingleTransactionCategoryFetchingTag,
     getTransactionCategoriesFetchingTags,
@@ -13,20 +14,24 @@ import {
 export async function archiveTransactionCategory(
     transactionCategoryId: number,
     parentId?: number,
-): TAsyncApiClientResult<TransactionCategory> {
-    const result = await SERVER_MY_BUDGET_API.archiveTransactionCategory(
-        transactionCategoryId,
-    );
+): TServerActionResponse<TransactionCategory> {
+    try {
+        const result = await SERVER_MY_BUDGET_API.archiveTransactionCategory(
+            transactionCategoryId,
+        );
 
-    revalidateTag(
-        getSingleTransactionCategoryFetchingTag(transactionCategoryId),
-    );
+        revalidateTag(
+            getSingleTransactionCategoryFetchingTag(transactionCategoryId),
+        );
 
-    getTransactionCategoriesFetchingTags().forEach(revalidateTag);
+        getTransactionCategoriesFetchingTags().forEach(revalidateTag);
 
-    if (parentId) {
-        revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
+        if (parentId) {
+            revalidateTag(getSingleTransactionCategoryFetchingTag(parentId));
+        }
+
+        return result;
+    } catch (error) {
+        return getFailedResponse(error, 'failed to archive category');
     }
-
-    return result;
 }

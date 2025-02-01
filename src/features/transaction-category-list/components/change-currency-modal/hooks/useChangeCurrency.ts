@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { editTransactionCategoryCurrency } from 'actions/editTransactionCategoryCurrency';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { getUpdateTransactionCategoryCurrency } from 'features/transaction-category-list/components/change-currency-modal/utils/getUpdateTransactionCategoryCurrency';
 import {
     useAddSuccessMessageToNotifications,
@@ -43,7 +44,15 @@ export const useChangeCurrency: TUseChangeCurrency = ({
                 currency,
             });
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
+            }
+
             const updateTransactionCategoryCurrency =
                 getUpdateTransactionCategoryCurrency({
                     id,
@@ -72,17 +81,15 @@ export const useChangeCurrency: TUseChangeCurrency = ({
                 updateTransactionCategoryCurrency,
             );
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Transaction Category currency',
                     isEditing: true,
                 }),
-            });
+            );
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

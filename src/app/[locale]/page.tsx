@@ -77,7 +77,7 @@ export default async function HomePage(): Promise<JSX.Element> {
         await prefetchAllAccounts(queryClient);
         await prefetchAllTransactionCategories(queryClient);
     } catch (error) {
-        log('error', error);
+        log('home page error', error);
     }
 
     if (!me) {

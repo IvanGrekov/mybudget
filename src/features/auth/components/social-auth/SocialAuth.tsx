@@ -15,7 +15,7 @@ interface ISocialAuthProps {
 }
 
 export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
-    const addErrorNotification = useAddErrorMessageToNotifications();
+    const addErrorMessage = useAddErrorMessageToNotifications();
 
     const clientId = process.env.NEXT_PUBLIC_AUTH_CLIENT_ID;
 
@@ -26,16 +26,12 @@ export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
     const onSuccess = (response: CredentialResponse): void => {
         const token = response.credential;
         if (!token) {
-            return addErrorNotification({
-                message: 'Failed to sign in with Google',
-            });
+            return addErrorMessage('Failed to sign in with Google');
         }
+
         googleSignIn({ token }).then((data) => {
-            const error = data?.error;
-            if (error) {
-                addErrorNotification({
-                    message: error,
-                });
+            if (data?.error) {
+                addErrorMessage(data.error);
             }
         });
     };

@@ -58,7 +58,7 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
 
         await prefetchAllAccounts(queryClient);
     } catch (error) {
-        log('error', error);
+        log('categories page error', error);
     }
 
     if (!me) {

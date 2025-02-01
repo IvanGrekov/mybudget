@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { archiveTransactionCategory } from 'actions/archiveTransactionCategory';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { deleteTransactionCategory } from 'features/transaction-category-list/components/delete-transaction-category-modal/services/deleteTransactionCategory';
 import {
     useAddSuccessMessageToNotifications,
@@ -39,7 +40,15 @@ export const useArchiveTransactionCategory: TUseArchiveTransactionCategory = ({
         mutationFn: () => {
             return archiveTransactionCategory(id, parentId);
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
+            }
+
             deleteTransactionCategory({
                 queryClient,
                 id,
@@ -62,17 +71,15 @@ export const useArchiveTransactionCategory: TUseArchiveTransactionCategory = ({
                 },
             );
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Transaction Category',
                     isArchiving: true,
                 }),
-            });
+            );
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

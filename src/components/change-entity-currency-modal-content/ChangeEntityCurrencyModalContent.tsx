@@ -44,8 +44,7 @@ export default function ChangeEntityCurrencyModalContent<T>({
                 <div className={styles.container}>
                     <Typography variant="subtitle2" className="error-color">
                         You can&apos;t change currency for &quot;{entityName}
-                        &quot;
-                        {entityType} because it has related transactions.
+                        &quot; {entityType} because it has related transactions.
                     </Typography>
                 </div>
 

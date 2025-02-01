@@ -24,7 +24,11 @@ export const useDisableTfa: TUseDisableTfa = ({
         mutationFn: () => {
             return disableTfa(code);
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            if (data && 'error' in data) {
+                return setError(data.error);
+            }
+
             queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
                 ...oldData,
                 isTfaEnabled: false,

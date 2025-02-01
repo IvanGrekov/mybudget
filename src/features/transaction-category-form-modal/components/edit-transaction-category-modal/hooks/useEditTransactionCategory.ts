@@ -12,7 +12,6 @@ import {
     EditTransactionCategoryDto,
     TransactionCategoryStatusEnum,
 } from 'types/generated.types';
-import { Maybe } from 'types/utility.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
     getSingleTransactionCategoryQueryKey,
@@ -49,11 +48,13 @@ export const useEditTransactionCategory: TUseEditTransactionCategory = ({
                 dto: data,
             });
         },
-        onSuccess: (data: Maybe<TransactionCategory>) => {
+        onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             const { status: newStatus } = data;
@@ -156,18 +157,16 @@ export const useEditTransactionCategory: TUseEditTransactionCategory = ({
                 );
             }
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Transaction Category',
                     isEditing: true,
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

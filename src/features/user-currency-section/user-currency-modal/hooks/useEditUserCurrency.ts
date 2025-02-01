@@ -33,16 +33,20 @@ export const useEditUserCurrency: TUseEditUserCurrency = ({
                 return setError(DEFAULT_ERROR_MESSAGE);
             }
 
+            if ('error' in data) {
+                return setError(data.error);
+            }
+
             queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
                 ...oldData,
                 ...data,
             }));
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Default currency',
                     isEditing: true,
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {

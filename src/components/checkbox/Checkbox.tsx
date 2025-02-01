@@ -24,6 +24,7 @@ export default function Checkbox({
     containerClassName,
     errorClassName,
     labelClassName,
+    isFullWidth,
     nativeSelectRefCallback,
     onFocus,
     onBlur,
@@ -53,6 +54,7 @@ export default function Checkbox({
         <InputContainer
             error={error}
             disabled={disabled}
+            isFullWidth={isFullWidth}
             className={cx(styles.container, containerClassName)}
             errorClassName={errorClassName}
         >

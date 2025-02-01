@@ -3,13 +3,14 @@
 import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
     TransactionCategory,
     TransactionCategoryTypeEnum,
 } from 'types/generated.types';
 import { IReorderTransactionCategoriesArgs } from 'types/muBudgetApi.types';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { getTransactionCategoriesFetchingTagByType } from 'utils/fetchingTags.utils';
 
 interface IReorderTransactionCategoriesActionArgs
@@ -20,15 +21,22 @@ interface IReorderTransactionCategoriesActionArgs
 export async function reorderTransactionCategories({
     type,
     parentNodes,
-}: IReorderTransactionCategoriesActionArgs): TAsyncApiClientResult<
+}: IReorderTransactionCategoriesActionArgs): TServerActionResponse<
     TransactionCategory[]
 > {
-    const result = await SERVER_MY_BUDGET_API.reorderTransactionCategories({
-        parentNodes,
-    });
+    try {
+        const result = await SERVER_MY_BUDGET_API.reorderTransactionCategories({
+            parentNodes,
+        });
 
-    revalidateTag(getTransactionCategoriesFetchingTagByType(type));
-    revalidateTag(EFetchingTags.TRANSACTION_CATEGORY);
+        revalidateTag(getTransactionCategoriesFetchingTagByType(type));
+        revalidateTag(EFetchingTags.TRANSACTION_CATEGORY);
 
-    return result;
+        return result;
+    } catch (error) {
+        return getFailedResponse(
+            error,
+            'failed to reorder transaction categories',
+        );
+    }
 }

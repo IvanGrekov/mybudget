@@ -17,6 +17,7 @@ import {
     PRIMARY_LOCALE as defaultLocale,
 } from 'constants/locales';
 import { EAppRoutes } from 'types/appRoutes';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
 import { getIsAuthenticated } from 'utils/getIsAuthenticated';
 import { getRefreshedTokens } from 'utils/getRefreshedTokens';
@@ -103,13 +104,13 @@ async function refreshTokens(
     }
 
     const tokensResponse = await getRefreshedTokens(refreshToken).catch((e) => {
-        log('Token refreshing failed:', e);
+        getFailedResponse(e, 'token refreshing failed');
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     });
 
     if (!tokensResponse.ok) {
-        log('Token refreshing failed:', tokensResponse.statusText);
+        getFailedResponse({ ...tokensResponse }, 'token refreshing failed');
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
@@ -127,7 +128,10 @@ async function refreshTokens(
         REFRESH_TOKEN_OPTIONS,
     );
 
-    log('refreshing in middleware', newTokensData.refreshToken);
+    log('refreshing in middleware', {
+        accessToken: newTokensData.accessToken,
+        refreshToken: newTokensData.refreshToken,
+    });
 }
 
 export const config = {

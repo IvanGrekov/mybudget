@@ -52,7 +52,7 @@ export default async function AccountsPage(): Promise<JSX.Element> {
                 }),
         });
     } catch (error) {
-        log('error', error);
+        log('accounts page error', error);
     }
 
     if (!me) {

@@ -65,7 +65,7 @@ export default async function TransactionCategoryDetailsPage({
                 SERVER_MY_BUDGET_API.getTransactionCategory(categoryId),
         });
     } catch (error) {
-        log(error);
+        log('single category page error', error);
     }
 
     if (!me) {

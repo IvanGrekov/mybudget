@@ -42,7 +42,7 @@ export default async function ReorderTransactionCategoriesPage(): Promise<JSX.El
                 }),
         });
     } catch (error) {
-        log(error);
+        log('reorder categories page error', error);
 
         return (
             <TransactionCategoriesEmptyState categoriesType={categoriesType} />

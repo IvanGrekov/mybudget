@@ -32,9 +32,11 @@ export const useEditTransaction: TUseEditTransaction = ({
         },
         onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             queryClient.setQueryData(
@@ -43,18 +45,16 @@ export const useEditTransaction: TUseEditTransaction = ({
                     transaction ? { ...transaction, ...data } : transaction,
             );
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Transaction',
                     isEditing: true,
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

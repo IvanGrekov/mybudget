@@ -35,19 +35,21 @@ export const useCreateTransactionCategory: TUseCreateTransactionCategory = ({
         mutationFn: (data: TCreateTransactionCategoryFormValues) => {
             return createTransactionCategory({ userId, ...data });
         },
-        onSuccess: (newCategory) => {
-            if (!newCategory) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+        onSuccess: (data) => {
+            if (!data) {
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
             }
 
-            const { parent, type } = newCategory;
+            if ('error' in data) {
+                return addErrorMessage(data.error);
+            }
+
+            const { parent, type } = data;
             const isSubcategory = !!parent;
 
             // eslint-disable-next-line no-extra-boolean-cast, @typescript-eslint/no-unnecessary-condition
             if (isSubcategory) {
-                const addSubcategory = getAddSubcategory(newCategory);
+                const addSubcategory = getAddSubcategory(data);
 
                 queryClient.setQueryData(
                     getSingleTransactionCategoryQueryKey(parent.id),
@@ -74,7 +76,7 @@ export const useCreateTransactionCategory: TUseCreateTransactionCategory = ({
                     }),
                     (oldTransactionCategoryList?: TransactionCategory[]) => [
                         ...(oldTransactionCategoryList || []),
-                        newCategory,
+                        data,
                     ],
                 );
 
@@ -82,22 +84,20 @@ export const useCreateTransactionCategory: TUseCreateTransactionCategory = ({
                     getTransactionCategoriesQueryKey(),
                     (oldAllTransactionCategoryList?: TransactionCategory[]) => [
                         ...(oldAllTransactionCategoryList || []),
-                        newCategory,
+                        data,
                     ],
                 );
             }
 
-            addSuccessMessage({
-                message: getSuccessMessage({
+            addSuccessMessage(
+                getSuccessMessage({
                     entityName: 'Transaction Category',
                 }),
-            });
+            );
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

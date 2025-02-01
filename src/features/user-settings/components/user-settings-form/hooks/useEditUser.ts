@@ -22,9 +22,11 @@ export const useEditUser: TUseEditUser = ({ userId, onCompleted }) => {
         },
         onSuccess: (data) => {
             if (!data) {
-                return addErrorMessage({
-                    message: DEFAULT_ERROR_MESSAGE,
-                });
+                return addErrorMessage(DEFAULT_ERROR_MESSAGE);
+            }
+
+            if ('error' in data) {
+                return addErrorMessage(data.error);
             }
 
             queryClient.setQueryData([EFetchingTags.ME], (oldData: User) => ({
@@ -34,9 +36,7 @@ export const useEditUser: TUseEditUser = ({ userId, onCompleted }) => {
             onCompleted();
         },
         onError: (error: Error) => {
-            addErrorMessage({
-                message: error.message,
-            });
+            addErrorMessage(error.message);
         },
     });
 

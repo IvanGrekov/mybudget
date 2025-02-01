@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
+import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import CreateTransactionFormContent from 'features/transaction-form-modal/components/create-transaction-form-content/CreateTransactionFormContent';
 import { CREATE_TRANSACTION_FORM_VALIDATION } from 'features/transaction-form-modal/components/create-transaction-modal/constants/createTransactionFormValidation';
 import { useCreateTransaction } from 'features/transaction-form-modal/components/create-transaction-modal/hooks/useCreateTransaction';
@@ -32,7 +33,7 @@ export default function CreateTransactionModalContent({
     hideModal,
     onCloseModal,
 }: ICreateTransactionModalContentProps): JSX.Element {
-    const addErrorMessageToNotifications = useAddErrorMessageToNotifications();
+    const addErrorMessage = useAddErrorMessageToNotifications();
 
     const methods = useForm<TCreateTransactionFormValues>({
         resolver: CREATE_TRANSACTION_FORM_VALIDATION,
@@ -86,12 +87,8 @@ export default function CreateTransactionModalContent({
                 fromCategoryId: fromCategory?.id,
                 toCategoryId: toCategory?.id,
             });
-        }
-
-        if (errorMessage) {
-            addErrorMessageToNotifications({
-                message: errorMessage,
-            });
+        } else {
+            addErrorMessage(errorMessage || DEFAULT_ERROR_MESSAGE);
         }
     };
 

@@ -10,20 +10,18 @@ import {
     COOKIES_NEXT_LOCALE_KEY,
 } from 'constants/cookiesKeys.constants';
 import { PRIMARY_LOCALE } from 'constants/locales';
-import { TAsyncApiClientResult } from 'types/apiClient.types';
+import { TServerActionResponse } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import {
     CreateUserDto,
     CreateUserDtoLanguageEnum,
 } from 'types/generated.types';
-import { getFailedResponseMessage } from 'utils/failedResponse.utils';
+import { getFailedResponse } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
-type TSignUpResponse = null | { error?: string };
+const ERROR_LOG_DESCRIPTION = 'failed to sign up';
 
-export async function signUp(
-    signUpDto: CreateUserDto,
-): TAsyncApiClientResult<TSignUpResponse> {
+export async function signUp(signUpDto: CreateUserDto): TServerActionResponse {
     try {
         const cookiesStorage = cookies();
         const locale = cookiesStorage.get(COOKIES_NEXT_LOCALE_KEY)?.value;
@@ -42,7 +40,7 @@ export async function signUp(
         const data = await result.json();
 
         if (!result.ok) {
-            return { error: getFailedResponseMessage(data) };
+            return getFailedResponse(data, ERROR_LOG_DESCRIPTION);
         }
 
         await Promise.all([
@@ -57,7 +55,7 @@ export async function signUp(
             }),
         ]);
     } catch (error) {
-        return { error: getFailedResponseMessage(error) };
+        return getFailedResponse(error, ERROR_LOG_DESCRIPTION);
     }
 
     return redirect(EAppRoutes.Root);

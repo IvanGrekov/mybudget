@@ -37,7 +37,7 @@ export default async function SettingsPage({
     try {
         me = await getMeOnServerSide(queryClient);
     } catch (error) {
-        log('error', error);
+        log('settings page error', error);
     }
 
     if (!me) {
