@@ -34,6 +34,7 @@ import {
     IGetTransactionsArgs,
 } from 'types/muBudgetApi.types';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
+import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 import {
     getAccountsFetchingTags,
     getSingleAccountFetchingTag,
@@ -41,7 +42,6 @@ import {
     getSingleTransactionCategoryFetchingTag,
     getTransactionsFetchingTags,
 } from 'utils/fetchingTags.utils';
-import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
 export abstract class MyBudgetApi {

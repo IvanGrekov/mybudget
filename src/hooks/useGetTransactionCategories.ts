@@ -2,15 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import {
     TransactionCategory,
     TransactionCategoryTypeEnum,
 } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 
 interface IUseGetTransactionCategoriesResult {
-    transactionCategories?: TApiClientResult<TransactionCategory[]>;
+    transactionCategories?: Maybe<TransactionCategory[]>;
     isLoading: boolean;
 }
 

@@ -10,7 +10,7 @@ import {
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { GoogleIdTokenDto } from 'types/generated.types';
-import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
 type TGoogleSignInResponse = null | { error?: string };

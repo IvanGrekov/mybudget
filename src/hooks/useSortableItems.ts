@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from 'react';
 
-import { TApiClientResult } from 'types/apiClient.types';
+import { Maybe } from 'types/utility.types';
 
 interface IUseSortableItemsResult<T> {
     sortableItems: T[];
@@ -13,7 +13,7 @@ interface IUseSortableItemsResult<T> {
 }
 
 export const useSortableItems = <T extends { id: number }>(
-    items: TApiClientResult<T[]> | undefined,
+    items: Maybe<T[]> | undefined,
 ): IUseSortableItemsResult<T> => {
     const [activeItem, setActiveItem] = useState<T | null>(null);
     const [prevSortableItems, setPrevSortableItems] = useState<T[]>([]);

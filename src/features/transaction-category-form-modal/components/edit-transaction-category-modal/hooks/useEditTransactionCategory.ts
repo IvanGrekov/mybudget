@@ -7,12 +7,12 @@ import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
-import { TApiClientResult } from 'types/apiClient.types';
 import {
     TransactionCategory,
     EditTransactionCategoryDto,
     TransactionCategoryStatusEnum,
 } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
     getSingleTransactionCategoryQueryKey,
@@ -49,7 +49,7 @@ export const useEditTransactionCategory: TUseEditTransactionCategory = ({
                 dto: data,
             });
         },
-        onSuccess: (data: TApiClientResult<TransactionCategory>) => {
+        onSuccess: (data: Maybe<TransactionCategory>) => {
             if (!data) {
                 return addErrorMessage({
                     message: DEFAULT_ERROR_MESSAGE,

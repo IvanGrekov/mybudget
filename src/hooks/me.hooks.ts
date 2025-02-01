@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import { User } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 interface IUseGetMeResult {
-    me: TApiClientResult<User>;
+    me: Maybe<User>;
     isLoading: boolean;
 }
 
@@ -27,7 +27,7 @@ export const useGetMe = (): IUseGetMeResult => {
 };
 
 interface IUseGetMyTimeZoneResult {
-    timeZone: TApiClientResult<string>;
+    timeZone: Maybe<string>;
     isLoading: boolean;
 }
 

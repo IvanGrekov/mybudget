@@ -16,7 +16,7 @@ import {
     CreateUserDto,
     CreateUserDtoLanguageEnum,
 } from 'types/generated.types';
-import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
 type TSignUpResponse = null | { error?: string };

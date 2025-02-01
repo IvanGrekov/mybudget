@@ -9,7 +9,7 @@ import {
 } from 'constants/cookiesKeys.constants';
 import { TAsyncApiClientResult } from 'types/apiClient.types';
 import { extractSessionCookieValueFromSetCookieHeader } from 'utils/extractSessionCookieValueFromSetCookieHeader';
-import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 import { getRefreshedTokens } from 'utils/getRefreshedTokens';
 import log from 'utils/log';
 

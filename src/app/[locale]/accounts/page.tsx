@@ -11,9 +11,9 @@ import AccountList from 'features/account-list/components/account-list/AccountLi
 import { getAccountListCurrentTabFromUrl } from 'features/account-list-tabs/utils/accountListCurrentTab.utils';
 import OverallBalance from 'features/overall-balance/components/overall-balance/OverallBalance';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { User, Account } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
+import { Maybe } from 'types/utility.types';
 import { getAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
@@ -30,8 +30,8 @@ export async function generateMetadata({
 export default async function AccountsPage(): Promise<JSX.Element> {
     const queryClient = getQueryClient();
 
-    let me: TApiClientResult<User> = null;
-    let activeAccounts: TApiClientResult<Account[]> = null;
+    let me: Maybe<User> = null;
+    let activeAccounts: Maybe<Account[]> = null;
 
     const accountsType = getAccountListCurrentTabFromUrl(
         headers().get(URL_HEADER) || '',

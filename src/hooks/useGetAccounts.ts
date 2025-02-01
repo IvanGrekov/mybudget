@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { Account, AccountTypeEnum } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
 
 interface IUseGetAccountsResult {
-    accounts?: TApiClientResult<Account[]>;
+    accounts?: Maybe<Account[]>;
     currentAllItemsLength?: number;
     isLoading: boolean;
 }

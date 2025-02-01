@@ -1,5 +1,10 @@
 import { Maybe } from 'types/utility.types';
 
-export type TApiClientResult<T> = Maybe<T>;
+export type TAsyncApiClientResult<T> = Promise<Maybe<T>>;
 
-export type TAsyncApiClientResult<T> = Promise<TApiClientResult<T>>;
+export interface IFailedResponse {
+    error: string;
+    cause?: string;
+}
+
+export type TServerActionResponse<T> = Promise<Maybe<T> | IFailedResponse>;

@@ -8,7 +8,7 @@ import styles from 'features/user-settings/components/enable-tfa-modal/EnableTfa
 import EnableTfaModalSkeleton from 'features/user-settings/components/enable-tfa-modal/EnableTfaModalSkeleton';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { InitiateTfaEnablingDtoResult } from 'types/generated.types';
-import { getFailedResponseMessage } from 'utils/getFailedResponseMessage';
+import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 
 interface IScanQrCodeStageContentProps {
     tfaData: InitiateTfaEnablingDtoResult | null;

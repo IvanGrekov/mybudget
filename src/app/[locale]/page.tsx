@@ -14,10 +14,10 @@ import TransactionList from 'features/transaction-list/components/transaction-li
 import { getTransactionListFiltersFromUrl } from 'features/transaction-list/utils/transactionListFilters.utils';
 import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { User, Transaction } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
+import { Maybe } from 'types/utility.types';
 import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
@@ -37,7 +37,7 @@ export async function generateMetadata({
 export default async function HomePage(): Promise<JSX.Element> {
     const queryClient = getQueryClient();
 
-    let me: TApiClientResult<User> = null;
+    let me: Maybe<User> = null;
 
     const { types, accountId, categoryId, from, to } =
         getTransactionListFiltersFromUrl(headers().get(URL_HEADER) || '');
@@ -64,7 +64,7 @@ export default async function HomePage(): Promise<JSX.Element> {
                 }),
             initialPageParam: DEFAULT_OFFSET,
             getNextPageParam: (
-                lastPage: TApiClientResult<IPaginatedItemsResult<Transaction>>,
+                lastPage: Maybe<IPaginatedItemsResult<Transaction>>,
             ) => {
                 if (!lastPage?.hasMore) {
                     return;

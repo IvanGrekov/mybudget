@@ -1,13 +1,13 @@
 import { useExchangeRatesContext } from 'contexts/ExchangeRatesContext';
-import { TApiClientResult } from 'types/apiClient.types';
 import {
     Account,
     AccountTypeEnum,
     UserDefaultCurrencyEnum,
 } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 
 interface IUseCalculateOverallBalanceArgs {
-    accounts?: TApiClientResult<Account[]>;
+    accounts?: Maybe<Account[]>;
     userCurrency: UserDefaultCurrencyEnum;
 }
 

@@ -5,9 +5,9 @@ import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import UserSettings from 'features/user-settings/components/user-settings/UserSettings';
-import { TApiClientResult } from 'types/apiClient.types';
 import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
+import { Maybe } from 'types/utility.types';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -32,7 +32,7 @@ export default async function SettingsPage({
 
     const queryClient = getQueryClient();
 
-    let me: TApiClientResult<User> = null;
+    let me: Maybe<User> = null;
 
     try {
         me = await getMeOnServerSide(queryClient);

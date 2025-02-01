@@ -11,9 +11,9 @@ import OverallBalance from 'features/overall-balance/components/overall-balance/
 import TransactionCategoryList from 'features/transaction-category-list/components/transaction-category-list/TransactionCategoryList';
 import { getTransactionCategoryListCurrentTabFromUrl } from 'features/transaction-category-list-tabs/utils/transactionCategoryListCurrentTab.utils';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { TransactionCategory, User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
+import { Maybe } from 'types/utility.types';
 import { calculateActiveTransactionCategories } from 'utils/calculateActiveTransactionCategories';
 import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
@@ -31,9 +31,8 @@ export async function generateMetadata({
 export default async function TransactionCategoriesPage(): Promise<JSX.Element> {
     const queryClient = getQueryClient();
 
-    let me: TApiClientResult<User> = null;
-    let activeTransactionCategories: TApiClientResult<TransactionCategory[]> =
-        null;
+    let me: Maybe<User> = null;
+    let activeTransactionCategories: Maybe<TransactionCategory[]> = null;
 
     const categoriesType = getTransactionCategoryListCurrentTabFromUrl(
         headers().get(URL_HEADER) || '',

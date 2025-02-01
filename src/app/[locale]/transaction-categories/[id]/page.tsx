@@ -11,10 +11,10 @@ import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { TransactionCategory, User } from 'types/generated.types';
 import { IWithIdParamProps, IWithLocaleParamProps } from 'types/pageProps';
+import { Maybe } from 'types/utility.types';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -51,8 +51,8 @@ export default async function TransactionCategoryDetailsPage({
 
     const queryClient = getQueryClient();
 
-    let me: TApiClientResult<User> = null;
-    let category: TApiClientResult<TransactionCategory> = null;
+    let me: Maybe<User> = null;
+    let category: Maybe<TransactionCategory> = null;
 
     const categoryId = Number(id);
 

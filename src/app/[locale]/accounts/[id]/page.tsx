@@ -11,10 +11,10 @@ import { EIconSizes } from 'components/icons/types/iconSizes';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { EAppRoutes } from 'types/appRoutes';
 import { User, Account } from 'types/generated.types';
 import { IWithIdParamProps, IWithLocaleParamProps } from 'types/pageProps';
+import { Maybe } from 'types/utility.types';
 import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
@@ -51,8 +51,8 @@ export default async function AccountDetailsPage({
 
     const queryClient = getQueryClient();
 
-    let me: TApiClientResult<User> = null;
-    let account: TApiClientResult<Account> = null;
+    let me: Maybe<User> = null;
+    let account: Maybe<Account> = null;
 
     const accountId = Number(id);
 

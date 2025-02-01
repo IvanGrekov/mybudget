@@ -4,12 +4,12 @@ import { DEFAULT_OFFSET } from 'constants/pagination';
 import { useTransactionListFilterValues } from 'features/transaction-list/hooks/transactionListFilters.hooks';
 import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
-import { TApiClientResult } from 'types/apiClient.types';
 import { Transaction } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
 
 interface IUseGetTransactionsResult {
-    transactions?: TApiClientResult<Transaction[]>;
+    transactions?: Maybe<Transaction[]>;
     hasMore: boolean;
     isLoading: boolean;
     isFetching: boolean;

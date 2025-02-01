@@ -7,13 +7,13 @@ import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,
 } from 'hooks/notifications.hooks';
-import { TApiClientResult } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import {
     Account,
     EditAccountDto,
     AccountStatusEnum,
 } from 'types/generated.types';
+import { Maybe } from 'types/utility.types';
 import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
     getSingleAccountQueryKey,
@@ -39,7 +39,7 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
         mutationFn: (data: EditAccountDto) => {
             return editAccount(id, data);
         },
-        onSuccess: (data: TApiClientResult<Account>) => {
+        onSuccess: (data: Maybe<Account>) => {
             if (!data) {
                 return addErrorMessage({
                     message: DEFAULT_ERROR_MESSAGE,
