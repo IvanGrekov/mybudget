@@ -4,7 +4,11 @@ const log = (message: string, ...data: unknown[]): void => {
     }
 
     // eslint-disable-next-line no-console
+    console.log('------------');
+    // eslint-disable-next-line no-console
     console.log(message, ...data);
+    // eslint-disable-next-line no-console
+    console.log('------------');
 };
 
 export default log;

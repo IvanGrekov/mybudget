@@ -34,7 +34,10 @@ import {
     IGetTransactionsArgs,
 } from 'types/muBudgetApi.types';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
-import { getFailedResponseMessage } from 'utils/failedResponse.utils';
+import {
+    getFailedResponseMessage,
+    getFailedResponseCause,
+} from 'utils/failedResponse.utils';
 import {
     getAccountsFetchingTags,
     getSingleAccountFetchingTag,
@@ -105,15 +108,19 @@ export abstract class MyBudgetApi {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(getFailedResponseMessage(data), {
-                    cause: data.statusCode,
+                const message = getFailedResponseMessage(data);
+
+                throw new Error(message, {
+                    cause: getFailedResponseCause(data, message),
                 });
             }
 
             return data;
         } catch (error) {
-            throw new Error(getFailedResponseMessage(error), {
-                cause: typeof error === 'object' ? error?.cause : undefined,
+            const message = getFailedResponseMessage(error);
+
+            throw new Error(message, {
+                cause: getFailedResponseCause(error, message),
             });
         }
     }

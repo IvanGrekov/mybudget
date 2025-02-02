@@ -43,6 +43,7 @@ export default function ResetPassword(): JSX.Element {
                     url: '/authentication/initiate-reset-password',
                     method: 'POST',
                     body: { email },
+                    apiUrl: process.env.NEXT_PUBLIC_API_CLIENT_URL,
                 }).then(async (response) => {
                     if (!response.ok) {
                         const data = await response.json();

@@ -29,7 +29,7 @@ export default function SocialAuth({ locale }: ISocialAuthProps): JSX.Element {
             return addErrorMessage('Failed to sign in with Google');
         }
 
-        googleSignIn({ token }).then((data) => {
+        googleSignIn(token).then((data) => {
             if (data?.error) {
                 addErrorMessage(data.error);
             }

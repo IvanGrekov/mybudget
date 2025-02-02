@@ -206,13 +206,13 @@ export interface EditTransactionDto {
     description?: string;
 }
 
-export interface CreateUserDto {
+export interface SignUpDto {
+    deviceId: string;
     email: string;
-    googleId?: string;
     password?: string;
     nickname?: string;
-    defaultCurrency?: CreateUserDtoDefaultCurrencyEnum;
-    language?: CreateUserDtoLanguageEnum;
+    defaultCurrency?: SignUpDtoDefaultCurrencyEnum;
+    language?: SignUpDtoLanguageEnum;
     timeZone?: string;
 }
 
@@ -224,15 +224,18 @@ export interface GeneratedTokensDto {
 export interface SignInDto {
     password: string;
     tfaToken?: string;
+    deviceId: string;
     email: string;
+}
+
+export interface GoogleSignInDto {
+    token: string;
+    deviceId: string;
 }
 
 export interface RefreshTokenDto {
     refreshToken: string;
-}
-
-export interface GoogleIdTokenDto {
-    token: string;
+    deviceId: string;
 }
 
 export interface InitiateResetPasswordDto {
@@ -243,6 +246,7 @@ export interface ResetPasswordDto {
     email: string;
     newPassword: string;
     verificationCode: string;
+    deviceId: string;
 }
 
 export interface InitiateTfaEnablingDtoResult {
@@ -413,7 +417,7 @@ export enum CreateTransactionDtoTypeEnum {
     BALANCE_CORRECTION = 'BALANCE_CORRECTION',
 }
 
-export enum CreateUserDtoDefaultCurrencyEnum {
+export enum SignUpDtoDefaultCurrencyEnum {
     USD = 'USD',
     EUR = 'EUR',
     GBP = 'GBP',
@@ -422,12 +426,12 @@ export enum CreateUserDtoDefaultCurrencyEnum {
     PLN = 'PLN',
 }
 
-export enum CreateUserDtoLanguageEnum {
+export enum SignUpDtoLanguageEnum {
     EN = 'EN',
     UA = 'UA',
 }
 
-export enum AccountsControllerFindMyParamsTypeEnum {
+export enum AccountsControllerFindMyParamsTypesEnum {
     REGULAR = 'REGULAR',
     SAVINGS = 'SAVINGS',
     I_OWE = 'I_OWE',
@@ -439,7 +443,7 @@ export enum AccountsControllerFindMyParamsStatusEnum {
     ARCHIVED = 'ARCHIVED',
 }
 
-export enum AccountsControllerFindAllParamsTypeEnum {
+export enum AccountsControllerFindAllParamsTypesEnum {
     REGULAR = 'REGULAR',
     SAVINGS = 'SAVINGS',
     I_OWE = 'I_OWE',
@@ -907,7 +911,7 @@ export class Api<
          */
         accountsControllerFindMy: (
             query?: {
-                type?: AccountsControllerFindMyParamsTypeEnum;
+                types?: AccountsControllerFindMyParamsTypesEnum[];
                 status?: AccountsControllerFindMyParamsStatusEnum;
                 excludeId?: number;
             },
@@ -931,7 +935,7 @@ export class Api<
         accountsControllerFindAll: (
             query: {
                 userId: number;
-                type?: AccountsControllerFindAllParamsTypeEnum;
+                types?: AccountsControllerFindAllParamsTypesEnum[];
                 status?: AccountsControllerFindAllParamsStatusEnum;
                 excludeId?: number;
             },
@@ -1364,24 +1368,6 @@ export class Api<
                 format: 'json',
                 ...params,
             }),
-
-        /**
-         * No description
-         *
-         * @tags transactions
-         * @name TransactionsControllerDelete
-         * @request DELETE:/transactions/{id}
-         */
-        transactionsControllerDelete: (
-            id: number,
-            params: RequestParams = {},
-        ) =>
-            this.request<Transaction, any>({
-                path: `/transactions/${id}`,
-                method: 'DELETE',
-                format: 'json',
-                ...params,
-            }),
     };
     authentication = {
         /**
@@ -1392,7 +1378,7 @@ export class Api<
          * @request POST:/authentication/sign-up
          */
         authenticationControllerSignUp: (
-            data: CreateUserDto,
+            data: SignUpDto,
             params: RequestParams = {},
         ) =>
             this.request<GeneratedTokensDto, any>({
@@ -1428,15 +1414,15 @@ export class Api<
          * No description
          *
          * @tags authentication
-         * @name AuthenticationControllerRefreshToken
-         * @request POST:/authentication/refresh-token
+         * @name AuthenticationControllerGoogleSignIn
+         * @request POST:/authentication/google
          */
-        authenticationControllerRefreshToken: (
-            data: RefreshTokenDto,
+        authenticationControllerGoogleSignIn: (
+            data: GoogleSignInDto,
             params: RequestParams = {},
         ) =>
             this.request<GeneratedTokensDto, any>({
-                path: `/authentication/refresh-token`,
+                path: `/authentication/google`,
                 method: 'POST',
                 body: data,
                 type: ContentType.Json,
@@ -1448,15 +1434,15 @@ export class Api<
          * No description
          *
          * @tags authentication
-         * @name AuthenticationControllerGoogleSignIn
-         * @request POST:/authentication/google
+         * @name AuthenticationControllerRefreshToken
+         * @request POST:/authentication/refresh-token
          */
-        authenticationControllerGoogleSignIn: (
-            data: GoogleIdTokenDto,
+        authenticationControllerRefreshToken: (
+            data: RefreshTokenDto,
             params: RequestParams = {},
         ) =>
             this.request<GeneratedTokensDto, any>({
-                path: `/authentication/google`,
+                path: `/authentication/refresh-token`,
                 method: 'POST',
                 body: data,
                 type: ContentType.Json,

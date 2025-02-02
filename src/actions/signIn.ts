@@ -1,9 +1,11 @@
 'use server';
 
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { setCookie } from 'actions/setCookie';
 import {
+    DEVICE_ID_COOKIE_NAME,
     REFRESH_TOKEN_COOKIE_NAME,
     SESSION_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
@@ -19,20 +21,32 @@ type TSignInResponse = TServerActionResponse<{
 
 const ERROR_LOG_DESCRIPTION = 'failed to sign in';
 
-export async function signIn(signInDto: SignInDto): TSignInResponse {
+export async function signIn(
+    signInDto: Pick<SignInDto, 'email' | 'password' | 'tfaToken'>,
+): TSignInResponse {
     try {
-        const result = await makeApiFetch({
+        const deviceId = cookies().get(DEVICE_ID_COOKIE_NAME)?.value;
+
+        if (!deviceId) {
+            return getFailedResponse(
+                ERROR_LOG_DESCRIPTION,
+                'Device ID cookie is not set',
+            );
+        }
+
+        const response = await makeApiFetch({
             url: '/authentication/sign-in',
             method: 'POST',
-            body: signInDto,
+            body: { ...signInDto, deviceId },
         });
-        const data = await result.json();
+        const data = await response.json();
 
-        if (!result.ok) {
+        if (!response.ok) {
             const isUnauthorized =
-                result.statusText.toLowerCase() === 'unauthorized';
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                response['statusText']?.toLowerCase() === 'unauthorized';
             const isTfaRequired = data?.['cause']
-                .toLowerCase()
+                ?.toLowerCase()
                 .includes('two-factor');
 
             if (isUnauthorized && isTfaRequired && !signInDto.tfaToken) {

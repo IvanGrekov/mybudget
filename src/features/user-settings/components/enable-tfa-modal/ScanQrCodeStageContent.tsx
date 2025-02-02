@@ -45,7 +45,7 @@ export default function ScanQrCodeStageContent({
                 setTfaData(data);
             })
             .catch((error) => {
-                if (error?.message.toLowerCase().includes('aborted')) {
+                if (error?.message?.toLowerCase().includes('aborted')) {
                     return;
                 }
                 setError(getFailedResponseMessage(error));

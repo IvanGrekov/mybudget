@@ -4,7 +4,7 @@ export type TAsyncApiClientResult<T> = Promise<Maybe<T>>;
 
 export interface IFailedResponse {
     error: string;
-    cause?: string;
+    cause?: string | number;
 }
 
 export type TServerActionResponse<T = void> = Promise<

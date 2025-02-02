@@ -6,8 +6,10 @@ import {
     COOKIES_NEXT_LOCALE_KEY,
     SESSION_COOKIE_NAME,
     REFRESH_TOKEN_COOKIE_NAME,
+    DEVICE_ID_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
 import {
+    DEVICE_ID_OPTIONS,
     ACCESS_TOKEN_OPTIONS,
     REFRESH_TOKEN_OPTIONS,
 } from 'constants/cookiesOptions.constants';
@@ -37,7 +39,13 @@ export default async function middleware(
         return authRedirectionsResponse;
     }
 
-    const refreshTokensResponse = await refreshTokens(request, response);
+    const deviceId = setDeviceIdCookie(request, response);
+
+    const refreshTokensResponse = await refreshTokens({
+        request,
+        response,
+        deviceId,
+    });
     if (refreshTokensResponse) {
         return refreshTokensResponse;
     }
@@ -78,10 +86,36 @@ function authRedirections(request: NextRequest): NextResponse | void {
     }
 }
 
-async function refreshTokens(
+function setDeviceIdCookie(
     request: NextRequest,
     response: NextResponse,
-): Promise<NextResponse | void> {
+): string {
+    const { cookies } = request;
+
+    let deviceId = cookies.get(DEVICE_ID_COOKIE_NAME)?.value;
+
+    if (!deviceId) {
+        deviceId = crypto.randomUUID();
+
+        response.cookies.set(
+            DEVICE_ID_COOKIE_NAME,
+            deviceId,
+            DEVICE_ID_OPTIONS,
+        );
+    }
+
+    return deviceId;
+}
+
+async function refreshTokens({
+    request,
+    response,
+    deviceId,
+}: {
+    request: NextRequest;
+    response: NextResponse;
+    deviceId: string;
+}): Promise<NextResponse | void> {
     const { cookies, url } = request;
 
     const isAuthPage = getIsAuthPage(url);
@@ -103,34 +137,41 @@ async function refreshTokens(
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
 
-    const tokensResponse = await getRefreshedTokens(refreshToken).catch((e) => {
-        getFailedResponse(e, 'token refreshing failed');
-
-        return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
+    const tokensResponse = await getRefreshedTokens(
+        refreshToken,
+        deviceId,
+    ).catch((e) => {
+        return getFailedResponse(e);
     });
 
-    if (!tokensResponse.ok) {
-        getFailedResponse({ ...tokensResponse }, 'token refreshing failed');
+    if ('error' in tokensResponse) {
+        log('token refreshing failed', tokensResponse);
 
         return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
     }
 
-    const newTokensData = await tokensResponse.json();
+    const data = await tokensResponse.json();
+
+    if (!tokensResponse.ok) {
+        getFailedResponse(data, 'token refreshing failed');
+
+        return NextResponse.redirect(new URL(EAppRoutes.Auth, url));
+    }
 
     response.cookies.set(
         SESSION_COOKIE_NAME,
-        newTokensData.accessToken,
+        data.accessToken,
         ACCESS_TOKEN_OPTIONS,
     );
     response.cookies.set(
         REFRESH_TOKEN_COOKIE_NAME,
-        newTokensData.refreshToken,
+        data.refreshToken,
         REFRESH_TOKEN_OPTIONS,
     );
 
     log('refreshing in middleware', {
-        accessToken: newTokensData.accessToken,
-        refreshToken: newTokensData.refreshToken,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
     });
 }
 

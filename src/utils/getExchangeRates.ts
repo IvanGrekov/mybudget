@@ -7,6 +7,7 @@ import { changeExchangeRatesBaseCurrency } from 'utils/changeExchangeRatesBaseCu
 
 const ACCESS_KEY = process.env.EXCHANGE_RATE_ACCESS_KEY;
 const SYMBOLS = Object.values(UserDefaultCurrencyEnum).join();
+const ERROR_MESSAGE = 'Failed to fetch exchange rates';
 
 export const getExchangeRates = async (): Promise<TExchangeRates> => {
     const response = await fetch(
@@ -20,13 +21,13 @@ export const getExchangeRates = async (): Promise<TExchangeRates> => {
     );
 
     if (!response.ok) {
-        throw new Error('Failed to fetch exchange rates');
+        throw new Error(ERROR_MESSAGE);
     }
 
     const data = await response.json();
 
     if (!data.success || !data.rates) {
-        throw new Error('Failed to fetch exchange rates');
+        throw new Error(ERROR_MESSAGE);
     }
 
     return changeExchangeRatesBaseCurrency({

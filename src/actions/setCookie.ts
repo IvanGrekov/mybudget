@@ -5,11 +5,13 @@ import { cookies } from 'next/headers';
 import {
     SESSION_COOKIE_NAME,
     REFRESH_TOKEN_COOKIE_NAME,
+    DEVICE_ID_COOKIE_NAME,
 } from 'constants/cookiesKeys.constants';
 import {
     DEFAULT_COOKIE_MAX_AGE,
     SESSION_COOKIE_MAX_AGE,
     REFRESH_TOKEN_MAX_AGE,
+    DEVICE_ID_MAX_AGE,
     DEFAULT_COOKIE_SAME_SITE,
     DEFAULT_COOKIE_PATH,
 } from 'constants/cookiesOptions.constants';
@@ -48,6 +50,8 @@ function calculateMaxAge(key: string): number {
             return SESSION_COOKIE_MAX_AGE;
         case REFRESH_TOKEN_COOKIE_NAME:
             return REFRESH_TOKEN_MAX_AGE;
+        case DEVICE_ID_COOKIE_NAME:
+            return DEVICE_ID_MAX_AGE;
         default:
             return DEFAULT_COOKIE_MAX_AGE;
     }

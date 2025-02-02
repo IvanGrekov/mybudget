@@ -17,6 +17,7 @@ export class ClientMyBudgetApi extends MyBudgetApi {
         if (result.accessToken) {
             log('refreshing in client api', {
                 accessToken: result.accessToken,
+                refreshToken: result.refreshToken,
             });
 
             return result.accessToken;

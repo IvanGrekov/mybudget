@@ -12,6 +12,11 @@ export const REFRESH_TOKEN_MAX_AGE = parseInt(
     process.env.NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE || '2592000',
     10,
 );
+// NOTE: One month
+export const DEVICE_ID_MAX_AGE = parseInt(
+    process.env.NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE || '2592000',
+    10,
+);
 
 export const DEFAULT_COOKIE_SAME_SITE = 'lax';
 
@@ -26,6 +31,12 @@ export const ACCESS_TOKEN_OPTIONS: Partial<ResponseCookie> = {
 export const REFRESH_TOKEN_OPTIONS: Partial<ResponseCookie> = {
     maxAge: REFRESH_TOKEN_MAX_AGE,
     httpOnly: true,
+    sameSite: DEFAULT_COOKIE_SAME_SITE,
+    path: DEFAULT_COOKIE_PATH,
+};
+
+export const DEVICE_ID_OPTIONS: Partial<ResponseCookie> = {
+    maxAge: DEVICE_ID_MAX_AGE,
     sameSite: DEFAULT_COOKIE_SAME_SITE,
     path: DEFAULT_COOKIE_PATH,
 };
