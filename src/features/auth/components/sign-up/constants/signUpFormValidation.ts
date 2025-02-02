@@ -8,7 +8,7 @@ import {
     SIGN_UP_FORM_FIELD_LABELS,
 } from 'features/auth/constants/signUpForm.constants';
 import { TSignUpFormValues } from 'features/auth/types/signUpFormValues';
-import { CreateUserDtoDefaultCurrencyEnum } from 'types/generated.types';
+import { SignUpDtoDefaultCurrencyEnum } from 'types/generated.types';
 import {
     getRequiredValidationWarning,
     getMatchValidationWarning,
@@ -60,7 +60,7 @@ export const SIGN_UP_FORM_VALIDATION = yupResolver<TSignUpFormValues>(
             ),
         defaultCurrency: yup
             .string()
-            .oneOf(Object.values(CreateUserDtoDefaultCurrencyEnum))
+            .oneOf(Object.values(SignUpDtoDefaultCurrencyEnum))
             .required(
                 getRequiredValidationWarning(
                     SIGN_UP_FORM_FIELD_LABELS.defaultCurrency,

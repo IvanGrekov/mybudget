@@ -1,12 +1,12 @@
 import FormSelectField from 'components/form-fields/FormSelectField';
-import { CreateUserDtoDefaultCurrencyEnum } from 'types/generated.types';
+import { UserDefaultCurrencyEnum } from 'types/generated.types';
 
 interface ICurrencyFieldProps {
     name: string;
     label: string;
 }
 
-const OPTIONS = Object.values(CreateUserDtoDefaultCurrencyEnum);
+const OPTIONS = Object.values(UserDefaultCurrencyEnum);
 
 export default function CurrencyField({
     name,

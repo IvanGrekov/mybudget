@@ -9,7 +9,7 @@ import { SIGN_UP_FORM_VALIDATION } from 'features/auth/components/sign-up/consta
 import { USER_TIME_ZONE } from 'features/auth/components/sign-up/constants/userTimeZone';
 import SignUpForm from 'features/auth/components/sign-up-form/SignUpForm';
 import { TSignUpFormValues } from 'features/auth/types/signUpFormValues';
-import { CreateUserDtoDefaultCurrencyEnum } from 'types/generated.types';
+import { SignUpDtoDefaultCurrencyEnum } from 'types/generated.types';
 
 export default function SignUp(): JSX.Element {
     const { setIsLoading } = usePageLoading();
@@ -21,7 +21,7 @@ export default function SignUp(): JSX.Element {
             password: '',
             confirmPassword: '',
             nickname: '',
-            defaultCurrency: CreateUserDtoDefaultCurrencyEnum.USD,
+            defaultCurrency: SignUpDtoDefaultCurrencyEnum.USD,
             timeZone: USER_TIME_ZONE,
         },
         resolver: SIGN_UP_FORM_VALIDATION,

@@ -11,15 +11,15 @@ import {
     TFA_TOKEN_LABEL,
 } from 'features/auth/constants/signInForm.constants';
 import styles from 'features/auth/styles/AuthForm.module.scss';
-import { SignInDto } from 'types/generated.types';
+import { ISignInFormValues } from 'features/auth/types/signInFormValues';
 
 interface ISignInFormProps {
     isLoading: boolean;
     isDirty: boolean;
     shouldShowVerificationCode?: boolean;
     error: string | null;
-    signIn: (data: SignInDto) => void;
-    handleSubmit: UseFormHandleSubmit<SignInDto, undefined>;
+    signIn: (data: ISignInFormValues) => void;
+    handleSubmit: UseFormHandleSubmit<ISignInFormValues, undefined>;
 }
 
 export default function SignInForm({
@@ -30,7 +30,7 @@ export default function SignInForm({
     signIn,
     handleSubmit,
 }: ISignInFormProps): JSX.Element {
-    const onSubmit: SubmitHandler<SignInDto> = (data) => {
+    const onSubmit: SubmitHandler<ISignInFormValues> = (data) => {
         signIn(data);
     };
 

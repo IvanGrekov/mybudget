@@ -1,7 +1,7 @@
-import { CreateUserDto } from 'types/generated.types';
+import { SignUpDto } from 'types/generated.types';
 
 export type TSignUpFormValues = Pick<
-    CreateUserDto,
+    SignUpDto,
     'email' | 'password' | 'nickname' | 'defaultCurrency' | 'timeZone'
 > & {
     confirmPassword: string;
