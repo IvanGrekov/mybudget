@@ -1,8 +1,8 @@
 import { DateRange } from 'react-date-range';
 
+import styles from 'components/transactions-filters/TransactionsFilters.module.scss';
+import { useDateRangeFilter } from 'components/transactions-filters/hooks/useDateRangeFilter';
 import TransactionsDateRangePickerModal from 'features/transaction-list/components/transactions-date-range-picker-modal/TransactionsDateRangePickerModal';
-import styles from 'features/transaction-list/components/transactions-filters/TransactionsFilters.module.scss';
-import { useDateRangeFilter } from 'features/transaction-list/components/transactions-filters/hooks/useDateRangeFilter';
 
 export default function TransactionsDateRangeFilter(): JSX.Element {
     const {

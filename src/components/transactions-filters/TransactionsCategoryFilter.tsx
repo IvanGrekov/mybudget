@@ -1,12 +1,15 @@
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Select from 'components/select/Select';
-import { TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME } from 'features/transaction-list/constants/transactionListFilterParams.constants';
-import { useTransactionListCurrentCategoryFilterValue } from 'features/transaction-list/hooks/transactionListFilters.hooks';
+import { ITransactionsFiltersProps } from 'components/transactions-filters/types/transactionsFiltersProps';
+import { TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
+import { useTransactionListCurrentCategoryFilterValue } from 'hooks/transactionListFilters.hooks';
 import { useGetAllTransactionCategories } from 'hooks/useGetAllTransactionCategories';
 import { TransactionCategory } from 'types/generated.types';
 
-export default function TransactionsCategoryFilter(): JSX.Element | null {
+export default function TransactionsCategoryFilter({
+    selectedCategoryId,
+}: Pick<ITransactionsFiltersProps, 'selectedCategoryId'>): JSX.Element | null {
     const { transactionCategories, isLoading } =
         useGetAllTransactionCategories();
     const categoryId = useTransactionListCurrentCategoryFilterValue();
@@ -20,8 +23,13 @@ export default function TransactionsCategoryFilter(): JSX.Element | null {
         return null;
     }
 
+    const isSelectedCategoryIdValid = typeof selectedCategoryId !== 'undefined';
+    const filterValue = isSelectedCategoryIdValid
+        ? selectedCategoryId
+        : categoryId;
+
     const value =
-        transactionCategories.find((category) => category.id === categoryId) ||
+        transactionCategories.find((category) => category.id === filterValue) ||
         null;
 
     const onChange = (option: TransactionCategory | null): void => {
@@ -37,6 +45,7 @@ export default function TransactionsCategoryFilter(): JSX.Element | null {
             label="Category"
             isFullWidth={true}
             getOptionLabel={(option) => option.name}
+            disabled={isSelectedCategoryIdValid}
         />
     );
 }

@@ -5,9 +5,9 @@ import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import Show from 'components/show/Show';
-import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/transactionListFilters.hooks';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useGetMe } from 'hooks/me.hooks';
+import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
 
 const CreateTransactionModalContentLazy = lazy(
     () =>

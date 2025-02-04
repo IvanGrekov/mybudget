@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { DEFAULT_OFFSET } from 'constants/pagination';
-import { useTransactionListFilterValues } from 'features/transaction-list/hooks/transactionListFilters.hooks';
+import { useTransactionListFilterValues } from 'hooks/transactionListFilters.hooks';
 import { useRequestErrorHandler } from 'hooks/useRequestErrorHandler';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { Transaction } from 'types/generated.types';

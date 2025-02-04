@@ -64,6 +64,10 @@ $arrow-button-gutter: $spacing-6;
             }
         }
     }
+
+    &--disabled {
+        @extend .cursor-not-allowed-extend;
+    }
 }
 
 .select {

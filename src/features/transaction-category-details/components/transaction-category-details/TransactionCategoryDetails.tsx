@@ -4,6 +4,7 @@ import CardHeader from 'components/card/CardHeader';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
+import TransactionsFilters from 'components/transactions-filters/TransactionsFilters';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { getColorForTypeChip } from 'features/transaction-category-details/components/transaction-category-details/utils/getColorForTypeChip';
 import {
@@ -19,7 +20,7 @@ interface ITransactionCategoryDetailsProps {
 export default function TransactionCategoryDetails({
     transactionCategory,
 }: ITransactionCategoryDetailsProps): JSX.Element {
-    const { status, type, currency, children } = transactionCategory;
+    const { id, status, type, currency, children } = transactionCategory;
 
     if (status === TransactionCategoryStatusEnum.ARCHIVED) {
         return <EmptyState text="Transaction Category is archived" />;
@@ -62,6 +63,8 @@ export default function TransactionCategoryDetails({
                     </CardContent>
                 )}
             </Card>
+
+            <TransactionsFilters selectedCategoryId={id} />
         </>
     );
 }

@@ -6,7 +6,7 @@ import {
     TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_FROM_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_TO_FILTER_PARAM_NAME,
-} from 'features/transaction-list/constants/transactionListFilterParams.constants';
+} from 'constants/transactionListFilterParams.constants';
 import { TTransactionTypesInput } from 'types/availableTransactionTypes';
 import { TransactionTypeEnum } from 'types/generated.types';
 import { splitMultipleValuesSearchParam } from 'utils/searchParams.utils';

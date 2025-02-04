@@ -98,6 +98,7 @@ export default function Select<T>({
                     <div
                         className={cx(styles['select-wrapper'], {
                             [styles['select-wrapper--error']]: error,
+                            [styles['select-wrapper--disabled']]: disabled,
                         })}
                         onClick={onWrapperClick}
                     >

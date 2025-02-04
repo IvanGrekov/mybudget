@@ -4,10 +4,10 @@ import {
     TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_FROM_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_TO_FILTER_PARAM_NAME,
-} from 'features/transaction-list/constants/transactionListFilterParams.constants';
+} from 'constants/transactionListFilterParams.constants';
 import { getTransactionTypesByFilterValue } from 'features/transaction-list/utils/transactionListFilters.utils';
 import { useGetSearchParamsValue } from 'hooks/searchParams.hooks';
-import { TTransactionTypesInput } from 'types/availableTransactionTypes';
+import { ITransactionListFilterValues } from 'types/transactionListFilterValues';
 
 export const useTransactionListCurrentTypesFilterValue = (): ReturnType<
     typeof getTransactionTypesByFilterValue
@@ -59,17 +59,8 @@ const useTransactionListCurrentDateRangeToFilterValue = ():
     return currentFilterValue || undefined;
 };
 
-interface IUseTransactionListFilterValuesResult {
-    types: TTransactionTypesInput;
-    isDefaultTypesSelected?: boolean;
-    accountId?: number;
-    categoryId?: number;
-    from?: string;
-    to?: string;
-}
-
 export const useTransactionListFilterValues =
-    (): IUseTransactionListFilterValuesResult => {
+    (): ITransactionListFilterValues => {
         const { value: types, isDefault: isDefaultTypesSelected } =
             useTransactionListCurrentTypesFilterValue();
         const accountId = useTransactionListCurrentAccountFilterValue();

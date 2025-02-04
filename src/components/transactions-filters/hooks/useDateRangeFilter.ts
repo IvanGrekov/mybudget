@@ -1,20 +1,20 @@
 import { useRef, useState, useEffect, MutableRefObject } from 'react';
 import { Range, RangeKeyDict, DateRange } from 'react-date-range';
 
-import { DATE_RANGE_KEY } from 'features/transaction-list/components/transactions-filters/constants/dateRangeKey';
+import { DATE_RANGE_KEY } from 'components/transactions-filters/constants/dateRangeKey';
 import {
     convertDateFromSearchParamValueToDate,
     convertDateToSearchParamValueToDate,
     convertDateToDateFromSearchParam,
     convertDateToDateToSearchParam,
-} from 'features/transaction-list/components/transactions-filters/utils/dateRangeConvertersToSearchParams.utils';
-import { getDefaultDateRange } from 'features/transaction-list/components/transactions-filters/utils/getDefaultDateRange';
+} from 'components/transactions-filters/utils/dateRangeConvertersToSearchParams.utils';
+import { getDefaultDateRange } from 'components/transactions-filters/utils/getDefaultDateRange';
 import {
     TRANSACTION_LIST_DATE_RANGE_FROM_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_TO_FILTER_PARAM_NAME,
-} from 'features/transaction-list/constants/transactionListFilterParams.constants';
-import { useTransactionListFilterValues } from 'features/transaction-list/hooks/transactionListFilters.hooks';
+} from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
+import { useTransactionListFilterValues } from 'hooks/transactionListFilters.hooks';
 import { useModal } from 'hooks/useModal';
 
 const useGetDefaultDateRange = (): Range => {

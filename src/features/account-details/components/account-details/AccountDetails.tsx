@@ -4,6 +4,7 @@ import CardTitle from 'components/card/CardTitle';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
+import TransactionsFilters from 'components/transactions-filters/TransactionsFilters';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
 import { getColorForTypeChip } from 'features/account-details/components/account-details/utils/getColorForTypeChip';
@@ -18,7 +19,7 @@ interface IAccountDetailsProps {
 export default function AccountDetails({
     account,
 }: IAccountDetailsProps): JSX.Element {
-    const { status, balance, currency, type } = account;
+    const { id, status, balance, currency, type } = account;
 
     if (status === AccountStatusEnum.ARCHIVED) {
         return <EmptyState text="Account is archived" />;
@@ -46,6 +47,7 @@ export default function AccountDetails({
                                 title={`Balance: ${roundValue(
                                     balance,
                                 )} ${currency}`}
+                                titleVariant="h6"
                             />
                         </div>
                     }
@@ -59,6 +61,8 @@ export default function AccountDetails({
                     // }
                 />
             </Card>
+
+            <TransactionsFilters selectedAccountId={id} />
         </>
     );
 }

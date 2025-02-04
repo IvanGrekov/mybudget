@@ -1,6 +1,6 @@
 import EmptyState from 'components/empty-state/EmptyState';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
-import { useTransactionListCurrentTypesFilterValue } from 'features/transaction-list/hooks/transactionListFilters.hooks';
+import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
 
 export default function TransactionListEmptyState(): JSX.Element {
     const { value: types } = useTransactionListCurrentTypesFilterValue();
