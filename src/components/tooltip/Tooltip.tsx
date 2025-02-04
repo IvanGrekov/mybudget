@@ -1,3 +1,5 @@
+'use client';
+
 import cx from 'classnames';
 
 import styles from 'components/tooltip/Tooltip.module.scss';

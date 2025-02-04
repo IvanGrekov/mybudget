@@ -1,13 +1,10 @@
-import Chip from 'components/chip/Chip';
-import styles from 'features/transaction-list/components/header-chips/HeaderChips.module.scss';
+import { IChipProps } from 'components/chip/types/chipProps';
+import EntityChipList from 'components/entity-chip-list/EntityChipList';
 import { getColorForTypeChip } from 'features/transaction-list/components/header-chips/utils/getColorForTypeChip';
 import { useGetMyTimeZone } from 'hooks/me.hooks';
 import { Transaction } from 'types/generated.types';
 import { getTime } from 'utils/date.utils';
 import { getCapitalizedString } from 'utils/string.utils';
-
-const CHIP_TITLE_VARIANT = 'body2';
-const CHIP_SIZE = 'small';
 
 export default function HeaderChips({
     createdAt,
@@ -15,20 +12,15 @@ export default function HeaderChips({
 }: Pick<Transaction, 'createdAt' | 'type'>): JSX.Element {
     const { timeZone } = useGetMyTimeZone();
 
-    return (
-        <header className={styles['header-chips']}>
-            <Chip
-                title={getTime(createdAt, timeZone)}
-                size={CHIP_SIZE}
-                titleVariant={CHIP_TITLE_VARIANT}
-            />
+    const chips: IChipProps[] = [
+        {
+            title: getTime(createdAt, timeZone),
+        },
+        {
+            title: getCapitalizedString(type, '_'),
+            color: getColorForTypeChip(type),
+        },
+    ];
 
-            <Chip
-                title={getCapitalizedString(type, '_')}
-                size={CHIP_SIZE}
-                titleVariant={CHIP_TITLE_VARIANT}
-                color={getColorForTypeChip(type)}
-            />
-        </header>
-    );
+    return <EntityChipList items={chips} />;
 }

@@ -9,6 +9,7 @@ import EntityIcon from 'components/entity-icon/EntityIcon';
 import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import { EIconSizes } from 'components/icons/types/iconSizes';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
+import { TAB_PARAM_NAME } from 'constants/tabParamName';
 import AccountDetails from 'features/account-details/components/account-details/AccountDetails';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { EAppRoutes } from 'types/appRoutes';
@@ -98,7 +99,9 @@ export default async function AccountDetailsPage({
                     items={[
                         {
                             label: listPageTitle,
-                            href: EAppRoutes.Accounts,
+                            href: account
+                                ? `${EAppRoutes.Accounts}?${TAB_PARAM_NAME}=${account.type}`
+                                : EAppRoutes.Accounts,
                         },
                         {
                             label: detailsTitle,

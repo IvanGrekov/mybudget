@@ -6,7 +6,7 @@ export interface IChipProps extends PropsWithChildren {
     title: ReactNode;
     variant?: 'contained' | 'outlined';
     size?: 'small' | 'regular' | 'big';
-    color?: 'success' | 'error' | 'info';
+    color?: 'info' | 'success' | 'warning' | 'error';
     titleVariant?: TTypographyVariants;
     buttonTabIndex?: number;
     className?: string;

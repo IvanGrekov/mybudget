@@ -9,6 +9,7 @@ import ExchangeRates from 'components/exchange-rates/ExchangeRates';
 import { EIconSizes } from 'components/icons/types/iconSizes';
 import MeEmptyState from 'components/me-empty-state/MeEmptyState';
 import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
+import { TAB_PARAM_NAME } from 'constants/tabParamName';
 import TransactionCategoryDetails from 'features/transaction-category-details/components/transaction-category-details/TransactionCategoryDetails';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { EAppRoutes } from 'types/appRoutes';
@@ -101,7 +102,9 @@ export default async function TransactionCategoryDetailsPage({
                     items={[
                         {
                             label: listPageTitle,
-                            href: EAppRoutes.TransactionCategories,
+                            href: category
+                                ? `${EAppRoutes.TransactionCategories}?${TAB_PARAM_NAME}=${category.type}`
+                                : EAppRoutes.TransactionCategories,
                         },
                         {
                             label: detailsTitle,

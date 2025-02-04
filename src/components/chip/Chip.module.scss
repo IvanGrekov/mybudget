@@ -47,6 +47,14 @@
         }
     }
 
+    &--warning {
+        background-color: var(--warning-opacity);
+
+        &.chip--outlined {
+            border-color: var(--warning);
+        }
+    }
+
     &--info {
         background-color: var(--info-opacity);
 
