@@ -16,18 +16,6 @@
     }
 }
 
-.subcategories-toggle-button {
-    --subcategories-toggle-button-padding: 1.5rem;
-
-    display: flex;
-    flex-direction: column;
-    padding-top: var(--subcategories-toggle-button-padding);
-
-    &--active {
-        padding-block: var(--subcategories-toggle-button-padding);
-    }
-}
-
 .subcategories {
     display: flex;
     flex-direction: column;

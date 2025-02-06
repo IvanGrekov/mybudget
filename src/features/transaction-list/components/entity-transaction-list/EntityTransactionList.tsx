@@ -1,6 +1,5 @@
 'use client';
 
-import Divider from 'components/divider/Divider';
 import Spacing from 'components/spacing/Spacing';
 import TransactionList from 'features/transaction-list/components/transaction-list/TransactionList';
 import { useGetTransactions } from 'hooks/useGetTransactions';
@@ -17,11 +16,7 @@ export default function EntityTransactionList({
 
     return (
         <>
-            <Spacing xs={40} md={50} />
-
-            <Divider />
-
-            <Spacing xs={20} />
+            <Spacing xs={40} />
 
             <TransactionList
                 transactions={transactions}

@@ -2,16 +2,14 @@
 @import 'styles/mixins.scss';
 
 .accordion {
-    --border: $border-width solid var(--foreground-invisible);
-
     padding: $default-spacing-sm;
-    border: var(--border);
     border-radius: $border-radius-md;
     transition: all $base-transition-duration;
+    box-shadow: var(--box-shadow-sm);
 
     &--open {
         padding-block: $default-spacing-md;
-        box-shadow: var(--box-shadow-sm);
+        box-shadow: var(--box-shadow-sm) !important;
     }
 
     &:first-of-type.accordion--open.accordion--spaced {
@@ -23,13 +21,12 @@
     }
 
     &:not(:last-of-type) {
-        border-bottom: none;
+        box-shadow: var(--box-shadow-sm-hidden-bottom);
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
     &:has(+ .accordion--open) {
-        border-bottom: var(--border);
         border-radius: $border-radius-md;
     }
 
@@ -45,7 +42,6 @@
     }
 
     &--open.accordion--spaced + .accordion {
-        border: var(--border);
         border-radius: $border-radius-md;
     }
 }

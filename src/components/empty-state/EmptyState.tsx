@@ -1,3 +1,5 @@
+import cx from 'classnames';
+
 import Button from 'components/button/Button';
 import styles from 'components/empty-state/EmptyState.module.scss';
 import EmptyIcon from 'components/icons/EmptyIcon';
@@ -10,6 +12,7 @@ import { getCapitalizedString } from 'utils/string.utils';
 interface IEmptyStateProps {
     isError?: boolean;
     text?: string;
+    className?: string;
     onClick?: VoidFunction;
 }
 
@@ -18,6 +21,7 @@ const ICON_SIZE = 150;
 export default function EmptyState({
     isError,
     text,
+    className,
     onClick,
 }: IEmptyStateProps): JSX.Element {
     const colorClassName = isError ? 'red-color' : 'foreground-color';
@@ -26,7 +30,7 @@ export default function EmptyState({
         : 'There is no any data yet!';
 
     return (
-        <section className={styles['empty-state']}>
+        <section className={cx(styles['empty-state'], className)}>
             <div className={styles['icon-wrapper']}>
                 {isError ? (
                     <ErrorIcon size={ICON_SIZE} className={colorClassName} />

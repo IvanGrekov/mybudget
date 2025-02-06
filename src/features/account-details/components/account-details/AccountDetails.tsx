@@ -4,7 +4,6 @@ import CardTitle from 'components/card/CardTitle';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
 import { getColorForTypeChip } from 'features/account-details/components/account-details/utils/getColorForTypeChip';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
@@ -34,8 +33,6 @@ export default function AccountDetails({
 
     return (
         <>
-            <UnderDevelopmentMessage />
-
             <Card>
                 <CardHeader
                     shouldHideBorder={true}

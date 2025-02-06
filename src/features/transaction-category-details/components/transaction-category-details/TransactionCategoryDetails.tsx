@@ -4,8 +4,8 @@ import CardHeader from 'components/card/CardHeader';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
-import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { getColorForTypeChip } from 'features/transaction-category-details/components/transaction-category-details/utils/getColorForTypeChip';
+import TransactionCategorySubcategories from 'features/transaction-category-details/components/transaction-category-subcategories/TransactionCategorySubcategories';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
 import {
     TransactionCategory,
@@ -38,12 +38,8 @@ export default function TransactionCategoryDetails({
 
     const shouldShowChildren = !!children?.length;
 
-    // TODO: List children (IG)
-
     return (
         <>
-            <UnderDevelopmentMessage />
-
             <Card>
                 <CardHeader
                     shouldHideBorder={!shouldShowChildren}
@@ -59,7 +55,9 @@ export default function TransactionCategoryDetails({
                 />
                 {shouldShowChildren && (
                     <CardContent>
-                        <UnderDevelopmentMessage />
+                        <TransactionCategorySubcategories
+                            subcategories={children}
+                        />
                     </CardContent>
                 )}
             </Card>

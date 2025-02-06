@@ -1,0 +1,8 @@
+.subcategories-toggle-button {
+    display: flex;
+    flex-direction: column;
+
+    &--active {
+        margin-bottom: 1.5rem;
+    }
+}

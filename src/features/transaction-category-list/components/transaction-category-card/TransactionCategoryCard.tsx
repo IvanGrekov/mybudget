@@ -1,16 +1,12 @@
-import { useState } from 'react';
-
-import cx from 'classnames';
-
 import BaseEntityMenu from 'components/base-entity-menu/BaseEntityMenu';
-import Button from 'components/button/Button';
 import Card from 'components/card/Card';
 import CardContent from 'components/card/CardContent';
 import CardHeader from 'components/card/CardHeader';
 import CardTitle from 'components/card/CardTitle';
-import Divider from 'components/divider/Divider';
 import EntityIcon from 'components/entity-icon/EntityIcon';
 import Show from 'components/show/Show';
+import Spacing from 'components/spacing/Spacing';
+import SubcategoriesTogglerWrapper from 'components/subcategories-toggler-wrapper/SubcategoriesTogglerWrapper';
 import Typography from 'components/typography/Typography';
 import EditTransactionCategoryModal from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/EditTransactionCategoryModal';
 import ChangeCategoryCurrencyModal from 'features/transaction-category-list/components/change-currency-modal/ChangeCategoryCurrencyModal';
@@ -31,8 +27,6 @@ export default function TransactionCategoryCard({
 }: ITransactionCategoryCardProps): JSX.Element {
     const isMobile = useIsMobile();
 
-    const [isChildrenVisible, setIsChildrenVisible] = useState(false);
-
     const {
         isModalOpen: isEditAccountModalOpen,
         openModal: openEditAccountModal,
@@ -51,10 +45,6 @@ export default function TransactionCategoryCard({
 
     const { id, name, currency, children, type, iconName, iconColor } =
         transactionCategory;
-
-    const toggleChildrenVisibility = (): void => {
-        setIsChildrenVisible((prev) => !prev);
-    };
 
     return (
         <>
@@ -91,33 +81,14 @@ export default function TransactionCategoryCard({
                     </Typography>
 
                     <Show when={!!children?.length}>
-                        <div
-                            className={cx(
-                                styles['subcategories-toggle-button'],
-                                {
-                                    [styles[
-                                        'subcategories-toggle-button--active'
-                                    ]]: isChildrenVisible,
-                                },
-                            )}
-                        >
-                            <Button
-                                text={
-                                    isChildrenVisible
-                                        ? 'Hide Subcategories'
-                                        : 'Show Subcategories'
-                                }
-                                onClick={toggleChildrenVisibility}
-                            />
-                        </div>
-                    </Show>
+                        <Spacing xs={12} />
 
-                    <Show when={isChildrenVisible && !!children?.length}>
-                        <Divider />
-                        <Subcategories
-                            parentCategoryId={id}
-                            subcategories={children}
-                        />
+                        <SubcategoriesTogglerWrapper>
+                            <Subcategories
+                                parentCategoryId={id}
+                                subcategories={children}
+                            />
+                        </SubcategoriesTogglerWrapper>
                     </Show>
                 </CardContent>
             </Card>

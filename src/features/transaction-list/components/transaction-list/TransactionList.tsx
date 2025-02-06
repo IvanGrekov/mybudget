@@ -48,7 +48,11 @@ export default function TransactionList({
             </Show>
 
             <Show when={isEmptyState && !isLoading}>
-                <TransactionListEmptyState />
+                <TransactionListEmptyState
+                    isRelatedTransactionList={
+                        !!selectedAccountId || !!selectedCategoryId
+                    }
+                />
             </Show>
 
             {!isEmptyState && (
