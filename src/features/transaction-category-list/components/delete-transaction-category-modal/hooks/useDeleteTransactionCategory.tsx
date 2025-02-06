@@ -18,6 +18,7 @@ type TUseDeleteTransactionCategory = (args: {
     shouldRemoveChildren: boolean;
     hasChildren: boolean;
     parentId?: number;
+    onCompleted?: VoidFunction;
 }) => {
     remove: VoidFunction;
     isLoading: boolean;
@@ -29,6 +30,7 @@ export const useDeleteTransactionCategory: TUseDeleteTransactionCategory = ({
     shouldRemoveChildren,
     hasChildren,
     parentId,
+    onCompleted,
 }) => {
     const addSuccessMessage = useAddSuccessMessageToNotifications();
     const addErrorMessage = useAddErrorMessageToNotifications();
@@ -67,6 +69,8 @@ export const useDeleteTransactionCategory: TUseDeleteTransactionCategory = ({
             queryClient.invalidateQueries({
                 queryKey: [EFetchingTags.TRANSACTIONS],
             });
+
+            onCompleted?.();
 
             addSuccessMessage(
                 getSuccessMessage({

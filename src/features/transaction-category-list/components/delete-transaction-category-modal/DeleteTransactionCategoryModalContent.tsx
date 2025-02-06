@@ -23,6 +23,7 @@ export default function DeleteTransactionCategoryModalContent({
     hasChildren,
     parentId,
     onClose,
+    onCompleted,
 }: IDeleteTransactionCategoryModalContentProps): JSX.Element {
     const [isSoftDeleting, setIsSoftDeleting] = useState(false);
     const [isForceDeleting, setIsForceDeleting] = useState(false);
@@ -35,6 +36,7 @@ export default function DeleteTransactionCategoryModalContent({
             shouldRemoveChildren,
             hasChildren,
             parentId,
+            onCompleted,
         },
     );
     const { isLoading: isArchiveLoading, archive } =
@@ -43,6 +45,7 @@ export default function DeleteTransactionCategoryModalContent({
             type,
             hasChildren,
             parentId,
+            onCompleted,
         });
 
     return (

@@ -3,6 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
+import {
+    DEFAULT_CATEGORY_ICON_NAME,
+    DEFAULT_ENTITY_ICON_COLOR,
+} from 'constants/entityIcons.constants';
 import { EDIT_TRANSACTION_CATEGORY_FORM_VALIDATION } from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/constants/editTransactionCategoryFormValidation';
 import { useEditTransactionCategory } from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/hooks/useEditTransactionCategory';
 import { IEditTransactionCategoryModalDataProps } from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/types/editTransactionCategoryModalDataProps';
@@ -25,6 +29,7 @@ export default function EditTransactionCategoryModalContent({
     hasChildren,
     hideModal,
     onCloseModal,
+    onArchive,
 }: IEditTransactionCategoryModalContentProps): JSX.Element {
     const { name, status, iconName, iconColor } = transactionCategory;
 
@@ -32,8 +37,8 @@ export default function EditTransactionCategoryModalContent({
         defaultValues: {
             status: getDefaultStatus(status),
             name,
-            iconName,
-            iconColor,
+            iconName: iconName || DEFAULT_CATEGORY_ICON_NAME,
+            iconColor: iconColor || DEFAULT_ENTITY_ICON_COLOR,
         },
         resolver: EDIT_TRANSACTION_CATEGORY_FORM_VALIDATION,
     });
@@ -53,6 +58,7 @@ export default function EditTransactionCategoryModalContent({
         parentId,
         hasChildren,
         onCompleted,
+        onArchive,
     });
 
     const submit = (data: EditTransactionCategoryDto): void => {

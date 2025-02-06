@@ -23,6 +23,7 @@ type TUseEditTransactionCategory = (args: {
     parentId?: number;
     hasChildren?: boolean;
     onCompleted: VoidFunction;
+    onArchive?: VoidFunction;
 }) => {
     mutate: (data: EditTransactionCategoryDto) => void;
     isLoading: boolean;
@@ -33,6 +34,7 @@ export const useEditTransactionCategory: TUseEditTransactionCategory = ({
     parentId,
     hasChildren,
     onCompleted,
+    onArchive,
 }) => {
     const addSuccessMessage = useAddSuccessMessageToNotifications();
     const addErrorMessage = useAddErrorMessageToNotifications();
@@ -164,6 +166,7 @@ export const useEditTransactionCategory: TUseEditTransactionCategory = ({
                 }),
             );
             onCompleted();
+            isArchiving && onArchive?.();
         },
         onError: (error: Error) => {
             addErrorMessage(error.message);

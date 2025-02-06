@@ -3,6 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Button from 'components/button/Button';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import ModalActions from 'components/modal/ModalActions';
+import {
+    DEFAULT_ACCOUNT_ICON_NAME,
+    DEFAULT_ENTITY_ICON_COLOR,
+} from 'constants/entityIcons.constants';
 import AccountFormContent from 'features/account-form-modal/components/account-form-content/AccountFormContent';
 import { EDIT_ACCOUNT_FORM_VALIDATION } from 'features/account-form-modal/components/edit-account-modal/constants/editAccountFormValidation';
 import { useEditAccount } from 'features/account-form-modal/components/edit-account-modal/hooks/useEditAccount';
@@ -43,8 +47,8 @@ export default function EditAccountModalContent({
             shouldHideFromOverallBalance,
             shouldShowAsExpense,
             shouldShowAsIncome,
-            iconName,
-            iconColor,
+            iconName: iconName || DEFAULT_ACCOUNT_ICON_NAME,
+            iconColor: iconColor || DEFAULT_ENTITY_ICON_COLOR,
         },
         resolver: EDIT_ACCOUNT_FORM_VALIDATION,
     });

@@ -28,9 +28,9 @@ export default function TransactionCategoryCard({
     const isMobile = useIsMobile();
 
     const {
-        isModalOpen: isEditAccountModalOpen,
-        openModal: openEditAccountModal,
-        closeModal: closeEditAccountModal,
+        isModalOpen: isEditModalOpen,
+        openModal: openEditModal,
+        closeModal: closeEditModal,
     } = useModal();
     const {
         isModalOpen: isChangeCurrencyModalOpen,
@@ -67,7 +67,7 @@ export default function TransactionCategoryCard({
                     actions={
                         <BaseEntityMenu
                             detailsPath={`${EAppRoutes.TransactionCategories}/${id}`}
-                            openEditModal={openEditAccountModal}
+                            openEditModal={openEditModal}
                             openChangeCurrencyModal={openChangeCurrencyModal}
                             openDeleteModal={openDeleteModal}
                         />
@@ -95,9 +95,9 @@ export default function TransactionCategoryCard({
 
             <EditTransactionCategoryModal
                 transactionCategory={transactionCategory}
-                hasChildren={!!children}
-                isOpen={isEditAccountModalOpen}
-                onClose={closeEditAccountModal}
+                hasChildren={!!children?.length}
+                isOpen={isEditModalOpen}
+                onClose={closeEditModal}
             />
 
             <ChangeCategoryCurrencyModal

@@ -6,4 +6,5 @@ export type TDeleteTransactionCategoryModalDataProps = Pick<
 > & {
     hasChildren: boolean;
     parentId?: number;
+    onCompleted?: VoidFunction;
 };

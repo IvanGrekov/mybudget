@@ -4,4 +4,5 @@ export interface IEditTransactionCategoryModalDataProps {
     transactionCategory: TransactionCategory;
     parentId?: number;
     hasChildren?: boolean;
+    onArchive?: VoidFunction;
 }

@@ -102,4 +102,5 @@ export const DEFAULT_ENTITY_ICON_COLOR = '#000000';
 
 export const ENTITY_ICON_NAME_VALIDATION = yup
     .string()
+    .nullable()
     .oneOf([...ENTITY_ICONS.keys()]);

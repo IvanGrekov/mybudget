@@ -20,8 +20,19 @@ export const useGetAllTransactionCategories =
 
         useRequestErrorHandler(error);
 
+        const transactionCategories = data?.reduce(
+            (acc: TransactionCategory[], category) => {
+                if (category.children) {
+                    return [...acc, category, ...category.children];
+                }
+
+                return [...acc, category];
+            },
+            [],
+        );
+
         return {
-            transactionCategories: data,
+            transactionCategories,
             isLoading: isPending,
         };
     };

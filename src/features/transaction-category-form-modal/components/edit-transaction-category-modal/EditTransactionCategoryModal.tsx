@@ -15,10 +15,9 @@ const EditTransactionCategoryModalContentLazy = lazy(
 
 export default function EditTransactionCategoryModal({
     transactionCategory,
-    parentId,
-    hasChildren,
     isOpen,
     onClose,
+    ...props
 }: IModalBaseProps & IEditTransactionCategoryModalDataProps): JSX.Element {
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
@@ -32,10 +31,9 @@ export default function EditTransactionCategoryModal({
             <Suspense fallback={<ModalCircularLoading />}>
                 <EditTransactionCategoryModalContentLazy
                     transactionCategory={transactionCategory}
-                    parentId={parentId}
-                    hasChildren={hasChildren}
                     hideModal={onClose}
                     onCloseModal={onCloseModal}
+                    {...props}
                 />
             </Suspense>
         </Modal>

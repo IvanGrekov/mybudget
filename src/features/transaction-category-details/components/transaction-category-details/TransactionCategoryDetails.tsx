@@ -5,6 +5,7 @@ import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
 import { getColorForTypeChip } from 'features/transaction-category-details/components/transaction-category-details/utils/getColorForTypeChip';
+import TransactionCategoryMenu from 'features/transaction-category-details/components/transaction-category-menu/TransactionCategoryMenu';
 import TransactionCategorySubcategories from 'features/transaction-category-details/components/transaction-category-subcategories/TransactionCategorySubcategories';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
 import {
@@ -44,14 +45,11 @@ export default function TransactionCategoryDetails({
                 <CardHeader
                     shouldHideBorder={!shouldShowChildren}
                     title={<EntityChipList items={chips} />}
-                    // actions={
-                    //     <BaseEntityMenu
-                    //         detailsPath={`${EAppRoutes.Accounts}/${id}`}
-                    //         openEditModal={openEditAccountModal}
-                    //         openChangeCurrencyModal={openChangeCurrencyModal}
-                    //         openDeleteModal={openDeleteModal}
-                    //     />
-                    // }
+                    actions={
+                        <TransactionCategoryMenu
+                            transactionCategory={transactionCategory}
+                        />
+                    }
                 />
                 {shouldShowChildren && (
                     <CardContent>

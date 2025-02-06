@@ -25,6 +25,6 @@ export const EDIT_TRANSACTION_CATEGORY_FORM_VALIDATION =
                     ),
                 ),
             iconName: ENTITY_ICON_NAME_VALIDATION,
-            iconColor: yup.string(),
+            iconColor: yup.string().nullable(),
         }),
     );

@@ -20,6 +20,7 @@ type TUseArchiveTransactionCategory = (args: {
     type: TransactionCategoryTypeEnum;
     hasChildren: boolean;
     parentId?: number;
+    onCompleted?: VoidFunction;
 }) => {
     archive: VoidFunction;
     isLoading: boolean;
@@ -30,6 +31,7 @@ export const useArchiveTransactionCategory: TUseArchiveTransactionCategory = ({
     type,
     hasChildren,
     parentId,
+    onCompleted,
 }) => {
     const addSuccessMessage = useAddSuccessMessageToNotifications();
     const addErrorMessage = useAddErrorMessageToNotifications();
@@ -70,6 +72,8 @@ export const useArchiveTransactionCategory: TUseArchiveTransactionCategory = ({
                     return category;
                 },
             );
+
+            onCompleted?.();
 
             addSuccessMessage(
                 getSuccessMessage({

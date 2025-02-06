@@ -13,10 +13,10 @@ const LIMIT = 1;
 const OFFSET = 1;
 
 export const useGetAreRelatedTransactionsExist = (
-    transactionCategoryId: number,
+    categoryId: number,
 ): IUseGetAreRelatedTransactionsExistResult => {
     const queryArgs = {
-        transactionCategoryId,
+        categoryId,
         limit: LIMIT,
         offset: OFFSET,
     };
