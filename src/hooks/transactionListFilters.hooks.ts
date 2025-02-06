@@ -5,9 +5,9 @@ import {
     TRANSACTION_LIST_DATE_RANGE_FROM_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_TO_FILTER_PARAM_NAME,
 } from 'constants/transactionListFilterParams.constants';
-import { getTransactionTypesByFilterValue } from 'features/transaction-list/utils/transactionListFilters.utils';
 import { useGetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { ITransactionListFilterValues } from 'types/transactionListFilterValues';
+import { getTransactionTypesByFilterValue } from 'utils/transactionListFilters.utils';
 
 export const useTransactionListCurrentTypesFilterValue = (): ReturnType<
     typeof getTransactionTypesByFilterValue

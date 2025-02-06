@@ -9,12 +9,12 @@ import TransactionsDateRangeFilter from 'components/transactions-filters/Transac
 import styles from 'components/transactions-filters/TransactionsFilters.module.scss';
 import TransactionsTypesFilter from 'components/transactions-filters/TransactionsTypesFilter';
 import { useClearTransactionsFilters } from 'components/transactions-filters/hooks/useClearTransactionsFilters';
-import { ITransactionsFiltersProps } from 'components/transactions-filters/types/transactionsFiltersProps';
+import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
 
 export default function TransactionsFilters({
     selectedAccountId,
     selectedCategoryId,
-}: ITransactionsFiltersProps): JSX.Element {
+}: ITransactionsFiltersArgs): JSX.Element {
     const { shouldShowClearFiltersButton, clearFilters } =
         useClearTransactionsFilters({
             selectedAccountId,

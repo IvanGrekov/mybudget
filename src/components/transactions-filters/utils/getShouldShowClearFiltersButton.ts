@@ -1,5 +1,5 @@
-import { ITransactionsFiltersProps } from 'components/transactions-filters/types/transactionsFiltersProps';
 import { ITransactionListFilterValues } from 'types/transactionListFilterValues';
+import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
 
 export const getShouldShowClearFiltersButton = ({
     selectedAccountId,
@@ -9,7 +9,7 @@ export const getShouldShowClearFiltersButton = ({
     categoryId,
     from,
     to,
-}: ITransactionsFiltersProps & ITransactionListFilterValues): boolean => {
+}: ITransactionsFiltersArgs & ITransactionListFilterValues): boolean => {
     if (typeof selectedAccountId !== 'undefined') {
         return Boolean(!isDefaultTypesSelected || categoryId || from || to);
     }

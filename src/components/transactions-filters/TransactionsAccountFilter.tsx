@@ -1,15 +1,15 @@
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Select from 'components/select/Select';
-import { ITransactionsFiltersProps } from 'components/transactions-filters/types/transactionsFiltersProps';
 import { TRANSACTION_LIST_ACCOUNT_FILTER_PARAM_NAME } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListCurrentAccountFilterValue } from 'hooks/transactionListFilters.hooks';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { Account } from 'types/generated.types';
+import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
 
 export default function TransactionsAccountFilter({
     selectedAccountId,
-}: Pick<ITransactionsFiltersProps, 'selectedAccountId'>): JSX.Element | null {
+}: Pick<ITransactionsFiltersArgs, 'selectedAccountId'>): JSX.Element | null {
     const { accounts, isLoading } = useGetAllAccounts();
     const accountId = useTransactionListCurrentAccountFilterValue();
     const setAccountId = useGetSetSearchParamsValue();

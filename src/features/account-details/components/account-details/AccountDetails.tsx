@@ -4,10 +4,10 @@ import CardTitle from 'components/card/CardTitle';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
-import TransactionsFilters from 'components/transactions-filters/TransactionsFilters';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
 import { getColorForTypeChip } from 'features/account-details/components/account-details/utils/getColorForTypeChip';
+import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
 import { Account, AccountStatusEnum } from 'types/generated.types';
 import { roundValue } from 'utils/roundValue';
 import { getCapitalizedString } from 'utils/string.utils';
@@ -62,7 +62,7 @@ export default function AccountDetails({
                 />
             </Card>
 
-            <TransactionsFilters selectedAccountId={id} />
+            <EntityTransactionList selectedAccountId={id} />
         </>
     );
 }

@@ -5,29 +5,43 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
+import TransactionListEmptyState from 'components/transaction-list-empty-state/TransactionListEmptyState';
 import TransactionsFilters from 'components/transactions-filters/TransactionsFilters';
 import Typography from 'components/typography/Typography';
-import TransactionCard from 'features/transaction-list/components/transaction-card/TransactionCard';
-import transactionListStyles from 'features/transaction-list/components/transaction-list/TransactionList.module.scss';
-import TransactionListEmptyState from 'features/transaction-list/components/transaction-list/TransactionListEmptyState';
-import TransactionListHeader from 'features/transaction-list/components/transaction-list/TransactionListHeader';
-import { useGetTransactions } from 'features/transaction-list/components/transaction-list/hooks/useGetTransactions';
+import TransactionCard from 'features/transaction-card/components/transaction-card/TransactionCard';
 import { useGetMyTimeZone } from 'hooks/me.hooks';
 import styles from 'styles/ItemList.module.scss';
+import transactionListStyles from 'styles/TransactionList.module.scss';
+import { Transaction } from 'types/generated.types';
+import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
+import { Maybe } from 'types/utility.types';
 import { getDate } from 'utils/date.utils';
 
-export default function TransactionList(): JSX.Element {
-    const { transactions, isLoading, hasMore, next, refetch } =
-        useGetTransactions();
+interface ITransactionListProps extends ITransactionsFiltersArgs {
+    transactions?: Maybe<Transaction[]>;
+    hasMore: boolean;
+    isLoading: boolean;
+    next: VoidFunction;
+}
+
+export default function TransactionList({
+    transactions,
+    hasMore,
+    isLoading,
+    selectedAccountId,
+    selectedCategoryId,
+    next,
+}: ITransactionListProps): JSX.Element {
     const { timeZone } = useGetMyTimeZone();
 
     const isEmptyState = !transactions?.length;
 
     return (
         <div className={styles.container}>
-            <TransactionListHeader refetchTransactionList={refetch} />
-
-            <TransactionsFilters />
+            <TransactionsFilters
+                selectedAccountId={selectedAccountId}
+                selectedCategoryId={selectedCategoryId}
+            />
 
             <Show when={isLoading}>
                 <LinearProgress />

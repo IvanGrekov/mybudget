@@ -1,4 +1,3 @@
-import { ITransactionsFiltersProps } from 'components/transactions-filters/types/transactionsFiltersProps';
 import { getShouldShowClearFiltersButton } from 'components/transactions-filters/utils/getShouldShowClearFiltersButton';
 import {
     TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME,
@@ -9,6 +8,7 @@ import {
 } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListFilterValues } from 'hooks/transactionListFilters.hooks';
+import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
 
 interface IUseClearTransactionsFiltersResult {
     shouldShowClearFiltersButton: boolean;
@@ -18,7 +18,7 @@ interface IUseClearTransactionsFiltersResult {
 export const useClearTransactionsFilters = ({
     selectedAccountId,
     selectedCategoryId,
-}: ITransactionsFiltersProps): IUseClearTransactionsFiltersResult => {
+}: ITransactionsFiltersArgs): IUseClearTransactionsFiltersResult => {
     const transactionListFilterValues = useTransactionListFilterValues();
     const setSearchParamsValue = useGetSetSearchParamsValue();
 

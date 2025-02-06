@@ -4,9 +4,9 @@ import CardHeader from 'components/card/CardHeader';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
-import TransactionsFilters from 'components/transactions-filters/TransactionsFilters';
 import UnderDevelopmentMessage from 'components/under-development-message/UnderDevelopmentMessage';
 import { getColorForTypeChip } from 'features/transaction-category-details/components/transaction-category-details/utils/getColorForTypeChip';
+import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
 import {
     TransactionCategory,
     TransactionCategoryStatusEnum,
@@ -64,7 +64,7 @@ export default function TransactionCategoryDetails({
                 )}
             </Card>
 
-            <TransactionsFilters selectedCategoryId={id} />
+            <EntityTransactionList selectedCategoryId={id} />
         </>
     );
 }

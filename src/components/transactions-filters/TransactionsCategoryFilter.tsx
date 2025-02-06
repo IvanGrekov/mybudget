@@ -1,15 +1,15 @@
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import Select from 'components/select/Select';
-import { ITransactionsFiltersProps } from 'components/transactions-filters/types/transactionsFiltersProps';
 import { TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListCurrentCategoryFilterValue } from 'hooks/transactionListFilters.hooks';
 import { useGetAllTransactionCategories } from 'hooks/useGetAllTransactionCategories';
 import { TransactionCategory } from 'types/generated.types';
+import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
 
 export default function TransactionsCategoryFilter({
     selectedCategoryId,
-}: Pick<ITransactionsFiltersProps, 'selectedCategoryId'>): JSX.Element | null {
+}: Pick<ITransactionsFiltersArgs, 'selectedCategoryId'>): JSX.Element | null {
     const { transactionCategories, isLoading } =
         useGetAllTransactionCategories();
     const categoryId = useTransactionListCurrentCategoryFilterValue();

@@ -1,5 +1,5 @@
 export interface IWithIdParamProps {
-    params: { id: string };
+    params: { accountId?: string; categoryId?: string };
 }
 
 export interface IWithLocaleParamProps {

@@ -10,8 +10,7 @@ import Spacing from 'components/spacing/Spacing';
 import { URL_HEADER } from 'constants/headers';
 import { DEFAULT_OFFSET } from 'constants/pagination';
 import OverallBalance from 'features/overall-balance/components/overall-balance/OverallBalance';
-import TransactionList from 'features/transaction-list/components/transaction-list/TransactionList';
-import { getTransactionListFiltersFromUrl } from 'features/transaction-list/utils/transactionListFilters.utils';
+import TransactionListPage from 'features/transaction-list-page/components/transaction-list-page/TransactionListPage';
 import UserCurrencySection from 'features/user-currency-section/user-currency-section/UserCurrencySection';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { User, Transaction } from 'types/generated.types';
@@ -25,6 +24,7 @@ import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCategories';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
+import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
 const pageName = 'HomePage';
 
@@ -44,8 +44,6 @@ export default async function HomePage(): Promise<JSX.Element> {
 
     try {
         me = await getMeOnServerSide(queryClient);
-
-        // NOTE: prefetch transactions by filter values
         await queryClient.prefetchInfiniteQuery({
             queryKey: getTransactionsQueryKey({
                 types,
@@ -103,7 +101,7 @@ export default async function HomePage(): Promise<JSX.Element> {
 
                 <Spacing xs={30} sm={40} />
 
-                <TransactionList />
+                <TransactionListPage />
             </HydrationBoundary>
         </Container>
     );
