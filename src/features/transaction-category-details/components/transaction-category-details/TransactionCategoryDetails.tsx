@@ -12,7 +12,7 @@ import {
     TransactionCategory,
     TransactionCategoryStatusEnum,
 } from 'types/generated.types';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionCategoryDetailsProps {
     transactionCategory: TransactionCategory;
@@ -29,7 +29,7 @@ export default function TransactionCategoryDetails({
 
     const chips: IChipProps[] = [
         {
-            title: getCapitalizedString(type, '_'),
+            title: getCapitalizedEnumValue(type),
             color: getColorForTypeChip(type),
         },
         {

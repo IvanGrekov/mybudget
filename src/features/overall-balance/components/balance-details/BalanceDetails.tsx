@@ -27,7 +27,7 @@ export default function BalanceDetails({
                     }
 
                     return (
-                        <li key={title} className={styles.item}>
+                        <li key={title} className={styles.items}>
                             <BalanceItems title={title} items={balanceItems} />
                         </li>
                     );

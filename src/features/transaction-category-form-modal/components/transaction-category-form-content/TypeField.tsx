@@ -4,7 +4,7 @@ import {
     TRANSACTION_CATEGORY_FORM_FIELD_LABELS,
 } from 'features/transaction-category-form-modal/constants/transactionCategoryForm.constants';
 import { CreateTransactionCategoryDtoTypeEnum } from 'types/generated.types';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 const OPTIONS = Object.values(CreateTransactionCategoryDtoTypeEnum);
 
@@ -16,7 +16,7 @@ export default function TypeField(): JSX.Element {
             options={OPTIONS}
             isClearable={false}
             required={true}
-            getOptionLabel={(option) => getCapitalizedString(option, '_')}
+            getOptionLabel={(option) => getCapitalizedEnumValue(option)}
         />
     );
 }

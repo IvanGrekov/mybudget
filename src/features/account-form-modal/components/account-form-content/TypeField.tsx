@@ -4,7 +4,7 @@ import {
     ACCOUNT_FORM_FIELD_LABELS,
 } from 'features/account-form-modal/constants/accountForm.constants';
 import { CreateAccountDtoTypeEnum } from 'types/generated.types';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 const OPTIONS = Object.values(CreateAccountDtoTypeEnum);
 
@@ -16,7 +16,7 @@ export default function TypeField(): JSX.Element {
             options={OPTIONS}
             isClearable={false}
             required={true}
-            getOptionLabel={(option) => getCapitalizedString(option, '_')}
+            getOptionLabel={(option) => getCapitalizedEnumValue(option)}
         />
     );
 }

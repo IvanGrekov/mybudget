@@ -4,7 +4,7 @@ import {
     TRANSACTION_FORM_FIELD_LABELS,
 } from 'features/transaction-form-modal/constants/transactionForm.constants';
 import { CreateTransactionDtoTypeEnum } from 'types/generated.types';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 const OPTIONS = Object.values(CreateTransactionDtoTypeEnum).filter(
     (type) => type !== CreateTransactionDtoTypeEnum.BALANCE_CORRECTION,
@@ -18,7 +18,7 @@ export default function TypeField(): JSX.Element {
             options={OPTIONS}
             isClearable={false}
             required={true}
-            getOptionLabel={(option) => getCapitalizedString(option, '_')}
+            getOptionLabel={(option) => getCapitalizedEnumValue(option)}
         />
     );
 }

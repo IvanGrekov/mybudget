@@ -1,8 +1,8 @@
 import { IChipProps } from 'components/chip/types/chipProps';
 import { AccountTypeEnum } from 'types/generated.types';
 
-export const getColorForTypeChip = (
-    type: AccountTypeEnum,
+export const getColorForAccountTypeChip = (
+    type: string,
 ): IChipProps['color'] => {
     switch (type) {
         case AccountTypeEnum.REGULAR:

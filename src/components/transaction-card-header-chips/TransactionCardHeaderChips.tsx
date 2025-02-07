@@ -4,7 +4,7 @@ import { getColorForTypeChip } from 'components/transaction-card-header-chips/ut
 import { useGetMyTimeZone } from 'hooks/me.hooks';
 import { Transaction } from 'types/generated.types';
 import { getTime } from 'utils/date.utils';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 export default function TransactionCardHeaderChips({
     createdAt,
@@ -17,7 +17,7 @@ export default function TransactionCardHeaderChips({
             title: getTime(createdAt, timeZone),
         },
         {
-            title: getCapitalizedString(type, '_'),
+            title: getCapitalizedEnumValue(type),
             color: getColorForTypeChip(type),
         },
     ];

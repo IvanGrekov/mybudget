@@ -1,5 +1,6 @@
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionCategoriesEmptyStateProps {
     isSingleCategory?: boolean;
@@ -18,7 +19,9 @@ export default function TransactionCategoriesEmptyState({
     let text = isSingleCategory ? SINGLE_CATEGORY_TEXT : TEXT;
 
     if (categoriesType) {
-        text = `No '${categoriesType}' transaction categories found`;
+        text = `No '${getCapitalizedEnumValue(
+            categoriesType,
+        )}' transaction categories found`;
     }
 
     if (notWrappedByContainer) {

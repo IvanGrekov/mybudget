@@ -77,9 +77,7 @@ export default function FromToTransactionDetails({
                 iconName={toAccount?.iconName || toCategory?.iconName}
                 iconColor={toAccount?.iconColor || toCategory?.iconColor}
                 name={toAccount?.name || toCategory?.name}
-                shouldShowUpdatedBalances={
-                    isBalanceCorrection ? false : shouldShowUpdatedBalances
-                }
+                shouldShowUpdatedBalances={shouldShowUpdatedBalances}
                 accountUpdatedBalance={toAccountUpdatedBalance}
                 accountCurrency={toAccount?.currency}
             />

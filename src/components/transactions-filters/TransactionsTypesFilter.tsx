@@ -5,6 +5,7 @@ import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
 import { TransactionTypeEnum } from 'types/generated.types';
 import { combineMultipleValuesSearchParam } from 'utils/searchParams.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 const OPTIONS = Object.values(TransactionTypeEnum);
 
@@ -40,6 +41,7 @@ export default function TransactionsTypesFilter(): JSX.Element {
             multiple={true}
             onChange={onChange}
             label="Type"
+            getOptionLabel={(option) => getCapitalizedEnumValue(option)}
             isClearable={false}
             isFullWidth={true}
         />

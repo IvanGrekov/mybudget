@@ -1,6 +1,7 @@
 import EmptyState from 'components/empty-state/EmptyState';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
 import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionListEmptyStateProps {
     isRelatedTransactionList?: boolean;
@@ -22,7 +23,7 @@ export default function TransactionListEmptyState({
     return (
         <EmptyState
             text={`No ${types
-                .map((type) => `'${type}'`)
+                .map((type) => `'${getCapitalizedEnumValue(type)}'`)
                 .join(', ')} ${transactionsModel} found`}
         />
     );

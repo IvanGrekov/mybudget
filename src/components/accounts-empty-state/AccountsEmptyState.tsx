@@ -1,5 +1,6 @@
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface IAccountsEmptyStateProps {
     isSingleAccount?: boolean;
@@ -18,7 +19,7 @@ export default function AccountsEmptyState({
     let text = isSingleAccount ? SINGLE_ACCOUNT_TEXT : TEXT;
 
     if (accountsType) {
-        text = `No '${accountsType}' accounts found`;
+        text = `No '${getCapitalizedEnumValue(accountsType)}' accounts found`;
     }
 
     if (notWrappedByContainer) {

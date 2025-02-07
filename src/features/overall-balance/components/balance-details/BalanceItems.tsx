@@ -1,9 +1,11 @@
+import Chip from 'components/chip/Chip';
 import Typography from 'components/typography/Typography';
 import styles from 'features/overall-balance/components/balance-details/BalanceDetails.module.scss';
 import { TBalanceItems } from 'features/overall-balance/components/balance-details/types/balanceItems';
 import { getBalancesByCurrency } from 'features/overall-balance/components/balance-details/types/getBalancesByCurrency';
+import { getColorForAccountTypeChip } from 'utils/getColorForAccountTypeChip';
 import { roundValue } from 'utils/roundValue';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ISampleComponentProps {
     title: string;
@@ -18,9 +20,11 @@ export default function BalanceItems({
 
     return (
         <>
-            <Typography variant="subtitle1">
-                {getCapitalizedString(title, '_')}:
-            </Typography>
+            <Chip
+                title={getCapitalizedEnumValue(title)}
+                color={getColorForAccountTypeChip(title)}
+                size="small"
+            />
 
             <ul className={styles['balances-list']}>
                 {Object.entries(balances).map(([currency, balance]) => (

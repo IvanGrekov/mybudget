@@ -5,9 +5,24 @@ export const getCapitalizedString: TGetCapitalizedString = (
     separator = ' ',
 ) => {
     const stringParts = string.split(separator);
+
     const capitalizedParts = stringParts.map((part) => {
+        const firstChar = part.charAt(0);
+
+        if ([',', '.', '-', "'", '"'].includes(firstChar)) {
+            return (
+                firstChar +
+                part.charAt(1).toUpperCase() +
+                part.slice(2).toLowerCase()
+            );
+        }
+
         return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
     });
 
     return capitalizedParts.join(' ');
+};
+
+export const getCapitalizedEnumValue = (value: string): string => {
+    return getCapitalizedString(value, '_');
 };

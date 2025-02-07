@@ -5,11 +5,11 @@ import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
-import { getColorForTypeChip } from 'features/account-details/components/account-details/utils/getColorForTypeChip';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
 import { Account, AccountStatusEnum } from 'types/generated.types';
+import { getColorForAccountTypeChip } from 'utils/getColorForAccountTypeChip';
 import { roundValue } from 'utils/roundValue';
-import { getCapitalizedString } from 'utils/string.utils';
+import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface IAccountDetailsProps {
     account: Account;
@@ -26,8 +26,8 @@ export default function AccountDetails({
 
     const chips: IChipProps[] = [
         {
-            title: getCapitalizedString(type, '_'),
-            color: getColorForTypeChip(type),
+            title: getCapitalizedEnumValue(type),
+            color: getColorForAccountTypeChip(type),
         },
     ];
 
