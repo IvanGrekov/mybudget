@@ -1,8 +1,8 @@
 import BaseEntityMenu from 'components/base-entity-menu/BaseEntityMenu';
 import CardHeader from 'components/card/CardHeader';
-import CardTitle from 'components/card/CardTitle';
 import TransactionCardAdditionalInfo from 'components/transaction-card-additional-info/TransactionCardAdditionalInfo';
 import TransactionCardHeaderChips from 'components/transaction-card-header-chips/TransactionCardHeaderChips';
+import Typography from 'components/typography/Typography';
 import styles from 'features/transaction-card/components/transaction-card-header/TransactionCardHeader.module.scss';
 import { Transaction } from 'types/generated.types';
 import { roundValue } from 'utils/roundValue';
@@ -29,7 +29,9 @@ export default function TransactionCardHeader({
                         type={type}
                     />
 
-                    <CardTitle title={`${roundValue(value)} ${currency}`} />
+                    <Typography variant="subtitle1" element="h3">
+                        {roundValue(value)} {currency}
+                    </Typography>
 
                     <TransactionCardAdditionalInfo transaction={transaction} />
                 </div>

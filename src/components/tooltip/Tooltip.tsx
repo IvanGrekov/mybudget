@@ -14,8 +14,13 @@ export default function Tooltip({
     wrapperClassName,
     position = 'top',
     open = true,
+    openDelay,
 }: ITooltipProps): JSX.Element {
-    const { isOpen, childWithRef, tooltipTextRef } = useTooltip(children);
+    const { isOpen, childWithRef, tooltipTextRef } = useTooltip({
+        children,
+        open,
+        openDelay,
+    });
 
     return (
         <div className={cx(styles.tooltip, wrapperClassName)}>
@@ -27,7 +32,7 @@ export default function Tooltip({
                     styles.text,
                     styles[`text--${position}`],
                     {
-                        [styles['text--open']]: isOpen && !!open,
+                        [styles['text--open']]: isOpen,
                     },
                     className,
                 )}

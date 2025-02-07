@@ -7,4 +7,5 @@ export interface ITooltipProps {
     wrapperClassName?: string;
     position?: TTooltipPosition;
     open?: boolean;
+    openDelay?: number;
 }
