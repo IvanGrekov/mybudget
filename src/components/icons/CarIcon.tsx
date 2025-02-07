@@ -8,10 +8,8 @@ export default function CarIcon({
     className,
     wrapperClassName,
 }: IIconProps): JSX.Element {
-    const formattedSize = typeof size === 'number' ? size * 1.1 : size;
-
     return (
-        <IconWrapper size={formattedSize} className={wrapperClassName}>
+        <IconWrapper size={size} className={wrapperClassName}>
             <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"

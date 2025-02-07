@@ -21,6 +21,7 @@ export default function DragDropListItem({
         useSortable({ id, data: { hasChildren, isChild } });
 
     const style = {
+        height: 'fit-content',
         transform: CSS.Translate.toString(transform),
         transition,
         cursor: isLoading ? 'progress' : 'grab',
