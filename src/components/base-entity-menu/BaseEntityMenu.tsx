@@ -26,7 +26,7 @@ export default function BaseEntityMenu({
     const { push } = useRouter();
 
     return (
-        <Menu tooltipPosition="bottom-left" className={className}>
+        <Menu className={className}>
             {(!!detailsPath || !!openDetailsModal) && (
                 <MenuActionItem
                     text="Details"

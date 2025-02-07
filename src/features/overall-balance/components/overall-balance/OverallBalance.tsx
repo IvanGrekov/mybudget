@@ -6,7 +6,6 @@ import Chip from 'components/chip/Chip';
 import CancelAction from 'components/confirmation-modal/CancelAction';
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
-import Tooltip from 'components/tooltip/Tooltip';
 import styles from 'features/overall-balance/components/overall-balance/OverallBalance.module.scss';
 import { useCalculateOverallBalance } from 'features/overall-balance/components/overall-balance/hooks/useCalculateOverallBalance';
 import { useIsScreenSize } from 'hooks/screenSize.hooks';
@@ -51,21 +50,14 @@ export default function OverallBalance({
     return (
         <>
             <div className={styles.container}>
-                <Tooltip
-                    position="bottom"
-                    open={!isModalOpen}
-                    openDelay={200}
-                    text={`${fullTitle}. Click to see details`}
-                >
-                    <Chip
-                        title={title}
-                        variant="outlined"
-                        size="big"
-                        titleVariant="subtitle1"
-                        className={styles.chip}
-                        onClick={openModal}
-                    />
-                </Tooltip>
+                <Chip
+                    title={title}
+                    variant="outlined"
+                    size="big"
+                    titleVariant="subtitle1"
+                    className={styles.chip}
+                    onClick={openModal}
+                />
             </div>
 
             <Modal

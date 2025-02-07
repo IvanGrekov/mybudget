@@ -6,7 +6,6 @@ import {
 } from 'components/button/types/buttonProps';
 import { IDividerProps } from 'components/divider/types/dividerProps';
 import { ISpacingProps } from 'components/spacing/types/spacingProps';
-import { TTooltipPosition } from 'components/tooltip/types/tooltipProps';
 
 export type TMenuActionItemProps = Pick<
     IButtonProps,
@@ -20,10 +19,8 @@ type TElement = ReactElement<
 export interface IMenuProps {
     children: TElement | Array<TElement | boolean>;
     OpenMenuElement?: JSX.Element;
-    tooltipPosition?: TTooltipPosition;
     iconSize?: IIconButtonProps['iconSize'];
     className?: string;
-    tooltipClassName?: string;
     actionsClassName?: string;
     actionsActiveClassName?: string;
 }

@@ -9,16 +9,13 @@ import styles from 'components/menu/Menu.module.scss';
 import MenuActions from 'components/menu/MenuActions';
 import { useMenu } from 'components/menu/hooks/useMenu';
 import { IMenuProps } from 'components/menu/types/menuProps';
-import Tooltip from 'components/tooltip/Tooltip';
 import { useBodyScrollLock } from 'hooks/useBodyScrollLock';
 
 export default function Menu({
     children,
     OpenMenuElement,
-    tooltipPosition,
     iconSize,
     className,
-    tooltipClassName,
     actionsClassName,
     actionsActiveClassName,
 }: IMenuProps): JSX.Element {
@@ -53,21 +50,14 @@ export default function Menu({
                 className={cx(styles.menu, className)}
                 onClick={onWrapperClick}
             >
-                <Tooltip
-                    text="Open Menu"
-                    open={!isOpen}
-                    position={tooltipPosition}
-                    openDelay={200}
-                    className={tooltipClassName}
-                >
-                    {OpenMenuElementWithOnClick || (
-                        <IconButton
-                            Icon={MoreIcon}
-                            onClick={onClick}
-                            iconSize={iconSize}
-                        />
-                    )}
-                </Tooltip>
+                {OpenMenuElementWithOnClick || (
+                    <IconButton
+                        title="Open menu"
+                        Icon={MoreIcon}
+                        onClick={onClick}
+                        iconSize={iconSize}
+                    />
+                )}
 
                 {!!OpenMenuElementWithOnClick && (
                     <button
