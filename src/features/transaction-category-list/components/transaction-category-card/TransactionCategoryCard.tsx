@@ -8,9 +8,9 @@ import Show from 'components/show/Show';
 import Spacing from 'components/spacing/Spacing';
 import SubcategoriesTogglerWrapper from 'components/subcategories-toggler-wrapper/SubcategoriesTogglerWrapper';
 import Typography from 'components/typography/Typography';
+import ChangeTransactionCategoryCurrencyModal from 'features/change-transaction-category-currency-modal/components/change-transaction-category-currency-modal/ChangeTransactionCategoryCurrencyModal';
+import DeleteTransactionCategoryModal from 'features/delete-transaction-category-modal/components/delete-transaction-category-modal/DeleteTransactionCategoryModal';
 import EditTransactionCategoryModal from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/EditTransactionCategoryModal';
-import ChangeCategoryCurrencyModal from 'features/transaction-category-list/components/change-currency-modal/ChangeCategoryCurrencyModal';
-import DeleteTransactionCategoryModal from 'features/transaction-category-list/components/delete-transaction-category-modal/DeleteTransactionCategoryModal';
 import Subcategories from 'features/transaction-category-list/components/transaction-category-card/Subcategories';
 import styles from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { useIsMobile } from 'hooks/screenSize.hooks';
@@ -100,7 +100,7 @@ export default function TransactionCategoryCard({
                 onClose={closeEditModal}
             />
 
-            <ChangeCategoryCurrencyModal
+            <ChangeTransactionCategoryCurrencyModal
                 id={id}
                 type={type}
                 name={name}

@@ -5,6 +5,7 @@ import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
+import AccountMenu from 'features/account-details/components/account-menu/AccountMenu';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
 import { Account, AccountStatusEnum } from 'types/generated.types';
 import { getColorForAccountTypeChip } from 'utils/getColorForAccountTypeChip';
@@ -48,14 +49,7 @@ export default function AccountDetails({
                             />
                         </div>
                     }
-                    // actions={
-                    //     <BaseEntityMenu
-                    //         detailsPath={`${EAppRoutes.Accounts}/${id}`}
-                    //         openEditModal={openEditAccountModal}
-                    //         openChangeCurrencyModal={openChangeCurrencyModal}
-                    //         openDeleteModal={openDeleteModal}
-                    //     />
-                    // }
+                    actions={<AccountMenu account={account} />}
                 />
             </Card>
 
