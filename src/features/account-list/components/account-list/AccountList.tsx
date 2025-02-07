@@ -48,13 +48,13 @@ export default function AccountList(): JSX.Element {
                         ))}
                     </ul>
 
-                    <Button
-                        text="Reorder accounts"
-                        variant="contained"
-                        href={EAppRoutes.AccountsReordering}
-                        style={{ width: '100%' }}
-                        linkClassName={styles.action}
-                    />
+                    <div className={styles['action-wrapper']}>
+                        <Button
+                            text="Reorder accounts"
+                            variant="contained"
+                            href={EAppRoutes.AccountsReordering}
+                        />
+                    </div>
                 </>
             )}
         </div>

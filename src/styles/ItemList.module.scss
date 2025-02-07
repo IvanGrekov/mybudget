@@ -33,8 +33,14 @@
     }
 }
 
-.action {
-    width: auto;
+.action-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    button,
+    a {
+        width: 100%;
+    }
 }
 
 .end-message {

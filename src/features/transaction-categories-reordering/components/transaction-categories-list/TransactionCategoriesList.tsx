@@ -89,6 +89,7 @@ export default function TransactionCategoriesList(): JSX.Element {
                             (activeItem.children ? (
                                 <TransactionCategoryCard
                                     transactionCategory={activeItem}
+                                    isDragging={true}
                                 />
                             ) : (
                                 <Card>

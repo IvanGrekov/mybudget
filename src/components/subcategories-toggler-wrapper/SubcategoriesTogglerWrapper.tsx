@@ -22,8 +22,8 @@ export default function SubcategoriesTogglerWrapper({
     return (
         <div>
             <div
-                className={cx(styles['subcategories-toggle-button'], {
-                    [styles['subcategories-toggle-button--active']]:
+                className={cx(styles['subcategories-toggler'], {
+                    [styles['subcategories-toggler--active']]:
                         areSubcategoriesVisible,
                 })}
             >

@@ -3,6 +3,7 @@ import cx from 'classnames';
 
 import styles from 'components/droppable-container/DroppableContainer.module.scss';
 import DropIcon from 'components/icons/DropIcon';
+import EyeIcon from 'components/icons/EyeIcon';
 import { DROP_PLACEHOLDER_ID } from 'constants/dropPlaceholderId';
 
 interface IDroppableContainerProps {
@@ -17,33 +18,44 @@ export default function DroppableContainer({
         data: { parentId },
     });
 
+    if (active?.id === parentId) {
+        return (
+            <div className={styles.container}>
+                <EyeIcon size="extraSmall" />
+            </div>
+        );
+    }
+
+    let isDisabled = false;
+
     if (!active || active.id === parentId) {
-        return null;
+        isDisabled = true;
     }
 
     const isActiveWithChildren =
-        !!active.data.current &&
+        !!active?.data.current &&
         'hasChildren' in active.data.current &&
         !!active.data.current.hasChildren;
 
     if (isActiveWithChildren) {
-        return null;
+        isDisabled = true;
     }
 
     const isActiveChild =
-        !!active.data.current &&
+        !!active?.data.current &&
         'isChild' in active.data.current &&
         active.data.current.isChild;
 
     if (isActiveChild) {
-        return null;
+        isDisabled = true;
     }
 
     return (
         <div
             ref={setNodeRef}
             className={cx(styles.container, {
-                [styles['container--active']]: isOver,
+                [styles['container--active']]: isOver && !isDisabled,
+                [styles['container--disabled']]: isDisabled,
             })}
         >
             <DropIcon size="extraSmall" />

@@ -11,4 +11,10 @@
     &--active {
         background-color: var(--foreground-opacity);
     }
+
+    &--disabled {
+        svg {
+            fill: var(--disabled-drop-zone);
+        }
+    }
 }

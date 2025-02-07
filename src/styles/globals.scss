@@ -67,6 +67,7 @@
     --foreground: rgb(var(--dark-rgb));
     --foreground-opacity: rgba(var(--dark-rgb), var(--base-opacity));
     --foreground-invisible: rgba(var(--dark-rgb), 0.15);
+    --disabled-drop-zone: rgba(var(--dark-rgb), 0.1);
 
     --backdrop: linear-gradient(
         255deg,
@@ -87,6 +88,7 @@
     --foreground: rgb(var(--light-rgb));
     --foreground-opacity: rgba(var(--light-rgb), var(--base-opacity));
     --foreground-invisible: rgba(var(--light-rgb), 0.15);
+    --disabled-drop-zone: rgba(var(--light-rgb), 0.1);
 
     --backdrop: linear-gradient(
         255deg,

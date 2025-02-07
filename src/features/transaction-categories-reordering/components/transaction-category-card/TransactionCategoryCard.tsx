@@ -66,9 +66,11 @@ export default function TransactionCategoryCard({
             </Show>
 
             {/* NOTE: To drop as child */}
-            <SortableContext items={[]} id={String(id)}>
-                <DroppableContainer parentId={id} />
-            </SortableContext>
+            <Show when={!isDragging}>
+                <SortableContext items={[]} id={String(id)}>
+                    <DroppableContainer parentId={id} />
+                </SortableContext>
+            </Show>
         </Card>
     );
 }

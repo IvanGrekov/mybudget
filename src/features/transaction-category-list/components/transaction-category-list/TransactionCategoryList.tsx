@@ -57,13 +57,13 @@ export default function TransactionCategoryList({
                         ))}
                     </ul>
 
-                    <Button
-                        text="Reorder transaction categories"
-                        variant="contained"
-                        href={EAppRoutes.TransactionCategoriesReordering}
-                        style={{ width: '100%' }}
-                        linkClassName={styles.action}
-                    />
+                    <div className={styles['action-wrapper']}>
+                        <Button
+                            text="Reorder transaction categories"
+                            variant="contained"
+                            href={EAppRoutes.TransactionCategoriesReordering}
+                        />
+                    </div>
                 </>
             )}
         </div>
