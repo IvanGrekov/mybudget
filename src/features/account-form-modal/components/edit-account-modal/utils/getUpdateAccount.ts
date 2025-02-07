@@ -12,6 +12,8 @@ export const getUpdateAccount: TGetUpdateAccount = (updatedAccount) => {
         shouldHideFromOverallBalance,
         shouldShowAsIncome,
         shouldShowAsExpense,
+        iconName,
+        iconColor,
     } = updatedAccount;
 
     return (account) => {
@@ -24,6 +26,8 @@ export const getUpdateAccount: TGetUpdateAccount = (updatedAccount) => {
                 shouldHideFromOverallBalance,
                 shouldShowAsIncome,
                 shouldShowAsExpense,
+                iconName,
+                iconColor,
             };
         }
 

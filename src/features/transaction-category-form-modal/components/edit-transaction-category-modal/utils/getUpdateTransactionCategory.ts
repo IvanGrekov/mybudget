@@ -52,7 +52,7 @@ export const getUpdateTransactionCategory: TGetUpdateTransactionCategory = ({
     isActivating,
     parentId,
 }) => {
-    const { status, name } = updatedTransactionCategory;
+    const { status, name, iconName, iconColor } = updatedTransactionCategory;
 
     return (transactionCategory) => {
         if (transactionCategory?.id === updatedTransactionCategory.id) {
@@ -60,6 +60,8 @@ export const getUpdateTransactionCategory: TGetUpdateTransactionCategory = ({
                 ...transactionCategory,
                 status,
                 name,
+                iconName,
+                iconColor,
             };
         }
 
