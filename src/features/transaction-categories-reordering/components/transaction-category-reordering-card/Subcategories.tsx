@@ -1,8 +1,8 @@
 import { SortableContext } from '@dnd-kit/sortable';
 
 import DragDropListItem from 'components/drag-drop-list-item/DragDropListItem';
-import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-card/SubcategoryItem';
-import styles from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard.module.scss';
+import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/SubcategoryItem';
+import styles from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/TransactionCategoryReorderingCard.module.scss';
 import { TransactionCategory } from 'types/generated.types';
 import { Maybe } from 'types/utility.types';
 

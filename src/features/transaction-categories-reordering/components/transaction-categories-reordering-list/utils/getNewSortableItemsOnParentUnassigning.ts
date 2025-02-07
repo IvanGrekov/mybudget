@@ -1,4 +1,4 @@
-import { TOP_SUFFIX } from 'features/transaction-categories-reordering/components/transaction-categories-list/constants/rootDroppableContainerSuffixes';
+import { TOP_SUFFIX } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/constants/rootDroppableContainerSuffixes';
 import { TransactionCategory } from 'types/generated.types';
 
 interface IGetNewSortableItemsOnParentUnassigningArgs {

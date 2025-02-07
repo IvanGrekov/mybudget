@@ -7,12 +7,12 @@ import { reorderTransactionCategories } from 'actions/reorderTransactionCategori
 import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import { ROOT_CONTAINER_ID } from 'constants/dragDrop.constants';
 import { DROP_PLACEHOLDER_ID } from 'constants/dropPlaceholderId';
-import { getNewSortableItemsOnParentAssigning } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentAssigning';
-import { getNewSortableItemsOnParentChanging } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentChanging';
-import { getNewSortableItemsOnParentUnassigning } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnParentUnassigning';
-import { getNewSortableItemsOnRootReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnRootReordering';
-import { getNewSortableItemsOnSubcategoryReordering } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getNewSortableItemsOnSubcategoryReordering';
-import { getReorderParentTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/utils/getReorderParentTransactionCategories';
+import { getNewSortableItemsOnParentAssigning } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/utils/getNewSortableItemsOnParentAssigning';
+import { getNewSortableItemsOnParentChanging } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/utils/getNewSortableItemsOnParentChanging';
+import { getNewSortableItemsOnParentUnassigning } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/utils/getNewSortableItemsOnParentUnassigning';
+import { getNewSortableItemsOnRootReordering } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/utils/getNewSortableItemsOnRootReordering';
+import { getNewSortableItemsOnSubcategoryReordering } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/utils/getNewSortableItemsOnSubcategoryReordering';
+import { getReorderParentTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/utils/getReorderParentTransactionCategories';
 import {
     useAddSuccessMessageToNotifications,
     useAddErrorMessageToNotifications,

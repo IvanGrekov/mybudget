@@ -6,7 +6,7 @@ import Show from 'components/show/Show';
 import DragDropContext from 'contexts/DragDropContext';
 import AccountListTabs from 'features/account-list-tabs/components/account-list-tabs/AccountListTabs';
 import { useAccountListCurrentTab } from 'features/account-list-tabs/hooks/useAccountListCurrentTab';
-import AccountCard from 'features/accounts-reordering/components/account-card/AccountCard';
+import AccountReorderingCard from 'features/accounts-reordering/components/account-reordering-card/AccountReorderingCard';
 import AccountReorderingListHeader from 'features/accounts-reordering/components/account-reordering-list/AccountReorderingListHeader';
 import { useSortableAccounts } from 'features/accounts-reordering/components/account-reordering-list/hooks/useSortableAccounts';
 import styles from 'styles/ItemList.module.scss';
@@ -47,7 +47,7 @@ export default function AccountReorderingList(): JSX.Element {
                 >
                     <ul className={styles['grid-list']}>
                         {sortableItems.map((account) => (
-                            <AccountCard
+                            <AccountReorderingCard
                                 key={account.id}
                                 account={account}
                                 isLoading={isEditOrderLoading}

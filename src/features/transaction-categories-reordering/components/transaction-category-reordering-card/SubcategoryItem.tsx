@@ -2,7 +2,7 @@ import EntityIcon from 'components/entity-icon/EntityIcon';
 import DragIcon from 'components/icons/DragIcon';
 import Tooltip from 'components/tooltip/Tooltip';
 import Typography from 'components/typography/Typography';
-import styles from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard.module.scss';
+import styles from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/TransactionCategoryReorderingCard.module.scss';
 import { TransactionCategory } from 'types/generated.types';
 
 interface ISampleComponentProps {

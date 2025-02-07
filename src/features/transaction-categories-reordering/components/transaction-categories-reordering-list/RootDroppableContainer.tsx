@@ -7,7 +7,7 @@ import { DROP_PLACEHOLDER_ID } from 'constants/dropPlaceholderId';
 import {
     TOP_SUFFIX,
     BOTTOM_SUFFIX,
-} from 'features/transaction-categories-reordering/components/transaction-categories-list/constants/rootDroppableContainerSuffixes';
+} from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/constants/rootDroppableContainerSuffixes';
 
 interface IRootDroppableContainerProps {
     isTop?: boolean;

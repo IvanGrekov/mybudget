@@ -11,21 +11,21 @@ import DragIcon from 'components/icons/DragIcon';
 import Show from 'components/show/Show';
 import Subcategories, {
     SortableSubcategories,
-} from 'features/transaction-categories-reordering/components/transaction-category-card/Subcategories';
-import styles from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard.module.scss';
+} from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/Subcategories';
+import styles from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/TransactionCategoryReorderingCard.module.scss';
 import { TransactionCategory } from 'types/generated.types';
 
-interface ITransactionCategoryCardProps {
+interface ITransactionCategoryReorderingCardProps {
     transactionCategory: TransactionCategory;
     isLoading?: boolean;
     isDragging?: boolean;
 }
 
-export default function TransactionCategoryCard({
+export default function TransactionCategoryReorderingCard({
     transactionCategory,
     isLoading,
     isDragging,
-}: ITransactionCategoryCardProps): JSX.Element {
+}: ITransactionCategoryReorderingCardProps): JSX.Element {
     const { id, name, iconName, iconColor, children } = transactionCategory;
 
     return (

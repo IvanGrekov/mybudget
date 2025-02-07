@@ -3,13 +3,13 @@ import HeaderChip from 'components/header-chip/HeaderChip';
 import styles from 'styles/ItemList.module.scss';
 import { EAppRoutes } from 'types/appRoutes';
 
-interface ITransactionCategoriesListProps {
+interface ITransactionCategoriesReorderingListHeaderProps {
     isBackButtonDisabled?: boolean;
 }
 
-export default function TransactionCategoriesListHeader({
+export default function TransactionCategoriesReorderingListHeader({
     isBackButtonDisabled,
-}: ITransactionCategoriesListProps): JSX.Element {
+}: ITransactionCategoriesReorderingListHeaderProps): JSX.Element {
     return (
         <div className={styles.header}>
             <BackButton

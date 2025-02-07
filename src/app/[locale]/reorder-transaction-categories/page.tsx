@@ -5,7 +5,7 @@ import { headers } from 'next/headers';
 import Container from 'components/container/Container';
 import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
 import { URL_HEADER } from 'constants/headers';
-import TransactionCategoriesList from 'features/transaction-categories-reordering/components/transaction-categories-list/TransactionCategoriesList';
+import TransactionCategoriesReorderingList from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/TransactionCategoriesReorderingList';
 import { getTransactionCategoryListCurrentTabFromUrl } from 'features/transaction-category-list-tabs/utils/transactionCategoryListCurrentTab.utils';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { IWithLocaleParamProps } from 'types/pageProps';
@@ -52,7 +52,7 @@ export default async function ReorderTransactionCategoriesPage(): Promise<JSX.El
     return (
         <Container>
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <TransactionCategoriesList />
+                <TransactionCategoriesReorderingList />
             </HydrationBoundary>
         </Container>
     );

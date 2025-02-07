@@ -8,16 +8,16 @@ import LinearProgress from 'components/linear-progress/LinearProgress';
 import Show from 'components/show/Show';
 import TransactionCategoriesEmptyState from 'components/transaction-categories-empty-state/TransactionCategoriesEmptyState';
 import DragDropContext from 'contexts/DragDropContext';
-import RootDroppableContainer from 'features/transaction-categories-reordering/components/transaction-categories-list/RootDroppableContainer';
-import TransactionCategoriesListHeader from 'features/transaction-categories-reordering/components/transaction-categories-list/TrancactionCategoriesListHeader';
-import { useSortableTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-list/hooks/useSortableTransactionCategories';
-import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-card/SubcategoryItem';
-import TransactionCategoryCard from 'features/transaction-categories-reordering/components/transaction-category-card/TransactionCategoryCard';
+import RootDroppableContainer from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/RootDroppableContainer';
+import TransactionCategoriesReorderingListHeader from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/TransactionCategoriesReorderingListHeader';
+import { useSortableTransactionCategories } from 'features/transaction-categories-reordering/components/transaction-categories-reordering-list/hooks/useSortableTransactionCategories';
+import SubcategoryItem from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/SubcategoryItem';
+import TransactionCategoryReorderingCard from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/TransactionCategoryReorderingCard';
 import TransactionCategoryListTabs from 'features/transaction-category-list-tabs/components/transaction-category-list-tabs/TransactionCategoryListTabs';
 import { useTransactionCategoryListCurrentTab } from 'features/transaction-category-list-tabs/hooks/useTransactionCategoryListCurrentTab';
 import styles from 'styles/ItemList.module.scss';
 
-export default function TransactionCategoriesList(): JSX.Element {
+export default function TransactionCategoriesReorderingList(): JSX.Element {
     const type = useTransactionCategoryListCurrentTab();
     const {
         sortableItems,
@@ -32,7 +32,7 @@ export default function TransactionCategoriesList(): JSX.Element {
 
     return (
         <div className={styles.container}>
-            <TransactionCategoriesListHeader
+            <TransactionCategoriesReorderingListHeader
                 isBackButtonDisabled={isEditOrderLoading}
             />
 
@@ -74,7 +74,7 @@ export default function TransactionCategoriesList(): JSX.Element {
                                     !!transactionCategory.children?.length
                                 }
                             >
-                                <TransactionCategoryCard
+                                <TransactionCategoryReorderingCard
                                     transactionCategory={transactionCategory}
                                     isLoading={isEditOrderLoading}
                                 />
@@ -87,7 +87,7 @@ export default function TransactionCategoriesList(): JSX.Element {
                         {activeItem &&
                             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                             (activeItem.children ? (
-                                <TransactionCategoryCard
+                                <TransactionCategoryReorderingCard
                                     transactionCategory={activeItem}
                                     isDragging={true}
                                 />

@@ -6,15 +6,15 @@ import EntityIcon from 'components/entity-icon/EntityIcon';
 import DragIcon from 'components/icons/DragIcon';
 import { Account } from 'types/generated.types';
 
-interface IAccountCardProps {
+interface IAccountReorderingCardProps {
     account: Account;
     isLoading: boolean;
 }
 
-export default function AccountCard({
+export default function AccountReorderingCard({
     account,
     isLoading,
-}: IAccountCardProps): JSX.Element {
+}: IAccountReorderingCardProps): JSX.Element {
     const { name, id, iconName, iconColor } = account;
 
     return (
