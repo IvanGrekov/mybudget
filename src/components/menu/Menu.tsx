@@ -57,7 +57,7 @@ export default function Menu({
                     text="Open Menu"
                     open={!isOpen}
                     position={tooltipPosition}
-                    openDelay={250}
+                    openDelay={200}
                     className={tooltipClassName}
                 >
                     {OpenMenuElementWithOnClick || (

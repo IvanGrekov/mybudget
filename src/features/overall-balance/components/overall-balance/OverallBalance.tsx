@@ -53,6 +53,8 @@ export default function OverallBalance({
             <div className={styles.container}>
                 <Tooltip
                     position="bottom"
+                    open={!isModalOpen}
+                    openDelay={200}
                     text={`${fullTitle}. Click to see details`}
                 >
                     <Chip
