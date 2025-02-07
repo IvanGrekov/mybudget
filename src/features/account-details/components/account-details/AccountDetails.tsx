@@ -1,9 +1,9 @@
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
-import CardTitle from 'components/card/CardTitle';
 import { IChipProps } from 'components/chip/types/chipProps';
 import EmptyState from 'components/empty-state/EmptyState';
 import EntityChipList from 'components/entity-chip-list/EntityChipList';
+import Typography from 'components/typography/Typography';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
 import AccountMenu from 'features/account-details/components/account-menu/AccountMenu';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
@@ -41,12 +41,9 @@ export default function AccountDetails({
                         <div className={styles['header-title-wrapper']}>
                             <EntityChipList items={chips} />
 
-                            <CardTitle
-                                title={`Balance: ${roundValue(
-                                    balance,
-                                )} ${currency}`}
-                                titleVariant="h6"
-                            />
+                            <Typography variant="h6" element="h3">
+                                {roundValue(balance)} {currency}
+                            </Typography>
                         </div>
                     }
                     actions={<AccountMenu account={account} />}
