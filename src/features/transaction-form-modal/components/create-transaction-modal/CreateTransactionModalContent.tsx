@@ -7,6 +7,7 @@ import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
 import CreateTransactionFormContent from 'features/transaction-form-modal/components/create-transaction-form-content/CreateTransactionFormContent';
 import { CREATE_TRANSACTION_FORM_VALIDATION } from 'features/transaction-form-modal/components/create-transaction-modal/constants/createTransactionFormValidation';
 import { useCreateTransaction } from 'features/transaction-form-modal/components/create-transaction-modal/hooks/useCreateTransaction';
+import { ICreateTransactionModalDataProps } from 'features/transaction-form-modal/components/create-transaction-modal/types/createTransactionModalDataProps';
 import { getDefaultType } from 'features/transaction-form-modal/components/create-transaction-modal/utils/getDefaultType';
 import { validateFormValuesOnSubmit } from 'features/transaction-form-modal/components/create-transaction-modal/utils/validateFormValuesOnSubmit';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
@@ -18,7 +19,8 @@ import {
 } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
-interface ICreateTransactionModalContentProps {
+interface ICreateTransactionModalContentProps
+    extends ICreateTransactionModalDataProps {
     userId: number;
     defaultType?: TransactionTypeEnum;
     refetchTransactionList: VoidFunction;
@@ -32,6 +34,7 @@ export default function CreateTransactionModalContent({
     refetchTransactionList,
     hideModal,
     onCloseModal,
+    ...dataProps
 }: ICreateTransactionModalContentProps): JSX.Element {
     const addErrorMessage = useAddErrorMessageToNotifications();
 
@@ -95,7 +98,7 @@ export default function CreateTransactionModalContent({
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <CreateTransactionFormContent />
+                <CreateTransactionFormContent {...dataProps} />
 
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />

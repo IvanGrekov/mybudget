@@ -19,7 +19,7 @@ interface IAccountDetailsProps {
 export default function AccountDetails({
     account,
 }: IAccountDetailsProps): JSX.Element {
-    const { id, status, balance, currency, type } = account;
+    const { status, balance, currency, type } = account;
 
     if (status === AccountStatusEnum.ARCHIVED) {
         return <EmptyState text="Account is archived" />;
@@ -50,7 +50,7 @@ export default function AccountDetails({
                 />
             </Card>
 
-            <EntityTransactionList selectedAccountId={id} />
+            <EntityTransactionList selectedAccount={account} />
         </>
     );
 }

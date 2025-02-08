@@ -21,7 +21,7 @@ interface ITransactionCategoryDetailsProps {
 export default function TransactionCategoryDetails({
     transactionCategory,
 }: ITransactionCategoryDetailsProps): JSX.Element {
-    const { id, status, type, currency, children } = transactionCategory;
+    const { status, type, currency, children } = transactionCategory;
 
     if (status === TransactionCategoryStatusEnum.ARCHIVED) {
         return <EmptyState text="Transaction Category is archived" />;
@@ -60,7 +60,9 @@ export default function TransactionCategoryDetails({
                 )}
             </Card>
 
-            <EntityTransactionList selectedCategoryId={id} />
+            <EntityTransactionList
+                selectedTransactionCategory={transactionCategory}
+            />
         </>
     );
 }

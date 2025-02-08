@@ -1,8 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import Show from 'components/show/Show';
-import { useExchangeRatesContext } from 'contexts/ExchangeRatesContext';
 import CurrencyRateField from 'features/transaction-form-modal/components/create-transaction-form-content/CurrencyRateField';
 import DescriptionField from 'features/transaction-form-modal/components/create-transaction-form-content/DescriptionField';
 import FeeField from 'features/transaction-form-modal/components/create-transaction-form-content/FeeField';
@@ -13,13 +12,18 @@ import ToCategoryField from 'features/transaction-form-modal/components/create-t
 import TransactionCurrencyContainer from 'features/transaction-form-modal/components/create-transaction-form-content/TransactionCurrencyContainer';
 import TypeField from 'features/transaction-form-modal/components/create-transaction-form-content/TypeField';
 import ValueField from 'features/transaction-form-modal/components/create-transaction-form-content/ValueField';
+import { useHandleCurrencyChange } from 'features/transaction-form-modal/components/create-transaction-form-content/hooks/useHandleCurrencyChange';
+import { useHandleTransactionTypeChange } from 'features/transaction-form-modal/components/create-transaction-form-content/hooks/useHandleTransactionTypeChange';
 import { getShouldShowCurrencyRateField } from 'features/transaction-form-modal/components/create-transaction-form-content/utils/getShouldShowCurrencyRateField';
+import { ICreateTransactionModalDataProps } from 'features/transaction-form-modal/components/create-transaction-modal/types/createTransactionModalDataProps';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import styles from 'styles/Form.module.scss';
 import { CreateTransactionDtoTypeEnum } from 'types/generated.types';
-import { changeExchangeRatesBaseCurrency } from 'utils/changeExchangeRatesBaseCurrency';
 
-export default function CreateTransactionFormContent(): JSX.Element {
+export default function CreateTransactionFormContent({
+    defaultAccount,
+    defaultTransactionCategory,
+}: ICreateTransactionModalDataProps): JSX.Element {
     const { watch, setValue, clearErrors } =
         useFormContext<TCreateTransactionFormValues>();
 
@@ -27,45 +31,26 @@ export default function CreateTransactionFormContent(): JSX.Element {
     const fromAccount = watch('fromAccount');
     const toAccount = watch('toAccount');
     const fromCategory = watch('fromCategory');
+    const toCategory = watch('toCategory');
 
-    const toCurrency = toAccount?.currency;
-    const baseExchangeRates = useExchangeRatesContext(toCurrency);
+    useHandleTransactionTypeChange({
+        defaultAccount,
+        defaultTransactionCategory,
+        transactionType,
+        fromAccount,
+        toAccount,
+        fromCategory,
+        toCategory,
+        setValue,
+        clearErrors,
+    });
 
-    useEffect(() => {
-        switch (transactionType) {
-            case CreateTransactionDtoTypeEnum.EXPENSE:
-                setValue('toAccount', null);
-                setValue('fromCategory', null);
-                clearErrors(['toAccount', 'fromCategory']);
-                break;
-            case CreateTransactionDtoTypeEnum.INCOME:
-                setValue('fromAccount', null);
-                setValue('toCategory', null);
-                clearErrors(['fromAccount', 'toCategory']);
-                break;
-            case CreateTransactionDtoTypeEnum.TRANSFER:
-                setValue('fromCategory', null);
-                setValue('toCategory', null);
-                clearErrors(['fromCategory', 'toCategory']);
-                break;
-        }
-    }, [transactionType, setValue, clearErrors]);
-
-    useEffect(() => {
-        const fromCurrency = fromAccount?.currency || fromCategory?.currency;
-
-        if (fromCurrency && toCurrency && fromCurrency !== toCurrency) {
-            const exchangeRates = changeExchangeRatesBaseCurrency({
-                prevBaseCurrency: toCurrency,
-                newBaseCurrency: fromCurrency,
-                exchangeRates: baseExchangeRates,
-            });
-
-            setValue('currencyRate', exchangeRates[toCurrency]);
-        } else {
-            setValue('currencyRate', null);
-        }
-    }, [fromAccount, fromCategory, toCurrency, baseExchangeRates, setValue]);
+    useHandleCurrencyChange({
+        toAccount,
+        fromAccount,
+        fromCategory,
+        setValue,
+    });
 
     const shouldShowCurrencyRateField = useMemo(
         () =>
