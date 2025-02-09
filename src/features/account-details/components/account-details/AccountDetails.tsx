@@ -30,6 +30,9 @@ export default function AccountDetails({
             title: getCapitalizedEnumValue(type),
             color: getColorForAccountTypeChip(type),
         },
+        {
+            title: `Currency: ${currency}`,
+        },
     ];
 
     return (

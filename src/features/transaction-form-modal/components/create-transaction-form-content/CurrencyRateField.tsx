@@ -3,7 +3,7 @@ import {
     TRANSACTION_FORM_FIELD_NAMES,
     TRANSACTION_FORM_FIELD_LABELS,
 } from 'features/transaction-form-modal/constants/transactionForm.constants';
-import { roundValue } from 'utils/roundValue';
+import { roundCurrencyRate } from 'utils/roundCurrencyRate';
 
 export default function CurrencyRateField(): JSX.Element {
     return (
@@ -12,7 +12,7 @@ export default function CurrencyRateField(): JSX.Element {
             label={TRANSACTION_FORM_FIELD_LABELS.currencyRate}
             type="number"
             disabled={true}
-            formatValue={roundValue}
+            formatValue={roundCurrencyRate}
         />
     );
 }

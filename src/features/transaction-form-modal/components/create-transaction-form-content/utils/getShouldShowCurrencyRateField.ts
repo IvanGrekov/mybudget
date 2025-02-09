@@ -3,12 +3,12 @@ import { TCreateTransactionFormValues } from 'features/transaction-form-modal/ty
 type TGetShouldShowCurrencyRateField = (
     args: Pick<
         TCreateTransactionFormValues,
-        'fromAccount' | 'toAccount' | 'fromCategory'
+        'fromAccount' | 'toAccount' | 'fromCategory' | 'toCategory'
     >,
 ) => boolean;
 
 export const getShouldShowCurrencyRateField: TGetShouldShowCurrencyRateField =
-    ({ fromAccount, toAccount, fromCategory }) => {
+    ({ fromAccount, toAccount, fromCategory, toCategory }) => {
         if (
             fromAccount &&
             toAccount &&
@@ -21,6 +21,14 @@ export const getShouldShowCurrencyRateField: TGetShouldShowCurrencyRateField =
             fromCategory &&
             toAccount &&
             fromCategory.currency.toString() !== toAccount.currency.toString()
+        ) {
+            return true;
+        }
+
+        if (
+            fromAccount &&
+            toCategory &&
+            fromAccount.currency !== toCategory.currency.toString()
         ) {
             return true;
         }

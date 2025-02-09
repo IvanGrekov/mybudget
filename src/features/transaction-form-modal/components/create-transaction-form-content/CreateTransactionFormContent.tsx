@@ -46,9 +46,10 @@ export default function CreateTransactionFormContent({
     });
 
     useHandleCurrencyChange({
-        toAccount,
         fromAccount,
+        toAccount,
         fromCategory,
+        toCategory,
         setValue,
     });
 
@@ -58,8 +59,9 @@ export default function CreateTransactionFormContent({
                 fromAccount,
                 toAccount,
                 fromCategory,
+                toCategory,
             }),
-        [fromAccount, toAccount, fromCategory],
+        [fromAccount, toAccount, fromCategory, toCategory],
     );
 
     const isExpense = transactionType === CreateTransactionDtoTypeEnum.EXPENSE;

@@ -6,24 +6,26 @@ import { TCreateTransactionFormValues } from 'features/transaction-form-modal/ty
 import { changeExchangeRatesBaseCurrency } from 'utils/changeExchangeRatesBaseCurrency';
 
 interface IUseHandleTransactionTypeChangeArgs {
-    toAccount: TCreateTransactionFormValues['toAccount'];
     fromAccount: TCreateTransactionFormValues['fromAccount'];
+    toAccount: TCreateTransactionFormValues['toAccount'];
     fromCategory: TCreateTransactionFormValues['fromCategory'];
+    toCategory: TCreateTransactionFormValues['toCategory'];
     setValue: UseFormSetValue<TCreateTransactionFormValues>;
 }
 
 export const useHandleCurrencyChange = ({
-    toAccount,
     fromAccount,
+    toAccount,
     fromCategory,
+    toCategory,
     setValue,
 }: IUseHandleTransactionTypeChangeArgs): void => {
-    const toCurrency = toAccount?.currency;
+    const fromCurrency = fromAccount?.currency || fromCategory?.currency;
+    const toCurrency = toAccount?.currency || toCategory?.currency;
+
     const baseExchangeRates = useExchangeRatesContext(toCurrency);
 
     useEffect(() => {
-        const fromCurrency = fromAccount?.currency || fromCategory?.currency;
-
         if (fromCurrency && toCurrency && fromCurrency !== toCurrency) {
             const exchangeRates = changeExchangeRatesBaseCurrency({
                 prevBaseCurrency: toCurrency,
@@ -35,5 +37,5 @@ export const useHandleCurrencyChange = ({
         } else {
             setValue('currencyRate', null);
         }
-    }, [fromAccount, fromCategory, toCurrency, baseExchangeRates, setValue]);
+    }, [fromCurrency, toCurrency, baseExchangeRates, setValue]);
 };
