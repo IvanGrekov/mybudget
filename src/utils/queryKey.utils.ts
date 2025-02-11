@@ -42,6 +42,22 @@ export const getTransactionsQueryKey = ({
     ];
 };
 
+type TGetCalculatedTransactionValuesQueryKeyArgs = Pick<
+    IGetTransactionsQueryKeyArgs,
+    'accountId' | 'categoryId' | 'from' | 'to'
+>;
+
+export const getCalculatedTransactionValuesQueryKey = (
+    args: TGetCalculatedTransactionValuesQueryKeyArgs,
+): unknown[] => {
+    const { accountId, categoryId, from, to } = args;
+
+    return [
+        EFetchingTags.CALCULATED_TRANSACTION_VALUES,
+        { accountId, categoryId, from, to },
+    ];
+};
+
 interface IGetTransactionCategoriesQueryKeyArgs {
     status?: TransactionCategoryStatusEnum;
     type?: TransactionCategoryTypeEnum;

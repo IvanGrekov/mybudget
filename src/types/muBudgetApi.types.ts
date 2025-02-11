@@ -40,6 +40,11 @@ export interface IGetTransactionsArgs {
     offset?: number;
 }
 
+export type TGetCalculatedTransactionValuesArgs = Pick<
+    IGetTransactionsArgs,
+    'accountId' | 'categoryId' | 'from' | 'to'
+>;
+
 export interface IReorderAccountArgs {
     id: number;
     order: number;

@@ -30,6 +30,7 @@ import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCa
 import {
     getSingleTransactionCategoryQueryKey,
     getTransactionsQueryKey,
+    getCalculatedTransactionValuesQueryKey,
 } from 'utils/queryKey.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
@@ -72,7 +73,6 @@ export default async function TransactionCategoryDetailsPage({
 
     try {
         me = await getMeOnServerSide(queryClient);
-
         category = await queryClient.fetchQuery({
             queryKey: getSingleTransactionCategoryQueryKey(categoryId),
             queryFn: () =>
@@ -108,6 +108,19 @@ export default async function TransactionCategoryDetailsPage({
                 },
             });
 
+            await queryClient.prefetchQuery({
+                queryKey: getCalculatedTransactionValuesQueryKey({
+                    categoryId,
+                    from,
+                    to,
+                }),
+                queryFn: () =>
+                    SERVER_MY_BUDGET_API.getCalculatedTransactionValues({
+                        categoryId,
+                        from,
+                        to,
+                    }),
+            });
             await prefetchAllAccounts(queryClient);
             await prefetchAllTransactionCategories(queryClient);
         }

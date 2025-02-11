@@ -5,6 +5,7 @@ import { Account, Transaction } from 'types/generated.types';
 import {
     getSingleAccountQueryKey,
     getAccountsQueryKey,
+    getCalculatedTransactionValuesQueryKey,
 } from 'utils/queryKey.utils';
 
 type TGetUpdateAccountBalanceInCache = (args: {
@@ -46,6 +47,12 @@ export const updateCacheOnTransactionCreate = ({
 
     queryClient.invalidateQueries({
         queryKey: [EFetchingTags.TRANSACTIONS],
+    });
+
+    queryClient.invalidateQueries({
+        queryKey: getCalculatedTransactionValuesQueryKey({
+            accountId: fromAccount?.id || toAccount?.id,
+        }),
     });
 
     if (typeof fromAccountUpdatedBalance === 'number' && fromAccount) {

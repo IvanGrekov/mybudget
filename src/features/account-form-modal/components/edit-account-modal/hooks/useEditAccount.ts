@@ -17,6 +17,7 @@ import { getSuccessMessage } from 'utils/getSuccessMessage';
 import {
     getSingleAccountQueryKey,
     getAccountsQueryKey,
+    getCalculatedTransactionValuesQueryKey,
 } from 'utils/queryKey.utils';
 
 type TUseEditAccount = (args: {
@@ -94,6 +95,11 @@ export const useEditAccount: TUseEditAccount = ({ account, onCompleted }) => {
             if (isBalanceChanging) {
                 queryClient.invalidateQueries({
                     queryKey: [EFetchingTags.TRANSACTIONS],
+                });
+                queryClient.invalidateQueries({
+                    queryKey: getCalculatedTransactionValuesQueryKey({
+                        accountId: id,
+                    }),
                 });
             }
 

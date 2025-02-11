@@ -62,6 +62,8 @@ export default function TransactionCategoryDetails({
 
             <EntityTransactionList
                 selectedTransactionCategory={transactionCategory}
+                considerFromAsIncome={true}
+                considerToAsExpense={true}
             />
         </>
     );

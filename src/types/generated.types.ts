@@ -186,6 +186,11 @@ export interface EditTransactionCategoryCurrencyDto {
     currency: EditTransactionCategoryCurrencyDtoCurrencyEnum;
 }
 
+export interface CalculatedTransactionValuesDto {
+    to?: string;
+    from?: string;
+}
+
 export interface CreateTransactionDto {
     userId: number;
     fromAccountId?: number;
@@ -1326,6 +1331,30 @@ export class Api<
                 method: 'POST',
                 body: data,
                 type: ContentType.Json,
+                format: 'json',
+                ...params,
+            }),
+
+        /**
+         * No description
+         *
+         * @tags transactions
+         * @name TransactionsControllerGetCalculatedTransactionValues
+         * @request GET:/transactions/calculated-transaction-values
+         */
+        transactionsControllerGetCalculatedTransactionValues: (
+            query?: {
+                accountId?: number;
+                transactionCategoryId?: number;
+                from?: string;
+                to?: string;
+            },
+            params: RequestParams = {},
+        ) =>
+            this.request<CalculatedTransactionValuesDto, any>({
+                path: `/transactions/calculated-transaction-values`,
+                method: 'GET',
+                query: query,
                 format: 'json',
                 ...params,
             }),

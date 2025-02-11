@@ -30,6 +30,7 @@ import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCa
 import {
     getSingleAccountQueryKey,
     getTransactionsQueryKey,
+    getCalculatedTransactionValuesQueryKey,
 } from 'utils/queryKey.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
@@ -106,6 +107,19 @@ export default async function AccountDetailsPage({
                 },
             });
 
+            await queryClient.prefetchQuery({
+                queryKey: getCalculatedTransactionValuesQueryKey({
+                    accountId,
+                    from,
+                    to,
+                }),
+                queryFn: () =>
+                    SERVER_MY_BUDGET_API.getCalculatedTransactionValues({
+                        accountId,
+                        from,
+                        to,
+                    }),
+            });
             await prefetchAllAccounts(queryClient);
             await prefetchAllTransactionCategories(queryClient);
         }

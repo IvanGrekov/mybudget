@@ -4,7 +4,6 @@ import { revalidateTag } from 'next/cache';
 
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { TServerActionResponse } from 'types/apiClient.types';
-import { EFetchingTags } from 'types/fetchingTags';
 import { EditTransactionDto, Transaction } from 'types/generated.types';
 import { getFailedResponse } from 'utils/failedResponse.utils';
 import { getSingleTransactionFetchingTag } from 'utils/fetchingTags.utils';
@@ -19,7 +18,6 @@ export async function editTransaction(
             dto,
         );
 
-        revalidateTag(EFetchingTags.TRANSACTIONS);
         revalidateTag(getSingleTransactionFetchingTag(transactionId));
 
         return result;

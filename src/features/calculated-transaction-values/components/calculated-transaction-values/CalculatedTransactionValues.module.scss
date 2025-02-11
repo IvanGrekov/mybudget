@@ -1,0 +1,40 @@
+@import 'styles/variables.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.calculated-transaction-values,
+.calculated-transaction-value-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.calculated-transaction-values {
+    align-items: center;
+    padding: $spacing-3;
+    border: solid $border-width var(--foreground-invisible);
+    border-radius: $border-radius-xl;
+    cursor: pointer;
+    transition: border-color $base-transition-duration;
+
+    &:hover {
+        border-color: var(--foreground);
+    }
+}
+
+.calculated-transaction-value-items {
+    min-width: 280px;
+    max-width: 600px;
+    overflow: auto;
+
+    @media (max-width: $screen-md) {
+        max-width: 440px;
+    }
+
+    @media (max-width: $screen-sm) {
+        max-width: 280px;
+    }
+}

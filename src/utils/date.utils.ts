@@ -37,10 +37,11 @@ export const getTime = (
 };
 
 export const getDate = (
-    dateInput: string,
+    dateInput: string | Date,
     timeZone?: Maybe<string>,
 ): string => {
-    const date = new Date(dateInput);
+    const date =
+        typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
 
     if (timeZone) {
         return formatInTimeZone(date, timeZone, DATE_FORMAT);

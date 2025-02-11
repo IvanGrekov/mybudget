@@ -12,6 +12,7 @@ import {
     AccountStatusEnum,
     TransactionCategory,
     Transaction,
+    CalculatedTransactionValuesDto,
     CreateAccountDto,
     EditAccountDtoStatusEnum,
     EditAccountDto,
@@ -32,6 +33,7 @@ import {
     IReorderTransactionCategoriesArgs,
     IEditTransactionCategoryCurrency,
     IGetTransactionsArgs,
+    TGetCalculatedTransactionValuesArgs,
 } from 'types/muBudgetApi.types';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import {
@@ -44,6 +46,7 @@ import {
     getTransactionCategoriesFetchingTags,
     getSingleTransactionCategoryFetchingTag,
     getTransactionsFetchingTags,
+    getCalculatedTransactionValuesFetchingTags,
 } from 'utils/fetchingTags.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
@@ -429,7 +432,6 @@ export abstract class MyBudgetApi {
 
         return this.get(url, {
             next: {
-                revalidate: 0,
                 tags: getTransactionsFetchingTags({
                     joinedTypes,
                     accountId,
@@ -438,6 +440,46 @@ export abstract class MyBudgetApi {
                     to,
                     limit,
                     offset,
+                }),
+            },
+        });
+    }
+
+    getCalculatedTransactionValues({
+        accountId,
+        categoryId,
+        from,
+        to,
+    }: TGetCalculatedTransactionValuesArgs): TAsyncApiClientResult<CalculatedTransactionValuesDto> {
+        let url = '/transactions/calculated-transaction-values?';
+
+        if (accountId) {
+            url += url.startsWith('?')
+                ? `accountId=${accountId}`
+                : `&accountId=${accountId}`;
+        }
+
+        if (categoryId) {
+            url += url.startsWith('?')
+                ? `transactionCategoryId=${categoryId}`
+                : `&transactionCategoryId=${categoryId}`;
+        }
+
+        if (from) {
+            url += url.startsWith('?') ? `from=${from}` : `&from=${from}`;
+        }
+
+        if (to) {
+            url += url.startsWith('?') ? `to=${to}` : `&to=${to}`;
+        }
+
+        return this.get(url, {
+            next: {
+                tags: getCalculatedTransactionValuesFetchingTags({
+                    accountId,
+                    categoryId,
+                    from,
+                    to,
                 }),
             },
         });

@@ -7,24 +7,46 @@ import { TServerActionResponse } from 'types/apiClient.types';
 import { EFetchingTags } from 'types/fetchingTags';
 import { CreateTransactionDto, Transaction } from 'types/generated.types';
 import { getFailedResponse } from 'utils/failedResponse.utils';
-import { getSingleAccountFetchingTag } from 'utils/fetchingTags.utils';
+import {
+    getCalculatedTransactionValuesFetchingTags,
+    getSingleAccountFetchingTag,
+    getSingleTransactionCategoryFetchingTag,
+} from 'utils/fetchingTags.utils';
 
 export async function createTransaction(
     dto: CreateTransactionDto,
 ): TServerActionResponse<Transaction> {
     try {
-        const { fromAccountId, toAccountId } = dto;
+        const { fromAccountId, toAccountId, fromCategoryId, toCategoryId } =
+            dto;
 
         const result = await SERVER_MY_BUDGET_API.createTransaction(dto);
 
         revalidateTag(EFetchingTags.TRANSACTIONS);
 
+        getCalculatedTransactionValuesFetchingTags({
+            accountId: fromAccountId || toAccountId,
+            categoryId: fromCategoryId || toCategoryId,
+        }).forEach(revalidateTag);
+
         if (fromAccountId) {
             revalidateTag(getSingleAccountFetchingTag(fromAccountId));
         }
 
+        if (fromCategoryId) {
+            revalidateTag(
+                getSingleTransactionCategoryFetchingTag(fromCategoryId),
+            );
+        }
+
         if (toAccountId) {
             revalidateTag(getSingleAccountFetchingTag(toAccountId));
+        }
+
+        if (toCategoryId) {
+            revalidateTag(
+                getSingleTransactionCategoryFetchingTag(toCategoryId),
+            );
         }
 
         if (fromAccountId || toAccountId) {

@@ -7,7 +7,11 @@ import Typography from 'components/typography/Typography';
 import styles from 'features/account-details/components/account-details/AccountDetails.module.scss';
 import AccountMenu from 'features/account-details/components/account-menu/AccountMenu';
 import EntityTransactionList from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList';
-import { Account, AccountStatusEnum } from 'types/generated.types';
+import {
+    Account,
+    AccountStatusEnum,
+    AccountTypeEnum,
+} from 'types/generated.types';
 import { getColorForAccountTypeChip } from 'utils/getColorForAccountTypeChip';
 import { roundValue } from 'utils/roundValue';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
@@ -35,6 +39,11 @@ export default function AccountDetails({
         },
     ];
 
+    const isOweAccountType = [
+        AccountTypeEnum.I_OWE,
+        AccountTypeEnum.OWE_ME,
+    ].includes(type);
+
     return (
         <>
             <Card>
@@ -53,7 +62,11 @@ export default function AccountDetails({
                 />
             </Card>
 
-            <EntityTransactionList selectedAccount={account} />
+            <EntityTransactionList
+                selectedAccount={account}
+                considerToAsExpense={isOweAccountType}
+                considerFromAsIncome={isOweAccountType}
+            />
         </>
     );
 }

@@ -3,12 +3,9 @@ import { Range, RangeKeyDict, DateRange } from 'react-date-range';
 
 import { DATE_RANGE_KEY } from 'components/transactions-filters/constants/dateRangeKey';
 import {
-    convertDateFromSearchParamValueToDate,
-    convertDateToSearchParamValueToDate,
-    convertDateToDateFromSearchParam,
-    convertDateToDateToSearchParam,
-} from 'components/transactions-filters/utils/dateRangeConvertersToSearchParams.utils';
-import { getDefaultDateRange } from 'components/transactions-filters/utils/getDefaultDateRange';
+    getDefaultDateRange,
+    getInitDateRangeFromSearchParams,
+} from 'components/transactions-filters/utils/defaultDateRange.utils';
 import {
     TRANSACTION_LIST_DATE_RANGE_FROM_FILTER_PARAM_NAME,
     TRANSACTION_LIST_DATE_RANGE_TO_FILTER_PARAM_NAME,
@@ -16,20 +13,10 @@ import {
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListFilterValues } from 'hooks/transactionListFilters.hooks';
 import { useModal } from 'hooks/useModal';
-
-const useGetDefaultDateRange = (): Range => {
-    const { from, to } = useTransactionListFilterValues();
-
-    if (!from || !to) {
-        return getDefaultDateRange();
-    }
-
-    return {
-        startDate: convertDateFromSearchParamValueToDate(from),
-        endDate: convertDateToSearchParamValueToDate(to),
-        key: DATE_RANGE_KEY,
-    };
-};
+import {
+    convertDateToDateFromSearchParam,
+    convertDateToDateToSearchParam,
+} from 'utils/dateRangeConvertersToSearchParams.utils';
 
 const useHandleDateRangeInputsClick = (openModal: VoidFunction): void => {
     useEffect(() => {
@@ -58,14 +45,27 @@ interface IUseDateRangeFilterResult {
 export const useDateRangeFilter = (): IUseDateRangeFilterResult => {
     const dateRangeRef = useRef<DateRange | null>(null);
 
-    const defaultDateRange = useGetDefaultDateRange();
-    const [dateRange, setDateRange] = useState(defaultDateRange);
+    const { from, to } = useTransactionListFilterValues();
+
+    const [dateRange, setDateRange] = useState(
+        getInitDateRangeFromSearchParams({ from, to }),
+    );
 
     const setSearchParamsValue = useGetSetSearchParamsValue();
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
     useHandleDateRangeInputsClick(openModal);
+
+    useEffect(() => {
+        if (!dateRangeRef.current) {
+            return;
+        }
+
+        if (!from && !to) {
+            setDateRange(getDefaultDateRange());
+        }
+    }, [from, to]);
 
     const onChange = (input: RangeKeyDict): void => {
         let newDateRange = input[DATE_RANGE_KEY] as Range | undefined;

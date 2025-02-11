@@ -138,6 +138,43 @@ export const getTransactionsFetchingTags = (
     return result;
 };
 
+type TGetCalculatedTransactionValuesFetchingTagsArgs = Pick<
+    IGetTransactionsFetchingTagsArgs,
+    'accountId' | 'categoryId' | 'from' | 'to'
+>;
+
+export const getCalculatedTransactionValuesFetchingTags = (
+    args: TGetCalculatedTransactionValuesFetchingTagsArgs,
+): TFetchingTags => {
+    const { accountId, categoryId, from, to } = args;
+
+    const result: string[] = [];
+
+    if (accountId) {
+        result.push(
+            `${EFetchingTags.CALCULATED_TRANSACTION_VALUES}-${accountId}`,
+        );
+    }
+
+    if (categoryId) {
+        result.push(
+            `${EFetchingTags.CALCULATED_TRANSACTION_VALUES}-${categoryId}`,
+        );
+    }
+
+    if (from) {
+        result.push(
+            `${EFetchingTags.CALCULATED_TRANSACTION_VALUES}-from-${from}`,
+        );
+    }
+
+    if (to) {
+        result.push(`${EFetchingTags.CALCULATED_TRANSACTION_VALUES}-to-${to}`);
+    }
+
+    return result;
+};
+
 export const getSingleTransactionFetchingTag = (
     transactionId: number,
 ): string => {

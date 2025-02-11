@@ -3,6 +3,8 @@
 import Button from 'components/button/Button';
 import AddIcon from 'components/icons/AddIcon';
 import Spacing from 'components/spacing/Spacing';
+import CalculatedTransactionValues from 'features/calculated-transaction-values/components/calculated-transaction-values/CalculatedTransactionValues';
+import { ICalculatedTransactionValuesProps } from 'features/calculated-transaction-values/components/calculated-transaction-values/types/calculatedTransactionValuesProps';
 import CreateTransactionModal from 'features/transaction-form-modal/components/create-transaction-modal/CreateTransactionModal';
 import styles from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList.module.scss';
 import TransactionList from 'features/transaction-list/components/transaction-list/TransactionList';
@@ -10,7 +12,11 @@ import { useGetTransactions } from 'hooks/useGetTransactions';
 import { useModal } from 'hooks/useModal';
 import { Account, TransactionCategory } from 'types/generated.types';
 
-interface IEntityTransactionListArgs {
+interface IEntityTransactionListArgs
+    extends Pick<
+        ICalculatedTransactionValuesProps,
+        'considerFromAsIncome' | 'considerToAsExpense'
+    > {
     selectedAccount?: Account;
     selectedTransactionCategory?: TransactionCategory;
 }
@@ -18,6 +24,7 @@ interface IEntityTransactionListArgs {
 export default function EntityTransactionList({
     selectedAccount,
     selectedTransactionCategory,
+    ...calculatedTransactionValuesProps
 }: IEntityTransactionListArgs): JSX.Element {
     const selectedAccountId = selectedAccount?.id;
     const selectedCategoryId = selectedTransactionCategory?.id;
@@ -32,7 +39,15 @@ export default function EntityTransactionList({
 
     return (
         <>
-            <Spacing xs={60} />
+            <Spacing xs={50} />
+
+            <CalculatedTransactionValues
+                accountId={selectedAccountId}
+                categoryId={selectedCategoryId}
+                {...calculatedTransactionValuesProps}
+            />
+
+            <Spacing xs={50} />
 
             <div className={styles['create-button-wrapper']}>
                 <Button
