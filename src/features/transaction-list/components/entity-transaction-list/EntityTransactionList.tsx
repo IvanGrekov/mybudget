@@ -42,6 +42,16 @@ export default function EntityTransactionList({
             <Spacing xs={50} />
 
             <CalculatedTransactionValues
+                mainCurrency={
+                    selectedAccount?.currency ||
+                    selectedTransactionCategory?.currency ||
+                    ''
+                }
+                entityName={
+                    selectedAccount?.name ||
+                    selectedTransactionCategory?.name ||
+                    ''
+                }
                 accountId={selectedAccountId}
                 categoryId={selectedCategoryId}
                 {...calculatedTransactionValuesProps}

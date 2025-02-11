@@ -2,24 +2,29 @@ import styles from 'features/calculated-transaction-values/components/calculated
 import { useGetCalculatedTransactionValues } from 'features/calculated-transaction-values/components/calculated-transaction-values/hooks/useGetCalculatedTransactionValues';
 import { useGetDateRangeLabels } from 'features/calculated-transaction-values/components/calculated-transaction-values/hooks/useGetDateRangeLabels';
 import { ICalculatedTransactionValuesProps } from 'features/calculated-transaction-values/components/calculated-transaction-values/types/calculatedTransactionValuesProps';
+import CalculatedTransactionValuesDetailsModal from 'features/calculated-transaction-values/components/calculated-transaction-values-details-modal/CalculatedTransactionValuesDetailsModal';
 import CalculatedTransactionValuesItem from 'features/calculated-transaction-values/components/calculated-transaction-values-item/CalculatedTransactionValuesItem';
 import DateLabels from 'features/calculated-transaction-values/components/date-labels/DateLabels';
-import { useGetMe } from 'hooks/me.hooks';
 import { useTransactionListFilterValues } from 'hooks/transactionListFilters.hooks';
+import { useModal } from 'hooks/useModal';
 
 export default function CalculatedTransactionValues({
+    mainCurrency,
+    entityName,
     accountId,
     categoryId,
     considerFromAsIncome,
     considerToAsExpense,
 }: ICalculatedTransactionValuesProps): JSX.Element | null {
-    const { me } = useGetMe();
+    const { isModalOpen, openModal, closeModal } = useModal();
+
     const { from: fromDate, to: toDate } = useTransactionListFilterValues();
 
     const dateLabels = useGetDateRangeLabels({
         from: fromDate,
         to: toDate,
     });
+
     const { data, isLoading } = useGetCalculatedTransactionValues({
         accountId,
         categoryId,
@@ -27,35 +32,51 @@ export default function CalculatedTransactionValues({
         to: toDate,
     });
 
-    if (!me || isLoading || (!data?.from && !data?.to)) {
+    if (isLoading || (!data?.from && !data?.to)) {
         return null;
     }
 
     const { from, to } = data;
-    const { defaultCurrency } = me;
 
     return (
-        <div className={styles.container}>
-            <div className={styles['calculated-transaction-values']}>
-                <DateLabels
-                    fromDateLabel={dateLabels?.fromDateLabel}
-                    toDateLabel={dateLabels?.toDateLabel}
-                />
-                <div className={styles['calculated-transaction-value-items']}>
-                    <CalculatedTransactionValuesItem
-                        value={from?.overall}
-                        currency={defaultCurrency}
-                        title="from"
-                        considerFromAsIncome={considerFromAsIncome}
+        <>
+            <div className={styles.container}>
+                <div
+                    className={styles['calculated-transaction-values']}
+                    onClick={openModal}
+                >
+                    <DateLabels
+                        fromDateLabel={dateLabels?.fromDateLabel}
+                        toDateLabel={dateLabels?.toDateLabel}
                     />
-                    <CalculatedTransactionValuesItem
-                        value={to?.overall}
-                        currency={defaultCurrency}
-                        title="to"
-                        considerToAsExpense={considerToAsExpense}
-                    />
+                    <div
+                        className={styles['calculated-transaction-value-items']}
+                    >
+                        <CalculatedTransactionValuesItem
+                            value={from?.overall}
+                            currency={mainCurrency}
+                            title="from"
+                            considerFromAsIncome={considerFromAsIncome}
+                        />
+                        <CalculatedTransactionValuesItem
+                            value={to?.overall}
+                            currency={mainCurrency}
+                            title="to"
+                            considerToAsExpense={considerToAsExpense}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <CalculatedTransactionValuesDetailsModal
+                fromDateLabel={dateLabels?.fromDateLabel}
+                toDateLabel={dateLabels?.toDateLabel}
+                entityName={entityName}
+                mainCurrency={mainCurrency}
+                data={data}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+            />
+        </>
     );
 }

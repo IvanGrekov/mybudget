@@ -5,6 +5,8 @@ export interface ICalculatedTransactionValuesProps
         ICalculatedTransactionValuesItemChipProps,
         'considerFromAsIncome' | 'considerToAsExpense'
     > {
+    entityName: string;
+    mainCurrency: string;
     accountId?: number;
     categoryId?: number;
 }

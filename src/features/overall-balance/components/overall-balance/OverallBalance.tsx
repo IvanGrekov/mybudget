@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react';
 
 import Chip from 'components/chip/Chip';
 import CancelAction from 'components/confirmation-modal/CancelAction';
+import DefaultModalContainer from 'components/modal/DefaultModalContainer';
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import styles from 'features/overall-balance/components/overall-balance/OverallBalance.module.scss';
@@ -68,7 +69,9 @@ export default function OverallBalance({
                 onClose={closeModal}
             >
                 <Suspense fallback={<ModalCircularLoading />}>
-                    <BalanceDetailsLazy accounts={accounts} />
+                    <DefaultModalContainer>
+                        <BalanceDetailsLazy accounts={accounts} />
+                    </DefaultModalContainer>
                 </Suspense>
             </Modal>
         </>

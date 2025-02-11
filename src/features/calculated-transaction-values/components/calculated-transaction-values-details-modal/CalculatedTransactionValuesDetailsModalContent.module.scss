@@ -1,0 +1,19 @@
+.container {
+    gap: 2.5rem;
+}
+
+.date-labels {
+    align-self: center;
+}
+
+.calculated-transaction-value-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.calculated-transaction-value-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
