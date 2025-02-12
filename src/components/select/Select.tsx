@@ -124,6 +124,7 @@ export default function Select<T>({
                             >
                                 <NativeSelectOptions
                                     options={options}
+                                    multiple={multiple}
                                     getOptionValue={getOptionValue}
                                     getOptionLabel={getOptionLabel}
                                 />
