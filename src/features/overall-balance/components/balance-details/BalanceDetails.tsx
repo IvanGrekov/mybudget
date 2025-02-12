@@ -15,7 +15,7 @@ export default function BalanceDetails({
         getBalanceItemsCollectionByAccountTypes(accounts);
 
     if (!Object.keys(balanceItemsCollection).length) {
-        return <EmptyState />;
+        return <EmptyState text="Your balance is empty" />;
     }
 
     return (
