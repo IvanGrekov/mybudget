@@ -22,11 +22,12 @@ const useLocalNativeSelectValue = <T>({
     const [localValue, setLocalValue] = useState<TLocalNativeSelectValue>();
 
     useEffect(() => {
-        const newLocalValue = getLocalNativeSelectValue({
-            value,
-            getOptionValue,
-        });
-        setLocalValue(newLocalValue);
+        setLocalValue(
+            getLocalNativeSelectValue({
+                value,
+                getOptionValue,
+            }),
+        );
     }, [value, getOptionValue]);
 
     return {

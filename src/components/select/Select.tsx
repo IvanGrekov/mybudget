@@ -124,6 +124,8 @@ export default function Select<T>({
                                     localNativeSelectValue={
                                         localNativeSelectValue
                                     }
+                                    options={options}
+                                    getOptionValue={getOptionValue}
                                 />
                             </select>
 

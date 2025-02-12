@@ -11,10 +11,18 @@ import {
 } from 'components/select/types/select.types';
 
 export const defaultGetOptionLabel = <T>(option: T): string => {
+    if (option && typeof option === 'object' && 'id' in option) {
+        return String(option.id);
+    }
+
     return String(option);
 };
 
 export const defaultGetOptionValue = <T>(option: T): string => {
+    if (option && typeof option === 'object' && 'id' in option) {
+        return String(option.id);
+    }
+
     return String(option);
 };
 

@@ -24,7 +24,7 @@ export const getLocalNativeSelectValue = <T>({
         return value.map(getOptionValue);
     }
 
-    if (value === null) {
+    if (value === null || value === undefined) {
         return undefined;
     }
 

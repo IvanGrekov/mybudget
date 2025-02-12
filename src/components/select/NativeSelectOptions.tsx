@@ -1,14 +1,30 @@
-import { TLocalNativeSelectValue } from 'components/select/types/select.types';
+import {
+    TLocalNativeSelectValue,
+    TGetOptionValue,
+} from 'components/select/types/select.types';
+import { defaultGetOptionValue } from 'components/select/utils/optionItem.utils';
 
-interface INativeSelectOptionsProps {
+interface INativeSelectOptionsProps<T> {
     localNativeSelectValue: TLocalNativeSelectValue;
+    options: T[];
+    getOptionValue?: TGetOptionValue<T>;
 }
 
-export default function NativeSelectOptions({
+export default function NativeSelectOptions<T>({
     localNativeSelectValue,
-}: INativeSelectOptionsProps): JSX.Element | null {
-    if (localNativeSelectValue === undefined) {
-        return null;
+    options,
+    getOptionValue = defaultGetOptionValue,
+}: INativeSelectOptionsProps<T>): JSX.Element | null {
+    if (typeof localNativeSelectValue === 'undefined') {
+        const option = options.at(0);
+
+        if (!option) {
+            return null;
+        }
+
+        const optionValue = getOptionValue(option);
+
+        return <option value={optionValue}>{optionValue}</option>;
     }
 
     if (Array.isArray(localNativeSelectValue)) {
