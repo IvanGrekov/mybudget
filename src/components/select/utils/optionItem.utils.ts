@@ -10,17 +10,39 @@ import {
     TGetOptionLabel,
 } from 'components/select/types/select.types';
 
-export const defaultGetOptionLabel = <T>(option: T): string => {
-    if (option && typeof option === 'object' && 'id' in option) {
+const getOptionValueFromObject = <T extends object>(
+    option: T,
+): string | undefined => {
+    if ('name' in option) {
+        return String(option.name);
+    }
+
+    if ('id' in option) {
         return String(option.id);
+    }
+
+    return undefined;
+};
+
+export const defaultGetOptionLabel = <T>(option: T): string => {
+    if (option && typeof option === 'object') {
+        const optionValue = getOptionValueFromObject(option);
+
+        if (optionValue) {
+            return optionValue;
+        }
     }
 
     return String(option);
 };
 
 export const defaultGetOptionValue = <T>(option: T): string => {
-    if (option && typeof option === 'object' && 'id' in option) {
-        return String(option.id);
+    if (option && typeof option === 'object') {
+        const optionValue = getOptionValueFromObject(option);
+
+        if (optionValue) {
+            return optionValue;
+        }
     }
 
     return String(option);
