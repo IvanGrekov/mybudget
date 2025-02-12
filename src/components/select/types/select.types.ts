@@ -74,7 +74,7 @@ export type TSelectFieldHandlersArgs<T> = Pick<
 
 export type TUseLocalNativeSelectValueArgs<T> = Pick<
     TSelectProps<T>,
-    'value' | 'getOptionValue'
+    'value' | 'options' | 'multiple' | 'getOptionValue' | 'onChange'
 >;
 
 export type TLocalNativeSelectValue = string | string[] | undefined;

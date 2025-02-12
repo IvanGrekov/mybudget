@@ -17,7 +17,10 @@ import {
 
 const useLocalNativeSelectValue = <T>({
     value,
+    options,
+    multiple,
     getOptionValue = defaultGetOptionValue,
+    onChange,
 }: TUseLocalNativeSelectValueArgs<T>): TUseLocalNativeSelectValueResult => {
     const [localValue, setLocalValue] = useState<TLocalNativeSelectValue>();
 
@@ -30,16 +33,51 @@ const useLocalNativeSelectValue = <T>({
         );
     }, [value, getOptionValue]);
 
+    const onNativeSelectChange: TUseLocalNativeSelectValueResult['onNativeSelectChange'] =
+        (e) => {
+            e.preventDefault();
+
+            let value: TLocalNativeSelectValue;
+
+            if (!multiple) {
+                value = e.target.value;
+            } else {
+                const currentValues = Array.isArray(localValue)
+                    ? localValue
+                    : [];
+                const values = Array.from(
+                    e.target.selectedOptions,
+                    (option) => option.value,
+                );
+
+                if (values.length > currentValues.length) {
+                    value = values.find((val) => !currentValues.includes(val));
+                } else if (values.length < currentValues.length) {
+                    value = currentValues.find((val) => !values.includes(val));
+                }
+            }
+
+            if (!value) {
+                onChange(null);
+            } else {
+                const option =
+                    options.find(
+                        (option) => getOptionValue(option) === value,
+                    ) || null;
+                onChange(option || null);
+            }
+        };
+
     return {
         localNativeSelectValue: localValue,
-        onNativeSelectChange: (): void => {
-            // Placeholder
-        },
+        onNativeSelectChange,
     };
 };
 
 export const useSelectField = <T>({
     value,
+    options,
+    multiple,
     shouldCloseOnChange,
     nativeSelectRefCallback,
     getOptionValue,
@@ -68,11 +106,6 @@ export const useSelectField = <T>({
         selectOptionsRef,
     });
 
-    const nativeSelectLocalValueState = useLocalNativeSelectValue({
-        value,
-        getOptionValue,
-    });
-
     const selectFieldHandlers = getSelectFieldHandlers<T>({
         nativeSelectRef,
         shouldCloseOnChange,
@@ -81,6 +114,14 @@ export const useSelectField = <T>({
         onBlur,
         onFocus,
         onChange,
+    });
+
+    const nativeSelectLocalValueState = useLocalNativeSelectValue({
+        value,
+        options,
+        multiple,
+        onChange: selectFieldHandlers.onSelectChange,
+        getOptionValue,
     });
 
     const isFieldFilled = getIsFieldFilled(value);

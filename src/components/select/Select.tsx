@@ -69,6 +69,8 @@ export default function Select<T>({
         onSelectChange,
     } = useSelectField<T>({
         value,
+        options,
+        multiple,
         shouldCloseOnChange,
         nativeSelectRefCallback,
         getOptionValue,
@@ -121,11 +123,9 @@ export default function Select<T>({
                                 onChange={onNativeSelectChange}
                             >
                                 <NativeSelectOptions
-                                    localNativeSelectValue={
-                                        localNativeSelectValue
-                                    }
                                     options={options}
                                     getOptionValue={getOptionValue}
+                                    getOptionLabel={getOptionLabel}
                                 />
                             </select>
 
