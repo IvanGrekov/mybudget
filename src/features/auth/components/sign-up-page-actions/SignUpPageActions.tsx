@@ -1,5 +1,5 @@
 import Button from 'components/button/Button';
-import Link from 'components/link/Link';
+import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
 import { EAppRoutes } from 'types/appRoutes';
 
 interface ISignUpPageActionsProps {
@@ -11,11 +11,20 @@ export default function SignUpPageActions({
     isLoading,
     isSubmitDisabled,
 }: ISignUpPageActionsProps): JSX.Element {
+    const [signInButtonText] = useGetFeatureTranslations({
+        featureName: 'SignIn',
+    });
+
+    const [signUpButtonText] = useGetFeatureTranslations({
+        featureName: 'SignUp',
+    });
+
     return (
         <>
-            <Link href={EAppRoutes.Auth} text="Sign In" />
+            <Button href={EAppRoutes.Auth} text={signInButtonText} />
             <Button
-                text="Sign Up"
+                variant="contained"
+                text={signUpButtonText}
                 type="submit"
                 isLoading={isLoading}
                 isDisabled={isSubmitDisabled}

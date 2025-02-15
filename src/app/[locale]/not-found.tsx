@@ -1,12 +1,12 @@
 import cx from 'classnames';
-import { useTranslations } from 'next-intl';
 
 import styles from 'app/[locale]/not-found.module.scss';
 import Divider from 'components/divider/Divider';
 import Typography from 'components/typography/Typography';
+import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
 
 export default function NotFoundPage(): JSX.Element {
-    const t = useTranslations('NotFound');
+    const [title] = useGetFeatureTranslations({ featureName: 'NotFound' });
 
     return (
         <div className={cx(styles['not-found-wrapper'])}>
@@ -20,7 +20,7 @@ export default function NotFoundPage(): JSX.Element {
                     size={2}
                     className={styles['not-found-divider']}
                 />
-                <Typography variant="subtitle1">{t('title')}</Typography>
+                <Typography variant="subtitle1">{title}</Typography>
             </div>
         </div>
     );

@@ -11,7 +11,9 @@
         "title": "Зареєструватися"
     },
     "ResetPassword": {
-        "title": "Скинути Пароль"
+        "title": "Скинути Пароль",
+        "required-fields-error": "Новий пароль та код підтвердження обов'язкові",
+        "get-verification-code-button": "Отримати Код Підтвердження"
     },
     "HomePage": {
         "title": "Транзакції"
@@ -58,5 +60,12 @@
     "SwitcherActionTitles": {
         "change-theme": "Змінити Тему",
         "change-language": "Change Language"
+    },
+    "ActionButtons": {
+        "add": "Додати",
+        "edit": "Редагувати",
+        "delete": "Видалити",
+        "save": "Зберегти",
+        "cancel": "Скасувати"
     }
 }

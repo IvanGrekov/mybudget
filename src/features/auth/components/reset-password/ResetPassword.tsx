@@ -8,12 +8,17 @@ import { usePageLoading } from 'contexts/PageLoadingContext';
 import { RESET_PASSWORD_FORM_VALIDATION } from 'features/auth/components/reset-password/constants/resetPasswordFormValidation';
 import ResetPasswordForm from 'features/auth/components/reset-password-form/ResetPasswordForm';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
+import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
 import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 
 export default function ResetPassword(): JSX.Element {
     const { setIsLoading } = usePageLoading();
     const [error, setError] = useState<string | null>(null);
+    const [requiredFieldsErrorText] = useGetFeatureTranslations({
+        featureName: 'resetPassword',
+        keys: ['required-fields-error'],
+    });
 
     const methods = useForm<TResetPasswordFormValues>({
         defaultValues: {
@@ -66,7 +71,7 @@ export default function ResetPassword(): JSX.Element {
                     setError(result.error);
                 }
             } else {
-                setError('New password and verification code are required');
+                setError(requiredFieldsErrorText);
             }
         } catch (error) {
             setError(getFailedResponseMessage(error));

@@ -13,6 +13,7 @@ import {
 } from 'features/auth/constants/resetPasswordForm.constants';
 import styles from 'features/auth/styles/AuthForm.module.scss';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
+import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
 
 interface IResetPasswordFormProps {
     isLoading: boolean;
@@ -31,6 +32,11 @@ export default function ResetPasswordForm({
     submit,
     handleSubmit,
 }: IResetPasswordFormProps): JSX.Element {
+    const [getVerificationCodeButtonText] = useGetFeatureTranslations({
+        featureName: 'ResetPassword',
+        keys: ['get-verification-code-button'],
+    });
+
     const onSubmit: SubmitHandler<TResetPasswordFormValues> = (data) => {
         submit(data);
     };
@@ -60,7 +66,7 @@ export default function ResetPasswordForm({
                 />
                 <Show when={!isVerificationCodeSent}>
                     <Button
-                        text="Get Verification Code"
+                        text={getVerificationCodeButtonText}
                         type="submit"
                         isLoading={isLoading}
                         variant="contained"

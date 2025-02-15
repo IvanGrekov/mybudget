@@ -1,18 +1,20 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-
 import MoonIcon from 'components/icons/MoonIcon';
 import SunIcon from 'components/icons/SunIcon';
 import Switcher, { ISwitcherProps } from 'components/switcher/Switcher';
 import styles from 'components/theme-switcher/ThemeSwitcher.module.scss';
 import { useUserThemeValue } from 'components/theme-switcher/hooks/useUserThemeValue';
+import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
 import { ETheme } from 'types/theme';
 
 export default function ThemeSwitcher({
     tooltipPosition,
 }: Pick<ISwitcherProps, 'tooltipPosition'>): JSX.Element | null {
-    const t = useTranslations('SwitcherActionTitles');
+    const [tooltipText] = useGetFeatureTranslations({
+        featureName: 'SwitcherActionTitles',
+        keys: ['change-theme'],
+    });
     const result = useUserThemeValue();
 
     if (!result) {
@@ -23,7 +25,7 @@ export default function ThemeSwitcher({
 
     return (
         <Switcher
-            tooltipText={t('change-theme')}
+            tooltipText={tooltipText}
             tooltipPosition={tooltipPosition}
             isShifted={value === ETheme.DARK}
             onClick={toggleValue}

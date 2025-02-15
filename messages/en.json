@@ -11,7 +11,9 @@
         "title": "Sign Up"
     },
     "ResetPassword": {
-        "title": "Reset Password"
+        "title": "Reset Password",
+        "required-fields-error": "New password and verification code are required",
+        "get-verification-code-button": "Get Verification Code"
     },
     "HomePage": {
         "title": "Transactions"
@@ -58,5 +60,12 @@
     "SwitcherActionTitles": {
         "change-theme": "Change Theme",
         "change-language": "Змінити Мову"
+    },
+    "ActionButtons": {
+        "add": "Add",
+        "edit": "Edit",
+        "delete": "Delete",
+        "save": "Save",
+        "cancel": "Cancel"
     }
 }
