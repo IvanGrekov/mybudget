@@ -20,7 +20,7 @@ export default function ConfirmDeletingModal({
     return (
         <ConfirmationModal
             isOpen={isConfirmationModalOpen}
-            confirmText="Delete"
+            confirmText="delete"
             confirmColor="red"
             onClose={closeConfirmationModal}
             onCancel={closeConfirmationModal}

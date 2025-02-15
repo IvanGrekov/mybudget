@@ -4,6 +4,7 @@ import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import { TDeleteTransactionCategoryModalDataProps } from 'features/delete-transaction-category-modal/types/deleteTransactionCategoryModalDataProps';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 const DeleteTransactionCategoryModalContentLazy = lazy(
     () =>
@@ -18,10 +19,16 @@ export default function DeleteTransactionCategoryModal({
     onClose,
     ...dataProps
 }: IModalBaseProps & TDeleteTransactionCategoryModalDataProps): JSX.Element {
+    const [deleteCategoryTitle, deleteSubcategoryTitle] =
+        useGetFeatureTranslations({
+            featureName: 'DeleteEntity',
+            keys: ['delete_transaction_category', 'delete_subcategory'],
+        });
+
     return (
         <Modal
             isOpen={isOpen}
-            title={`Confirm ${parentId ? 'Subcategory' : 'Category'} Deleting`}
+            title={parentId ? deleteSubcategoryTitle : deleteCategoryTitle}
             size="small"
             onClose={onClose}
         >

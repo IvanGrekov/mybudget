@@ -4,6 +4,7 @@ import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import { TDeleteAccountModalDataProps } from 'features/delete-account-modal/types/deleteAccountModalDataProps';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 const DeleteAccountModalContentLazy = lazy(
     () =>
@@ -17,13 +18,13 @@ export default function DeleteAccountModal({
     onClose,
     ...dataProps
 }: IModalBaseProps & TDeleteAccountModalDataProps): JSX.Element {
+    const [title] = useGetFeatureTranslations({
+        featureName: 'DeleteEntity',
+        keys: ['delete_account'],
+    });
+
     return (
-        <Modal
-            isOpen={isOpen}
-            title="Confirm Account Deleting"
-            size="small"
-            onClose={onClose}
-        >
+        <Modal isOpen={isOpen} title={title} size="small" onClose={onClose}>
             <Suspense fallback={<ModalCircularLoading />}>
                 <DeleteAccountModalContentLazy
                     {...dataProps}

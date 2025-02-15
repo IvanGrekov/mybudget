@@ -4,6 +4,8 @@ import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import { TChangeTransactionCategoryCurrencyModalDataProps } from 'features/change-transaction-category-currency-modal/types/changeTransactionCategoryCurrencyModalDataProps';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
+import { getCapitalizedString } from 'utils/string.utils';
 
 const ChangeCategoryCurrencyModalContentLazy = lazy(
     () =>
@@ -18,10 +20,15 @@ export default function ChangeTransactionCategoryCurrencyModal({
     ...dataProps
 }: IModalBaseProps &
     TChangeTransactionCategoryCurrencyModalDataProps): JSX.Element {
+    const [title] = useGetFeatureTranslations({
+        featureName: 'ChangeEntityCurrency',
+        keys: ['change_category_currency'],
+    });
+
     return (
         <Modal
             isOpen={isOpen}
-            title="Change Category Currency"
+            title={getCapitalizedString(title)}
             size="small"
             onClose={onClose}
         >

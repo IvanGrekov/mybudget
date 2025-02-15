@@ -16,7 +16,7 @@ const ButtonBody = (
         title,
         Icon,
         iconColor,
-        variant = 'outlined',
+        variant = type === 'submit' ? 'contained' : 'outlined',
         size = 'regular',
         textVariant = size === 'big' || variant === 'text' ? 'button' : 'body2',
         isDisabled,

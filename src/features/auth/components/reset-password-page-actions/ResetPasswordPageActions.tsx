@@ -28,7 +28,6 @@ export default function ResetPasswordPageActions({
             <Button text={cancelButtonText} href={EAppRoutes.Auth} />
             <Show when={!isSubmitHidden}>
                 <Button
-                    variant="contained"
                     text={submitButtonText}
                     type="submit"
                     isLoading={isLoading}

@@ -4,6 +4,8 @@ import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import { TChangeAccountCurrencyModalDataProps } from 'features/change-account-currency-modal/types/changeAccountCurrencyModalDataProps';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
+import { getCapitalizedString } from 'utils/string.utils';
 
 const ChangeAccountCurrencyModalContentLazy = lazy(
     () =>
@@ -17,10 +19,15 @@ export default function ChangeAccountCurrencyModal({
     onClose,
     ...dataProps
 }: IModalBaseProps & TChangeAccountCurrencyModalDataProps): JSX.Element {
+    const [title] = useGetFeatureTranslations({
+        featureName: 'ChangeEntityCurrency',
+        keys: ['change_account_currency'],
+    });
+
     return (
         <Modal
             isOpen={isOpen}
-            title="Change Account Currency"
+            title={getCapitalizedString(title)}
             size="small"
             onClose={onClose}
         >

@@ -8,6 +8,7 @@ import { EDIT_TRANSACTION_FORM_VALIDATION } from 'features/transaction-form-moda
 import { useEditTransaction } from 'features/transaction-form-modal/components/edit-transaction-modal/hooks/useEditTransaction';
 import { IEditTransactionModalDataProps } from 'features/transaction-form-modal/components/edit-transaction-modal/types/editTransactionModalDataProps';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import styles from 'styles/Form.module.scss';
 import { EditTransactionDto } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
@@ -37,17 +38,29 @@ export default function EditTransactionModalContent({
         formState.dirtyFields,
     );
 
+    const onCompleted = (): void => {
+        disableNavigationConfirmation();
+        hideModal();
+    };
+
     const { mutate, isLoading } = useEditTransaction({
         transactionId,
-        onCompleted: () => {
-            disableNavigationConfirmation();
-            hideModal();
-        },
+        onCompleted,
     });
+
+    const submitText = useGetActionButtonsTranslations()('edit');
+
+    const submit = (values: EditTransactionDto): void => {
+        if (values.description !== description) {
+            mutate(values);
+        } else {
+            onCompleted();
+        }
+    };
 
     return (
         <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(mutate)}>
+            <form onSubmit={handleSubmit(submit)}>
                 <div className={styles.container}>
                     <DescriptionField />
                 </div>
@@ -55,7 +68,7 @@ export default function EditTransactionModalContent({
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />
                     <Button
-                        text="Edit"
+                        text={submitText}
                         type="submit"
                         isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}

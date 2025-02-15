@@ -14,6 +14,7 @@ import { getDefaultCurrency } from 'features/account-form-modal/components/creat
 import { getDefaultType } from 'features/account-form-modal/components/create-account-modal/utils/getDefaultType';
 import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import { AccountTypeEnum, User } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
@@ -57,6 +58,8 @@ export default function CreateAccountModalContent({
         },
     });
 
+    const submitText = useGetActionButtonsTranslations()('create');
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(mutate)}>
@@ -65,7 +68,7 @@ export default function CreateAccountModalContent({
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />
                     <Button
-                        text="Create"
+                        text={submitText}
                         type="submit"
                         isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}

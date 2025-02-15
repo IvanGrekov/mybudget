@@ -14,6 +14,7 @@ import { getDefaultStatus } from 'features/transaction-category-form-modal/compo
 import { getShouldEditTransactionCategory } from 'features/transaction-category-form-modal/components/edit-transaction-category-modal/utils/getShouldEditTransactionCategory';
 import TransactionCategoryFormContent from 'features/transaction-category-form-modal/components/transaction-category-form-content/TransactionCategoryFormContent';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import { EditTransactionCategoryDto } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
@@ -61,6 +62,8 @@ export default function EditTransactionCategoryModalContent({
         onArchive,
     });
 
+    const submitText = useGetActionButtonsTranslations()('edit');
+
     const submit = (data: EditTransactionCategoryDto): void => {
         if (getShouldEditTransactionCategory({ transactionCategory, data })) {
             mutate(data);
@@ -77,7 +80,7 @@ export default function EditTransactionCategoryModalContent({
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />
                     <Button
-                        text="Edit"
+                        text={submitText}
                         type="submit"
                         isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}

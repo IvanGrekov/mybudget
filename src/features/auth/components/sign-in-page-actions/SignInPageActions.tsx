@@ -25,7 +25,6 @@ export default function SignInPageActions({
                 text={signUpButtonText}
             />
             <Button
-                variant="contained"
                 text={signInButtonText}
                 type="submit"
                 isLoading={isLoading}

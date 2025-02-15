@@ -5,6 +5,7 @@ import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import { IEditTransactionModalDataProps } from 'features/transaction-form-modal/components/edit-transaction-modal/types/editTransactionModalDataProps';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 const EditTransactionModalContentLazy = lazy(
     () =>
@@ -20,10 +21,15 @@ export default function EditTransactionModal({
 }: IModalBaseProps & IEditTransactionModalDataProps): JSX.Element {
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
+    const [title] = useGetFeatureTranslations({
+        featureName: 'EditEntity',
+        keys: ['edit_transaction'],
+    });
+
     return (
         <Modal
             isOpen={isOpen}
-            title="Edit Transaction"
+            title={title}
             size="medium"
             onClose={onCloseModal}
         >

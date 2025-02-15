@@ -5,6 +5,7 @@ import EyeIcon from 'components/icons/EyeIcon';
 import RemoveIcon from 'components/icons/RemoveIcon';
 import Menu from 'components/menu/Menu';
 import MenuActionItem from 'components/menu/MenuActionItem';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 interface IBaseEntityMenuProps {
     detailsPath?: string;
@@ -25,11 +26,21 @@ export default function BaseEntityMenu({
 }: IBaseEntityMenuProps): JSX.Element {
     const { push } = useRouter();
 
+    const [
+        detailsItemText,
+        editItemText,
+        editCurrencyItemText,
+        deleteItemText,
+    ] = useGetFeatureTranslations({
+        featureName: 'BaseEntityMenu',
+        keys: ['details', 'edit', 'edit_currency', 'delete'],
+    });
+
     return (
         <Menu className={className}>
             {(!!detailsPath || !!openDetailsModal) && (
                 <MenuActionItem
-                    text="Details"
+                    text={detailsItemText}
                     Icon={EyeIcon}
                     onClick={
                         detailsPath
@@ -41,7 +52,7 @@ export default function BaseEntityMenu({
 
             {!!openEditModal && (
                 <MenuActionItem
-                    text="Edit"
+                    text={editItemText}
                     Icon={EditIcon}
                     onClick={openEditModal}
                 />
@@ -49,7 +60,7 @@ export default function BaseEntityMenu({
 
             {!!openChangeCurrencyModal && (
                 <MenuActionItem
-                    text="Edit Currency"
+                    text={editCurrencyItemText}
                     Icon={EditIcon}
                     onClick={openChangeCurrencyModal}
                 />
@@ -57,7 +68,7 @@ export default function BaseEntityMenu({
 
             {!!openDeleteModal && (
                 <MenuActionItem
-                    text="Delete"
+                    text={deleteItemText}
                     Icon={RemoveIcon}
                     onClick={openDeleteModal}
                 />

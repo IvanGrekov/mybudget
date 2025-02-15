@@ -14,6 +14,7 @@ import { getDefaultType } from 'features/transaction-category-form-modal/compone
 import TransactionCategoryFormContent from 'features/transaction-category-form-modal/components/transaction-category-form-content/TransactionCategoryFormContent';
 import { TCreateTransactionCategoryFormValues } from 'features/transaction-category-form-modal/types/createTransactionCategoryFormValues';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import { User, TransactionCategoryTypeEnum } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
@@ -55,6 +56,8 @@ export default function CreateTransactionCategoryModalContent({
         },
     });
 
+    const submitText = useGetActionButtonsTranslations()('create');
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(mutate)}>
@@ -63,7 +66,7 @@ export default function CreateTransactionCategoryModalContent({
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />
                     <Button
-                        text="Create"
+                        text={submitText}
                         type="submit"
                         isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}

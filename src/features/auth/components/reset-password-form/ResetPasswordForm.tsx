@@ -69,7 +69,6 @@ export default function ResetPasswordForm({
                         text={getVerificationCodeButtonText}
                         type="submit"
                         isLoading={isLoading}
-                        variant="contained"
                     />
                 </Show>
 

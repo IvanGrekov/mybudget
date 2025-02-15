@@ -7,7 +7,10 @@ import { IModalBaseProps } from 'components/modal/types/modalProps';
 import Show from 'components/show/Show';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useGetMe } from 'hooks/me.hooks';
-import { useGetEmptyStateTranslations } from 'hooks/translations.hooks';
+import {
+    useGetEmptyStateTranslations,
+    useGetFeatureTranslations,
+} from 'hooks/translations.hooks';
 import { TransactionCategoryTypeEnum } from 'types/generated.types';
 
 const CreateTransactionCategoryModalContentLazy = lazy(
@@ -31,11 +34,15 @@ export default function CreateTransactionCategoryModal({
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
     const emptyStateTranslations = useGetEmptyStateTranslations();
+    const [title] = useGetFeatureTranslations({
+        featureName: 'CreateEntity',
+        keys: ['create_transaction_category'],
+    });
 
     return (
         <Modal
             isOpen={isOpen}
-            title="Create Category"
+            title={title}
             size="medium"
             onClose={onCloseModal}
         >

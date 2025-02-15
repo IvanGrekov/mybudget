@@ -5,6 +5,11 @@ import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import Select from 'components/select/Select';
 import Spacing from 'components/spacing/Spacing';
 import Typography from 'components/typography/Typography';
+import {
+    useGetFeatureTranslations,
+    useGetActionButtonsTranslations,
+    useGetEntityNameTranslations,
+} from 'hooks/translations.hooks';
 import styles from 'styles/ModalContent.module.scss';
 
 interface IChangeEntityCurrencyModalContentProps<T> {
@@ -34,6 +39,21 @@ export default function ChangeEntityCurrencyModalContent<T>({
     setNewCurrency,
     changeCurrency,
 }: IChangeEntityCurrencyModalContentProps<T>): JSX.Element {
+    const [
+        youCanNotChangeCurrencyForText,
+        becauseItHasRelatedTransactionsText,
+        changeCurrencyForText,
+    ] = useGetFeatureTranslations({
+        featureName: 'ChangeEntityCurrency',
+        keys: [
+            'you_can_not_change_currency_for',
+            'because_it_has_related_transactions',
+            'change_currency_for',
+        ],
+    });
+    const submitText = useGetActionButtonsTranslations()('change');
+    const entityTypeText = useGetEntityNameTranslations()(`for_${entityType}`);
+
     if (isRelatedTransactionsLoading) {
         return <ModalCircularLoading />;
     }
@@ -43,8 +63,9 @@ export default function ChangeEntityCurrencyModalContent<T>({
             <>
                 <div className={styles.container}>
                     <Typography variant="subtitle2" className="error-color">
-                        You can&apos;t change currency for &quot;{entityName}
-                        &quot; {entityType} because it has related transactions.
+                        {youCanNotChangeCurrencyForText} &quot;{entityName}
+                        &quot; {entityTypeText}{' '}
+                        {becauseItHasRelatedTransactionsText}.
                     </Typography>
                 </div>
 
@@ -59,7 +80,8 @@ export default function ChangeEntityCurrencyModalContent<T>({
         <>
             <div className={styles.container}>
                 <Typography>
-                    Change currency for &quot;{entityName}&quot; {entityType}
+                    {changeCurrencyForText} &quot;{entityName}&quot;{' '}
+                    {entityTypeText}
                 </Typography>
 
                 <Select
@@ -83,8 +105,7 @@ export default function ChangeEntityCurrencyModalContent<T>({
             <ModalActions>
                 <CancelAction onCancel={onClose} />
                 <Button
-                    text="Change"
-                    variant="contained"
+                    text={submitText}
                     type="submit"
                     isLoading={isLoading}
                     isDisabled={newCurrency === initialCurrency}

@@ -8,6 +8,10 @@ import Typography from 'components/typography/Typography';
 import { useArchiveAccount } from 'features/delete-account-modal/hooks/useArchiveAccount';
 import { useDeleteAccount } from 'features/delete-account-modal/hooks/useDeleteAccount';
 import { TDeleteAccountModalDataProps } from 'features/delete-account-modal/types/deleteAccountModalDataProps';
+import {
+    useGetFeatureTranslations,
+    useGetActionButtonsTranslations,
+} from 'hooks/translations.hooks';
 import styles from 'styles/ModalContent.module.scss';
 
 interface IDeleteAccountModalContentProps extends TDeleteAccountModalDataProps {
@@ -35,24 +39,39 @@ export default function DeleteAccountModalContent({
         onCompleted,
     });
 
+    const [
+        youSureWantDeleteAccountText,
+        iWantDeleteAccountText,
+        deleteRelatedTransactionsText,
+    ] = useGetFeatureTranslations({
+        featureName: 'DeleteEntity',
+        keys: [
+            'you_sure_want_delete_account',
+            'i_want_delete_account',
+            'delete_related_transactions',
+        ],
+    });
+
+    const submitText = useGetActionButtonsTranslations()('delete');
+
     return (
         <>
             <div className={styles.container}>
                 <Typography>
-                    Are you sure you want to delete the account &quot;{name}
+                    {youSureWantDeleteAccountText} &quot;{name}
                     &quot; ?
                 </Typography>
 
                 <Checkbox
                     checked={isSoftDeleting}
-                    label="I want to delete the account"
+                    label={iWantDeleteAccountText}
                     isFullWidth={true}
                     onChange={() => setIsSoftDeleting((prev) => !prev)}
                 />
 
                 <Checkbox
                     checked={isForceDeleting}
-                    label="Delete related transactions"
+                    label={deleteRelatedTransactionsText}
                     isFullWidth={true}
                     onChange={() => setIsForceDeleting((prev) => !prev)}
                 />
@@ -61,9 +80,8 @@ export default function DeleteAccountModalContent({
             <ModalActions>
                 <CancelAction onCancel={onClose} />
                 <Button
-                    text="Delete"
+                    text={submitText}
                     color="red"
-                    variant="contained"
                     type="submit"
                     isLoading={isDeleteLoading || isArchiveLoading}
                     isDisabled={!isSoftDeleting}

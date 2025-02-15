@@ -13,6 +13,7 @@ import { validateFormValuesOnSubmit } from 'features/transaction-form-modal/comp
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useAddErrorMessageToNotifications } from 'hooks/notifications.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import {
     CreateTransactionDtoTypeEnum,
     TransactionTypeEnum,
@@ -62,6 +63,8 @@ export default function CreateTransactionModalContent({
         },
     });
 
+    const submitText = useGetActionButtonsTranslations()('create');
+
     const onSubmit = (values: TCreateTransactionFormValues): void => {
         const { isError, errorMessage } = validateFormValuesOnSubmit(values);
 
@@ -103,7 +106,7 @@ export default function CreateTransactionModalContent({
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />
                     <Button
-                        text="Create"
+                        text={submitText}
                         type="submit"
                         isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}

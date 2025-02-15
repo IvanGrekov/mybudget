@@ -34,7 +34,7 @@ export default function CookiesAgreementModal(): JSX.Element {
         <Modal
             title="This website uses cookies"
             isOpen={isOpen}
-            size="small"
+            size="medium"
             onClose={onClose}
             actions={
                 <>

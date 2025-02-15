@@ -75,11 +75,13 @@
     },
     "ActionButtons": {
         "add": "Add",
+        "create": "Create",
         "edit": "Edit",
         "change": "Change",
         "delete": "Delete",
         "save": "Save",
         "confirm": "Confirm",
+        "confirm_action": "Confirm Action",
         "enable": "Enable",
         "next": "Next",
         "cancel": "Cancel",
@@ -88,11 +90,13 @@
     },
     "EntityNames": {
         "account": "Account",
+        "for_account": "account",
         "accounts": "Accounts",
         "transaction": "Transaction",
         "transactions": "Transactions",
         "related_transactions": "Related Transactions",
         "transaction-category": "Transaction Category",
+        "for_category": "category",
         "transaction-categories": "Transaction Categories",
         "currency": "Currency",
         "regular": "Refular",
@@ -119,8 +123,42 @@
         "empty_balance": "Your balance is empty"
     },
     "ChangeEntityCurrency": {
+        "change_account_currency": "Change Account Currency",
+        "change_category_currency": "Change Category Currency",
         "you_can_not_change_currency_for": "You can't change currency for",
         "because_it_has_related_transactions": "because it has related transactions",
         "change_currency_for": "Change currency for"
+    },
+    "CreateEntity": {
+        "create_account": "Create Account",
+        "create_transaction": "Create Transaction",
+        "create_transaction_category": "Create Transaction Category"
+    },
+    "EditEntity": {
+        "edit_account": "Edit Account",
+        "edit_transaction": "Edit Transaction",
+        "edit_transaction_category": "Edit Transaction Category"
+    },
+    "DeleteEntity": {
+        "delete_account": "Delete Account",
+        "delete_transaction_category": "Delete Category",
+        "delete_subcategory": "Delete Subcategory",
+        "you_sure_want_delete_account": "Are you sure you want to delete the account",
+        "you_sure_want_delete_category": "Are you sure you want to delete the category",
+        "you_sure_want_delete_subcategory": "Are you sure you want to delete the subcategory",
+        "i_want_delete_account": "I want to delete the account",
+        "i_want_delete_category": "I want to delete the category",
+        "i_want_delete_subcategory": "I want to delete the subcategory",
+        "delete_related_transactions": "Delete related transactions",
+        "delete_subcategories": "Delete subcategories"
+    },
+    "BaseEntityMenu": {
+        "details": "Details",
+        "edit": "Edit",
+        "edit_currency": "Edit Currency",
+        "delete": "Delete"
+    },
+    "ConfirmationModal": {
+        "you_sure_want_leave": "You have unsaved changes. Are you sure you want to leave?"
     }
 }

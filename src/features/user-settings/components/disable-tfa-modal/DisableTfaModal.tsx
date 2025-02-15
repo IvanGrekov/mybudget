@@ -9,10 +9,7 @@ import { VERIFICATION_CODE_LENGTH } from 'constants/verificationCodeLength';
 import styles from 'features/user-settings/components/disable-tfa-modal/DisableTfaModal.module.scss';
 import { useDisableTfa } from 'features/user-settings/components/disable-tfa-modal/hooks/useDisableTfa';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
-import {
-    useGetFeatureTranslations,
-    useGetActionButtonsTranslations,
-} from 'hooks/translations.hooks';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 export default function DisableTfaModal({
     isOpen,
@@ -37,7 +34,6 @@ export default function DisableTfaModal({
         featureName: 'SettingsPage',
         keys: ['disable-two-factor-authentication', 'authenticator_app_code'],
     });
-    const submitText = useGetActionButtonsTranslations()('confirm');
 
     return (
         <Modal
@@ -48,7 +44,6 @@ export default function DisableTfaModal({
                 <>
                     <CancelAction onCancel={onCompleted} />
                     <ConfirmAction
-                        confirmText={submitText}
                         isLoading={isLoading}
                         isDisabled={!code}
                         onConfirm={mutate}

@@ -14,6 +14,7 @@ import { IEditAccountModalDataProps } from 'features/account-form-modal/componen
 import { getDefaultStatus } from 'features/account-form-modal/components/edit-account-modal/utils/getDefaultStatus';
 import { getShouldEditAccount } from 'features/account-form-modal/components/edit-account-modal/utils/getShouldEditAccount';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import { EditAccountDto } from 'types/generated.types';
 import { getIsFormSubmitButtonDisabled } from 'utils/getIsFormSubmitButtonDisabled';
 
@@ -68,6 +69,8 @@ export default function EditAccountModalContent({
         onCompleted,
     });
 
+    const submitText = useGetActionButtonsTranslations()('edit');
+
     const submit = (data: EditAccountDto): void => {
         if (getShouldEditAccount({ account, data })) {
             mutate(data);
@@ -84,7 +87,7 @@ export default function EditAccountModalContent({
                 <ModalActions>
                     <CancelAction onCancel={onCloseModal} />
                     <Button
-                        text="Edit"
+                        text={submitText}
                         type="submit"
                         isLoading={isLoading}
                         isDisabled={getIsFormSubmitButtonDisabled(formState)}

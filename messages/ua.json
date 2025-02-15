@@ -75,11 +75,13 @@
     },
     "ActionButtons": {
         "add": "Додати",
+        "create": "Створити",
         "edit": "Редагувати",
         "change": "Змінити",
         "delete": "Видалити",
         "save": "Зберегти",
         "confirm": "Підтвердити",
+        "confirm_action": "Підтвердити Дію",
         "enable": "Увімкнути",
         "next": "Далі",
         "cancel": "Скасувати",
@@ -88,10 +90,12 @@
     },
     "EntityNames": {
         "account": "Рахунок",
+        "for_account": "рахунку",
         "accounts": "Рахунки",
         "transaction": "Транзакція",
         "transactions": "Транзакції",
         "related_transactions": "Пов'язані Транзакції",
+        "for_category": "категорії",
         "transaction-category": "Категорія Транзакцій",
         "transaction-categories": "Категорії Транзакцій",
         "currency": "Валюта",
@@ -119,8 +123,42 @@
         "empty_balance": "Ваш баланс порожній"
     },
     "ChangeEntityCurrency": {
+        "change_account_currency": "Змінити валюту рахунку",
+        "change_category_currency": "Змінити валюту категорії",
         "you_can_not_change_currency_for": "Ви не можете змінити валюту для",
         "because_it_has_related_transactions": "тому що є пов'язані транзакції",
         "change_currency_for": "Змінити валюту для"
+    },
+    "CreateEntity": {
+        "create_account": "Створити Рахунок",
+        "create_transaction": "Створити Транзакцію",
+        "create_transaction_category": "Створити Категорію Транзакцій"
+    },
+    "EditEntity": {
+        "edit_account": "Редагувати Рахунок",
+        "edit_transaction": "Редагувати Транзакцію",
+        "edit_transaction_category": "Редагувати Категорію Транзакцій"
+    },
+    "DeleteEntity": {
+        "delete_account": "Видалити Рахунок",
+        "delete_transaction_category": "Видалити Категорію",
+        "delete_subcategory": "Видалити Підкатегорію",
+        "you_sure_want_delete_account": "Ви впевнені, що хочете видалити рахунок",
+        "you_sure_want_delete_category": "Ви впевнені, що хочете видалити категорію",
+        "you_sure_want_delete_subcategory": "Ви впевнені, що хочете видалити підкатегорію",
+        "i_want_delete_account": "Я хочу видалити рахунок",
+        "i_want_delete_category": "Я хочу видалити категорію",
+        "i_want_delete_subcategory": "Я хочу видалити підкатегорію",
+        "delete_related_transactions": "Видалити пов'язані транзакції",
+        "delete_subcategories": "Видалити підкатегорії"
+    },
+    "BaseEntityMenu": {
+        "details": "Деталі",
+        "edit": "Редагувати",
+        "edit_currency": "Змінити Валюту",
+        "delete": "Видалити"
+    },
+    "ConfirmationModal": {
+        "you_sure_want_leave": "У вас є незбережені зміни. Ви впевнені, що хочете вийти?"
     }
 }

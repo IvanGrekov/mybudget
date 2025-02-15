@@ -5,6 +5,7 @@ import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
 import { IEditAccountModalDataProps } from 'features/account-form-modal/components/edit-account-modal/types/editAccountModalDataProps';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 const EditAccountModalContentLazy = lazy(
     () =>
@@ -20,11 +21,16 @@ export default function EditAccountModal({
 }: IModalBaseProps & IEditAccountModalDataProps): JSX.Element {
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
+    const [title] = useGetFeatureTranslations({
+        featureName: 'EditEntity',
+        keys: ['edit_account'],
+    });
+
     return (
         <Modal
             isOpen={isOpen}
-            title={`Edit "${account.name}" Account`}
-            size="small"
+            title={title}
+            size="medium"
             onClose={onCloseModal}
         >
             <Suspense fallback={<ModalCircularLoading />}>

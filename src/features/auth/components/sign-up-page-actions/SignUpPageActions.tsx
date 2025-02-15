@@ -23,7 +23,6 @@ export default function SignUpPageActions({
         <>
             <Button href={EAppRoutes.Auth} text={signInButtonText} />
             <Button
-                variant="contained"
                 text={signUpButtonText}
                 type="submit"
                 isLoading={isLoading}

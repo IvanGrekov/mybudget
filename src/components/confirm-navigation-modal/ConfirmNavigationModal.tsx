@@ -5,6 +5,7 @@ import { useNavigationGuard } from 'next-navigation-guard';
 import ConfirmationModal from 'components/confirmation-modal/ConfirmationModal';
 import Typography from 'components/typography/Typography';
 import { useConfirmNavigationContext } from 'contexts/ConfirmNavigationContext';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 export default function ConfirmNavigationModal(): JSX.Element {
     const {
@@ -15,8 +16,14 @@ export default function ConfirmNavigationModal(): JSX.Element {
         onConfirm,
         setOnConfirm,
     } = useConfirmNavigationContext();
+
     const { active, accept, reject } = useNavigationGuard({
         enabled: shouldConfirmNavigation,
+    });
+
+    const [text] = useGetFeatureTranslations({
+        featureName: 'ConfirmationModal',
+        keys: ['you_sure_want_leave'],
     });
 
     return (
@@ -35,9 +42,7 @@ export default function ConfirmNavigationModal(): JSX.Element {
                 setOnConfirm(null);
             }}
         >
-            <Typography>
-                You have unsaved changes. Are you sure you want to leave?
-            </Typography>
+            <Typography>{text}</Typography>
         </ConfirmationModal>
     );
 }
