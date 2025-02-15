@@ -2,10 +2,8 @@ import EntityOptionItem from 'components/entity-option-item/EntityOptionItem';
 import FormSelectField from 'components/form-fields/FormSelectField';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import { getTransactionCategoryOptions } from 'features/transaction-form-modal/components/create-transaction-form-content/utils/getTransactionCategoryOptions';
-import {
-    TRANSACTION_FORM_FIELD_NAMES,
-    TRANSACTION_FORM_FIELD_LABELS,
-} from 'features/transaction-form-modal/constants/transactionForm.constants';
+import { TRANSACTION_FORM_FIELD_NAMES } from 'features/transaction-form-modal/constants/transactionForm.constants';
+import { useGetTransactionFormFeatureTranslations } from 'hooks/translations.hooks';
 import { useGetTransactionCategories } from 'hooks/useGetTransactionCategories';
 import { TransactionCategoryTypeEnum } from 'types/generated.types';
 
@@ -13,6 +11,7 @@ export default function FromCategoryField(): JSX.Element | null {
     const { transactionCategories, isLoading } = useGetTransactionCategories(
         TransactionCategoryTypeEnum.INCOME,
     );
+    const label = useGetTransactionFormFeatureTranslations()('from_category');
 
     if (isLoading) {
         return <LinearProgress />;
@@ -27,7 +26,7 @@ export default function FromCategoryField(): JSX.Element | null {
     return (
         <FormSelectField
             name={TRANSACTION_FORM_FIELD_NAMES.fromCategory}
-            label={TRANSACTION_FORM_FIELD_LABELS.fromCategory}
+            label={label}
             options={options}
             isClearable={true}
             shouldAddSearch={true}

@@ -9,11 +9,9 @@ import IconColorField from 'features/account-form-modal/components/account-form-
 import IconNameField from 'features/account-form-modal/components/account-form-content/IconNameField';
 import StatusField from 'features/account-form-modal/components/account-form-content/StatusField';
 import TypeField from 'features/account-form-modal/components/account-form-content/TypeField';
-import {
-    ACCOUNT_FORM_FIELD_NAMES,
-    ACCOUNT_FORM_FIELD_LABELS,
-} from 'features/account-form-modal/constants/accountForm.constants';
+import { ACCOUNT_FORM_FIELD_NAMES } from 'features/account-form-modal/constants/accountForm.constants';
 import { TCreateAccountFormValues } from 'features/account-form-modal/types/createAccountFormValues';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import styles from 'styles/Form.module.scss';
 import { CreateAccountDtoTypeEnum } from 'types/generated.types';
 
@@ -54,6 +52,23 @@ export default function AccountFormContent({
         }
     }, [isOweMeType, isIOweType, setValue]);
 
+    const [
+        nameFieldLabel,
+        balanceFieldLabel,
+        shouldHideFromOverallBalanceFieldLabel,
+        shouldShowAsIncomeFieldLabel,
+        shouldShowAsExpenseFieldLabel,
+    ] = useGetFeatureTranslations({
+        featureName: 'AccountForm',
+        keys: [
+            'name',
+            'balance',
+            'should_hide_from_overall_balance',
+            'should_show_as_income',
+            'should_show_as_expense',
+        ],
+    });
+
     return (
         <div className={styles.container}>
             <Show when={!isEdit}>
@@ -66,7 +81,7 @@ export default function AccountFormContent({
 
             <FormTextField
                 name={ACCOUNT_FORM_FIELD_NAMES.name}
-                label={ACCOUNT_FORM_FIELD_LABELS.name}
+                label={nameFieldLabel}
                 required={true}
             />
 
@@ -76,30 +91,28 @@ export default function AccountFormContent({
 
             <FormTextField
                 name={ACCOUNT_FORM_FIELD_NAMES.balance}
-                label={ACCOUNT_FORM_FIELD_LABELS.balance}
+                label={balanceFieldLabel}
                 type="number"
             />
 
             <Show when={!isOweMeType && !isIOweType}>
                 <FormCheckboxField
                     name={ACCOUNT_FORM_FIELD_NAMES.shouldHideFromOverallBalance}
-                    label={
-                        ACCOUNT_FORM_FIELD_LABELS.shouldHideFromOverallBalance
-                    }
+                    label={shouldHideFromOverallBalanceFieldLabel}
                 />
             </Show>
 
             <Show when={isOweMeType}>
                 <FormCheckboxField
                     name={ACCOUNT_FORM_FIELD_NAMES.shouldShowAsIncome}
-                    label={ACCOUNT_FORM_FIELD_LABELS.shouldShowAsIncome}
+                    label={shouldShowAsIncomeFieldLabel}
                 />
             </Show>
 
             <Show when={isIOweType}>
                 <FormCheckboxField
                     name={ACCOUNT_FORM_FIELD_NAMES.shouldShowAsExpense}
-                    label={ACCOUNT_FORM_FIELD_LABELS.shouldShowAsExpense}
+                    label={shouldShowAsExpenseFieldLabel}
                 />
             </Show>
 

@@ -6,10 +6,8 @@ import IconNameField from 'features/transaction-category-form-modal/components/t
 import ParentField from 'features/transaction-category-form-modal/components/transaction-category-form-content/ParentField';
 import StatusField from 'features/transaction-category-form-modal/components/transaction-category-form-content/StatusField';
 import TypeField from 'features/transaction-category-form-modal/components/transaction-category-form-content/TypeField';
-import {
-    TRANSACTION_CATEGORY_FORM_FIELD_NAMES,
-    TRANSACTION_CATEGORY_FORM_FIELD_LABELS,
-} from 'features/transaction-category-form-modal/constants/transactionCategoryForm.constants';
+import { TRANSACTION_CATEGORY_FORM_FIELD_NAMES } from 'features/transaction-category-form-modal/constants/transactionCategoryForm.constants';
+import { useGetTransactionCategoryFormFeatureTranslations } from 'hooks/translations.hooks';
 import styles from 'styles/Form.module.scss';
 
 interface ITransactionCategoryFormContentProps {
@@ -19,6 +17,9 @@ interface ITransactionCategoryFormContentProps {
 export default function TransactionCategoryFormContent({
     isEdit,
 }: ITransactionCategoryFormContentProps): JSX.Element {
+    const nameFieldLabel =
+        useGetTransactionCategoryFormFeatureTranslations()('name');
+
     return (
         <div className={styles.container}>
             <Show when={!!isEdit}>
@@ -31,7 +32,7 @@ export default function TransactionCategoryFormContent({
 
             <FormTextField
                 name={TRANSACTION_CATEGORY_FORM_FIELD_NAMES.name}
-                label={TRANSACTION_CATEGORY_FORM_FIELD_LABELS.name}
+                label={nameFieldLabel}
                 required={true}
             />
 

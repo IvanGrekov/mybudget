@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 
+import { DATE_FORMAT } from 'constants/dateFormat.constants';
 import { Maybe } from 'types/utility.types';
 
-const DATE_FORMAT = 'dd.MM.yyyy';
 const TIME_FORMAT = 'HH:mm';
 
 export const getDateTime = (

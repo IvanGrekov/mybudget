@@ -8,7 +8,6 @@ import Typography from 'components/typography/Typography';
 import {
     useGetFeatureTranslations,
     useGetActionButtonsTranslations,
-    useGetEntityNameTranslations,
 } from 'hooks/translations.hooks';
 import styles from 'styles/ModalContent.module.scss';
 
@@ -51,8 +50,11 @@ export default function ChangeEntityCurrencyModalContent<T>({
             'change_currency_for',
         ],
     });
+    const [entityTypeText, currencyText] = useGetFeatureTranslations({
+        featureName: 'EntityNames',
+        keys: [`for_${entityType}`, 'currency'],
+    });
     const submitText = useGetActionButtonsTranslations()('change');
-    const entityTypeText = useGetEntityNameTranslations()(`for_${entityType}`);
 
     if (isRelatedTransactionsLoading) {
         return <ModalCircularLoading />;
@@ -91,7 +93,7 @@ export default function ChangeEntityCurrencyModalContent<T>({
                             setNewCurrency(value);
                         }
                     }}
-                    label="Currency"
+                    label={currencyText}
                     options={options}
                     shouldAddSearch={true}
                     isClearable={false}

@@ -5,18 +5,18 @@ import ErrorMessage from 'components/error-message/ErrorMessage';
 import FormSelectField from 'components/form-fields/FormSelectField';
 import LinearProgress from 'components/linear-progress/LinearProgress';
 import BalanceAfterTransaction from 'features/transaction-form-modal/components/create-transaction-form-content/BalanceAfterTransaction';
-import {
-    TRANSACTION_FORM_FIELD_NAMES,
-    TRANSACTION_FORM_FIELD_LABELS,
-} from 'features/transaction-form-modal/constants/transactionForm.constants';
+import { TRANSACTION_FORM_FIELD_NAMES } from 'features/transaction-form-modal/constants/transactionForm.constants';
 import { TCreateTransactionFormValues } from 'features/transaction-form-modal/types/createTransactionFormValues';
 import { getToAccountBalanceAfterTransaction } from 'features/transaction-form-modal/utils/getToAccountBalanceAfterTransaction';
+import { useGetTransactionFormFeatureTranslations } from 'hooks/translations.hooks';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { AccountTypeEnum } from 'types/generated.types';
 
 export default function ToAccountField(): JSX.Element | null {
     const { watch } = useFormContext<TCreateTransactionFormValues>();
     const { accounts, isLoading } = useGetAllAccounts();
+
+    const label = useGetTransactionFormFeatureTranslations()('to_account');
 
     if (isLoading) {
         return <LinearProgress />;
@@ -53,7 +53,7 @@ export default function ToAccountField(): JSX.Element | null {
         <>
             <FormSelectField
                 name={TRANSACTION_FORM_FIELD_NAMES.toAccount}
-                label={TRANSACTION_FORM_FIELD_LABELS.toAccount}
+                label={label}
                 options={filteredAccounts}
                 isClearable={true}
                 shouldAddSearch={true}

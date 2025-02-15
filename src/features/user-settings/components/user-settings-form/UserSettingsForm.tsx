@@ -9,7 +9,6 @@ import TimeZoneField from 'components/time-zone-field/TimeZoneField';
 import {
     USER_SETTINGS_FORM_VALIDATION,
     USER_SETTINGS_FORM_FIELD_NAMES,
-    USER_SETTINGS_FORM_FIELD_LABELS,
 } from 'features/user-settings/components/user-settings-form/constants/userSettingsForm.constants';
 import { useEditUser } from 'features/user-settings/components/user-settings-form/hooks/useEditUser';
 import { IUserSettingsFormData } from 'features/user-settings/components/user-settings-form/types/userSettingsFormData';
@@ -17,6 +16,7 @@ import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
 import {
     useGetSettingsTranslations,
     useGetActionButtonsTranslations,
+    useGetFeatureTranslations,
 } from 'hooks/translations.hooks';
 import { getIsSubmitButtonDisabled } from 'utils/getIsSubmitButtonDisabled';
 
@@ -54,6 +54,10 @@ export default function UserSettingsForm({
     });
 
     const title = useGetSettingsTranslations()('personal_settings');
+    const [nicknameFieldLabel, timeZoneFieldLabel] = useGetFeatureTranslations({
+        featureName: 'SignUp',
+        keys: ['nickname', 'time_zone'],
+    });
     const submitButtonText = useGetActionButtonsTranslations()('save');
 
     return (
@@ -72,12 +76,12 @@ export default function UserSettingsForm({
                 >
                     <FormTextField
                         name={USER_SETTINGS_FORM_FIELD_NAMES.nickname}
-                        label={USER_SETTINGS_FORM_FIELD_LABELS.nickname}
+                        label={nicknameFieldLabel}
                         required={true}
                     />
                     <TimeZoneField
                         name={USER_SETTINGS_FORM_FIELD_NAMES.timeZone}
-                        label={USER_SETTINGS_FORM_FIELD_LABELS.timeZone}
+                        label={timeZoneFieldLabel}
                     />
                 </Fieldset>
             </form>

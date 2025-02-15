@@ -8,12 +8,24 @@
         "forgot_password_button": "Forgot Password?"
     },
     "SignUp": {
-        "title": "Sign Up"
+        "title": "Sign Up",
+        "email": "email",
+        "password": "password",
+        "confirm_password": "confirm password",
+        "nickname": "nickname",
+        "default_currency": "default currency",
+        "language": "language",
+        "time_zone": "time zone",
+        "tfa_code": "two-factor authentication code"
     },
     "ResetPassword": {
         "title": "Reset Password",
         "required_fields_error": "New password and verification code are required",
-        "get_verification_code_button": "Get Verification Code"
+        "get_verification_code_button": "Get Verification Code",
+        "email": "email",
+        "new_password": "new password",
+        "confirm_new_password": "confirm new password",
+        "verification_code": "verification code"
     },
     "HomePage": {
         "title": "Transactions"
@@ -29,7 +41,8 @@
         "transaction_details": "Transaction Details",
         "add_transaction": "Add Transaction",
         "from": "From",
-        "to": "To"
+        "to": "To",
+        "balance_after_transaction": "Balance after transaction"
     },
     "AccountsPage": {
         "title": "Accounts"
@@ -64,6 +77,7 @@
         "title": "Settings",
         "personal_settings": "Personal Settings",
         "change_default_currency": "Change Default Currency",
+        "new_default_currency": "Default Currency",
         "accounts_currency_soft_update_field_label": "Should update accounts (without transactions) with the same currency",
         "transaction_categories_currency_soft_update_field_label": "Should update categories (without transactions) with the same currency",
         "transaction_categories_currency_force_update_field_label": "Should update all categories currency (without transactions)",
@@ -184,5 +198,42 @@
     "ItemsLeftChip": {
         "you_can_create": "You can create up to",
         "already_created": "already created"
+    },
+    "AccountForm": {
+        "name": "Name",
+        "type": "Type",
+        "currency": "Currency",
+        "balance": "Balance",
+        "should_hide_from_overall_balance": "Hide from overall balance",
+        "should_show_as_income": "Consider as income",
+        "should_show_as_expense": "Consider as expense",
+        "status": "Status"
+    },
+    "TransactionCategoryForm": {
+        "name": "Name",
+        "type": "Type",
+        "currency": "Currency",
+        "parent_id": "Parent Category",
+        "status": "Status"
+    },
+    "TransactionForm": {
+        "type": "Type",
+        "from_account": "From Account",
+        "to_account": "To Account",
+        "from_category": "From Category",
+        "to_category": "To Category",
+        "value": "Value",
+        "fee": "Fee",
+        "currency_rate": "Currency Rate",
+        "description": "Description"
+    },
+    "EntityIconForm": {
+        "icon_name": "Select Icon",
+        "icon_color": "Select Icon Color"
+    },
+    "DateRangeFilter": {
+        "title": "Select Date Range",
+        "early": "Early",
+        "today": "Today"
     }
 }

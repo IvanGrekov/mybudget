@@ -8,7 +8,7 @@ import { ICalculatedTransactionValuesProps } from 'features/calculated-transacti
 import CreateTransactionModal from 'features/transaction-form-modal/components/create-transaction-modal/CreateTransactionModal';
 import styles from 'features/transaction-list/components/entity-transaction-list/EntityTransactionList.module.scss';
 import TransactionList from 'features/transaction-list/components/transaction-list/TransactionList';
-import { useGetFeatureTranslations } from 'hooks/translations.hooks';
+import { useGetTransactionsFeatureTranslations } from 'hooks/translations.hooks';
 import { useGetTransactions } from 'hooks/useGetTransactions';
 import { useModal } from 'hooks/useModal';
 import { Account, TransactionCategory } from 'types/generated.types';
@@ -38,10 +38,8 @@ export default function EntityTransactionList({
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    const [addTransactionButtonText] = useGetFeatureTranslations({
-        featureName: 'Transactions',
-        keys: ['add_transaction'],
-    });
+    const addTransactionButtonText =
+        useGetTransactionsFeatureTranslations()('add_transaction');
 
     return (
         <>

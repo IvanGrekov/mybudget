@@ -31,3 +31,28 @@ export const useGetSettingsTranslations = (): TTranslations => {
 export const useGetActionButtonsTranslations = (): TTranslations => {
     return useTranslations('ActionButtons');
 };
+
+export const useGetTransactionsFeatureTranslations = (): TTranslations => {
+    return useTranslations('Transactions');
+};
+
+export const useGetEntityIconFormFeatureTranslations = (): TTranslations => {
+    return useTranslations('EntityIconForm');
+};
+
+export const useGetAccountFormFeatureTranslations = (): TTranslations => {
+    return useTranslations('AccountForm');
+};
+
+export const useGetTransactionCategoryFormFeatureTranslations =
+    (): TTranslations => {
+        return useTranslations('TransactionCategoryForm');
+    };
+
+export const useGetTransactionFormFeatureTranslations = (): TTranslations => {
+    return useTranslations('TransactionForm');
+};
+
+export const useGetDateRangeFilterFeatureTranslations = (): TTranslations => {
+    return useTranslations('DateRangeFilter');
+};

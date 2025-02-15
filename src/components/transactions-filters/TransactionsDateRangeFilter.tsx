@@ -1,8 +1,12 @@
 import { DateRange } from 'react-date-range';
 
+import { useUserLanguageValue } from 'components/language-switcher/hooks/useUserLanguageValue';
 import TransactionsDateRangePickerModal from 'components/transactions-filters/TransactionsDateRangePickerModal';
 import styles from 'components/transactions-filters/TransactionsFilters.module.scss';
 import { useDateRangeFilter } from 'components/transactions-filters/hooks/useDateRangeFilter';
+import { DATE_FORMAT } from 'constants/dateFormat.constants';
+import { DATE_FNS_LOCALES } from 'constants/locales';
+import { useGetDateRangeFilterFeatureTranslations } from 'hooks/translations.hooks';
 
 export default function TransactionsDateRangeFilter(): JSX.Element {
     const {
@@ -13,9 +17,16 @@ export default function TransactionsDateRangeFilter(): JSX.Element {
         closeDateRangePickerModal,
     } = useDateRangeFilter();
 
+    const { value } = useUserLanguageValue();
+    const dateRangeTranslations = useGetDateRangeFilterFeatureTranslations();
+
     return (
         <>
             <DateRange
+                locale={DATE_FNS_LOCALES.get(value)}
+                dateDisplayFormat={DATE_FORMAT}
+                startDatePlaceholder={dateRangeTranslations('early')}
+                endDatePlaceholder={dateRangeTranslations('today')}
                 ranges={[dateRange]}
                 showPreview={false}
                 showMonthAndYearPickers={false}

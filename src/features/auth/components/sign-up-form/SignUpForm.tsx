@@ -6,12 +6,10 @@ import FormTextField from 'components/form-fields/FormTextField';
 import TimeZoneField from 'components/time-zone-field/TimeZoneField';
 import CurrencyField from 'features/auth/components/currency-field/CurrencyField';
 import SignUpPageActions from 'features/auth/components/sign-up-page-actions/SignUpPageActions';
-import {
-    SIGN_UP_FORM_FIELD_NAMES,
-    SIGN_UP_FORM_FIELD_LABELS,
-} from 'features/auth/constants/signUpForm.constants';
+import { SIGN_UP_FORM_FIELD_NAMES } from 'features/auth/constants/signUpForm.constants';
 import styles from 'features/auth/styles/AuthForm.module.scss';
 import { TSignUpFormValues } from 'features/auth/types/signUpFormValues';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 interface ISignUpFormProps {
     isLoading: boolean;
@@ -28,6 +26,25 @@ export default function SignUpForm({
     signUp,
     handleSubmit,
 }: ISignUpFormProps): JSX.Element {
+    const [
+        emailFieldLabel,
+        passwordFieldLabel,
+        confirmPasswordFieldLabel,
+        nicknameFieldLabel,
+        defaultCurrencyFieldLabel,
+        timeZoneFieldLabel,
+    ] = useGetFeatureTranslations({
+        featureName: 'SignUp',
+        keys: [
+            'email',
+            'password',
+            'confirm_password',
+            'nickname',
+            'default_currency',
+            'time_zone',
+        ],
+    });
+
     const onSubmit: SubmitHandler<TSignUpFormValues> = (data) => {
         signUp(data);
     };
@@ -49,32 +66,32 @@ export default function SignUpForm({
                 <FormTextField
                     type="email"
                     name={SIGN_UP_FORM_FIELD_NAMES.email}
-                    label={SIGN_UP_FORM_FIELD_LABELS.email}
+                    label={emailFieldLabel}
                     required={true}
                 />
                 <FormTextField
                     type="password"
                     name={SIGN_UP_FORM_FIELD_NAMES.password}
-                    label={SIGN_UP_FORM_FIELD_LABELS.password}
+                    label={passwordFieldLabel}
                     required={true}
                 />
                 <FormTextField
                     type="password"
                     name={SIGN_UP_FORM_FIELD_NAMES.confirmPassword}
-                    label={SIGN_UP_FORM_FIELD_LABELS.confirmPassword}
+                    label={confirmPasswordFieldLabel}
                     required={true}
                 />
                 <CurrencyField
                     name={SIGN_UP_FORM_FIELD_NAMES.defaultCurrency}
-                    label={SIGN_UP_FORM_FIELD_LABELS.defaultCurrency}
+                    label={defaultCurrencyFieldLabel}
                 />
                 <TimeZoneField
                     name={SIGN_UP_FORM_FIELD_NAMES.timeZone}
-                    label={SIGN_UP_FORM_FIELD_LABELS.timeZone}
+                    label={timeZoneFieldLabel}
                 />
                 <FormTextField
                     name={SIGN_UP_FORM_FIELD_NAMES.nickname}
-                    label={SIGN_UP_FORM_FIELD_LABELS.nickname}
+                    label={nicknameFieldLabel}
                 />
             </Fieldset>
         </form>

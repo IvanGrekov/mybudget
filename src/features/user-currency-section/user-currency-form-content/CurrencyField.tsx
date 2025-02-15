@@ -3,10 +3,8 @@ import { useFormContext } from 'react-hook-form';
 
 import FormSelectField from 'components/form-fields/FormSelectField';
 import { useExchangeRatesContext } from 'contexts/ExchangeRatesContext';
-import {
-    USER_CURRENCY_FORM_FIELD_NAMES,
-    USER_CURRENCY_FORM_FIELD_LABELS,
-} from 'features/user-settings/constants/userCurrencyForm.constants';
+import { USER_CURRENCY_FORM_FIELD_NAMES } from 'features/user-settings/constants/userCurrencyForm.constants';
+import { useGetSettingsTranslations } from 'hooks/translations.hooks';
 import {
     EditUserCurrencyDto,
     EditUserCurrencyDtoDefaultCurrencyEnum,
@@ -31,10 +29,12 @@ export default function CurrencyField(): JSX.Element {
         });
     }, [exchangeRates, selectedCurrency, setValue]);
 
+    const label = useGetSettingsTranslations()('new_default_currency');
+
     return (
         <FormSelectField
             name={USER_CURRENCY_FORM_FIELD_NAMES.defaultCurrency}
-            label={USER_CURRENCY_FORM_FIELD_LABELS.defaultCurrency}
+            label={label}
             options={OPTIONS}
             isClearable={false}
             required={true}

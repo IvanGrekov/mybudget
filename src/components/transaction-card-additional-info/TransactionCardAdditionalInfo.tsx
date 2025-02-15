@@ -3,7 +3,7 @@ import Typography from 'components/typography/Typography';
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
 import {
     useGetEntityNameTranslations,
-    useGetFeatureTranslations,
+    useGetTransactionsFeatureTranslations,
 } from 'hooks/translations.hooks';
 import { Transaction } from 'types/generated.types';
 import { roundValue } from 'utils/roundValue';
@@ -28,10 +28,8 @@ export default function TransactionCardAdditionalInfo({
     } = transaction;
 
     const feeText = useGetEntityNameTranslations()('fee');
-    const [convertedToText] = useGetFeatureTranslations({
-        featureName: 'Transactions',
-        keys: ['converted_to'],
-    });
+    const convertedToText =
+        useGetTransactionsFeatureTranslations()('converted_to');
 
     if (typeof fee !== 'number' && typeof currencyRate !== 'number') {
         return null;

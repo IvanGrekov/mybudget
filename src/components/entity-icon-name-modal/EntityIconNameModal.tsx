@@ -5,6 +5,7 @@ import { IEntityIconNameModalProps } from 'components/entity-icon-name-modal/typ
 import Modal from 'components/modal/Modal';
 import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import { IModalBaseProps } from 'components/modal/types/modalProps';
+import { useGetEntityIconFormFeatureTranslations } from 'hooks/translations.hooks';
 
 const EntityIconNameModalContentLazy = lazy(
     () =>
@@ -16,10 +17,12 @@ export default function EntityIconNameModal({
     onClose,
     ...rest
 }: IModalBaseProps & IEntityIconNameModalProps): JSX.Element {
+    const title = useGetEntityIconFormFeatureTranslations()('icon_name');
+
     return (
         <Modal
             isOpen={isOpen}
-            title="Select Icon"
+            title={title}
             size="small"
             className={styles.modal}
             onClose={onClose}

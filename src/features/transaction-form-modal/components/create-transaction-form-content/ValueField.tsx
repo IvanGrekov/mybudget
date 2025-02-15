@@ -1,14 +1,14 @@
 import FormTextField from 'components/form-fields/FormTextField';
-import {
-    TRANSACTION_FORM_FIELD_NAMES,
-    TRANSACTION_FORM_FIELD_LABELS,
-} from 'features/transaction-form-modal/constants/transactionForm.constants';
+import { TRANSACTION_FORM_FIELD_NAMES } from 'features/transaction-form-modal/constants/transactionForm.constants';
+import { useGetTransactionFormFeatureTranslations } from 'hooks/translations.hooks';
 
 export default function ValueField(): JSX.Element {
+    const label = useGetTransactionFormFeatureTranslations()('value');
+
     return (
         <FormTextField
             name={TRANSACTION_FORM_FIELD_NAMES.value}
-            label={TRANSACTION_FORM_FIELD_LABELS.value}
+            label={label}
             type="number"
             required={true}
         />

@@ -8,12 +8,24 @@
         "forgot_password_button": "Забули пароль?"
     },
     "SignUp": {
-        "title": "Зареєструватися"
+        "title": "Зареєструватися",
+        "email": "електронна пошта",
+        "password": "пароль",
+        "confirm_password": "підтвердити пароль",
+        "nickname": "нікнейм",
+        "default_currency": "валюта за замовчуванням",
+        "language": "мова",
+        "time_zone": "часовий пояс",
+        "tfa_code": "код двофакторної аутентифікації"
     },
     "ResetPassword": {
         "title": "Скинути Пароль",
         "required_fields_error": "Новий пароль та код підтвердження обов'язкові",
-        "get_verification_code_button": "Отримати Код Підтвердження"
+        "get_verification_code_button": "Отримати Код Підтвердження",
+        "email": "електронна пошта",
+        "new_password": "новий пароль",
+        "confirm_new_password": "підтвердити новий пароль",
+        "verification_code": "код підтвердження"
     },
     "HomePage": {
         "title": "Транзакції"
@@ -29,7 +41,8 @@
         "transaction_details": "Деталі Транзакції",
         "add_transaction": "Додати Транзакцію",
         "from": "Видатки",
-        "to": "Надходження"
+        "to": "Надходження",
+        "balance_after_transaction": "Баланс після транзакції"
     },
     "AccountsPage": {
         "title": "Рахунки"
@@ -64,6 +77,7 @@
         "title": "Налаштування",
         "personal_settings": "Особисті Налаштування",
         "change_default_currency": "Змінити валюту за замовчуванням",
+        "new_default_currency": "Валюта за замовчуванням",
         "accounts_currency_soft_update_field_label": "Оновити валюту рахунків (без транзакцій) з однаковою поточною валютою",
         "transaction_categories_currency_soft_update_field_label": "Оновити валюту категорій (без транзакцій) з однаковою поточною валютою",
         "transaction_categories_currency_force_update_field_label": "Оновити валюту всіх категорій (без транзакцій)",
@@ -184,5 +198,42 @@
     "ItemsLeftChip": {
         "you_can_create": "Ви можете створити максимум",
         "already_created": "вже створено"
+    },
+    "AccountForm": {
+        "name": "Назва",
+        "type": "Тип",
+        "currency": "Валюта",
+        "balance": "Баланс",
+        "should_hide_from_overall_balance": "Приховати від загального балансу",
+        "should_show_as_income": "Вважати доходом",
+        "should_show_as_expense": "Вважати витратою",
+        "status": "Статус"
+    },
+    "TransactionCategoryForm": {
+        "name": "Назва",
+        "type": "Тип",
+        "currency": "Валюта",
+        "parent_id": "Батьківська Категорія",
+        "status": "Статус"
+    },
+    "TransactionForm": {
+        "type": "Тип",
+        "from_account": "З Рахунку",
+        "to_account": "На Рахунок",
+        "from_category": "З Категорії",
+        "to_category": "На Категорію",
+        "value": "Значення",
+        "fee": "Комісія",
+        "currency_rate": "Курс Конвертації",
+        "description": "Опис"
+    },
+    "EntityIconForm": {
+        "icon_name": "Оберіть Іконку",
+        "icon_color": "Оберіть Колір Іконки"
+    },
+    "DateRangeFilter": {
+        "title": "Оберіть Діапазон Дат",
+        "early": "Від Початку",
+        "today": "Сьогодні"
     }
 }
