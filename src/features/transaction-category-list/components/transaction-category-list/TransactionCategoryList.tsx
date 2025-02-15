@@ -8,6 +8,7 @@ import TransactionCategoryCard from 'features/transaction-category-list/componen
 import TransactionCategoryListHeader from 'features/transaction-category-list/components/transaction-category-list/TransactionCategoryListHeader';
 import TransactionCategoryListTabs from 'features/transaction-category-list-tabs/components/transaction-category-list-tabs/TransactionCategoryListTabs';
 import { useTransactionCategoryListCurrentTab } from 'features/transaction-category-list-tabs/hooks/useTransactionCategoryListCurrentTab';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { useGetTransactionCategories } from 'hooks/useGetTransactionCategories';
 import styles from 'styles/ItemList.module.scss';
 import { EAppRoutes } from 'types/appRoutes';
@@ -22,6 +23,8 @@ export default function TransactionCategoryList({
     const type = useTransactionCategoryListCurrentTab();
     const { transactionCategories, isLoading } =
         useGetTransactionCategories(type);
+
+    const entityNameTranslations = useGetEntityNameTranslations();
 
     const isEmptyState = !transactionCategories?.length;
 
@@ -40,6 +43,7 @@ export default function TransactionCategoryList({
 
             <Show when={isEmptyState && !isLoading}>
                 <TransactionCategoriesEmptyState
+                    entityNameTranslations={entityNameTranslations}
                     categoriesType={type}
                     notWrappedByContainer={true}
                 />

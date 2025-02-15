@@ -3,6 +3,7 @@ import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
 import { TRANSACTION_LIST_TYPES_FILTER_PARAM_NAME } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { TransactionTypeEnum } from 'types/generated.types';
 import { combineMultipleValuesSearchParam } from 'utils/searchParams.utils';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
@@ -12,6 +13,8 @@ const OPTIONS = Object.values(TransactionTypeEnum);
 export default function TransactionsTypesFilter(): JSX.Element {
     const { value: types } = useTransactionListCurrentTypesFilterValue();
     const setTypes = useGetSetSearchParamsValue();
+
+    const entityNameTranslations = useGetEntityNameTranslations();
 
     const onChange = (option: TransactionTypeEnum | null): void => {
         let newTypes = types;
@@ -41,7 +44,9 @@ export default function TransactionsTypesFilter(): JSX.Element {
             multiple={true}
             onChange={onChange}
             label="Type"
-            getOptionLabel={(option) => getCapitalizedEnumValue(option)}
+            getOptionLabel={(option) =>
+                getCapitalizedEnumValue(option, entityNameTranslations)
+            }
             isClearable={false}
             isFullWidth={true}
         />

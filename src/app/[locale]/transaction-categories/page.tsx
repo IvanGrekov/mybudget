@@ -20,7 +20,10 @@ import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
-import { getAppPageTitle } from 'utils/serverTranslations.utils';
+import {
+    getAppPageTitle,
+    getEntityNameTranslations,
+} from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
     params: { locale },
@@ -28,7 +31,11 @@ export async function generateMetadata({
     return getAppPageTitle({ locale, pageName: 'TransactionCategoriesPage' });
 }
 
-export default async function TransactionCategoriesPage(): Promise<JSX.Element> {
+export default async function TransactionCategoriesPage({
+    params: { locale },
+}: IWithLocaleParamProps): Promise<JSX.Element> {
+    const entityNameTranslations = await getEntityNameTranslations(locale);
+
     const queryClient = getQueryClient();
 
     let me: Maybe<User> = null;
@@ -66,7 +73,11 @@ export default async function TransactionCategoriesPage(): Promise<JSX.Element> 
     }
 
     if (!activeTransactionCategories?.length) {
-        return <TransactionCategoriesEmptyState />;
+        return (
+            <TransactionCategoriesEmptyState
+                entityNameTranslations={entityNameTranslations}
+            />
+        );
     }
 
     return (

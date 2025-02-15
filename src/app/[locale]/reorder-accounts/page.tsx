@@ -12,7 +12,10 @@ import { IWithLocaleParamProps } from 'types/pageProps';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
-import { getAppPageTitle } from 'utils/serverTranslations.utils';
+import {
+    getAppPageTitle,
+    getEntityNameTranslations,
+} from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
     params: { locale },
@@ -20,7 +23,11 @@ export async function generateMetadata({
     return getAppPageTitle({ locale, pageName: 'ReorderAccountsPage' });
 }
 
-export default async function ReorderAccountsPage(): Promise<JSX.Element> {
+export default async function ReorderAccountsPage({
+    params: { locale },
+}: IWithLocaleParamProps): Promise<JSX.Element> {
+    const entityNameTranslations = await getEntityNameTranslations(locale);
+
     const queryClient = getQueryClient();
 
     const accountsType = getAccountListCurrentTabFromUrl(
@@ -41,7 +48,12 @@ export default async function ReorderAccountsPage(): Promise<JSX.Element> {
     } catch (error) {
         log('reorder accounts page error', error);
 
-        return <AccountsEmptyState accountsType={accountsType} />;
+        return (
+            <AccountsEmptyState
+                entityNameTranslations={entityNameTranslations}
+                accountsType={accountsType}
+            />
+        );
     }
 
     return (

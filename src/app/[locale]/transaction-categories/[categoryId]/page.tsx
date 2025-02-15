@@ -33,6 +33,7 @@ import {
 import {
     getPageTranslations,
     getAppPageTitle,
+    getEntityNameTranslations,
 } from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
@@ -62,6 +63,7 @@ export default async function TransactionCategoryDetailsPage({
         locale,
         pageName,
     });
+    const entityNameTranslations = await getEntityNameTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -176,9 +178,11 @@ export default async function TransactionCategoryDetailsPage({
                 {category ? (
                     <TransactionCategoryDetails
                         transactionCategory={category}
+                        entityNameTranslations={entityNameTranslations}
                     />
                 ) : (
                     <TransactionCategoriesEmptyState
+                        entityNameTranslations={entityNameTranslations}
                         isSingleCategory={true}
                         notWrappedByContainer={true}
                     />

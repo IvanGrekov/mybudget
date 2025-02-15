@@ -6,7 +6,7 @@ import styles from 'components/language-switcher/LanguageSwitcher.module.scss';
 import { useUserLanguageValue } from 'components/language-switcher/hooks/useUserLanguageValue';
 import Switcher, { ISwitcherProps } from 'components/switcher/Switcher';
 import { PRIMARY_LOCALE } from 'constants/locales';
-import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 export default function LanguageSwitcher({
     tooltipPosition = 'bottom',

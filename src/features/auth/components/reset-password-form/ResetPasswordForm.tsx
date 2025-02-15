@@ -13,7 +13,7 @@ import {
 } from 'features/auth/constants/resetPasswordForm.constants';
 import styles from 'features/auth/styles/AuthForm.module.scss';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
-import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 interface IResetPasswordFormProps {
     isLoading: boolean;

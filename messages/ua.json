@@ -61,11 +61,32 @@
         "change-theme": "Змінити Тему",
         "change-language": "Change Language"
     },
+    "OverallBalance": {
+        "title": "Загальний Баланс"
+    },
     "ActionButtons": {
         "add": "Додати",
         "edit": "Редагувати",
         "delete": "Видалити",
         "save": "Зберегти",
-        "cancel": "Скасувати"
+        "cancel": "Скасувати",
+        "logout": "Вийти"
+    },
+    "EntityNames": {
+        "account": "Рахунок",
+        "accounts": "Рахунки",
+        "transaction": "Транзакція",
+        "transactions": "Транзакції",
+        "transaction-category": "Категорія Транзакцій",
+        "transaction-categories": "Категорії Транзакцій",
+        "currency": "Валюта",
+        "regular": "Звичайні",
+        "savings": "Заощадження",
+        "i_owe": "Боргую",
+        "owe_me": "Боргують",
+        "income": "Доходи",
+        "expense": "Витрати",
+        "transfer": "Перекази",
+        "balance_correction": "Корекції Балансу"
     }
 }

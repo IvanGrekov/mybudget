@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 type TGetCapitalizedString = (string: string, separator?: string) => string;
 
 export const getCapitalizedString: TGetCapitalizedString = (
@@ -23,6 +25,13 @@ export const getCapitalizedString: TGetCapitalizedString = (
     return capitalizedParts.join(' ');
 };
 
-export const getCapitalizedEnumValue = (value: string): string => {
+export const getCapitalizedEnumValue = (
+    value: string,
+    translations?: ReturnType<typeof useTranslations>,
+): string => {
+    if (translations) {
+        return translations(value.toLowerCase());
+    }
+
     return getCapitalizedString(value, '_');
 };

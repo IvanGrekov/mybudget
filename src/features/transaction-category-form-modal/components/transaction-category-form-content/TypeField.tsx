@@ -3,12 +3,15 @@ import {
     TRANSACTION_CATEGORY_FORM_FIELD_NAMES,
     TRANSACTION_CATEGORY_FORM_FIELD_LABELS,
 } from 'features/transaction-category-form-modal/constants/transactionCategoryForm.constants';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { CreateTransactionCategoryDtoTypeEnum } from 'types/generated.types';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 const OPTIONS = Object.values(CreateTransactionCategoryDtoTypeEnum);
 
 export default function TypeField(): JSX.Element {
+    const entityNameTranslations = useGetEntityNameTranslations();
+
     return (
         <FormSelectField
             name={TRANSACTION_CATEGORY_FORM_FIELD_NAMES.type}
@@ -16,7 +19,9 @@ export default function TypeField(): JSX.Element {
             options={OPTIONS}
             isClearable={false}
             required={true}
-            getOptionLabel={(option) => getCapitalizedEnumValue(option)}
+            getOptionLabel={(option) =>
+                getCapitalizedEnumValue(option, entityNameTranslations)
+            }
         />
     );
 }

@@ -8,6 +8,7 @@ import AccountCard from 'features/account-list/components/account-card/AccountCa
 import AccountListHeader from 'features/account-list/components/account-list/AccountListHeader';
 import AccountListTabs from 'features/account-list-tabs/components/account-list-tabs/AccountListTabs';
 import { useAccountListCurrentTab } from 'features/account-list-tabs/hooks/useAccountListCurrentTab';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { useGetAccounts } from 'hooks/useGetAccounts';
 import styles from 'styles/ItemList.module.scss';
 import { EAppRoutes } from 'types/appRoutes';
@@ -15,6 +16,8 @@ import { EAppRoutes } from 'types/appRoutes';
 export default function AccountList(): JSX.Element {
     const type = useAccountListCurrentTab();
     const { accounts, currentAllItemsLength, isLoading } = useGetAccounts(type);
+
+    const entityNameTranslations = useGetEntityNameTranslations();
 
     const isEmptyState = !accounts?.length;
 
@@ -33,6 +36,7 @@ export default function AccountList(): JSX.Element {
 
             <Show when={isEmptyState && !isLoading}>
                 <AccountsEmptyState
+                    entityNameTranslations={entityNameTranslations}
                     accountsType={type}
                     notWrappedByContainer={true}
                 />

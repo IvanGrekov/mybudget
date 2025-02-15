@@ -6,7 +6,6 @@ import Modal from 'components/modal/Modal';
 export default function ConfirmationModal({
     title = 'Confirm Action',
     confirmText,
-    cancelText,
     confirmColor,
     isLoading,
     children,
@@ -27,7 +26,7 @@ export default function ConfirmationModal({
                         isLoading={isLoading}
                         onConfirm={onConfirm}
                     />
-                    <CancelAction cancelText={cancelText} onCancel={onCancel} />
+                    <CancelAction onCancel={onCancel} />
                 </>
             }
         >

@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import Card from 'components/card/Card';
 import CardContent from 'components/card/CardContent';
 import CardHeader from 'components/card/CardHeader';
@@ -16,10 +18,12 @@ import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionCategoryDetailsProps {
     transactionCategory: TransactionCategory;
+    entityNameTranslations: ReturnType<typeof useTranslations>;
 }
 
 export default function TransactionCategoryDetails({
     transactionCategory,
+    entityNameTranslations,
 }: ITransactionCategoryDetailsProps): JSX.Element {
     const { status, type, currency, children } = transactionCategory;
 
@@ -29,11 +33,11 @@ export default function TransactionCategoryDetails({
 
     const chips: IChipProps[] = [
         {
-            title: getCapitalizedEnumValue(type),
+            title: getCapitalizedEnumValue(type, entityNameTranslations),
             color: getColorForTypeChip(type),
         },
         {
-            title: `Currency: ${currency}`,
+            title: `${entityNameTranslations('currency')}: ${currency}`,
         },
     ];
 

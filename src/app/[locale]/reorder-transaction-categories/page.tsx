@@ -12,7 +12,10 @@ import { IWithLocaleParamProps } from 'types/pageProps';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
-import { getAppPageTitle } from 'utils/serverTranslations.utils';
+import {
+    getAppPageTitle,
+    getEntityNameTranslations,
+} from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
     params: { locale },
@@ -23,7 +26,11 @@ export async function generateMetadata({
     });
 }
 
-export default async function ReorderTransactionCategoriesPage(): Promise<JSX.Element> {
+export default async function ReorderTransactionCategoriesPage({
+    params: { locale },
+}: IWithLocaleParamProps): Promise<JSX.Element> {
+    const entityNameTranslations = await getEntityNameTranslations(locale);
+
     const queryClient = getQueryClient();
 
     const categoriesType = getTransactionCategoryListCurrentTabFromUrl(
@@ -45,7 +52,10 @@ export default async function ReorderTransactionCategoriesPage(): Promise<JSX.El
         log('reorder categories page error', error);
 
         return (
-            <TransactionCategoriesEmptyState categoriesType={categoriesType} />
+            <TransactionCategoriesEmptyState
+                entityNameTranslations={entityNameTranslations}
+                categoriesType={categoriesType}
+            />
         );
     }
 

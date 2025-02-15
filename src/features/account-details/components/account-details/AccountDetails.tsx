@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import { IChipProps } from 'components/chip/types/chipProps';
@@ -18,10 +20,12 @@ import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface IAccountDetailsProps {
     account: Account;
+    entityNameTranslations: ReturnType<typeof useTranslations>;
 }
 
 export default function AccountDetails({
     account,
+    entityNameTranslations,
 }: IAccountDetailsProps): JSX.Element {
     const { status, balance, currency, type } = account;
 
@@ -31,11 +35,11 @@ export default function AccountDetails({
 
     const chips: IChipProps[] = [
         {
-            title: getCapitalizedEnumValue(type),
+            title: getCapitalizedEnumValue(type, entityNameTranslations),
             color: getColorForAccountTypeChip(type),
         },
         {
-            title: `Currency: ${currency}`,
+            title: `${entityNameTranslations('currency')}: ${currency}`,
         },
     ];
 

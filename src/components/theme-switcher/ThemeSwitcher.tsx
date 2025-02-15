@@ -5,7 +5,7 @@ import SunIcon from 'components/icons/SunIcon';
 import Switcher, { ISwitcherProps } from 'components/switcher/Switcher';
 import styles from 'components/theme-switcher/ThemeSwitcher.module.scss';
 import { useUserThemeValue } from 'components/theme-switcher/hooks/useUserThemeValue';
-import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { ETheme } from 'types/theme';
 
 export default function ThemeSwitcher({

@@ -15,6 +15,7 @@ import SubcategoryItem from 'features/transaction-categories-reordering/componen
 import TransactionCategoryReorderingCard from 'features/transaction-categories-reordering/components/transaction-category-reordering-card/TransactionCategoryReorderingCard';
 import TransactionCategoryListTabs from 'features/transaction-category-list-tabs/components/transaction-category-list-tabs/TransactionCategoryListTabs';
 import { useTransactionCategoryListCurrentTab } from 'features/transaction-category-list-tabs/hooks/useTransactionCategoryListCurrentTab';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import styles from 'styles/ItemList.module.scss';
 
 export default function TransactionCategoriesReorderingList(): JSX.Element {
@@ -27,6 +28,8 @@ export default function TransactionCategoriesReorderingList(): JSX.Element {
         handleDragStart,
         handleDragEnd,
     } = useSortableTransactionCategories(type);
+
+    const entityNameTranslations = useGetEntityNameTranslations();
 
     const isEmptyState = !sortableItems.length;
 
@@ -46,6 +49,7 @@ export default function TransactionCategoriesReorderingList(): JSX.Element {
 
             <Show when={isEmptyState && !isGetTransactionCategoriesLoading}>
                 <TransactionCategoriesEmptyState
+                    entityNameTranslations={entityNameTranslations}
                     categoriesType={type}
                     notWrappedByContainer={true}
                 />

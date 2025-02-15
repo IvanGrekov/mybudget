@@ -8,7 +8,7 @@ import { usePageLoading } from 'contexts/PageLoadingContext';
 import { RESET_PASSWORD_FORM_VALIDATION } from 'features/auth/components/reset-password/constants/resetPasswordFormValidation';
 import ResetPasswordForm from 'features/auth/components/reset-password-form/ResetPasswordForm';
 import { TResetPasswordFormValues } from 'features/auth/types/resetPasswordFormValues';
-import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { getFailedResponseMessage } from 'utils/failedResponse.utils';
 import { makeApiFetch } from 'utils/makeApiFetch';
 

@@ -53,7 +53,7 @@ export default function UserSettingsForm({
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(mutate)}>
                 <Fieldset
-                    title="User Settings"
+                    title="Personal Settings"
                     actions={
                         <Button
                             text="Save"

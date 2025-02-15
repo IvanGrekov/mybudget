@@ -13,3 +13,9 @@ export const useGetFeatureTranslations: TUseGetFeatureTranslations = ({
 
     return keys ? keys.map((key) => t(key)) : [t('title')];
 };
+
+export const useGetEntityNameTranslations = (): ReturnType<
+    typeof useTranslations
+> => {
+    return useTranslations('EntityNames');
+};

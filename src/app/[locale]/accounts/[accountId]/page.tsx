@@ -31,8 +31,9 @@ import {
     getCalculatedTransactionValuesQueryKey,
 } from 'utils/queryKey.utils';
 import {
-    getPageTranslations,
     getAppPageTitle,
+    getPageTranslations,
+    getEntityNameTranslations,
 } from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
@@ -62,6 +63,7 @@ export default async function AccountDetailsPage({
         locale,
         pageName,
     });
+    const entityNameTranslations = await getEntityNameTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -172,9 +174,13 @@ export default async function AccountDetailsPage({
                 />
 
                 {account ? (
-                    <AccountDetails account={account} />
+                    <AccountDetails
+                        account={account}
+                        entityNameTranslations={entityNameTranslations}
+                    />
                 ) : (
                     <AccountsEmptyState
+                        entityNameTranslations={entityNameTranslations}
                         isSingleAccount={true}
                         notWrappedByContainer={true}
                     />

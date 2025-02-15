@@ -61,11 +61,32 @@
         "change-theme": "Change Theme",
         "change-language": "Змінити Мову"
     },
+    "OverallBalance": {
+        "title": "Overall Balance"
+    },
     "ActionButtons": {
         "add": "Add",
         "edit": "Edit",
         "delete": "Delete",
         "save": "Save",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "logout": "Logout"
+    },
+    "EntityNames": {
+        "account": "Account",
+        "accounts": "Accounts",
+        "transaction": "Transaction",
+        "transactions": "Transactions",
+        "transaction-category": "Transaction Category",
+        "transaction-categories": "Transaction Categories",
+        "currency": "Currency",
+        "regular": "Refular",
+        "savings": "Savings",
+        "i_owe": "I Owe",
+        "owe_me": "Owe Me",
+        "income": "Income",
+        "expense": "Expense",
+        "transfer": "Transfer",
+        "balance_correction": "Balance Correction"
     }
 }

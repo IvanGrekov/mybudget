@@ -9,6 +9,7 @@ import { useAccountListCurrentTab } from 'features/account-list-tabs/hooks/useAc
 import AccountReorderingCard from 'features/accounts-reordering/components/account-reordering-card/AccountReorderingCard';
 import AccountReorderingListHeader from 'features/accounts-reordering/components/account-reordering-list/AccountReorderingListHeader';
 import { useSortableAccounts } from 'features/accounts-reordering/components/account-reordering-list/hooks/useSortableAccounts';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import styles from 'styles/ItemList.module.scss';
 
 export default function AccountReorderingList(): JSX.Element {
@@ -19,6 +20,9 @@ export default function AccountReorderingList(): JSX.Element {
         isEditOrderLoading,
         handleDragEnd,
     } = useSortableAccounts(type);
+
+    const entityNameTranslations = useGetEntityNameTranslations();
+
     const isEmptyState = !sortableItems.length;
 
     return (
@@ -35,6 +39,7 @@ export default function AccountReorderingList(): JSX.Element {
 
             <Show when={isEmptyState && !isGetAccountsLoading}>
                 <AccountsEmptyState
+                    entityNameTranslations={entityNameTranslations}
                     accountsType={type}
                     notWrappedByContainer={true}
                 />

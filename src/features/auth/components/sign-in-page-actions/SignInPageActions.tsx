@@ -1,5 +1,5 @@
 import Button from 'components/button/Button';
-import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { EAppRoutes } from 'types/appRoutes';
 
 interface ISignInPageActionsProps {

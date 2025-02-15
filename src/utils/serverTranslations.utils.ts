@@ -47,3 +47,9 @@ export const getPageTranslations: TGetPageTranslations = async ({
 
     return keys ? keys.map((key) => t(key)) : [t('title')];
 };
+
+export const getEntityNameTranslations = (
+    locale: string,
+): ReturnType<typeof getTranslations> => {
+    return getTranslations({ locale, namespace: 'EntityNames' });
+};

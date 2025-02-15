@@ -1,6 +1,6 @@
 import Button from 'components/button/Button';
 import Show from 'components/show/Show';
-import { useGetFeatureTranslations } from 'hooks/useGetFeatureTranslations';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { EAppRoutes } from 'types/appRoutes';
 
 interface IResetPasswordPageActionsProps {

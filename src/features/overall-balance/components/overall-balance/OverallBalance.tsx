@@ -10,6 +10,7 @@ import ModalCircularLoading from 'components/modal/ModalCircularLoading';
 import styles from 'features/overall-balance/components/overall-balance/OverallBalance.module.scss';
 import { useCalculateOverallBalance } from 'features/overall-balance/components/overall-balance/hooks/useCalculateOverallBalance';
 import { useIsScreenSize } from 'hooks/screenSize.hooks';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { useModal } from 'hooks/useModal';
 import { UserDefaultCurrencyEnum } from 'types/generated.types';
@@ -40,12 +41,16 @@ export default function OverallBalance({
         userCurrency,
     });
 
+    const [translatedTitle] = useGetFeatureTranslations({
+        featureName: 'OverallBalance',
+    });
+
     if (isLoading || !accounts?.length || typeof overallBalance !== 'number') {
         return null;
     }
 
     const value = `${roundValue(overallBalance)} ${userCurrency}`;
-    const fullTitle = `Overall Balance: ${value}`;
+    const fullTitle = `${translatedTitle}: ${value}`;
     const title = isMobile ? value : fullTitle;
 
     return (
