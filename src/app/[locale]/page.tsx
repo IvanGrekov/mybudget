@@ -23,7 +23,10 @@ import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCategories';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
-import { getAppPageTitle } from 'utils/serverTranslations.utils';
+import {
+    getAppPageTitle,
+    getEmptyStateTranslations,
+} from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
 const pageName = 'HomePage';
@@ -34,7 +37,11 @@ export async function generateMetadata({
     return getAppPageTitle({ locale, pageName });
 }
 
-export default async function HomePage(): Promise<JSX.Element> {
+export default async function HomePage({
+    params: { locale },
+}: IWithLocaleParamProps): Promise<JSX.Element> {
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
+
     const queryClient = getQueryClient();
 
     let me: Maybe<User> = null;
@@ -79,7 +86,7 @@ export default async function HomePage(): Promise<JSX.Element> {
     }
 
     if (!me) {
-        return <MeEmptyState />;
+        return <MeEmptyState emptyStateTranslations={emptyStateTranslations} />;
     }
 
     const { id, defaultCurrency } = me;

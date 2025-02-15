@@ -9,6 +9,7 @@ import { ICreateTransactionModalDataProps } from 'features/transaction-form-moda
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useGetMe } from 'hooks/me.hooks';
 import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
+import { useGetEmptyStateTranslations } from 'hooks/translations.hooks';
 
 const CreateTransactionModalContentLazy = lazy(
     () =>
@@ -33,6 +34,8 @@ export default function CreateTransactionModal({
 
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
+    const emptyStateTranslations = useGetEmptyStateTranslations();
+
     return (
         <Modal
             isOpen={isOpen}
@@ -45,7 +48,10 @@ export default function CreateTransactionModal({
             </Show>
 
             <Show when={!me && !isLoading}>
-                <MeEmptyState notWrappedByContainer={true} />
+                <MeEmptyState
+                    emptyStateTranslations={emptyStateTranslations}
+                    notWrappedByContainer={true}
+                />
             </Show>
 
             {me && (

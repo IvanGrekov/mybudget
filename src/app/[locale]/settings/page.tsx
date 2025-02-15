@@ -14,6 +14,7 @@ import log from 'utils/log';
 import {
     getPageTranslations,
     getAppPageTitle,
+    getEmptyStateTranslations,
 } from 'utils/serverTranslations.utils';
 
 const pageName = 'SettingsPage';
@@ -31,6 +32,7 @@ export default async function SettingsPage({
         locale,
         pageName,
     });
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -43,7 +45,7 @@ export default async function SettingsPage({
     }
 
     if (!me) {
-        return <MeEmptyState />;
+        return <MeEmptyState emptyStateTranslations={emptyStateTranslations} />;
     }
 
     return (

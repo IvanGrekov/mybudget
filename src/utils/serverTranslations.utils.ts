@@ -1,5 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
+import { TTranslations } from 'types/translations';
+
 type TGetAppPageMetadata = (locale: string) => Promise<{
     title: string;
     description: string;
@@ -50,6 +52,12 @@ export const getPageTranslations: TGetPageTranslations = async ({
 
 export const getEntityNameTranslations = (
     locale: string,
-): ReturnType<typeof getTranslations> => {
+): Promise<TTranslations> => {
     return getTranslations({ locale, namespace: 'EntityNames' });
+};
+
+export const getEmptyStateTranslations = (
+    locale: string,
+): Promise<TTranslations> => {
+    return getTranslations({ locale, namespace: 'EmptyState' });
 };

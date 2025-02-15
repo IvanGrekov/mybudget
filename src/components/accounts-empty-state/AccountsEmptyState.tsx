@@ -1,32 +1,34 @@
-import { useTranslations } from 'next-intl';
-
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
+import { TTranslations } from 'types/translations';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface IAccountsEmptyStateProps {
-    entityNameTranslations: ReturnType<typeof useTranslations>;
+    emptyStateTranslations: TTranslations;
+    entityNameTranslations: TTranslations;
     isSingleAccount?: boolean;
     accountsType?: string;
     notWrappedByContainer?: boolean;
 }
 
-const TEXT = 'Accounts not found';
-const SINGLE_ACCOUNT_TEXT = 'Account not found';
-
 export default function AccountsEmptyState({
+    emptyStateTranslations,
     entityNameTranslations,
     isSingleAccount,
     accountsType,
     notWrappedByContainer,
 }: IAccountsEmptyStateProps): JSX.Element {
-    let text = isSingleAccount ? SINGLE_ACCOUNT_TEXT : TEXT;
+    const singleAccountText = emptyStateTranslations(
+        'single_account_not_found',
+    );
+    const multiple_accounts_text = emptyStateTranslations('accounts_not_found');
+    let text = isSingleAccount ? singleAccountText : multiple_accounts_text;
 
     if (accountsType) {
-        text = `No '${getCapitalizedEnumValue(
+        text = `'${getCapitalizedEnumValue(
             accountsType,
             entityNameTranslations,
-        )}' accounts found`;
+        )}' ${multiple_accounts_text}`;
     }
 
     if (notWrappedByContainer) {

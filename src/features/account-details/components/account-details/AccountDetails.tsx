@@ -1,5 +1,3 @@
-import { useTranslations } from 'next-intl';
-
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import { IChipProps } from 'components/chip/types/chipProps';
@@ -14,23 +12,26 @@ import {
     AccountStatusEnum,
     AccountTypeEnum,
 } from 'types/generated.types';
+import { TTranslations } from 'types/translations';
 import { getColorForAccountTypeChip } from 'utils/getColorForAccountTypeChip';
 import { roundValue } from 'utils/roundValue';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface IAccountDetailsProps {
     account: Account;
-    entityNameTranslations: ReturnType<typeof useTranslations>;
+    emptyStateTranslations: TTranslations;
+    entityNameTranslations: TTranslations;
 }
 
 export default function AccountDetails({
     account,
+    emptyStateTranslations,
     entityNameTranslations,
 }: IAccountDetailsProps): JSX.Element {
     const { status, balance, currency, type } = account;
 
     if (status === AccountStatusEnum.ARCHIVED) {
-        return <EmptyState text="Account is archived" />;
+        return <EmptyState text={emptyStateTranslations('archived_account')} />;
     }
 
     const chips: IChipProps[] = [

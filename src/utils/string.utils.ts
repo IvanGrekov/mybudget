@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { TTranslations } from 'types/translations';
 
 type TGetCapitalizedString = (string: string, separator?: string) => string;
 
@@ -27,7 +27,7 @@ export const getCapitalizedString: TGetCapitalizedString = (
 
 export const getCapitalizedEnumValue = (
     value: string,
-    translations?: ReturnType<typeof useTranslations>,
+    translations?: TTranslations,
 ): string => {
     if (translations) {
         return translations(value.toLowerCase());

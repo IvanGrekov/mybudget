@@ -77,6 +77,7 @@
         "accounts": "Рахунки",
         "transaction": "Транзакція",
         "transactions": "Транзакції",
+        "related_transactions": "Пов'язані Транзакції",
         "transaction-category": "Категорія Транзакцій",
         "transaction-categories": "Категорії Транзакцій",
         "currency": "Валюта",
@@ -88,5 +89,19 @@
         "expense": "Витрати",
         "transfer": "Перекази",
         "balance_correction": "Корекції Балансу"
+    },
+    "EmptyState": {
+        "title": "Даних не знайдено",
+        "error": "Щось пішло не так, спробуйте знов пізніше",
+        "not_found": "не знайдено",
+        "profile_not_found": "Вашого профілю не знайдено",
+        "accounts_not_found": "Рахунків не знайдено",
+        "single_account_not_found": "Рахунок не знайдено",
+        "archived_account": "Цей рахунок в архіві",
+        "transaction_categories_not_found": "Категорій не знайдено",
+        "single_transaction_category_not_found": "Категорію не знайдено",
+        "archived_transaction_category": "Ця категорія в архіві",
+        "transactions_not_found": "Транзакцій не знайдено",
+        "empty_balance": "Ваш баланс порожній"
     }
 }

@@ -22,6 +22,7 @@ import log from 'utils/log';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 import {
     getAppPageTitle,
+    getEmptyStateTranslations,
     getEntityNameTranslations,
 } from 'utils/serverTranslations.utils';
 
@@ -35,6 +36,7 @@ export default async function TransactionCategoriesPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
     const entityNameTranslations = await getEntityNameTranslations(locale);
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -69,12 +71,13 @@ export default async function TransactionCategoriesPage({
     }
 
     if (!me) {
-        return <MeEmptyState />;
+        return <MeEmptyState emptyStateTranslations={emptyStateTranslations} />;
     }
 
     if (!activeTransactionCategories?.length) {
         return (
             <TransactionCategoriesEmptyState
+                emptyStateTranslations={emptyStateTranslations}
                 entityNameTranslations={entityNameTranslations}
             />
         );

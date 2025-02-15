@@ -77,6 +77,7 @@
         "accounts": "Accounts",
         "transaction": "Transaction",
         "transactions": "Transactions",
+        "related_transactions": "Related Transactions",
         "transaction-category": "Transaction Category",
         "transaction-categories": "Transaction Categories",
         "currency": "Currency",
@@ -88,5 +89,19 @@
         "expense": "Expense",
         "transfer": "Transfer",
         "balance_correction": "Balance Correction"
+    },
+    "EmptyState": {
+        "title": "There is no any data yet",
+        "error": "Something went wrong, try later",
+        "not_found": "not found",
+        "profile_not_found": "Your profile not found",
+        "accounts_not_found": "Accounts not found",
+        "single_account_not_found": "Account not found",
+        "archived_account": "Account is archived",
+        "transaction_categories_not_found": "Transaction Categories not found",
+        "archived_transaction_category": "Transaction Category is archived",
+        "single_transaction_category_not_found": "Transaction Category not found",
+        "transactions_not_found": "Transactions not found",
+        "empty_balance": "Your balance is empty"
     }
 }

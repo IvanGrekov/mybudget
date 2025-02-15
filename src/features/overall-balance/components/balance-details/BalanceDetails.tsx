@@ -2,6 +2,7 @@ import EmptyState from 'components/empty-state/EmptyState';
 import styles from 'features/overall-balance/components/balance-details/BalanceDetails.module.scss';
 import BalanceItems from 'features/overall-balance/components/balance-details/BalanceItems';
 import { getBalanceItemsCollectionByAccountTypes } from 'features/overall-balance/components/balance-details/utils/getBalanceItemsCollectionByAccountTypes';
+import { useGetEmptyStateTranslations } from 'hooks/translations.hooks';
 import { Account } from 'types/generated.types';
 
 interface IBalanceDetailsProps {
@@ -14,8 +15,10 @@ export default function BalanceDetails({
     const balanceItemsCollection =
         getBalanceItemsCollectionByAccountTypes(accounts);
 
+    const emptyStateTranslations = useGetEmptyStateTranslations();
+
     if (!Object.keys(balanceItemsCollection).length) {
-        return <EmptyState text="Your balance is empty" />;
+        return <EmptyState text={emptyStateTranslations('empty_balance')} />;
     }
 
     return (

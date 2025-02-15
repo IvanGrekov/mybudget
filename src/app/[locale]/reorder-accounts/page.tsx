@@ -15,6 +15,7 @@ import { getAccountsQueryKey } from 'utils/queryKey.utils';
 import {
     getAppPageTitle,
     getEntityNameTranslations,
+    getEmptyStateTranslations,
 } from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
@@ -27,6 +28,7 @@ export default async function ReorderAccountsPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
     const entityNameTranslations = await getEntityNameTranslations(locale);
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -50,6 +52,7 @@ export default async function ReorderAccountsPage({
 
         return (
             <AccountsEmptyState
+                emptyStateTranslations={emptyStateTranslations}
                 entityNameTranslations={entityNameTranslations}
                 accountsType={accountsType}
             />

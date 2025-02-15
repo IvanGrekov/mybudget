@@ -7,6 +7,7 @@ import { IModalBaseProps } from 'components/modal/types/modalProps';
 import Show from 'components/show/Show';
 import { useFormModalCloseConfirmation } from 'hooks/formModalCloseConfirmation.hooks';
 import { useGetMe } from 'hooks/me.hooks';
+import { useGetEmptyStateTranslations } from 'hooks/translations.hooks';
 import { AccountTypeEnum } from 'types/generated.types';
 
 const CreateAccountModalContentLazy = lazy(
@@ -29,6 +30,8 @@ export default function CreateAccountModal({
 
     const onCloseModal = useFormModalCloseConfirmation(onClose);
 
+    const emptyStateTranslations = useGetEmptyStateTranslations();
+
     return (
         <Modal
             isOpen={isOpen}
@@ -41,7 +44,10 @@ export default function CreateAccountModal({
             </Show>
 
             <Show when={!me && !isLoading}>
-                <MeEmptyState notWrappedByContainer={true} />
+                <MeEmptyState
+                    emptyStateTranslations={emptyStateTranslations}
+                    notWrappedByContainer={true}
+                />
             </Show>
 
             {me && (

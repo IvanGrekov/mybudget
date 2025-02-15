@@ -34,6 +34,7 @@ import {
     getAppPageTitle,
     getPageTranslations,
     getEntityNameTranslations,
+    getEmptyStateTranslations,
 } from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
@@ -64,6 +65,7 @@ export default async function AccountDetailsPage({
         pageName,
     });
     const entityNameTranslations = await getEntityNameTranslations(locale);
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -132,7 +134,7 @@ export default async function AccountDetailsPage({
     }
 
     if (!me) {
-        return <MeEmptyState />;
+        return <MeEmptyState emptyStateTranslations={emptyStateTranslations} />;
     }
 
     const {
@@ -176,10 +178,12 @@ export default async function AccountDetailsPage({
                 {account ? (
                     <AccountDetails
                         account={account}
+                        emptyStateTranslations={emptyStateTranslations}
                         entityNameTranslations={entityNameTranslations}
                     />
                 ) : (
                     <AccountsEmptyState
+                        emptyStateTranslations={emptyStateTranslations}
                         entityNameTranslations={entityNameTranslations}
                         isSingleAccount={true}
                         notWrappedByContainer={true}

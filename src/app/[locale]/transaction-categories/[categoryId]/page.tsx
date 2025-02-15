@@ -34,6 +34,7 @@ import {
     getPageTranslations,
     getAppPageTitle,
     getEntityNameTranslations,
+    getEmptyStateTranslations,
 } from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
@@ -64,6 +65,7 @@ export default async function TransactionCategoryDetailsPage({
         pageName,
     });
     const entityNameTranslations = await getEntityNameTranslations(locale);
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -133,7 +135,7 @@ export default async function TransactionCategoryDetailsPage({
     }
 
     if (!me) {
-        return <MeEmptyState />;
+        return <MeEmptyState emptyStateTranslations={emptyStateTranslations} />;
     }
 
     const {
@@ -178,10 +180,12 @@ export default async function TransactionCategoryDetailsPage({
                 {category ? (
                     <TransactionCategoryDetails
                         transactionCategory={category}
+                        emptyStateTranslations={emptyStateTranslations}
                         entityNameTranslations={entityNameTranslations}
                     />
                 ) : (
                     <TransactionCategoriesEmptyState
+                        emptyStateTranslations={emptyStateTranslations}
                         entityNameTranslations={entityNameTranslations}
                         isSingleCategory={true}
                         notWrappedByContainer={true}

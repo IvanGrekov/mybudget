@@ -1,5 +1,3 @@
-import { useTranslations } from 'next-intl';
-
 import Card from 'components/card/Card';
 import CardContent from 'components/card/CardContent';
 import CardHeader from 'components/card/CardHeader';
@@ -14,21 +12,28 @@ import {
     TransactionCategory,
     TransactionCategoryStatusEnum,
 } from 'types/generated.types';
+import { TTranslations } from 'types/translations';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionCategoryDetailsProps {
     transactionCategory: TransactionCategory;
-    entityNameTranslations: ReturnType<typeof useTranslations>;
+    emptyStateTranslations: TTranslations;
+    entityNameTranslations: TTranslations;
 }
 
 export default function TransactionCategoryDetails({
     transactionCategory,
+    emptyStateTranslations,
     entityNameTranslations,
 }: ITransactionCategoryDetailsProps): JSX.Element {
     const { status, type, currency, children } = transactionCategory;
 
     if (status === TransactionCategoryStatusEnum.ARCHIVED) {
-        return <EmptyState text="Transaction Category is archived" />;
+        return (
+            <EmptyState
+                text={emptyStateTranslations('archived_transaction_category')}
+            />
+        );
     }
 
     const chips: IChipProps[] = [

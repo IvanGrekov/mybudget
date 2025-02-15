@@ -15,6 +15,7 @@ import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
 import {
     getAppPageTitle,
     getEntityNameTranslations,
+    getEmptyStateTranslations,
 } from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
@@ -30,6 +31,7 @@ export default async function ReorderTransactionCategoriesPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
     const entityNameTranslations = await getEntityNameTranslations(locale);
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -53,6 +55,7 @@ export default async function ReorderTransactionCategoriesPage({
 
         return (
             <TransactionCategoriesEmptyState
+                emptyStateTranslations={emptyStateTranslations}
                 entityNameTranslations={entityNameTranslations}
                 categoriesType={categoriesType}
             />

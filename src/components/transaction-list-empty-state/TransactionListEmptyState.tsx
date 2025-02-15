@@ -1,7 +1,10 @@
 import EmptyState from 'components/empty-state/EmptyState';
 import { DEFAULT_TRANSACTION_TYPES } from 'constants/defaultTransactionTypes';
 import { useTransactionListCurrentTypesFilterValue } from 'hooks/transactionListFilters.hooks';
-import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
+import {
+    useGetEntityNameTranslations,
+    useGetEmptyStateTranslations,
+} from 'hooks/translations.hooks';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionListEmptyStateProps {
@@ -13,18 +16,20 @@ export default function TransactionListEmptyState({
 }: ITransactionListEmptyStateProps): JSX.Element {
     const { value: types } = useTransactionListCurrentTypesFilterValue();
     const entityNameTranslations = useGetEntityNameTranslations();
+    const emptyStateTranslations = useGetEmptyStateTranslations();
 
     const transactionsModel = isRelatedTransactionList
-        ? 'related transactions'
-        : 'transactions';
+        ? entityNameTranslations('related_transactions')
+        : entityNameTranslations('transactions');
+    const notFoundText = emptyStateTranslations('not_found');
 
     if (types.length === DEFAULT_TRANSACTION_TYPES.length) {
-        return <EmptyState text={`No ${transactionsModel} found`} />;
+        return <EmptyState text={`${transactionsModel} ${notFoundText}`} />;
     }
 
     return (
         <EmptyState
-            text={`No ${types
+            text={`${types
                 .map(
                     (type) =>
                         `'${getCapitalizedEnumValue(
@@ -32,7 +37,7 @@ export default function TransactionListEmptyState({
                             entityNameTranslations,
                         )}'`,
                 )
-                .join(', ')} ${transactionsModel} found`}
+                .join(', ')} ${transactionsModel} ${notFoundText}`}
         />
     );
 }

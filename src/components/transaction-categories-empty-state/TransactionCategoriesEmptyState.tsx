@@ -1,32 +1,36 @@
-import { useTranslations } from 'next-intl';
-
 import Container from 'components/container/Container';
 import EmptyState from 'components/empty-state/EmptyState';
+import { TTranslations } from 'types/translations';
 import { getCapitalizedEnumValue } from 'utils/string.utils';
 
 interface ITransactionCategoriesEmptyStateProps {
-    entityNameTranslations: ReturnType<typeof useTranslations>;
+    emptyStateTranslations: TTranslations;
+    entityNameTranslations: TTranslations;
     isSingleCategory?: boolean;
     categoriesType?: string;
     notWrappedByContainer?: boolean;
 }
 
-const TEXT = 'Transaction Categories not found';
-const SINGLE_CATEGORY_TEXT = 'Transaction Category not found';
-
 export default function TransactionCategoriesEmptyState({
+    emptyStateTranslations,
     entityNameTranslations,
     isSingleCategory,
     categoriesType,
     notWrappedByContainer,
 }: ITransactionCategoriesEmptyStateProps): JSX.Element {
-    let text = isSingleCategory ? SINGLE_CATEGORY_TEXT : TEXT;
+    const singleCategoryText = emptyStateTranslations(
+        'single_transaction_category_not_found',
+    );
+    const multipleCategoriesText = emptyStateTranslations(
+        'transaction_categories_not_found',
+    );
+    let text = isSingleCategory ? singleCategoryText : multipleCategoriesText;
 
     if (categoriesType) {
-        text = `No '${getCapitalizedEnumValue(
+        text = `'${getCapitalizedEnumValue(
             categoriesType,
             entityNameTranslations,
-        )}' transaction categories found`;
+        )}' ${multipleCategoriesText}`;
     }
 
     if (notWrappedByContainer) {

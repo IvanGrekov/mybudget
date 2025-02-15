@@ -22,6 +22,7 @@ import { getAccountsQueryKey } from 'utils/queryKey.utils';
 import {
     getAppPageTitle,
     getEntityNameTranslations,
+    getEmptyStateTranslations,
 } from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
@@ -34,6 +35,7 @@ export default async function AccountsPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
     const entityNameTranslations = await getEntityNameTranslations(locale);
+    const emptyStateTranslations = await getEmptyStateTranslations(locale);
 
     const queryClient = getQueryClient();
 
@@ -63,12 +65,13 @@ export default async function AccountsPage({
     }
 
     if (!me) {
-        return <MeEmptyState />;
+        return <MeEmptyState emptyStateTranslations={emptyStateTranslations} />;
     }
 
     if (!activeAccounts?.length) {
         return (
             <AccountsEmptyState
+                emptyStateTranslations={emptyStateTranslations}
                 entityNameTranslations={entityNameTranslations}
             />
         );

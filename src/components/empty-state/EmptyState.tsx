@@ -7,9 +7,11 @@ import ErrorIcon from 'components/icons/ErrorIcon';
 import Show from 'components/show/Show';
 import Typography from 'components/typography/Typography';
 import { DEFAULT_ERROR_MESSAGE } from 'constants/defaultErrorMessage';
+import { TTranslations } from 'types/translations';
 import { getCapitalizedString } from 'utils/string.utils';
 
 interface IEmptyStateProps {
+    emptyStateTranslations?: TTranslations;
     isError?: boolean;
     text?: string;
     className?: string;
@@ -19,6 +21,7 @@ interface IEmptyStateProps {
 const ICON_SIZE = 150;
 
 export default function EmptyState({
+    emptyStateTranslations,
     isError,
     text,
     className,
@@ -26,8 +29,8 @@ export default function EmptyState({
 }: IEmptyStateProps): JSX.Element {
     const colorClassName = isError ? 'red-color' : 'foreground-color';
     const defaultText = isError
-        ? DEFAULT_ERROR_MESSAGE
-        : 'There is no any data yet!';
+        ? emptyStateTranslations?.('error') || DEFAULT_ERROR_MESSAGE
+        : emptyStateTranslations?.('title') || 'There is no any data yet!';
 
     return (
         <section className={cx(styles['empty-state'], className)}>
