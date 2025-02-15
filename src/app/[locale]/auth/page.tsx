@@ -10,10 +10,12 @@ import SignIn from 'features/auth/components/sign-in/SignIn';
 import SocialAuth from 'features/auth/components/social-auth/SocialAuth';
 import { EAppRoutes } from 'types/appRoutes';
 import { IWithLocaleParamProps } from 'types/pageProps';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
-import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
+import {
+    getAppPageTitle,
+    getPageTranslations,
+} from 'utils/serverTranslations.utils';
 
-const pageName = 'Sign In';
+const pageName = 'SignIn';
 
 export async function generateMetadata({
     params: { locale },
@@ -24,9 +26,10 @@ export async function generateMetadata({
 export default async function SignInPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
-    const title = await getPageHeaderTitle({
+    const [title, forgotPasswordButtonText] = await getPageTranslations({
         locale,
         pageName,
+        keys: ['title', 'forgot-password-button'],
     });
 
     return (
@@ -39,7 +42,7 @@ export default async function SignInPage({
                 <SocialAuth locale={locale} />
 
                 <Button
-                    text="Forgot Password?"
+                    text={forgotPasswordButtonText}
                     variant="contained"
                     href={`${EAppRoutes.Auth}${EAppRoutes.ResetPassword}`}
                 />

@@ -30,10 +30,10 @@ import { WebVitals } from 'components/web-vitals/WebVitals';
 import { URL_HEADER } from 'constants/headers';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { ETheme } from 'types/theme';
-import { getAppPageMetadata } from 'utils/getAppPageMetadata';
 import { getExchangeRates } from 'utils/getExchangeRates';
 import { getIsAuthPage } from 'utils/getIsAuthPage';
 import log from 'utils/log';
+import { getAppPageMetadata } from 'utils/serverTranslations.utils';
 import { getIsDarkUserThemeFromCookie } from 'utils/userThemeFromCookie.utils';
 
 const INTER = Inter({ subsets: ['latin'] });

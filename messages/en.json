@@ -3,13 +3,14 @@
         "title": "My Budget",
         "description": "Track your incomes and costs"
     },
-    "Sign In": {
-        "title": "Sign In"
+    "SignIn": {
+        "title": "Sign In",
+        "forgot-password-button": "Forgot Password?"
     },
-    "Sign Up": {
+    "SignUp": {
         "title": "Sign Up"
     },
-    "Reset Password": {
+    "ResetPassword": {
         "title": "Reset Password"
     },
     "HomePage": {

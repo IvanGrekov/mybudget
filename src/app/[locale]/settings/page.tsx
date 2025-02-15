@@ -8,11 +8,13 @@ import UserSettings from 'features/user-settings/components/user-settings/UserSe
 import { User } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { Maybe } from 'types/utility.types';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
-import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
+import {
+    getPageTranslations,
+    getAppPageTitle,
+} from 'utils/serverTranslations.utils';
 
 const pageName = 'SettingsPage';
 
@@ -25,7 +27,7 @@ export async function generateMetadata({
 export default async function SettingsPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
-    const title = await getPageHeaderTitle({
+    const [title] = await getPageTranslations({
         locale,
         pageName,
     });

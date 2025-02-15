@@ -3,13 +3,14 @@
         "title": "Мій бюджет",
         "description": "Відстежуйте свої доходи та витрати"
     },
-    "Sign In": {
-        "title": "Увійти"
+    "SignIn": {
+        "title": "Увійти",
+        "forgot-password-button": "Забули пароль?"
     },
-    "Sign Up": {
+    "SignUp": {
         "title": "Зареєструватися"
     },
-    "Reset Password": {
+    "ResetPassword": {
         "title": "Скинути Пароль"
     },
     "HomePage": {

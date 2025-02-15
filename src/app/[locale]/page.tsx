@@ -18,12 +18,12 @@ import { IWithLocaleParamProps } from 'types/pageProps';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import { Maybe } from 'types/utility.types';
 import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCategories';
 import { getTransactionsQueryKey } from 'utils/queryKey.utils';
+import { getAppPageTitle } from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
 const pageName = 'HomePage';

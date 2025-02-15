@@ -6,10 +6,12 @@ import AppHeader from 'components/app-header/AppHeader';
 import Container from 'components/container/Container';
 import ResetPassword from 'features/auth/components/reset-password/ResetPassword';
 import { IWithLocaleParamProps } from 'types/pageProps';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
-import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
+import {
+    getAppPageTitle,
+    getPageTranslations,
+} from 'utils/serverTranslations.utils';
 
-const pageName = 'Reset Password';
+const pageName = 'ResetPassword';
 
 export async function generateMetadata({
     params: { locale },
@@ -20,7 +22,7 @@ export async function generateMetadata({
 export default async function ResetPasswordPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
-    const title = await getPageHeaderTitle({
+    const [title] = await getPageTranslations({
         locale,
         pageName,
     });

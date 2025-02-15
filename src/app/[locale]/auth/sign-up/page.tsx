@@ -8,10 +8,12 @@ import Container from 'components/container/Container';
 import SignUp from 'features/auth/components/sign-up/SignUp';
 import SocialAuth from 'features/auth/components/social-auth/SocialAuth';
 import { IWithLocaleParamProps } from 'types/pageProps';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
-import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
+import {
+    getAppPageTitle,
+    getPageTranslations,
+} from 'utils/serverTranslations.utils';
 
-const pageName = 'Sign Up';
+const pageName = 'SignUp';
 
 export async function generateMetadata({
     params: { locale },
@@ -22,7 +24,7 @@ export async function generateMetadata({
 export default async function SignUpPage({
     params: { locale },
 }: IWithLocaleParamProps): Promise<JSX.Element> {
-    const title = await getPageHeaderTitle({
+    const [title] = await getPageTranslations({
         locale,
         pageName,
     });

@@ -21,9 +21,7 @@ import { IWithIdParamProps, IWithLocaleParamProps } from 'types/pageProps';
 import { IPaginatedItemsResult } from 'types/paginatedItemsResult';
 import { Maybe } from 'types/utility.types';
 import { prefetchAllAccounts } from 'utils/getAllAccounts.utils';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
-import { getPageHeaderTitle } from 'utils/getPageHeaderTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { prefetchAllTransactionCategories } from 'utils/prefetchAllTransactionCategories';
@@ -32,6 +30,10 @@ import {
     getTransactionsQueryKey,
     getCalculatedTransactionValuesQueryKey,
 } from 'utils/queryKey.utils';
+import {
+    getPageTranslations,
+    getAppPageTitle,
+} from 'utils/serverTranslations.utils';
 import { getTransactionListFiltersFromUrl } from 'utils/transactionListFilters.utils';
 
 const pageName = 'TransactionCategoryDetailsPage';
@@ -48,15 +50,15 @@ export async function generateMetadata({
 export default async function TransactionCategoryDetailsPage({
     params: { locale, categoryId: categoryIdParam },
 }: IWithIdParamProps & IWithLocaleParamProps): Promise<JSX.Element> {
-    const listPageTitle = await getPageHeaderTitle({
+    const [listPageTitle] = await getPageTranslations({
         locale,
         pageName: 'Categories',
     });
-    const detailsTitle = await getPageHeaderTitle({
+    const [detailsTitle] = await getPageTranslations({
         locale,
         pageName: 'Details',
     });
-    const pageTitle = await getPageHeaderTitle({
+    const [pageTitle] = await getPageTranslations({
         locale,
         pageName,
     });

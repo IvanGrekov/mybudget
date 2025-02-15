@@ -9,10 +9,10 @@ import TransactionCategoriesReorderingList from 'features/transaction-categories
 import { getTransactionCategoryListCurrentTabFromUrl } from 'features/transaction-category-list-tabs/utils/transactionCategoryListCurrentTab.utils';
 import { SERVER_MY_BUDGET_API } from 'models/serverMyBudgetApi';
 import { IWithLocaleParamProps } from 'types/pageProps';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { getTransactionCategoriesQueryKey } from 'utils/queryKey.utils';
+import { getAppPageTitle } from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
     params: { locale },

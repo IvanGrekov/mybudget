@@ -15,11 +15,11 @@ import { User, Account } from 'types/generated.types';
 import { IWithLocaleParamProps } from 'types/pageProps';
 import { Maybe } from 'types/utility.types';
 import { getAllAccounts } from 'utils/getAllAccounts.utils';
-import { getAppPageTitle } from 'utils/getAppPageTitle';
 import { getMeOnServerSide } from 'utils/getMeForServer';
 import { getQueryClient } from 'utils/getQueryClient';
 import log from 'utils/log';
 import { getAccountsQueryKey } from 'utils/queryKey.utils';
+import { getAppPageTitle } from 'utils/serverTranslations.utils';
 
 export async function generateMetadata({
     params: { locale },
