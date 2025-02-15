@@ -29,7 +29,7 @@ export default async function SignInPage({
     const [title, forgotPasswordButtonText] = await getPageTranslations({
         locale,
         pageName,
-        keys: ['title', 'forgot-password-button'],
+        keys: ['title', 'forgot_password_button'],
     });
 
     return (

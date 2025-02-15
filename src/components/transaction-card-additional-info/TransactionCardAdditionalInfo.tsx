@@ -1,6 +1,10 @@
 import styles from 'components/transaction-card-additional-info/TransactionCardAdditionalInfo.module.scss';
 import Typography from 'components/typography/Typography';
 import { TTypographyVariants } from 'components/typography/types/typographyVariants';
+import {
+    useGetEntityNameTranslations,
+    useGetFeatureTranslations,
+} from 'hooks/translations.hooks';
 import { Transaction } from 'types/generated.types';
 import { roundValue } from 'utils/roundValue';
 
@@ -23,6 +27,12 @@ export default function TransactionCardAdditionalInfo({
         currencyRate,
     } = transaction;
 
+    const feeText = useGetEntityNameTranslations()('fee');
+    const [convertedToText] = useGetFeatureTranslations({
+        featureName: 'Transactions',
+        keys: ['converted_to'],
+    });
+
     if (typeof fee !== 'number' && typeof currencyRate !== 'number') {
         return null;
     }
@@ -37,7 +47,7 @@ export default function TransactionCardAdditionalInfo({
                     variant={textVariant}
                     className={styles['additional-info-value']}
                 >
-                    Fee: {`${roundValue(fee)} ${currency}`}
+                    {feeText}: {`${roundValue(fee)} ${currency}`}
                 </Typography>
             )}
 
@@ -46,7 +56,7 @@ export default function TransactionCardAdditionalInfo({
                     variant={textVariant}
                     className={styles['additional-info-value']}
                 >
-                    Converted to:{' '}
+                    {convertedToText}:{' '}
                     {`${roundValue(
                         (value - feeForConvertedValue) * currencyRate,
                     )} ${toCurrency}`}

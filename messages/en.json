@@ -5,21 +5,31 @@
     },
     "SignIn": {
         "title": "Sign In",
-        "forgot-password-button": "Forgot Password?"
+        "forgot_password_button": "Forgot Password?"
     },
     "SignUp": {
         "title": "Sign Up"
     },
     "ResetPassword": {
         "title": "Reset Password",
-        "required-fields-error": "New password and verification code are required",
-        "get-verification-code-button": "Get Verification Code"
+        "required_fields_error": "New password and verification code are required",
+        "get_verification_code_button": "Get Verification Code"
     },
     "HomePage": {
         "title": "Transactions"
     },
     "NotFound": {
         "title": "This page could not be found."
+    },
+    "Transactions": {
+        "title": "Transactions",
+        "filters_title": "Transactions Filtering",
+        "clear_filters": "Clear Filters",
+        "converted_to": "Converted to",
+        "transaction_details": "Transaction Details",
+        "add_transaction": "Add Transaction",
+        "from": "From",
+        "to": "To"
     },
     "AccountsPage": {
         "title": "Accounts"
@@ -28,19 +38,21 @@
         "title": "Accounts"
     },
     "ReorderAccountsPage": {
-        "title": "Accounts Reordering"
+        "title": "Accounts Reordering",
+        "reorder_accounts_button": "Reorder Accounts"
     },
     "AccountDetailsPage": {
         "title": "Account Details"
     },
     "TransactionCategoriesPage": {
-        "title": "Transaction Categories"
-    },
-    "Categories": {
-        "title": "Categories"
+        "title": "Transaction Categories",
+        "show_subcategories": "Show Subcategories",
+        "hide_subcategories": "Hide Subcategories",
+        "categories": "Categories"
     },
     "ReorderTransactionCategoriesPage": {
-        "title": "Transaction Categories Reordering"
+        "title": "Transaction Categories Reordering",
+        "reorder_categories_button": "Reorder Categories"
     },
     "TransactionCategoryDetailsPage": {
         "title": "Transaction Category Details"
@@ -55,8 +67,8 @@
         "accounts_currency_soft_update_field_label": "Should update accounts (without transactions) with the same currency",
         "transaction_categories_currency_soft_update_field_label": "Should update categories (without transactions) with the same currency",
         "transaction_categories_currency_force_update_field_label": "Should update all categories currency (without transactions)",
-        "enable-two-factor-authentication": "Enable Two-Factor Authentication",
-        "disable-two-factor-authentication": "Disable Two-Factor Authentication",
+        "enable_two_factor_authentication": "Enable Two-Factor Authentication",
+        "disable_two_factor_authentication": "Disable Two-Factor Authentication",
         "authenticator_app_code": "Authenticator App Code",
         "i_scanned_qrcode_checkbox_label": "I have scanned the QR code with my authenticator app"
     },
@@ -67,8 +79,8 @@
         "/settings": "Settings"
     },
     "SwitcherActionTitles": {
-        "change-theme": "Change Theme",
-        "change-language": "Змінити Мову"
+        "change_theme": "Change Theme",
+        "change_language": "Змінити Мову"
     },
     "OverallBalance": {
         "title": "Overall Balance"
@@ -86,20 +98,28 @@
         "next": "Next",
         "cancel": "Cancel",
         "back": "Back",
-        "logout": "Logout"
+        "logout": "Logout",
+        "show_more": "Show More",
+        "show_less": "Show Less"
     },
     "EntityNames": {
         "account": "Account",
         "for_account": "account",
         "accounts": "Accounts",
+        "of_accounts": "accounts",
         "transaction": "Transaction",
         "transactions": "Transactions",
         "related_transactions": "Related Transactions",
-        "transaction-category": "Transaction Category",
+        "transaction_category": "Transaction Category",
         "for_category": "category",
-        "transaction-categories": "Transaction Categories",
+        "transaction_categories": "Transaction Categories",
+        "of_transaction_categories": "categories",
+        "balance": "Balance",
+        "updated_balance": "Updated balance",
         "currency": "Currency",
-        "regular": "Refular",
+        "fee": "Fee",
+        "type": "Type",
+        "regular": "Regular",
         "savings": "Savings",
         "i_owe": "I Owe",
         "owe_me": "Owe Me",
@@ -160,5 +180,9 @@
     },
     "ConfirmationModal": {
         "you_sure_want_leave": "You have unsaved changes. Are you sure you want to leave?"
+    },
+    "ItemsLeftChip": {
+        "you_can_create": "You can create up to",
+        "already_created": "already created"
     }
 }

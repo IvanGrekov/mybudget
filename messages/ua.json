@@ -5,21 +5,31 @@
     },
     "SignIn": {
         "title": "Увійти",
-        "forgot-password-button": "Забули пароль?"
+        "forgot_password_button": "Забули пароль?"
     },
     "SignUp": {
         "title": "Зареєструватися"
     },
     "ResetPassword": {
         "title": "Скинути Пароль",
-        "required-fields-error": "Новий пароль та код підтвердження обов'язкові",
-        "get-verification-code-button": "Отримати Код Підтвердження"
+        "required_fields_error": "Новий пароль та код підтвердження обов'язкові",
+        "get_verification_code_button": "Отримати Код Підтвердження"
     },
     "HomePage": {
         "title": "Транзакції"
     },
     "NotFound": {
         "title": "Цю сторінку не знайдено."
+    },
+    "Transactions": {
+        "title": "Транзакції",
+        "filters_title": "Фільтрація Транзакцій",
+        "clear_filters": "Очистити Фільтри",
+        "converted_to": "Конвертована сума",
+        "transaction_details": "Деталі Транзакції",
+        "add_transaction": "Додати Транзакцію",
+        "from": "Видатки",
+        "to": "Надходження"
     },
     "AccountsPage": {
         "title": "Рахунки"
@@ -28,19 +38,21 @@
         "title": "Рахунки"
     },
     "ReorderAccountsPage": {
-        "title": "Порядок Рахунків"
+        "title": "Порядок Рахунків",
+        "reorder_accounts_button": "Змінити Порядок Рахунків"
     },
     "AccountDetailsPage": {
         "title": "Деталі Рахунку"
     },
     "TransactionCategoriesPage": {
-        "title": "Категорії Транзакцій"
-    },
-    "Categories": {
-        "title": "Категорії"
+        "title": "Категорії Транзакцій",
+        "show_subcategories": "Показати Підкатегорії",
+        "hide_subcategories": "Приховати Підкатегорії",
+        "categories": "Категорії"
     },
     "ReorderTransactionCategoriesPage": {
-        "title": "Порядок Категорій Транзакцій"
+        "title": "Порядок Категорій",
+        "reorder_categories_button": "Змінити Порядок Категорій"
     },
     "TransactionCategoryDetailsPage": {
         "title": "Деталі Категорії Транзакцій"
@@ -55,8 +67,8 @@
         "accounts_currency_soft_update_field_label": "Оновити валюту рахунків (без транзакцій) з однаковою поточною валютою",
         "transaction_categories_currency_soft_update_field_label": "Оновити валюту категорій (без транзакцій) з однаковою поточною валютою",
         "transaction_categories_currency_force_update_field_label": "Оновити валюту всіх категорій (без транзакцій)",
-        "enable-two-factor-authentication": "Увімкнути двофакторну аутентифікацію",
-        "disable-two-factor-authentication": "Вимкнути двофакторну аутентифікацію",
+        "enable_two_factor_authentication": "Увімкнути двофакторну аутентифікацію",
+        "disable_two_factor_authentication": "Вимкнути двофакторну аутентифікацію",
         "authenticator_app_code": "Код Застосунку Аутентифікатора",
         "i_scanned_qrcode_checkbox_label": "Я відсканува(в/ла) QR-код за допомогою мого застосунку аутентифікатора"
     },
@@ -67,8 +79,8 @@
         "/settings": "Налаштування"
     },
     "SwitcherActionTitles": {
-        "change-theme": "Змінити Тему",
-        "change-language": "Change Language"
+        "change_theme": "Змінити Тему",
+        "change_language": "Change Language"
     },
     "OverallBalance": {
         "title": "Загальний Баланс"
@@ -86,19 +98,27 @@
         "next": "Далі",
         "cancel": "Скасувати",
         "back": "Назад",
-        "logout": "Вийти"
+        "logout": "Вийти",
+        "show_more": "Показати",
+        "show_less": "Приховати"
     },
     "EntityNames": {
         "account": "Рахунок",
         "for_account": "рахунку",
         "accounts": "Рахунки",
+        "of_accounts": "рахунків",
         "transaction": "Транзакція",
         "transactions": "Транзакції",
         "related_transactions": "Пов'язані Транзакції",
         "for_category": "категорії",
-        "transaction-category": "Категорія Транзакцій",
-        "transaction-categories": "Категорії Транзакцій",
+        "transaction_category": "Категорія Транзакцій",
+        "transaction_categories": "Категорії Транзакцій",
+        "of_transaction_categories": "категорій",
+        "balance": "Баланс",
+        "updated_balance": "Оновлений баланс",
         "currency": "Валюта",
+        "fee": "Комісія",
+        "type": "Тип",
         "regular": "Звичайні",
         "savings": "Заощадження",
         "i_owe": "Боргую",
@@ -160,5 +180,9 @@
     },
     "ConfirmationModal": {
         "you_sure_want_leave": "У вас є незбережені зміни. Ви впевнені, що хочете вийти?"
+    },
+    "ItemsLeftChip": {
+        "you_can_create": "Ви можете створити максимум",
+        "already_created": "вже створено"
     }
 }

@@ -14,6 +14,7 @@ import EditTransactionCategoryModal from 'features/transaction-category-form-mod
 import Subcategories from 'features/transaction-category-list/components/transaction-category-card/Subcategories';
 import styles from 'features/transaction-category-list/components/transaction-category-card/TransactionCategoryCard.module.scss';
 import { useIsMobile } from 'hooks/screenSize.hooks';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { useModal } from 'hooks/useModal';
 import { EAppRoutes } from 'types/appRoutes';
 import { TransactionCategory } from 'types/generated.types';
@@ -42,6 +43,8 @@ export default function TransactionCategoryCard({
         openModal: openDeleteModal,
         closeModal: closeDeleteModal,
     } = useModal();
+
+    const currencyText = useGetEntityNameTranslations()('currency');
 
     const { id, name, currency, children, type, iconName, iconColor } =
         transactionCategory;
@@ -76,7 +79,7 @@ export default function TransactionCategoryCard({
 
                 <CardContent className={styles.container}>
                     <Typography className={styles.currency}>
-                        Currency:{' '}
+                        {currencyText}:{' '}
                         <Typography element="span">{currency}</Typography>
                     </Typography>
 

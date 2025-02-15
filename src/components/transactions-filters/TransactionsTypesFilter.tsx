@@ -16,6 +16,8 @@ export default function TransactionsTypesFilter(): JSX.Element {
 
     const entityNameTranslations = useGetEntityNameTranslations();
 
+    const label = useGetEntityNameTranslations()('type');
+
     const onChange = (option: TransactionTypeEnum | null): void => {
         let newTypes = types;
 
@@ -43,7 +45,7 @@ export default function TransactionsTypesFilter(): JSX.Element {
             options={OPTIONS}
             multiple={true}
             onChange={onChange}
-            label="Type"
+            label={label}
             getOptionLabel={(option) =>
                 getCapitalizedEnumValue(option, entityNameTranslations)
             }

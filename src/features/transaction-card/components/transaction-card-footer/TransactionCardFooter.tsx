@@ -2,6 +2,7 @@ import Button from 'components/button/Button';
 import CardFooter from 'components/card/CardFooter';
 import ExpandableText from 'components/expandable-text/ExpandableText';
 import Show from 'components/show/Show';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { useIsOverflow } from 'hooks/useIsOverflow';
 import { Maybe } from 'types/utility.types';
 
@@ -17,6 +18,11 @@ export default function TransactionCardFooter({
     const { containerRef, isOverflow, isExpanded, toggleExpanding } =
         useIsOverflow();
 
+    const [showMoreText, showLessText] = useGetFeatureTranslations({
+        featureName: 'ActionButtons',
+        keys: ['show_more', 'show_less'],
+    });
+
     if (!description) {
         return null;
     }
@@ -28,7 +34,7 @@ export default function TransactionCardFooter({
                 style={{
                     maxHeight: isExpanded ? 'none' : MAX_VISIBLE_HEIGHT,
                     overflow: isOverflow ? 'hidden' : 'visible',
-                    marginBottom: isOverflow ? 20 : 0,
+                    marginBottom: isOverflow ? 24 : 0,
                 }}
             >
                 <ExpandableText
@@ -40,7 +46,7 @@ export default function TransactionCardFooter({
 
             <Show when={isOverflow}>
                 <Button
-                    text={isExpanded ? 'Show less' : 'Show more'}
+                    text={isExpanded ? showLessText : showMoreText}
                     size="small"
                     variant="text"
                     onClick={toggleExpanding}

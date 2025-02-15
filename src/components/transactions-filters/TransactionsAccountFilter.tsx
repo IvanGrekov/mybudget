@@ -3,6 +3,7 @@ import Select from 'components/select/Select';
 import { TRANSACTION_LIST_ACCOUNT_FILTER_PARAM_NAME } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListCurrentAccountFilterValue } from 'hooks/transactionListFilters.hooks';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { useGetAllAccounts } from 'hooks/useGetAllAccounts';
 import { Account } from 'types/generated.types';
 import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
@@ -13,6 +14,8 @@ export default function TransactionsAccountFilter({
     const { accounts, isLoading } = useGetAllAccounts();
     const accountId = useTransactionListCurrentAccountFilterValue();
     const setAccountId = useGetSetSearchParamsValue();
+
+    const label = useGetEntityNameTranslations()('account');
 
     if (isLoading) {
         return <LinearProgress />;
@@ -40,7 +43,7 @@ export default function TransactionsAccountFilter({
             value={value}
             options={accounts}
             onChange={onChange}
-            label="Account"
+            label={label}
             isFullWidth={true}
             getOptionLabel={(option) => option.name}
             disabled={isSelectedAccountIdValid}

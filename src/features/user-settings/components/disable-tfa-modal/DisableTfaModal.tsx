@@ -32,7 +32,7 @@ export default function DisableTfaModal({
 
     const [title, fieldLabel] = useGetFeatureTranslations({
         featureName: 'SettingsPage',
-        keys: ['disable-two-factor-authentication', 'authenticator_app_code'],
+        keys: ['disable_two_factor_authentication', 'authenticator_app_code'],
     });
 
     return (

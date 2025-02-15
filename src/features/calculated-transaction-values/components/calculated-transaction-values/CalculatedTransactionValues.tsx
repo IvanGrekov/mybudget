@@ -73,6 +73,8 @@ export default function CalculatedTransactionValues({
                 toDateLabel={dateLabels?.toDateLabel}
                 entityName={entityName}
                 mainCurrency={mainCurrency}
+                considerFromAsIncome={considerFromAsIncome}
+                considerToAsExpense={considerToAsExpense}
                 data={data}
                 isOpen={isModalOpen}
                 onClose={closeModal}

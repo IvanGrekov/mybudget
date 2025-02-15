@@ -17,7 +17,7 @@ export default function ResetPassword(): JSX.Element {
     const [error, setError] = useState<string | null>(null);
     const [requiredFieldsErrorText] = useGetFeatureTranslations({
         featureName: 'resetPassword',
-        keys: ['required-fields-error'],
+        keys: ['required_fields_error'],
     });
 
     const methods = useForm<TResetPasswordFormValues>({

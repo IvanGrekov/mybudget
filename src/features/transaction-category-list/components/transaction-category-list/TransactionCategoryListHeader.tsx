@@ -16,7 +16,7 @@ export default function TransactionCategoryListHeader({
     return (
         <div className={styles.header}>
             <ItemsLeftChip
-                itemName="transaction category"
+                itemsName="transaction_categories"
                 currentItemsLength={currentItemsLength}
                 maxItemsLength={MAX_TRANSACTION_CATEGORIES_PER_USER}
             />

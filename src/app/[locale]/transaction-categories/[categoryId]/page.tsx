@@ -54,7 +54,8 @@ export default async function TransactionCategoryDetailsPage({
 }: IWithIdParamProps & IWithLocaleParamProps): Promise<JSX.Element> {
     const [listPageTitle] = await getPageTranslations({
         locale,
-        pageName: 'Categories',
+        pageName: 'TransactionCategoriesPage',
+        keys: ['categories'],
     });
     const [detailsTitle] = await getPageTranslations({
         locale,

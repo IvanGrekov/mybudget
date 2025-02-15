@@ -13,7 +13,7 @@ export default function ThemeSwitcher({
 }: Pick<ISwitcherProps, 'tooltipPosition'>): JSX.Element | null {
     const [tooltipText] = useGetFeatureTranslations({
         featureName: 'SwitcherActionTitles',
-        keys: ['change-theme'],
+        keys: ['change_theme'],
     });
     const result = useUserThemeValue();
 

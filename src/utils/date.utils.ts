@@ -3,7 +3,7 @@ import { formatInTimeZone } from 'date-fns-tz';
 
 import { Maybe } from 'types/utility.types';
 
-const DATE_FORMAT = 'dd MMMM yyyy';
+const DATE_FORMAT = 'dd.MM.yyyy';
 const TIME_FORMAT = 'HH:mm';
 
 export const getDateTime = (

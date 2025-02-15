@@ -3,6 +3,7 @@ import Select from 'components/select/Select';
 import { TRANSACTION_LIST_CATEGORY_FILTER_PARAM_NAME } from 'constants/transactionListFilterParams.constants';
 import { useGetSetSearchParamsValue } from 'hooks/searchParams.hooks';
 import { useTransactionListCurrentCategoryFilterValue } from 'hooks/transactionListFilters.hooks';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { useGetAllTransactionCategories } from 'hooks/useGetAllTransactionCategories';
 import { TransactionCategory } from 'types/generated.types';
 import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
@@ -14,6 +15,8 @@ export default function TransactionsCategoryFilter({
         useGetAllTransactionCategories();
     const categoryId = useTransactionListCurrentCategoryFilterValue();
     const setCategoryId = useGetSetSearchParamsValue();
+
+    const label = useGetEntityNameTranslations()('transaction_category');
 
     if (isLoading) {
         return <LinearProgress />;
@@ -42,7 +45,7 @@ export default function TransactionsCategoryFilter({
             value={value}
             options={transactionCategories}
             onChange={onChange}
-            label="Category"
+            label={label}
             isFullWidth={true}
             getOptionLabel={(option) => option.name}
             disabled={isSelectedCategoryIdValid}

@@ -59,7 +59,7 @@ export default function EnableTfaModal({
     });
 
     const title = useGetSettingsTranslations()(
-        'enable-two-factor-authentication',
+        'enable_two_factor_authentication',
     );
     const [nextButtonText, enableButtonText, backButtonText] =
         useGetFeatureTranslations({

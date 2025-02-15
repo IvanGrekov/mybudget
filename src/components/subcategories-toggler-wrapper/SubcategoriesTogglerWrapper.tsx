@@ -8,6 +8,7 @@ import Button from 'components/button/Button';
 import Divider from 'components/divider/Divider';
 import Show from 'components/show/Show';
 import styles from 'components/subcategories-toggler-wrapper/SubcategoriesTogglerWrapper.module.scss';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 export default function SubcategoriesTogglerWrapper({
     children,
@@ -18,6 +19,12 @@ export default function SubcategoriesTogglerWrapper({
     const toggleSubcategoriesVisibility = (): void => {
         setAreSubcategoriesVisible((prev) => !prev);
     };
+
+    const [showSubcategoriesText, hideSubcategoriesText] =
+        useGetFeatureTranslations({
+            featureName: 'TransactionCategoriesPage',
+            keys: ['show_subcategories', 'hide_subcategories'],
+        });
 
     return (
         <div>
@@ -30,8 +37,8 @@ export default function SubcategoriesTogglerWrapper({
                 <Button
                     text={
                         areSubcategoriesVisible
-                            ? 'Hide Subcategories'
-                            : 'Show Subcategories'
+                            ? hideSubcategoriesText
+                            : showSubcategoriesText
                     }
                     onClick={toggleSubcategoriesVisibility}
                 />

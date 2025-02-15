@@ -8,6 +8,7 @@ import Typography from 'components/typography/Typography';
 import EditAccountModal from 'features/account-form-modal/components/edit-account-modal/EditAccountModal';
 import ChangeAccountCurrencyModal from 'features/change-account-currency-modal/components/change-account-currency-modal/ChangeAccountCurrencyModal';
 import DeleteAccountModal from 'features/delete-account-modal/components/delete-account-modal/DeleteAccountModal';
+import { useGetEntityNameTranslations } from 'hooks/translations.hooks';
 import { useModal } from 'hooks/useModal';
 import { EAppRoutes } from 'types/appRoutes';
 import { Account } from 'types/generated.types';
@@ -36,6 +37,8 @@ export default function AccountCard({
         closeModal: closeDeleteModal,
     } = useModal();
 
+    const balanceText = useGetEntityNameTranslations()('balance');
+
     const { id, type, name, balance, currency, iconName, iconColor } = account;
 
     return (
@@ -62,7 +65,7 @@ export default function AccountCard({
                 />
                 <CardContent>
                     <Typography variant="subtitle2">
-                        Balance: {roundValue(balance)} {currency}
+                        {balanceText}: {roundValue(balance)} {currency}
                     </Typography>
                 </CardContent>
             </Card>

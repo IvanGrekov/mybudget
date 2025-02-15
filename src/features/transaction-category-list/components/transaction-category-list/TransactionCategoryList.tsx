@@ -11,6 +11,7 @@ import { useTransactionCategoryListCurrentTab } from 'features/transaction-categ
 import {
     useGetEmptyStateTranslations,
     useGetEntityNameTranslations,
+    useGetFeatureTranslations,
 } from 'hooks/translations.hooks';
 import { useGetTransactionCategories } from 'hooks/useGetTransactionCategories';
 import styles from 'styles/ItemList.module.scss';
@@ -29,6 +30,10 @@ export default function TransactionCategoryList({
 
     const entityNameTranslations = useGetEntityNameTranslations();
     const emptyStateTranslations = useGetEmptyStateTranslations();
+    const [reorderCategoriesButtonText] = useGetFeatureTranslations({
+        featureName: 'ReorderTransactionCategoriesPage',
+        keys: ['reorder_categories_button'],
+    });
 
     const isEmptyState = !transactionCategories?.length;
 
@@ -66,13 +71,17 @@ export default function TransactionCategoryList({
                         ))}
                     </ul>
 
-                    <div className={styles['action-wrapper']}>
-                        <Button
-                            text="Reorder transaction categories"
-                            variant="contained"
-                            href={EAppRoutes.TransactionCategoriesReordering}
-                        />
-                    </div>
+                    <Show when={transactionCategories.length > 1}>
+                        <div className={styles['action-wrapper']}>
+                            <Button
+                                text={reorderCategoriesButtonText}
+                                variant="contained"
+                                href={
+                                    EAppRoutes.TransactionCategoriesReordering
+                                }
+                            />
+                        </div>
+                    </Show>
                 </>
             )}
         </div>

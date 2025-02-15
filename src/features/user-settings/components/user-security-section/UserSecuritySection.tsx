@@ -17,8 +17,8 @@ export default function UserSecuritySection({
     const [enableText, disableText] = useGetFeatureTranslations({
         featureName: 'SettingsPage',
         keys: [
-            'enable-two-factor-authentication',
-            'disable-two-factor-authentication',
+            'enable_two_factor_authentication',
+            'disable_two_factor_authentication',
         ],
     });
 

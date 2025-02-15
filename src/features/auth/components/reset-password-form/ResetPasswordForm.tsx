@@ -34,7 +34,7 @@ export default function ResetPasswordForm({
 }: IResetPasswordFormProps): JSX.Element {
     const [getVerificationCodeButtonText] = useGetFeatureTranslations({
         featureName: 'ResetPassword',
-        keys: ['get-verification-code-button'],
+        keys: ['get_verification_code_button'],
     });
 
     const onSubmit: SubmitHandler<TResetPasswordFormValues> = (data) => {

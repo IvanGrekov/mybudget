@@ -13,7 +13,7 @@ export default function LanguageSwitcher({
 }: Partial<Pick<ISwitcherProps, 'tooltipPosition'>>): JSX.Element | null {
     const [tooltipText] = useGetFeatureTranslations({
         featureName: 'SwitcherActionTitles',
-        keys: ['change-language'],
+        keys: ['change_language'],
     });
     const { value, toggleValue } = useUserLanguageValue();
 

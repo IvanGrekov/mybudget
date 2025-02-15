@@ -21,7 +21,7 @@ export default function AccountListHeader({
     return (
         <div className={styles.header}>
             <ItemsLeftChip
-                itemName="account"
+                itemsName="accounts"
                 currentItemsLength={currentAllItemsLength}
                 maxItemsLength={MAX_ACCOUNTS_PER_USER}
             />

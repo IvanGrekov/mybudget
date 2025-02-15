@@ -9,6 +9,7 @@ import TransactionsDateRangeFilter from 'components/transactions-filters/Transac
 import styles from 'components/transactions-filters/TransactionsFilters.module.scss';
 import TransactionsTypesFilter from 'components/transactions-filters/TransactionsTypesFilter';
 import { useClearTransactionsFilters } from 'components/transactions-filters/hooks/useClearTransactionsFilters';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { ITransactionsFiltersArgs } from 'types/transactionsFiltersArgs';
 
 export default function TransactionsFilters({
@@ -21,8 +22,13 @@ export default function TransactionsFilters({
             selectedCategoryId,
         });
 
+    const [title, clearFiltersText] = useGetFeatureTranslations({
+        featureName: 'Transactions',
+        keys: ['filters_title', 'clear_filters'],
+    });
+
     return (
-        <Accordion title="Transactions Filtering">
+        <Accordion title={title}>
             <div className={styles.filters}>
                 <TransactionsTypesFilter />
 
@@ -39,7 +45,7 @@ export default function TransactionsFilters({
                 <Show when={!!shouldShowClearFiltersButton}>
                     <Button
                         variant="contained"
-                        text="Clear filters"
+                        text={clearFiltersText}
                         onClick={clearFilters}
                     />
                 </Show>

@@ -3,31 +3,35 @@
 import HeaderChip from 'components/header-chip/HeaderChip';
 import InfoIcon from 'components/icons/InfoIcon';
 import Tooltip from 'components/tooltip/Tooltip';
-import { getCapitalizedString } from 'utils/string.utils';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 
 interface IItemsLeftChipProps {
-    itemName: string;
+    itemsName: string;
     currentItemsLength: number;
     maxItemsLength: number;
 }
 
 export default function ItemsLeftChip({
-    itemName,
+    itemsName,
     currentItemsLength,
     maxItemsLength,
 }: IItemsLeftChipProps): JSX.Element {
-    const endWithY = itemName.endsWith('y');
-    const itemsName = `${getCapitalizedString(
-        endWithY ? itemName.slice(0, -1) : itemName,
-    )}${itemName.endsWith('y') ? 'ies' : 's'}`;
+    const [itemsNameText, ofItemsNameText] = useGetFeatureTranslations({
+        featureName: 'EntityNames',
+        keys: [itemsName, `of_${itemsName}`],
+    });
+    const [youCanCreateText, alreadyCreatedText] = useGetFeatureTranslations({
+        featureName: 'ItemsLeftChip',
+        keys: ['you_can_create', 'already_created'],
+    });
 
     return (
         <Tooltip
             position="bottom"
-            text={`You can create up to ${maxItemsLength} ${itemsName}. ${currentItemsLength} already created.`}
+            text={`${youCanCreateText} ${maxItemsLength} ${ofItemsNameText}. ${currentItemsLength} ${alreadyCreatedText}.`}
         >
             <HeaderChip
-                title={`${itemsName} (${currentItemsLength}/${maxItemsLength})`}
+                title={`${itemsNameText} (${currentItemsLength}/${maxItemsLength})`}
             >
                 <InfoIcon size="extraSmall" />
             </HeaderChip>

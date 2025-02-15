@@ -11,6 +11,7 @@ import { useAccountListCurrentTab } from 'features/account-list-tabs/hooks/useAc
 import {
     useGetEntityNameTranslations,
     useGetEmptyStateTranslations,
+    useGetFeatureTranslations,
 } from 'hooks/translations.hooks';
 import { useGetAccounts } from 'hooks/useGetAccounts';
 import styles from 'styles/ItemList.module.scss';
@@ -22,6 +23,10 @@ export default function AccountList(): JSX.Element {
 
     const entityNameTranslations = useGetEntityNameTranslations();
     const emptyStateTranslations = useGetEmptyStateTranslations();
+    const [reorderAccountsButtonText] = useGetFeatureTranslations({
+        featureName: 'ReorderAccountsPage',
+        keys: ['reorder_accounts_button'],
+    });
 
     const isEmptyState = !accounts?.length;
 
@@ -57,13 +62,15 @@ export default function AccountList(): JSX.Element {
                         ))}
                     </ul>
 
-                    <div className={styles['action-wrapper']}>
-                        <Button
-                            text="Reorder accounts"
-                            variant="contained"
-                            href={EAppRoutes.AccountsReordering}
-                        />
-                    </div>
+                    <Show when={accounts.length > 1}>
+                        <div className={styles['action-wrapper']}>
+                            <Button
+                                text={reorderAccountsButtonText}
+                                variant="contained"
+                                href={EAppRoutes.AccountsReordering}
+                            />
+                        </div>
+                    </Show>
                 </>
             )}
         </div>
