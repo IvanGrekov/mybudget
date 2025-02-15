@@ -23,3 +23,11 @@ export const useGetEntityNameTranslations = (): TTranslations => {
 export const useGetEmptyStateTranslations = (): TTranslations => {
     return useTranslations('EmptyState');
 };
+
+export const useGetSettingsTranslations = (): TTranslations => {
+    return useTranslations('SettingsPage');
+};
+
+export const useGetActionButtonsTranslations = (): TTranslations => {
+    return useTranslations('ActionButtons');
+};

@@ -14,6 +14,10 @@ import {
 import { useEditUser } from 'features/user-settings/components/user-settings-form/hooks/useEditUser';
 import { IUserSettingsFormData } from 'features/user-settings/components/user-settings-form/types/userSettingsFormData';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import {
+    useGetSettingsTranslations,
+    useGetActionButtonsTranslations,
+} from 'hooks/translations.hooks';
 import { getIsSubmitButtonDisabled } from 'utils/getIsSubmitButtonDisabled';
 
 interface IUserSettingsFormProps {
@@ -49,14 +53,17 @@ export default function UserSettingsForm({
         },
     });
 
+    const title = useGetSettingsTranslations()('personal_settings');
+    const submitButtonText = useGetActionButtonsTranslations()('save');
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(mutate)}>
                 <Fieldset
-                    title="Personal Settings"
+                    title={title}
                     actions={
                         <Button
-                            text="Save"
+                            text={submitButtonText}
                             type="submit"
                             isLoading={isLoading}
                             isDisabled={getIsSubmitButtonDisabled(formState)}

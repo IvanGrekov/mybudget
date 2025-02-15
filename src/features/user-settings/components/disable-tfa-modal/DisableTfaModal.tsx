@@ -9,6 +9,10 @@ import { VERIFICATION_CODE_LENGTH } from 'constants/verificationCodeLength';
 import styles from 'features/user-settings/components/disable-tfa-modal/DisableTfaModal.module.scss';
 import { useDisableTfa } from 'features/user-settings/components/disable-tfa-modal/hooks/useDisableTfa';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
+import {
+    useGetFeatureTranslations,
+    useGetActionButtonsTranslations,
+} from 'hooks/translations.hooks';
 
 export default function DisableTfaModal({
     isOpen,
@@ -29,20 +33,26 @@ export default function DisableTfaModal({
         setError,
     });
 
+    const [title, fieldLabel] = useGetFeatureTranslations({
+        featureName: 'SettingsPage',
+        keys: ['disable-two-factor-authentication', 'authenticator_app_code'],
+    });
+    const submitText = useGetActionButtonsTranslations()('confirm');
+
     return (
         <Modal
             isOpen={isOpen}
-            title="Disable Two-Factor Authentication"
+            title={title}
             onClose={onClose}
             actions={
                 <>
+                    <CancelAction onCancel={onCompleted} />
                     <ConfirmAction
-                        confirmText="Confirm"
+                        confirmText={submitText}
                         isLoading={isLoading}
                         isDisabled={!code}
                         onConfirm={mutate}
                     />
-                    <CancelAction onCancel={onCompleted} />
                 </>
             }
         >
@@ -53,7 +63,7 @@ export default function DisableTfaModal({
                     onChange={(e) => setCode(e.target.value)}
                     type="number"
                     maxLength={VERIFICATION_CODE_LENGTH}
-                    label="Authenticator App Code"
+                    label={fieldLabel}
                     isFullWidth={true}
                 />
             </div>

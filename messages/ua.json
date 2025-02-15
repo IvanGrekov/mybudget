@@ -49,7 +49,16 @@
         "title": "Деталі"
     },
     "SettingsPage": {
-        "title": "Налаштування"
+        "title": "Налаштування",
+        "personal_settings": "Особисті Налаштування",
+        "change_default_currency": "Змінити валюту за замовчуванням",
+        "accounts_currency_soft_update_field_label": "Оновити валюту рахунків (без транзакцій) з однаковою поточною валютою",
+        "transaction_categories_currency_soft_update_field_label": "Оновити валюту категорій (без транзакцій) з однаковою поточною валютою",
+        "transaction_categories_currency_force_update_field_label": "Оновити валюту всіх категорій (без транзакцій)",
+        "enable-two-factor-authentication": "Увімкнути двофакторну аутентифікацію",
+        "disable-two-factor-authentication": "Вимкнути двофакторну аутентифікацію",
+        "authenticator_app_code": "Код Застосунку Аутентифікатора",
+        "i_scanned_qrcode_checkbox_label": "Я відсканува(в/ла) QR-код за допомогою мого застосунку аутентифікатора"
     },
     "NavigationLinkTitles": {
         "/": "Транзакції",
@@ -67,9 +76,14 @@
     "ActionButtons": {
         "add": "Додати",
         "edit": "Редагувати",
+        "change": "Змінити",
         "delete": "Видалити",
         "save": "Зберегти",
+        "confirm": "Підтвердити",
+        "enable": "Увімкнути",
+        "next": "Далі",
         "cancel": "Скасувати",
+        "back": "Назад",
         "logout": "Вийти"
     },
     "EntityNames": {
@@ -103,5 +117,10 @@
         "archived_transaction_category": "Ця категорія в архіві",
         "transactions_not_found": "Транзакцій не знайдено",
         "empty_balance": "Ваш баланс порожній"
+    },
+    "ChangeEntityCurrency": {
+        "you_can_not_change_currency_for": "Ви не можете змінити валюту для",
+        "because_it_has_related_transactions": "тому що є пов'язані транзакції",
+        "change_currency_for": "Змінити валюту для"
     }
 }

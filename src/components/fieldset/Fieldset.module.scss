@@ -4,8 +4,8 @@
     &--border {
         border: $border-width solid var(--foreground);
         border-radius: 0.5rem;
-        padding: 1rem;
-        padding-bottom: 1.25rem;
+        padding-inline: 1rem;
+        padding-block: 1.25rem;
     }
 }
 

@@ -1,6 +1,9 @@
 import Button from 'components/button/Button';
 import Show from 'components/show/Show';
-import { useGetFeatureTranslations } from 'hooks/translations.hooks';
+import {
+    useGetFeatureTranslations,
+    useGetActionButtonsTranslations,
+} from 'hooks/translations.hooks';
 import { EAppRoutes } from 'types/appRoutes';
 
 interface IResetPasswordPageActionsProps {
@@ -14,10 +17,7 @@ export default function ResetPasswordPageActions({
     isSubmitDisabled,
     isSubmitHidden,
 }: IResetPasswordPageActionsProps): JSX.Element {
-    const [cancelButtonText] = useGetFeatureTranslations({
-        featureName: 'ActionButtons',
-        keys: ['cancel'],
-    });
+    const cancelButtonText = useGetActionButtonsTranslations()('cancel');
 
     const [submitButtonText] = useGetFeatureTranslations({
         featureName: 'ResetPassword',

@@ -20,13 +20,13 @@ export default function ConfirmationModal({
             isConfirmationModal={true}
             actions={
                 <>
+                    <CancelAction onCancel={onCancel} />
                     <ConfirmAction
                         confirmText={confirmText}
                         confirmColor={confirmColor}
                         isLoading={isLoading}
                         onConfirm={onConfirm}
                     />
-                    <CancelAction onCancel={onCancel} />
                 </>
             }
         >

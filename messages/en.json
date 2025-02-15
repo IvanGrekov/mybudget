@@ -49,7 +49,16 @@
         "title": "Details"
     },
     "SettingsPage": {
-        "title": "Settings"
+        "title": "Settings",
+        "personal_settings": "Personal Settings",
+        "change_default_currency": "Change Default Currency",
+        "accounts_currency_soft_update_field_label": "Should update accounts (without transactions) with the same currency",
+        "transaction_categories_currency_soft_update_field_label": "Should update categories (without transactions) with the same currency",
+        "transaction_categories_currency_force_update_field_label": "Should update all categories currency (without transactions)",
+        "enable-two-factor-authentication": "Enable Two-Factor Authentication",
+        "disable-two-factor-authentication": "Disable Two-Factor Authentication",
+        "authenticator_app_code": "Authenticator App Code",
+        "i_scanned_qrcode_checkbox_label": "I have scanned the QR code with my authenticator app"
     },
     "NavigationLinkTitles": {
         "/": "Transactions",
@@ -67,9 +76,14 @@
     "ActionButtons": {
         "add": "Add",
         "edit": "Edit",
+        "change": "Change",
         "delete": "Delete",
         "save": "Save",
+        "confirm": "Confirm",
+        "enable": "Enable",
+        "next": "Next",
         "cancel": "Cancel",
+        "back": "Back",
         "logout": "Logout"
     },
     "EntityNames": {
@@ -103,5 +117,10 @@
         "single_transaction_category_not_found": "Transaction Category not found",
         "transactions_not_found": "Transactions not found",
         "empty_balance": "Your balance is empty"
+    },
+    "ChangeEntityCurrency": {
+        "you_can_not_change_currency_for": "You can't change currency for",
+        "because_it_has_related_transactions": "because it has related transactions",
+        "change_currency_for": "Change currency for"
     }
 }

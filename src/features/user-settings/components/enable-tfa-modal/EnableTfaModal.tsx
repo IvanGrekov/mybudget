@@ -11,6 +11,10 @@ import EnableTfaModalSkeleton from 'features/user-settings/components/enable-tfa
 import { useEnableTfa } from 'features/user-settings/components/enable-tfa-modal/hooks/useEnableTfa';
 import { EEnableTfaStages } from 'features/user-settings/components/enable-tfa-modal/types/enableTfaStages';
 import { ITfaSettingsModalProps } from 'features/user-settings/types/tfaSettingsModalProps';
+import {
+    useGetSettingsTranslations,
+    useGetFeatureTranslations,
+} from 'hooks/translations.hooks';
 import { InitiateTfaEnablingDtoResult } from 'types/generated.types';
 
 const ScanQrCodeStageContentLazy = lazy(
@@ -54,7 +58,17 @@ export default function EnableTfaModal({
         setError,
     });
 
-    const confirmText = stage === INITIAL_STAGE ? 'Next' : 'Enable';
+    const title = useGetSettingsTranslations()(
+        'enable-two-factor-authentication',
+    );
+    const [nextButtonText, enableButtonText, backButtonText] =
+        useGetFeatureTranslations({
+            featureName: 'ActionButtons',
+            keys: ['next', 'enable', 'back'],
+        });
+
+    const confirmText =
+        stage === INITIAL_STAGE ? nextButtonText : enableButtonText;
     const isConfirmButtonDisabled =
         !isOpen ||
         (stage === EEnableTfaStages.SCAN_QR_CODE && !isConfirmedScanning) ||
@@ -84,14 +98,15 @@ export default function EnableTfaModal({
     return (
         <Modal
             isOpen={isOpen}
-            title="Enable Two-Factor Authentication"
+            title={title}
             size="medium"
             onClose={onClose}
             actions={
                 <>
+                    <CancelAction onCancel={onCancel} />
                     <Show when={stage === EEnableTfaStages.ENTER_CODE}>
                         <Button
-                            text="Back"
+                            text={backButtonText}
                             variant="outlined"
                             onClick={goBack}
                         />
@@ -102,7 +117,6 @@ export default function EnableTfaModal({
                         isDisabled={isConfirmButtonDisabled}
                         onConfirm={onConfirm}
                     />
-                    <CancelAction onCancel={onCancel} />
                 </>
             }
         >

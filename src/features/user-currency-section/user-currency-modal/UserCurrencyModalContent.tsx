@@ -11,6 +11,7 @@ import { USER_CURRENCY_FORM_VALIDATION } from 'features/user-currency-section/us
 import { useEditUserCurrency } from 'features/user-currency-section/user-currency-modal/hooks/useEditUserCurrency';
 import { getDefaultCurrency } from 'features/user-currency-section/user-currency-modal/utils/getDefaultCurrency';
 import { useConfirmNavigation } from 'hooks/formModalCloseConfirmation.hooks';
+import { useGetActionButtonsTranslations } from 'hooks/translations.hooks';
 import {
     EditUserCurrencyDto,
     UserDefaultCurrencyEnum,
@@ -56,6 +57,8 @@ export default function UserCurrencyModalContent({
         setError,
     });
 
+    const submitText = useGetActionButtonsTranslations()('change');
+
     return (
         <DefaultModalContainer>
             {error && <ErrorMessage message={error} />}
@@ -67,7 +70,7 @@ export default function UserCurrencyModalContent({
                     <ModalActions>
                         <CancelAction onCancel={onCloseModal} />
                         <Button
-                            text="Change"
+                            text={submitText}
                             type="submit"
                             isLoading={isLoading}
                             isDisabled={getIsFormSubmitButtonDisabled(

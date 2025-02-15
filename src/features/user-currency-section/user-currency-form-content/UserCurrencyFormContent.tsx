@@ -3,10 +3,8 @@ import { useFormContext } from 'react-hook-form';
 
 import FormCheckboxField from 'components/form-fields/FormCheckboxField';
 import CurrencyField from 'features/user-currency-section/user-currency-form-content/CurrencyField';
-import {
-    USER_CURRENCY_FORM_FIELD_NAMES,
-    USER_CURRENCY_FORM_FIELD_LABELS,
-} from 'features/user-settings/constants/userCurrencyForm.constants';
+import { USER_CURRENCY_FORM_FIELD_NAMES } from 'features/user-settings/constants/userCurrencyForm.constants';
+import { useGetSettingsTranslations } from 'hooks/translations.hooks';
 import styles from 'styles/Form.module.scss';
 import { EditUserCurrencyDto } from 'types/generated.types';
 
@@ -16,6 +14,8 @@ export default function UserCurrencyFormContent(): JSX.Element {
         watch,
         setValue,
     } = useFormContext<EditUserCurrencyDto>();
+
+    const settingsTranslations = useGetSettingsTranslations();
 
     const isDefaultCurrencyChanged = !dirtyFields.defaultCurrency;
 
@@ -47,9 +47,9 @@ export default function UserCurrencyFormContent(): JSX.Element {
                 name={
                     USER_CURRENCY_FORM_FIELD_NAMES.isAccountsCurrencySoftUpdate
                 }
-                label={
-                    USER_CURRENCY_FORM_FIELD_LABELS.isAccountsCurrencySoftUpdate
-                }
+                label={settingsTranslations(
+                    'accounts_currency_soft_update_field_label',
+                )}
             />
 
             <FormCheckboxField
@@ -57,9 +57,9 @@ export default function UserCurrencyFormContent(): JSX.Element {
                 name={
                     USER_CURRENCY_FORM_FIELD_NAMES.isTransactionCategoriesCurrencySoftUpdate
                 }
-                label={
-                    USER_CURRENCY_FORM_FIELD_LABELS.isTransactionCategoriesCurrencySoftUpdate
-                }
+                label={settingsTranslations(
+                    'transaction_categories_currency_soft_update_field_label',
+                )}
             />
 
             <FormCheckboxField
@@ -67,9 +67,9 @@ export default function UserCurrencyFormContent(): JSX.Element {
                 name={
                     USER_CURRENCY_FORM_FIELD_NAMES.isTransactionCategoriesCurrencyForceUpdate
                 }
-                label={
-                    USER_CURRENCY_FORM_FIELD_LABELS.isTransactionCategoriesCurrencyForceUpdate
-                }
+                label={settingsTranslations(
+                    'transaction_categories_currency_force_update_field_label',
+                )}
             />
         </div>
     );

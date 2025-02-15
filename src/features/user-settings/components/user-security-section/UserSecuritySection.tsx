@@ -2,6 +2,7 @@
 
 import Button from 'components/button/Button';
 import TfaSettingsModal from 'features/user-settings/components/tfa-settings-modal/TfaSettingsModal';
+import { useGetFeatureTranslations } from 'hooks/translations.hooks';
 import { useModal } from 'hooks/useModal';
 
 interface IUserSecuritySectionProps {
@@ -13,9 +14,15 @@ export default function UserSecuritySection({
 }: IUserSecuritySectionProps): JSX.Element {
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    const text = isTfaEnabled
-        ? 'Disable Two-Factor Authentication'
-        : 'Enable Two-Factor Authentication';
+    const [enableText, disableText] = useGetFeatureTranslations({
+        featureName: 'SettingsPage',
+        keys: [
+            'enable-two-factor-authentication',
+            'disable-two-factor-authentication',
+        ],
+    });
+
+    const text = isTfaEnabled ? disableText : enableText;
 
     return (
         <>

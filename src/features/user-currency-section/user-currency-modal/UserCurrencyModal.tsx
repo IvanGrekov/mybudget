@@ -14,12 +14,14 @@ const UserCurrencyModalContentLazy = lazy(
 );
 
 interface IUserCurrencyModalProps extends IModalBaseProps {
+    title: string;
     userId: number;
     userDefaultCurrency: UserDefaultCurrencyEnum;
 }
 
 export default function UserCurrencyModal({
     isOpen,
+    title,
     userId,
     userDefaultCurrency,
     onClose,
@@ -29,7 +31,7 @@ export default function UserCurrencyModal({
     return (
         <Modal
             isOpen={isOpen}
-            title="Change Default Currency"
+            title={title}
             size="large"
             onClose={onCloseModal}
         >

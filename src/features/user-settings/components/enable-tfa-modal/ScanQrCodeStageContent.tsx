@@ -6,6 +6,7 @@ import Checkbox from 'components/checkbox/Checkbox';
 import Typography from 'components/typography/Typography';
 import styles from 'features/user-settings/components/enable-tfa-modal/EnableTfaModal.module.scss';
 import EnableTfaModalSkeleton from 'features/user-settings/components/enable-tfa-modal/EnableTfaModalSkeleton';
+import { useGetSettingsTranslations } from 'hooks/translations.hooks';
 import { CLIENT_MY_BUDGET_API } from 'models/clientMyBudgetApi';
 import { InitiateTfaEnablingDtoResult } from 'types/generated.types';
 import { getFailedResponseMessage } from 'utils/failedResponse.utils';
@@ -60,6 +61,10 @@ export default function ScanQrCodeStageContent({
         };
     }, [tfaData, setTfaData, setError]);
 
+    const checkboxLabel = useGetSettingsTranslations()(
+        'i_scanned_qrcode_checkbox_label',
+    );
+
     if (isLoading || !tfaData) {
         return <EnableTfaModalSkeleton />;
     }
@@ -76,7 +81,7 @@ export default function ScanQrCodeStageContent({
             <Typography variant="subtitle1">{tfaData.secret}</Typography>
 
             <Checkbox
-                label="I have scanned the QR code with my authenticator app"
+                label={checkboxLabel}
                 checked={isConfirmedScanning}
                 onChange={setIsConfirmedScanning}
                 disabled={isConfirmedScanning}
